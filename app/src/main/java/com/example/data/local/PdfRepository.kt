@@ -1,0 +1,387 @@
+package com.example.data.local
+
+import android.content.Context
+import android.net.Uri
+import com.example.data.pdf.CompressionPreset
+import com.example.data.pdf.PdfEngine
+import com.example.data.pdf.PdfPageSourceItem
+import kotlinx.coroutines.flow.Flow
+import java.io.File
+
+class PdfRepository(
+    private val dao: PdfProjectDao,
+    private val recentDao: RecentFileDao
+) {
+
+    val allProjects: Flow<List<PdfProjectEntity>> = dao.getAllProjects()
+    val favoriteProjects: Flow<List<PdfProjectEntity>> = dao.getFavoriteProjects()
+    val recentFiles: Flow<List<RecentFileEntity>> = recentDao.getRecentFiles()
+
+    suspend fun recordRecentFileAccess(
+        filePath: String,
+        fileName: String,
+        fileSizeFormatted: String = "",
+        pageCount: Int = 0
+    ) {
+        recentDao.insertOrUpdate(
+            RecentFileEntity(
+                filePath = filePath,
+                fileName = fileName,
+                fileSizeFormatted = fileSizeFormatted,
+                pageCount = pageCount,
+                lastAccessedTimestamp = System.currentTimeMillis()
+            )
+        )
+    }
+
+    suspend fun removeRecentFile(filePath: String) {
+        recentDao.deleteByPath(filePath)
+    }
+
+    suspend fun clearRecentFiles() {
+        recentDao.clearAll()
+    }
+
+    fun getProjectsByType(type: PdfOperationType): Flow<List<PdfProjectEntity>> =
+        dao.getProjectsByType(type)
+
+    suspend fun saveProjectRecord(project: PdfProjectEntity): Long {
+        val id = dao.insertProject(project)
+        if (project.outputFilePath.isNotBlank()) {
+            recordRecentFileAccess(
+                filePath = project.outputFilePath,
+                fileName = project.title,
+                fileSizeFormatted = PdfEngine.formatFileSize(project.resultSizeBytes),
+                pageCount = project.pageCount
+            )
+        }
+        return id
+    }
+
+    suspend fun toggleFavorite(id: Long, isFavorite: Boolean) =
+        dao.setFavorite(id, isFavorite)
+
+    suspend fun deleteProject(id: Long) =
+        dao.deleteProjectById(id)
+
+    suspend fun deleteProjectWithFile(id: Long, filePath: String, deleteFromDisk: Boolean = true) {
+        if (deleteFromDisk && filePath.isNotBlank()) {
+            try {
+                val file = File(filePath)
+                if (file.exists()) {
+                    file.delete()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        dao.deleteProjectById(id)
+        if (filePath.isNotBlank()) {
+            recentDao.deleteByPath(filePath)
+        }
+    }
+
+    suspend fun renameProjectFile(id: Long, oldFilePath: String, newNameRaw: String): String? {
+        val oldFile = File(oldFilePath)
+        if (!oldFile.exists()) return null
+
+        val extension = if (oldFile.extension.isNotBlank()) ".${oldFile.extension}" else ".pdf"
+        val cleanName = if (newNameRaw.endsWith(extension, ignoreCase = true)) {
+            newNameRaw
+        } else if (newNameRaw.contains(".")) {
+            newNameRaw
+        } else {
+            "$newNameRaw$extension"
+        }
+
+        val newFile = File(oldFile.parentFile, cleanName)
+        val success = oldFile.renameTo(newFile)
+        if (success) {
+            dao.updateProjectFile(id, newFile.absolutePath, newFile.name)
+            recentDao.updateRecentFileByPath(oldFilePath, newFile.absolutePath, newFile.name)
+            return newFile.absolutePath
+        }
+        return null
+    }
+
+    suspend fun clearHistory() =
+        dao.clearAll()
+
+    // Engine Operations Wrappers
+    suspend fun generateSamples(context: Context): List<File> =
+        PdfEngine.generateSamplePdfs(context)
+
+    suspend fun renderThumbnail(context: Context, file: File, pageIndex: Int, targetWidthDp: Int = 220) =
+        PdfEngine.renderPageThumbnail(context, file, pageIndex, targetWidthDp)
+
+    suspend fun mergePages(
+        context: Context,
+        pageItems: List<PdfPageSourceItem>,
+        outputName: String,
+        originalSizeBytes: Long
+    ): File {
+        val outputFile = PdfEngine.mergeAndReorderPages(context, pageItems, outputName)
+        saveProjectRecord(
+            PdfProjectEntity(
+                title = outputFile.name,
+                operationType = PdfOperationType.MERGE,
+                pageCount = pageItems.size,
+                originalSizeBytes = originalSizeBytes,
+                resultSizeBytes = outputFile.length(),
+                outputFilePath = outputFile.absolutePath,
+                summaryDetails = "Merged ${pageItems.size} pages into ${outputFile.name}"
+            )
+        )
+        return outputFile
+    }
+
+    suspend fun splitPdf(
+        context: Context,
+        sourceUri: Uri,
+        selectedIndices: List<Int>,
+        outputName: String,
+        originalSizeBytes: Long
+    ): File {
+        val outputFile = PdfEngine.splitPdf(context, sourceUri, selectedIndices, outputName)
+        saveProjectRecord(
+            PdfProjectEntity(
+                title = outputFile.name,
+                operationType = PdfOperationType.SPLIT,
+                pageCount = selectedIndices.size,
+                originalSizeBytes = originalSizeBytes,
+                resultSizeBytes = outputFile.length(),
+                outputFilePath = outputFile.absolutePath,
+                summaryDetails = "Extracted ${selectedIndices.size} pages into ${outputFile.name}"
+            )
+        )
+        return outputFile
+    }
+
+    suspend fun splitPdfToSeparate(
+        context: Context,
+        sourceUri: Uri,
+        selectedIndices: List<Int>,
+        baseOutputName: String,
+        originalSizeBytes: Long
+    ): List<File> {
+        val outputFiles = PdfEngine.splitPdfToIndividualPages(context, sourceUri, selectedIndices, baseOutputName)
+        outputFiles.forEach { outputFile ->
+            saveProjectRecord(
+                PdfProjectEntity(
+                    title = outputFile.name,
+                    operationType = PdfOperationType.SPLIT,
+                    pageCount = 1,
+                    originalSizeBytes = originalSizeBytes,
+                    resultSizeBytes = outputFile.length(),
+                    outputFilePath = outputFile.absolutePath,
+                    summaryDetails = "Extracted page from ${baseOutputName}"
+                )
+            )
+        }
+        return outputFiles
+    }
+
+    suspend fun compressPdf(
+        context: Context,
+        sourceUri: Uri,
+        preset: CompressionPreset,
+        outputName: String,
+        originalSizeBytes: Long
+    ): File {
+        val outputFile = PdfEngine.compressPdf(context, sourceUri, preset, outputName)
+        val savedBytes = originalSizeBytes - outputFile.length()
+        val percentSaved = if (originalSizeBytes > 0) ((savedBytes.toDouble() / originalSizeBytes) * 100).toInt() else 0
+        saveProjectRecord(
+            PdfProjectEntity(
+                title = outputFile.name,
+                operationType = PdfOperationType.COMPRESS,
+                pageCount = 1,
+                originalSizeBytes = originalSizeBytes,
+                resultSizeBytes = outputFile.length(),
+                outputFilePath = outputFile.absolutePath,
+                summaryDetails = "Compressed with ${preset.title} ($percentSaved% size reduction)"
+            )
+        )
+        return outputFile
+    }
+
+    suspend fun extractImages(
+        context: Context,
+        sourceUri: Uri,
+        selectedIndices: List<Int>,
+        format: String,
+        originalSizeBytes: Long
+    ): List<File> {
+        val images = PdfEngine.extractImages(context, sourceUri, selectedIndices, format)
+        val totalImageSize = images.sumOf { it.length() }
+        if (images.isNotEmpty()) {
+            saveProjectRecord(
+                PdfProjectEntity(
+                    title = "Extracted_${images.size}_Images",
+                    operationType = PdfOperationType.EXTRACT,
+                    pageCount = images.size,
+                    originalSizeBytes = originalSizeBytes,
+                    resultSizeBytes = totalImageSize,
+                    outputFilePath = images.first().parentFile?.absolutePath ?: "",
+                    summaryDetails = "Saved ${images.size} high-res $format images"
+                )
+            )
+        }
+        return images
+    }
+
+    suspend fun mergePdfFilesWithPdfBox(
+        context: Context,
+        pdfUris: List<Uri>,
+        outputName: String,
+        originalSizeBytes: Long
+    ): File {
+        val outputFile = com.example.data.pdf.PdfBoxMergeService.mergePdfFiles(context, pdfUris, outputName)
+        saveProjectRecord(
+            PdfProjectEntity(
+                title = outputFile.name,
+                operationType = PdfOperationType.MERGE,
+                pageCount = pdfUris.size,
+                originalSizeBytes = originalSizeBytes,
+                resultSizeBytes = outputFile.length(),
+                outputFilePath = outputFile.absolutePath,
+                summaryDetails = "Merged ${pdfUris.size} files using PDFBox Engine into ${outputFile.name}"
+            )
+        )
+        return outputFile
+    }
+
+    suspend fun encryptPdf(
+        context: Context,
+        sourceUri: Uri,
+        userPassword: String,
+        ownerPassword: String,
+        outputName: String,
+        originalSizeBytes: Long
+    ): File {
+        val outputFile = PdfEngine.encryptPdf(context, sourceUri, userPassword, ownerPassword, outputName)
+        saveProjectRecord(
+            PdfProjectEntity(
+                title = outputFile.name,
+                operationType = PdfOperationType.ENCRYPT,
+                pageCount = 1,
+                originalSizeBytes = originalSizeBytes,
+                resultSizeBytes = outputFile.length(),
+                outputFilePath = outputFile.absolutePath,
+                summaryDetails = "Encrypted with 128-bit AES password protection into ${outputFile.name}"
+            )
+        )
+        return outputFile
+    }
+
+    suspend fun watermarkPdf(
+        context: Context,
+        sourceUri: Uri,
+        watermarkText: String,
+        outputName: String,
+        originalSizeBytes: Long
+    ): File = watermarkPdf(
+        context = context,
+        sourceUri = sourceUri,
+        options = com.example.data.pdf.WatermarkOptions(text = watermarkText),
+        outputName = outputName,
+        originalSizeBytes = originalSizeBytes
+    )
+
+    suspend fun watermarkPdf(
+        context: Context,
+        sourceUri: Uri,
+        options: com.example.data.pdf.WatermarkOptions,
+        outputName: String,
+        originalSizeBytes: Long
+    ): File {
+        val outputFile = PdfEngine.watermarkPdf(context, sourceUri, options, outputName)
+        val details = if (options.type == com.example.data.pdf.WatermarkType.TEXT) {
+            "Text Watermark '${options.text}' applied"
+        } else {
+            "Image Watermark applied"
+        }
+        saveProjectRecord(
+            PdfProjectEntity(
+                title = outputFile.name,
+                operationType = PdfOperationType.WATERMARK,
+                pageCount = 1,
+                originalSizeBytes = originalSizeBytes,
+                resultSizeBytes = outputFile.length(),
+                outputFilePath = outputFile.absolutePath,
+                summaryDetails = "$details into ${outputFile.name}"
+            )
+        )
+        return outputFile
+    }
+
+    suspend fun signPdf(
+        context: Context,
+        sourceUri: Uri,
+        signerName: String,
+        reason: String,
+        outputName: String,
+        originalSizeBytes: Long
+    ): File {
+        val outputFile = PdfEngine.signPdf(context, sourceUri, signerName, reason, outputName)
+        saveProjectRecord(
+            PdfProjectEntity(
+                title = outputFile.name,
+                operationType = PdfOperationType.SIGN,
+                pageCount = 1,
+                originalSizeBytes = originalSizeBytes,
+                resultSizeBytes = outputFile.length(),
+                outputFilePath = outputFile.absolutePath,
+                summaryDetails = "Digitally signed by $signerName into ${outputFile.name}"
+            )
+        )
+        return outputFile
+    }
+
+    suspend fun updatePdfMetadata(
+        context: Context,
+        sourceUri: Uri,
+        metadata: com.example.data.pdf.PdfMetadata,
+        outputName: String,
+        originalSizeBytes: Long
+    ): File {
+        val outputFile = PdfEngine.updatePdfMetadata(context, sourceUri, metadata, outputName)
+        val details = "Metadata updated (Title: '${metadata.title}', Author: '${metadata.author}')"
+        saveProjectRecord(
+            PdfProjectEntity(
+                title = outputFile.name,
+                operationType = PdfOperationType.METADATA,
+                pageCount = metadata.pageCount,
+                originalSizeBytes = originalSizeBytes,
+                resultSizeBytes = outputFile.length(),
+                outputFilePath = outputFile.absolutePath,
+                summaryDetails = "$details into ${outputFile.name}"
+            )
+        )
+        return outputFile
+    }
+
+    suspend fun rotatePdfPages(
+        context: Context,
+        sourceUri: Uri,
+        pageRotations: Map<Int, Int>,
+        outputName: String,
+        originalSizeBytes: Long,
+        pageCount: Int
+    ): File {
+        val outputFile = PdfEngine.rotatePdfPages(context, sourceUri, pageRotations, outputName)
+        val rotatedCount = pageRotations.filterValues { it % 360 != 0 }.size
+        saveProjectRecord(
+            PdfProjectEntity(
+                title = outputFile.name,
+                operationType = PdfOperationType.ROTATE,
+                pageCount = pageCount,
+                originalSizeBytes = originalSizeBytes,
+                resultSizeBytes = outputFile.length(),
+                outputFilePath = outputFile.absolutePath,
+                summaryDetails = "Rotated $rotatedCount pages in ${outputFile.name}"
+            )
+        )
+        return outputFile
+    }
+}

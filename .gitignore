@@ -1,0 +1,36 @@
+# Built application & package files
+*.apk
+*.aab
+*.aar
+*.ap_
+*.dex
+
+# Gradle and Kotlin caches
+.gradle/
+.kotlin/
+/build/
+**/build/
+
+# IDE files
+.idea/
+*.iml
+.navigation/
+/captures/
+.externalNativeBuild/
+.cxx/
+.DS_Store
+thumbs.db
+
+# Sensitive files, Keystores, and Credentials (MUST NOT BE COMMITTED)
+local.properties
+*.jks
+*.keystore
+*.pepk
+*.p12
+*.p8
+*.key
+common_release_key.jks
+debug.keystore
+.env
+.env.*
+!.env.example
