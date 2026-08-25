@@ -18,10 +18,12 @@ import com.example.data.pdf.PdfPageSourceItem
 import com.example.data.remote.FirebaseConfigManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -386,12 +388,172 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             initialValue = emptyList()
         )
 
-    val recentFilesState: StateFlow<List<RecentFileEntity>> = repository.recentFiles
+    private val _recentSearchQuery = MutableStateFlow("")
+    val recentSearchQuery: StateFlow<String> = _recentSearchQuery.asStateFlow()
+
+    private val _selectedRecentPaths = MutableStateFlow<Set<String>>(emptySet())
+    val selectedRecentPaths: StateFlow<Set<String>> = _selectedRecentPaths.asStateFlow()
+
+    private val _isRecentMultiSelectMode = MutableStateFlow(false)
+    val isRecentMultiSelectMode: StateFlow<Boolean> = _isRecentMultiSelectMode.asStateFlow()
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val recentFilesState: StateFlow<List<RecentFileEntity>> = _recentSearchQuery
+        .flatMapLatest { query -> repository.searchRecentFiles(query) }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = emptyList()
         )
+
+    fun setRecentSearchQuery(query: String) {
+        _recentSearchQuery.value = query
+    }
+
+    fun toggleRecentMultiSelectMode() {
+        _isRecentMultiSelectMode.value = !_isRecentMultiSelectMode.value
+        if (!_isRecentMultiSelectMode.value) {
+            _selectedRecentPaths.value = emptySet()
+        }
+    }
+
+    fun toggleRecentFileSelection(filePath: String) {
+        val current = _selectedRecentPaths.value.toMutableSet()
+        if (current.contains(filePath)) {
+            current.remove(filePath)
+        } else {
+            current.add(filePath)
+        }
+        _selectedRecentPaths.value = current
+        if (current.isNotEmpty()) {
+            _isRecentMultiSelectMode.value = true
+        }
+    }
+
+    fun selectAllRecentFiles(files: List<RecentFileEntity>) {
+        _selectedRecentPaths.value = files.map { it.filePath }.toSet()
+        _isRecentMultiSelectMode.value = true
+    }
+
+    fun clearRecentFileSelection() {
+        _selectedRecentPaths.value = emptySet()
+        _isRecentMultiSelectMode.value = false
+    }
+
+    fun deleteSelectedRecentFiles() {
+        val paths = _selectedRecentPaths.value.toList()
+        if (paths.isEmpty()) return
+        viewModelScope.launch {
+            repository.removeRecentFiles(paths)
+            _selectedRecentPaths.value = emptySet()
+            _isRecentMultiSelectMode.value = false
+            _userMessage.value = "Deleted ${paths.size} items from recent history"
+        }
+    }
+
+    fun scanPdfEmbeddedImages(context: Context, uri: Uri) {
+        viewModelScope.launch {
+            _isProcessing.value = true
+            _processingMessage.value = "Scanning PDF for embedded images..."
+            try {
+                val files = com.example.data.pdf.PdfBoxPreviewService.scanEmbeddedImagesWithPdfBox(context, uri)
+                _extractedImages.value = files
+                _userMessage.value = "Found ${files.size} images in document"
+            } catch (e: Exception) {
+                _userMessage.value = "Error scanning images: ${e.localizedMessage}"
+            } finally {
+                _isProcessing.value = false
+            }
+        }
+    }
+
+    fun saveImageToGallery(context: Context, imageFile: File) {
+        viewModelScope.launch {
+            _processingMessage.value = "Saving image to Gallery..."
+            val savedUri = PdfEngine.saveImageToGallery(context, imageFile)
+            if (savedUri != null) {
+                _userMessage.value = "Saved ${imageFile.name} to Gallery"
+            } else {
+                _userMessage.value = "Failed to save image to Gallery"
+            }
+        }
+    }
+
+    private val _selectedLibraryProjectIds = MutableStateFlow<Set<Long>>(emptySet())
+    val selectedLibraryProjectIds: StateFlow<Set<Long>> = _selectedLibraryProjectIds.asStateFlow()
+
+    private val _isLibraryMultiSelectMode = MutableStateFlow(false)
+    val isLibraryMultiSelectMode: StateFlow<Boolean> = _isLibraryMultiSelectMode.asStateFlow()
+
+    fun toggleLibraryMultiSelectMode() {
+        _isLibraryMultiSelectMode.value = !_isLibraryMultiSelectMode.value
+        if (!_isLibraryMultiSelectMode.value) {
+            _selectedLibraryProjectIds.value = emptySet()
+        }
+    }
+
+    fun toggleLibraryProjectSelection(id: Long) {
+        val current = _selectedLibraryProjectIds.value.toMutableSet()
+        if (current.contains(id)) {
+            current.remove(id)
+        } else {
+            current.add(id)
+        }
+        _selectedLibraryProjectIds.value = current
+        if (current.isNotEmpty()) {
+            _isLibraryMultiSelectMode.value = true
+        }
+    }
+
+    fun selectAllLibraryProjects(projects: List<PdfProjectEntity>) {
+        _selectedLibraryProjectIds.value = projects.map { it.id }.toSet()
+        _isLibraryMultiSelectMode.value = true
+    }
+
+    fun clearLibraryProjectSelection() {
+        _selectedLibraryProjectIds.value = emptySet()
+        _isLibraryMultiSelectMode.value = false
+    }
+
+    fun bulkRenameProjects(projectIds: List<Long>, patternOrPrefix: String) {
+        viewModelScope.launch {
+            _isProcessing.value = true
+            _processingMessage.value = "Renaming ${projectIds.size} files..."
+            try {
+                var renamedCount = 0
+                val allProjects = historyState.value
+                val targetProjects = allProjects.filter { it.id in projectIds }
+
+                targetProjects.forEachIndexed { index, project ->
+                    val oldFilePath = project.outputFilePath
+                    val oldFile = File(oldFilePath)
+                    val ext = if (oldFile.extension.isNotBlank()) oldFile.extension else "pdf"
+                    val newTitleRaw = if (patternOrPrefix.contains("{N}")) {
+                        patternOrPrefix.replace("{N}", (index + 1).toString())
+                    } else if (patternOrPrefix.contains("{DATE}")) {
+                        val dateFormat = java.text.SimpleDateFormat("yyyyMMdd", java.util.Locale.getDefault())
+                        patternOrPrefix.replace("{DATE}", dateFormat.format(java.util.Date())).replace("{N}", (index + 1).toString())
+                    } else {
+                        "${patternOrPrefix}_${index + 1}"
+                    }
+
+                    val newFileName = if (newTitleRaw.endsWith(".$ext", ignoreCase = true)) newTitleRaw else "$newTitleRaw.$ext"
+
+                    if (oldFile.exists()) {
+                        val resultPath = repository.renameProjectFile(project.id, oldFilePath, newFileName)
+                        if (resultPath != null) renamedCount++
+                    }
+                }
+                _selectedLibraryProjectIds.value = emptySet()
+                _isLibraryMultiSelectMode.value = false
+                _userMessage.value = "Successfully bulk-renamed $renamedCount PDF files"
+            } catch (e: Exception) {
+                _userMessage.value = "Error during bulk rename: ${e.localizedMessage}"
+            } finally {
+                _isProcessing.value = false
+            }
+        }
+    }
 
     fun recordRecentFileAccess(file: File, pageCount: Int = 0) {
         if (!file.exists()) return
@@ -1819,6 +1981,144 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 onPdfOperationCompleted("rotate")
             } catch (e: Exception) {
                 _userMessage.value = "Page rotation failed: ${e.localizedMessage}"
+            } finally {
+                _isProcessing.value = false
+            }
+        }
+    }
+
+    // --- IMAGE TO PDF STATE & FUNCTIONS ---
+    private val _selectedImageUris = MutableStateFlow<List<Uri>>(emptyList())
+    val selectedImageUris: StateFlow<List<Uri>> = _selectedImageUris.asStateFlow()
+
+    private val _imageToPdfOutputName = MutableStateFlow("PDFCraft_Photos.pdf")
+    val imageToPdfOutputName: StateFlow<String> = _imageToPdfOutputName.asStateFlow()
+
+    fun setImageToPdfOutputName(name: String) { _imageToPdfOutputName.value = name }
+
+    fun addImagesToPdf(uris: List<Uri>) {
+        val current = _selectedImageUris.value.toMutableList()
+        current.addAll(uris)
+        _selectedImageUris.value = current
+    }
+
+    fun removeImageFromPdf(index: Int) {
+        val current = _selectedImageUris.value.toMutableList()
+        if (index in current.indices) {
+            current.removeAt(index)
+            _selectedImageUris.value = current
+        }
+    }
+
+    fun moveImageToPdf(fromIndex: Int, toIndex: Int) {
+        val current = _selectedImageUris.value.toMutableList()
+        if (fromIndex in current.indices && toIndex in current.indices) {
+            val item = current.removeAt(fromIndex)
+            current.add(toIndex, item)
+            _selectedImageUris.value = current
+        }
+    }
+
+    fun clearImagesToPdf() {
+        _selectedImageUris.value = emptyList()
+    }
+
+    fun executeImagesToPdf() {
+        val uris = _selectedImageUris.value
+        if (uris.isEmpty()) {
+            _userMessage.value = "Please select or capture at least one image."
+            return
+        }
+        viewModelScope.launch {
+            _isProcessing.value = true
+            _processingMessage.value = "Converting ${uris.size} images into PDF..."
+            try {
+                val outputFile = repository.convertImagesToPdf(
+                    context = getApplication(),
+                    imageUris = uris,
+                    outputName = _imageToPdfOutputName.value
+                )
+                _userMessage.value = "Successfully created PDF with ${uris.size} image pages: ${outputFile.name}!"
+                onPdfOperationCompleted("image_to_pdf")
+            } catch (e: Exception) {
+                _userMessage.value = "Image to PDF conversion failed: ${e.localizedMessage}"
+            } finally {
+                _isProcessing.value = false
+            }
+        }
+    }
+
+    // --- PAGE NUMBER STATE & FUNCTIONS ---
+    private val _pageNumberSourceUri = MutableStateFlow<Uri?>(null)
+    val pageNumberSourceUri: StateFlow<Uri?> = _pageNumberSourceUri.asStateFlow()
+
+    private val _pageNumberSourceFile = MutableStateFlow<File?>(null)
+    val pageNumberSourceFile: StateFlow<File?> = _pageNumberSourceFile.asStateFlow()
+
+    private val _pageNumberOptions = MutableStateFlow(com.example.data.pdf.PageNumberOptions())
+    val pageNumberOptions: StateFlow<com.example.data.pdf.PageNumberOptions> = _pageNumberOptions.asStateFlow()
+
+    private val _pageNumberOutputName = MutableStateFlow("PDFCraft_Numbered.pdf")
+    val pageNumberOutputName: StateFlow<String> = _pageNumberOutputName.asStateFlow()
+
+    fun setPageNumberOutputName(name: String) { _pageNumberOutputName.value = name }
+
+    fun loadPdfForPageNumber(uri: Uri) {
+        viewModelScope.launch {
+            _isProcessing.value = true
+            _processingMessage.value = "Analyzing PDF document..."
+            try {
+                val file = PdfEngine.convertAnyFileToPdf(getApplication(), uri)
+                val info = PdfEngine.readPdfMetadata(getApplication(), uri)
+                _pageNumberSourceUri.value = uri
+                _pageNumberSourceFile.value = file
+                _pageNumberOutputName.value = "Numbered_${file.name}"
+
+                recordRecentFileAccess(file, info.pageCount)
+            } catch (e: Exception) {
+                _userMessage.value = "Could not load document: ${e.localizedMessage}"
+            } finally {
+                _isProcessing.value = false
+            }
+        }
+    }
+
+    fun updatePageNumberOptions(
+        formatPattern: String? = null,
+        position: com.example.data.pdf.PageNumberPosition? = null,
+        startPageNumber: Int? = null,
+        fontSize: Float? = null,
+        marginPt: Float? = null
+    ) {
+        val curr = _pageNumberOptions.value
+        _pageNumberOptions.value = curr.copy(
+            formatPattern = formatPattern ?: curr.formatPattern,
+            position = position ?: curr.position,
+            startPageNumber = startPageNumber ?: curr.startPageNumber,
+            fontSize = fontSize ?: curr.fontSize,
+            marginPt = marginPt ?: curr.marginPt
+        )
+    }
+
+    fun executeAddPageNumbers() {
+        val uri = _pageNumberSourceUri.value ?: return
+        val file = _pageNumberSourceFile.value ?: return
+
+        viewModelScope.launch {
+            _isProcessing.value = true
+            _processingMessage.value = "Overlaying page numbers onto PDF..."
+            try {
+                val outputFile = repository.addPageNumbersToPdf(
+                    context = getApplication(),
+                    sourceUri = uri,
+                    options = _pageNumberOptions.value,
+                    outputName = _pageNumberOutputName.value,
+                    originalSizeBytes = file.length()
+                )
+                _userMessage.value = "Successfully applied page numbers to ${outputFile.name}!"
+                onPdfOperationCompleted("page_number")
+            } catch (e: Exception) {
+                _userMessage.value = "Failed to add page numbers: ${e.localizedMessage}"
             } finally {
                 _isProcessing.value = false
             }

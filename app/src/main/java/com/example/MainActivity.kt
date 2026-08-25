@@ -50,10 +50,12 @@ import com.example.data.local.PdfOperationType
 import com.example.ui.screens.CompressScreen
 import com.example.ui.screens.EncryptScreen
 import com.example.ui.screens.HubScreen
+import com.example.ui.screens.ImageToPdfScreen
 import com.example.ui.screens.LibraryScreen
 import com.example.ui.screens.MergeScreen
 import com.example.ui.screens.MetadataScreen
 import com.example.ui.screens.OnboardingScreen
+import com.example.ui.screens.PageNumberScreen
 import com.example.ui.screens.RotateScreen
 import com.example.ui.screens.SettingsScreen
 import com.example.ui.screens.SignScreen
@@ -168,6 +170,8 @@ fun PDFCraftApp(
                     PdfOperationType.WATERMARK -> WatermarkScreen(viewModel = viewModel)
                     PdfOperationType.SIGN -> SignScreen(viewModel = viewModel)
                     PdfOperationType.ROTATE -> RotateScreen(viewModel = viewModel, onNavigateBack = { viewModel.setActiveTool(null) })
+                    PdfOperationType.IMAGE_TO_PDF -> ImageToPdfScreen(viewModel = viewModel)
+                    PdfOperationType.PAGE_NUMBER -> PageNumberScreen(viewModel = viewModel)
                     else -> {}
                 }
             } else {

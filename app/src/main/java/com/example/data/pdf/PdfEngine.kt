@@ -629,6 +629,104 @@ object PdfEngine {
     }
 
     /**
+     * Data class for PDF text search results.
+     */
+    data class PdfSearchResult(
+        val pageIndex: Int,
+        val pageNumber: Int,
+        val matchCount: Int,
+        val snippet: String
+    )
+
+    /**
+     * Performs text search across non-scanned PDF pages using PDFBox PDFTextStripper.
+     */
+    suspend fun searchTextInPdf(file: File, query: String): List<PdfSearchResult> = withContext(Dispatchers.IO) {
+        if (query.isBlank() || !file.exists()) return@withContext emptyList()
+        val results = mutableListOf<PdfSearchResult>()
+        try {
+            com.tom_roush.pdfbox.pdmodel.PDDocument.load(file).use { pdDocument ->
+                val stripper = com.tom_roush.pdfbox.text.PDFTextStripper()
+                for (i in 0 until pdDocument.numberOfPages) {
+                    stripper.startPage = i + 1
+                    stripper.endPage = i + 1
+                    val text = stripper.getText(pdDocument) ?: ""
+                    if (text.contains(query, ignoreCase = true)) {
+                        val lowerText = text.lowercase()
+                        val lowerQuery = query.lowercase()
+                        var count = 0
+                        var idx = 0
+                        while (true) {
+                            idx = lowerText.indexOf(lowerQuery, idx)
+                            if (idx == -1) break
+                            count++
+                            idx += lowerQuery.length
+                        }
+
+                        val matchIdx = lowerText.indexOf(lowerQuery)
+                        val start = (matchIdx - 30).coerceAtLeast(0)
+                        val end = (matchIdx + lowerQuery.length + 30).coerceAtMost(text.length)
+                        val snippet = "..." + text.substring(start, end).replace("\n", " ").trim() + "..."
+
+                        results.add(PdfSearchResult(pageIndex = i, pageNumber = i + 1, matchCount = count, snippet = snippet))
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error performing text search in PDF", e)
+        }
+        return@withContext results
+    }
+
+    /**
+     * Saves an image file to the device's public Gallery (Pictures/PDFCraft) via MediaStore API.
+     */
+    suspend fun saveImageToGallery(context: Context, imageFile: File): Uri? = withContext(Dispatchers.IO) {
+        try {
+            val resolver = context.contentResolver
+            val contentValues = android.content.ContentValues().apply {
+                put(android.provider.MediaStore.MediaColumns.DISPLAY_NAME, imageFile.name)
+                put(
+                    android.provider.MediaStore.MediaColumns.MIME_TYPE,
+                    if (imageFile.extension.equals("png", true)) "image/png" else "image/jpeg"
+                )
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+                    put(
+                        android.provider.MediaStore.MediaColumns.RELATIVE_PATH,
+                        android.os.Environment.DIRECTORY_PICTURES + "/PDFCraft"
+                    )
+                    put(android.provider.MediaStore.MediaColumns.IS_PENDING, 1)
+                }
+            }
+
+            val collection = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+                android.provider.MediaStore.Images.Media.getContentUri(android.provider.MediaStore.VOLUME_EXTERNAL_PRIMARY)
+            } else {
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            }
+
+            val uri = resolver.insert(collection, contentValues)
+            if (uri != null) {
+                resolver.openOutputStream(uri)?.use { output ->
+                    imageFile.inputStream().use { input ->
+                        input.copyTo(output)
+                    }
+                }
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+                    contentValues.clear()
+                    contentValues.put(android.provider.MediaStore.MediaColumns.IS_PENDING, 0)
+                    resolver.update(uri, contentValues, null, null)
+                }
+                return@withContext uri
+            }
+            null
+        } catch (e: Exception) {
+            Log.e(TAG, "Error saving image to gallery", e)
+            null
+        }
+    }
+
+    /**
      * Extracts document metadata (Title, Author, Subject, Keywords, Creator, Producer, Page Count, Dates)
      * using PDFBox with fallback to android.graphics.pdf.PdfRenderer.
      */
@@ -1309,6 +1407,160 @@ object PdfEngine {
             doc.save(outputFile)
         }
         outputFile
+    }
+
+    /**
+     * Converts a list of image Uris (photos/gallery images) into a multi-page PDF document.
+     */
+    suspend fun convertImagesToPdf(
+        context: Context,
+        imageUris: List<Uri>,
+        outputName: String = "PDFCraft_Images.pdf"
+    ): File = withContext(Dispatchers.IO) {
+        val outputDir = File(context.filesDir, "exports").apply { mkdirs() }
+        val outputFile = File(outputDir, if (outputName.endsWith(".pdf", ignoreCase = true)) outputName else "$outputName.pdf")
+
+        com.tom_roush.pdfbox.pdmodel.PDDocument().use { pdDoc ->
+            for (uri in imageUris) {
+                try {
+                    val localFile = getLocalFileFromUri(context, uri)
+                    val bitmap = android.graphics.BitmapFactory.decodeFile(localFile.absolutePath)
+                        ?: context.contentResolver.openInputStream(uri)?.use { android.graphics.BitmapFactory.decodeStream(it) }
+
+                    if (bitmap != null) {
+                        val pdImage = com.tom_roush.pdfbox.pdmodel.graphics.image.LosslessFactory.createFromImage(pdDoc, bitmap)
+                        val page = com.tom_roush.pdfbox.pdmodel.PDPage(
+                            com.tom_roush.pdfbox.pdmodel.common.PDRectangle(
+                                bitmap.width.toFloat(),
+                                bitmap.height.toFloat()
+                            )
+                        )
+                        pdDoc.addPage(page)
+                        com.tom_roush.pdfbox.pdmodel.PDPageContentStream(
+                            pdDoc,
+                            page,
+                            com.tom_roush.pdfbox.pdmodel.PDPageContentStream.AppendMode.OVERWRITE,
+                            true,
+                            true
+                        ).use { content ->
+                            content.drawImage(pdImage, 0f, 0f, bitmap.width.toFloat(), bitmap.height.toFloat())
+                        }
+                    }
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error adding image to PDF: $uri", e)
+                }
+            }
+            pdDoc.save(outputFile)
+        }
+        outputFile
+    }
+
+    /**
+     * Overlays customizable page numbers onto the header or footer of existing PDF documents.
+     */
+    suspend fun addPageNumbersToPdf(
+        context: Context,
+        sourceUri: Uri,
+        options: PageNumberOptions,
+        outputName: String = "PDFCraft_Numbered.pdf"
+    ): File = withContext(Dispatchers.IO) {
+        val file = getLocalFileFromUri(context, sourceUri)
+        val outputDir = File(context.filesDir, "exports").apply { mkdirs() }
+        val outputFile = File(outputDir, if (outputName.endsWith(".pdf", ignoreCase = true)) outputName else "$outputName.pdf")
+
+        com.tom_roush.pdfbox.pdmodel.PDDocument.load(file).use { pdDoc ->
+            val totalPages = pdDoc.numberOfPages
+            val font = com.tom_roush.pdfbox.pdmodel.font.PDType1Font.HELVETICA_BOLD
+
+            for (i in 0 until totalPages) {
+                val pageNum = i + options.startPageNumber
+                val pageText = options.formatPattern
+                    .replace("{P}", pageNum.toString())
+                    .replace("{N}", totalPages.toString())
+
+                val page = pdDoc.getPage(i)
+                val mediaBox = page.mediaBox
+                val width = mediaBox.width
+                val height = mediaBox.height
+
+                val textWidth = (font.getStringWidth(pageText) / 1000f) * options.fontSize
+                val textHeight = (font.fontDescriptor.capHeight / 1000f) * options.fontSize
+
+                val margin = options.marginPt
+
+                val isHeader = options.position in listOf(
+                    PageNumberPosition.HEADER_LEFT,
+                    PageNumberPosition.HEADER_CENTER,
+                    PageNumberPosition.HEADER_RIGHT
+                )
+
+                val x = when (options.position) {
+                    PageNumberPosition.HEADER_LEFT, PageNumberPosition.FOOTER_LEFT -> margin
+                    PageNumberPosition.HEADER_CENTER, PageNumberPosition.FOOTER_CENTER -> (width - textWidth) / 2f
+                    PageNumberPosition.HEADER_RIGHT, PageNumberPosition.FOOTER_RIGHT -> width - margin - textWidth
+                }
+
+                val y = if (isHeader) height - margin - textHeight else margin
+
+                com.tom_roush.pdfbox.pdmodel.PDPageContentStream(
+                    pdDoc,
+                    page,
+                    com.tom_roush.pdfbox.pdmodel.PDPageContentStream.AppendMode.APPEND,
+                    true,
+                    true
+                ).use { contentStream ->
+                    contentStream.setNonStrokingColor(
+                        options.textColorRgb[0].coerceIn(0, 255),
+                        options.textColorRgb[1].coerceIn(0, 255),
+                        options.textColorRgb[2].coerceIn(0, 255)
+                    )
+                    contentStream.setFont(font, options.fontSize)
+                    contentStream.beginText()
+                    contentStream.newLineAtOffset(x, y)
+                    contentStream.showText(pageText)
+                    contentStream.endText()
+                }
+            }
+            pdDoc.save(outputFile)
+        }
+        outputFile
+    }
+}
+
+enum class PageNumberPosition {
+    HEADER_LEFT, HEADER_CENTER, HEADER_RIGHT,
+    FOOTER_LEFT, FOOTER_CENTER, FOOTER_RIGHT
+}
+
+data class PageNumberOptions(
+    val formatPattern: String = "Page {P} of {N}",
+    val position: PageNumberPosition = PageNumberPosition.FOOTER_CENTER,
+    val startPageNumber: Int = 1,
+    val fontSize: Float = 10f,
+    val marginPt: Float = 25f,
+    val textColorRgb: IntArray = intArrayOf(80, 80, 80)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        other as PageNumberOptions
+        if (formatPattern != other.formatPattern) return false
+        if (position != other.position) return false
+        if (startPageNumber != other.startPageNumber) return false
+        if (fontSize != other.fontSize) return false
+        if (marginPt != other.marginPt) return false
+        if (!textColorRgb.contentEquals(other.textColorRgb)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = formatPattern.hashCode()
+        result = 31 * result + position.hashCode()
+        result = 31 * result + startPageNumber
+        result = 31 * result + fontSize.hashCode()
+        result = 31 * result + marginPt.hashCode()
+        result = 31 * result + textColorRgb.contentHashCode()
+        return result
     }
 }
 

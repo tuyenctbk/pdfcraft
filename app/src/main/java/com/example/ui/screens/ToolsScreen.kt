@@ -33,6 +33,8 @@ data class ToolItemData(
 val ALL_PDF_TOOLS = listOf(
     ToolItemData(R.string.tool_merge_title, R.string.tool_merge_desc, Icons.Default.Merge, PdfOperationType.MERGE),
     ToolItemData(R.string.tool_split_title, R.string.tool_split_desc, Icons.Default.ContentCut, PdfOperationType.SPLIT),
+    ToolItemData(R.string.tool_image_to_pdf_title, R.string.tool_image_to_pdf_desc, Icons.Default.Image, PdfOperationType.IMAGE_TO_PDF),
+    ToolItemData(R.string.tool_page_number_title, R.string.tool_page_number_desc, Icons.Default.TextFields, PdfOperationType.PAGE_NUMBER),
     ToolItemData(R.string.tool_compress_title, R.string.tool_compress_desc, Icons.Default.Compress, PdfOperationType.COMPRESS),
     ToolItemData(R.string.tool_metadata_title, R.string.tool_metadata_desc, Icons.Default.Edit, PdfOperationType.METADATA),
     ToolItemData(R.string.tool_encrypt_title, R.string.tool_encrypt_desc, Icons.Default.Lock, PdfOperationType.ENCRYPT),

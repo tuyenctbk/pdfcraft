@@ -95,6 +95,9 @@ import androidx.compose.material.icons.filled.SwapVert
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 
+import androidx.compose.material3.Checkbox
+import androidx.compose.material.icons.filled.DriveFileRenameOutline
+
 enum class LibrarySortOption(val title: String) {
     DATE_CREATED("Date Created"),
     FILE_SIZE("File Size"),
@@ -109,6 +112,9 @@ fun LibraryScreen(
 ) {
     val context = LocalContext.current
     val historyList by viewModel.historyState.collectAsState()
+    val selectedProjectIds by viewModel.selectedLibraryProjectIds.collectAsState()
+    val isMultiSelectMode by viewModel.isLibraryMultiSelectMode.collectAsState()
+
     var filterType by remember { mutableStateOf<PdfOperationType?>(null) }
     var showOnlyFavorites by remember { mutableStateOf(false) }
 
@@ -121,6 +127,9 @@ fun LibraryScreen(
     var projectToRename by remember { mutableStateOf<PdfProjectEntity?>(null) }
     var projectContextMenu by remember { mutableStateOf<PdfProjectEntity?>(null) }
     var newFileNameInput by remember { mutableStateOf("") }
+
+    var showBulkRenameDialog by remember { mutableStateOf(false) }
+    var bulkRenamePatternInput by remember { mutableStateOf("Document_{N}") }
 
     val filteredList = historyList.filter { project ->
         val matchesSearch = searchQuery.isBlank() ||
@@ -243,6 +252,82 @@ fun LibraryScreen(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 RecentFilesSection(viewModel = viewModel)
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                // Multi-Select & Bulk Rename Toolbar Bar
+                Surface(
+                    shape = RoundedCornerShape(12.dp),
+                    color = if (isMultiSelectMode) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant,
+                    border = androidx.compose.foundation.BorderStroke(1.dp, if (isMultiSelectMode) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp).fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            IconButton(
+                                onClick = { viewModel.toggleLibraryMultiSelectMode() },
+                                modifier = Modifier.size(28.dp).testTag("toggle_library_multiselect")
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.DriveFileRenameOutline,
+                                    contentDescription = "Multi-Select",
+                                    tint = MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                            }
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = if (isMultiSelectMode) "${selectedProjectIds.size} Selected" else "Bulk Rename Mode",
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = if (isMultiSelectMode) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                            )
+                        }
+
+                        Row(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
+                            if (isMultiSelectMode) {
+                                TextButton(
+                                    onClick = { viewModel.selectAllLibraryProjects(sortedList) },
+                                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp)
+                                ) {
+                                    Text("Select All", fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                                }
+
+                                Button(
+                                    onClick = { showBulkRenameDialog = true },
+                                    enabled = selectedProjectIds.isNotEmpty(),
+                                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
+                                    contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
+                                    shape = RoundedCornerShape(8.dp),
+                                    modifier = Modifier.height(32.dp).testTag("trigger_bulk_rename_button")
+                                ) {
+                                    Icon(Icons.Default.Edit, contentDescription = null, modifier = Modifier.size(14.dp))
+                                    Spacer(modifier = Modifier.width(4.dp))
+                                    Text("Bulk Rename (${selectedProjectIds.size})", fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                                }
+
+                                IconButton(
+                                    onClick = { viewModel.clearLibraryProjectSelection() },
+                                    modifier = Modifier.size(28.dp)
+                                ) {
+                                    Icon(Icons.Default.Clear, contentDescription = "Cancel", tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(16.dp))
+                                }
+                            } else {
+                                TextButton(
+                                    onClick = { viewModel.toggleLibraryMultiSelectMode() },
+                                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
+                                    modifier = Modifier.testTag("enter_bulk_rename_mode")
+                                ) {
+                                    Text("Select Files to Bulk Rename", fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                                }
+                            }
+                        }
+                    }
+                }
 
                 Spacer(modifier = Modifier.height(12.dp))
 
@@ -422,16 +507,30 @@ fun LibraryScreen(
                 modifier = Modifier.weight(1f).fillMaxWidth()
             ) {
                 items(sortedList, key = { it.id }) { item ->
+                    val isSelected = selectedProjectIds.contains(item.id)
                     Card(
-                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
+                        colors = CardDefaults.cardColors(containerColor = if (isSelected) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f) else MaterialTheme.colorScheme.surface),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline),
                         shape = RoundedCornerShape(14.dp),
                         modifier = Modifier
                             .fillMaxWidth()
                             .animateItemPlacement()
                             .combinedClickable(
-                                onClick = { viewModel.openInViewer(item.outputFilePath) },
-                                onLongClick = { projectContextMenu = item }
+                                onClick = {
+                                    if (isMultiSelectMode) {
+                                        viewModel.toggleLibraryProjectSelection(item.id)
+                                    } else {
+                                        viewModel.openInViewer(item.outputFilePath)
+                                    }
+                                },
+                                onLongClick = {
+                                    if (!isMultiSelectMode) {
+                                        viewModel.toggleLibraryMultiSelectMode()
+                                        viewModel.toggleLibraryProjectSelection(item.id)
+                                    } else {
+                                        projectContextMenu = item
+                                    }
+                                }
                             )
                             .testTag("history_item_${item.id}")
                     ) {
@@ -439,6 +538,14 @@ fun LibraryScreen(
                             modifier = Modifier.padding(14.dp).fillMaxWidth(),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
+                            if (isMultiSelectMode) {
+                                Checkbox(
+                                    checked = isSelected,
+                                    onCheckedChange = { viewModel.toggleLibraryProjectSelection(item.id) },
+                                    modifier = Modifier.padding(end = 8.dp)
+                                )
+                            }
+
                             // Icon Badge
                             val iconVal = when (item.operationType) {
                                 PdfOperationType.MERGE -> Icons.Default.Merge
@@ -450,6 +557,8 @@ fun LibraryScreen(
                                 PdfOperationType.SIGN -> Icons.Default.Draw
                                 PdfOperationType.METADATA -> Icons.Default.Edit
                                 PdfOperationType.ROTATE -> Icons.Default.Refresh
+                                PdfOperationType.IMAGE_TO_PDF -> Icons.Default.Image
+                                PdfOperationType.PAGE_NUMBER -> Icons.Default.TextFields
                             }
                             Box(
                                 modifier = Modifier
@@ -713,6 +822,58 @@ fun LibraryScreen(
             dismissButton = {
                 TextButton(onClick = { projectContextMenu = null }) {
                     Text("Close")
+                }
+            }
+        )
+    }
+
+    // Bulk Rename Dialog
+    if (showBulkRenameDialog) {
+        AlertDialog(
+            onDismissRequest = { showBulkRenameDialog = false },
+            icon = { Icon(Icons.Default.DriveFileRenameOutline, contentDescription = null, tint = MaterialTheme.colorScheme.primary) },
+            title = { Text("Bulk Rename ${selectedProjectIds.size} Files") },
+            text = {
+                Column {
+                    Text(
+                        "Enter pattern or prefix for selected files. Use {N} for sequential numbers (1, 2, 3...) or {DATE} for current date.",
+                        fontSize = 12.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                    OutlinedTextField(
+                        value = bulkRenamePatternInput,
+                        onValueChange = { bulkRenamePatternInput = it },
+                        label = { Text("Filename Pattern or Prefix") },
+                        placeholder = { Text("e.g. Invoice_{N} or Report_{DATE}_{N}") },
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth().testTag("bulk_rename_pattern_input")
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = "Preview: ${bulkRenamePatternInput.replace("{N}", "1").replace("{DATE}", "20260824")}.pdf",
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        val ids = selectedProjectIds.toList()
+                        showBulkRenameDialog = false
+                        viewModel.bulkRenameProjects(ids, bulkRenamePatternInput)
+                    },
+                    enabled = bulkRenamePatternInput.isNotBlank() && selectedProjectIds.isNotEmpty(),
+                    modifier = Modifier.testTag("confirm_bulk_rename_button")
+                ) {
+                    Text("Rename ${selectedProjectIds.size} Files")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showBulkRenameDialog = false }) {
+                    Text("Cancel")
                 }
             }
         )

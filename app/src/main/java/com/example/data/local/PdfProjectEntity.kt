@@ -12,7 +12,9 @@ enum class PdfOperationType {
     WATERMARK,
     SIGN,
     METADATA,
-    ROTATE
+    ROTATE,
+    IMAGE_TO_PDF,
+    PAGE_NUMBER
 }
 
 @Entity(tableName = "pdf_projects")

@@ -282,7 +282,7 @@ fun RotateScreen(
                                 ) {
                                     Icon(Icons.Default.RotateLeft, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(16.dp))
                                     Spacer(modifier = Modifier.width(4.dp))
-                                    Text("+270°", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
+                                    Text("-90° ↺", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
                                 }
 
                                 if (pageRotations.isNotEmpty() && pageRotations.any { it.value % 360 != 0 }) {

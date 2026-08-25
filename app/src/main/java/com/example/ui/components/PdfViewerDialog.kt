@@ -67,6 +67,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
 
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+
 @Composable
 fun PdfViewerDialog(
     file: File,
@@ -77,6 +81,13 @@ fun PdfViewerDialog(
     var currentPageIndex by remember { mutableIntStateOf(0) }
     var currentBitmap by remember { mutableStateOf<Bitmap?>(null) }
     var isLoading by remember { mutableStateOf(true) }
+
+    // Search state
+    var isSearchActive by remember { mutableStateOf(false) }
+    var searchQuery by remember { mutableStateOf("") }
+    var searchResults by remember { mutableStateOf<List<PdfEngine.PdfSearchResult>>(emptyList()) }
+    var currentMatchIndex by remember { mutableIntStateOf(0) }
+    var isSearching by remember { mutableStateOf(false) }
 
     LaunchedEffect(file, currentPageIndex) {
         isLoading = true
@@ -112,6 +123,23 @@ fun PdfViewerDialog(
         }
     }
 
+    LaunchedEffect(searchQuery) {
+        if (searchQuery.isBlank()) {
+            searchResults = emptyList()
+            currentMatchIndex = 0
+            isSearching = false
+        } else {
+            isSearching = true
+            val results = PdfEngine.searchTextInPdf(file, searchQuery)
+            searchResults = results
+            currentMatchIndex = 0
+            isSearching = false
+            if (results.isNotEmpty()) {
+                currentPageIndex = results[0].pageIndex
+            }
+        }
+    }
+
     Dialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false)
@@ -127,28 +155,134 @@ fun PdfViewerDialog(
                     border = androidx.compose.foundation.BorderStroke(1.dp, CharcoalCardBorder),
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Row(
-                        modifier = Modifier.padding(14.dp).fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Column(modifier = Modifier.weight(1f)) {
-                            Text(
-                                text = file.name,
-                                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold, color = TextPrimary)
-                            )
-                            Text(
-                                text = "${PdfEngine.formatFileSize(file.length())} • ${totalPages} pages",
-                                fontSize = 11.sp,
-                                color = TextMuted
-                            )
+                    Column(modifier = Modifier.padding(14.dp).fillMaxWidth()) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    text = file.name,
+                                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold, color = TextPrimary)
+                                )
+                                Text(
+                                    text = "${PdfEngine.formatFileSize(file.length())} • ${totalPages} pages",
+                                    fontSize = 11.sp,
+                                    color = TextMuted
+                                )
+                            }
+
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                IconButton(
+                                    onClick = { isSearchActive = !isSearchActive },
+                                    modifier = Modifier.testTag("toggle_viewer_search")
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Search,
+                                        contentDescription = "Search Text",
+                                        tint = if (isSearchActive) EmeraldPrimary else TextPrimary
+                                    )
+                                }
+
+                                IconButton(
+                                    onClick = onDismiss,
+                                    modifier = Modifier.testTag("close_viewer_button")
+                                ) {
+                                    Icon(imageVector = Icons.Default.Close, contentDescription = "Close", tint = TextPrimary)
+                                }
+                            }
                         }
 
-                        IconButton(
-                            onClick = onDismiss,
-                            modifier = Modifier.testTag("close_viewer_button")
-                        ) {
-                            Icon(imageVector = Icons.Default.Close, contentDescription = "Close", tint = TextPrimary)
+                        // Expandable Search Bar
+                        AnimatedVisibility(visible = isSearchActive) {
+                            Column(modifier = Modifier.padding(top = 10.dp)) {
+                                OutlinedTextField(
+                                    value = searchQuery,
+                                    onValueChange = { searchQuery = it },
+                                    placeholder = { Text("Search text in PDF...", fontSize = 12.sp, color = TextMuted) },
+                                    leadingIcon = { Icon(Icons.Default.Search, contentDescription = null, tint = EmeraldPrimary, modifier = Modifier.size(18.dp)) },
+                                    trailingIcon = if (searchQuery.isNotEmpty()) {
+                                        {
+                                            IconButton(onClick = { searchQuery = "" }, modifier = Modifier.size(20.dp)) {
+                                                Icon(Icons.Default.Close, contentDescription = "Clear", tint = TextMuted, modifier = Modifier.size(14.dp))
+                                            }
+                                        }
+                                    } else null,
+                                    singleLine = true,
+                                    shape = RoundedCornerShape(10.dp),
+                                    colors = OutlinedTextFieldDefaults.colors(
+                                        focusedBorderColor = EmeraldPrimary,
+                                        unfocusedBorderColor = CharcoalCardBorder,
+                                        focusedContainerColor = CharcoalBackground,
+                                        unfocusedContainerColor = CharcoalBackground,
+                                        focusedTextColor = TextPrimary,
+                                        unfocusedTextColor = TextPrimary
+                                    ),
+                                    modifier = Modifier.fillMaxWidth().height(48.dp).testTag("pdf_search_input")
+                                )
+
+                                if (isSearching) {
+                                    Text("Searching PDF text...", fontSize = 11.sp, color = EmeraldPrimary, modifier = Modifier.padding(top = 4.dp))
+                                } else if (searchQuery.isNotBlank()) {
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth().padding(top = 6.dp),
+                                        horizontalArrangement = Arrangement.SpaceBetween,
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        if (searchResults.isEmpty()) {
+                                            Text("No matches found for '$searchQuery'", fontSize = 11.sp, color = TextMuted)
+                                        } else {
+                                            val currentMatch = searchResults.getOrNull(currentMatchIndex)
+                                            Text(
+                                                text = "Match ${currentMatchIndex + 1} of ${searchResults.size} (Page ${currentMatch?.pageNumber})",
+                                                fontSize = 11.sp,
+                                                fontWeight = FontWeight.Bold,
+                                                color = EmeraldPrimary
+                                            )
+
+                                            Row {
+                                                IconButton(
+                                                    onClick = {
+                                                        if (currentMatchIndex > 0) {
+                                                            currentMatchIndex--
+                                                            currentPageIndex = searchResults[currentMatchIndex].pageIndex
+                                                        }
+                                                    },
+                                                    enabled = currentMatchIndex > 0,
+                                                    modifier = Modifier.size(28.dp).testTag("prev_search_match")
+                                                ) {
+                                                    Icon(Icons.Default.ChevronLeft, contentDescription = "Prev Match", tint = if (currentMatchIndex > 0) EmeraldPrimary else TextMuted.copy(alpha = 0.3f))
+                                                }
+
+                                                IconButton(
+                                                    onClick = {
+                                                        if (currentMatchIndex < searchResults.size - 1) {
+                                                            currentMatchIndex++
+                                                            currentPageIndex = searchResults[currentMatchIndex].pageIndex
+                                                        }
+                                                    },
+                                                    enabled = currentMatchIndex < searchResults.size - 1,
+                                                    modifier = Modifier.size(28.dp).testTag("next_search_match")
+                                                ) {
+                                                    Icon(Icons.Default.ChevronRight, contentDescription = "Next Match", tint = if (currentMatchIndex < searchResults.size - 1) EmeraldPrimary else TextMuted.copy(alpha = 0.3f))
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    val currentSnippet = searchResults.getOrNull(currentMatchIndex)?.snippet
+                                    if (currentSnippet != null) {
+                                        Text(
+                                            text = currentSnippet,
+                                            fontSize = 10.sp,
+                                            color = TextMuted,
+                                            maxLines = 2,
+                                            modifier = Modifier.padding(top = 2.dp)
+                                        )
+                                    }
+                                }
+                            }
                         }
                     }
                 }

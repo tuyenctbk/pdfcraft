@@ -38,6 +38,14 @@ class PdfRepository(
         recentDao.deleteByPath(filePath)
     }
 
+    suspend fun removeRecentFiles(filePaths: List<String>) {
+        recentDao.deleteByPaths(filePaths)
+    }
+
+    fun searchRecentFiles(query: String): Flow<List<RecentFileEntity>> {
+        return if (query.isBlank()) recentDao.getRecentFiles() else recentDao.searchRecentFiles(query)
+    }
+
     suspend fun clearRecentFiles() {
         recentDao.clearAll()
     }
@@ -380,6 +388,48 @@ class PdfRepository(
                 resultSizeBytes = outputFile.length(),
                 outputFilePath = outputFile.absolutePath,
                 summaryDetails = "Rotated $rotatedCount pages in ${outputFile.name}"
+            )
+        )
+        return outputFile
+    }
+
+    suspend fun convertImagesToPdf(
+        context: Context,
+        imageUris: List<Uri>,
+        outputName: String
+    ): File {
+        val outputFile = PdfEngine.convertImagesToPdf(context, imageUris, outputName)
+        saveProjectRecord(
+            PdfProjectEntity(
+                title = outputFile.name,
+                operationType = PdfOperationType.IMAGE_TO_PDF,
+                pageCount = imageUris.size,
+                originalSizeBytes = imageUris.size * 100000L,
+                resultSizeBytes = outputFile.length(),
+                outputFilePath = outputFile.absolutePath,
+                summaryDetails = "Converted ${imageUris.size} photos into PDF document ${outputFile.name}"
+            )
+        )
+        return outputFile
+    }
+
+    suspend fun addPageNumbersToPdf(
+        context: Context,
+        sourceUri: Uri,
+        options: com.example.data.pdf.PageNumberOptions,
+        outputName: String,
+        originalSizeBytes: Long
+    ): File {
+        val outputFile = PdfEngine.addPageNumbersToPdf(context, sourceUri, options, outputName)
+        saveProjectRecord(
+            PdfProjectEntity(
+                title = outputFile.name,
+                operationType = PdfOperationType.PAGE_NUMBER,
+                pageCount = 1,
+                originalSizeBytes = originalSizeBytes,
+                resultSizeBytes = outputFile.length(),
+                outputFilePath = outputFile.absolutePath,
+                summaryDetails = "Applied custom ${options.position.name} page numbers into ${outputFile.name}"
             )
         )
         return outputFile

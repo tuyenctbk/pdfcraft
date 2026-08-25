@@ -48,6 +48,10 @@
     <string name="tool_sign_desc">Add cryptographic signature blocks</string>
     <string name="tool_metadata_title">Edit Metadata</string>
     <string name="tool_metadata_desc">Update title, author, subject, and keywords</string>
+    <string name="tool_image_to_pdf_title">Image to PDF</string>
+    <string name="tool_image_to_pdf_desc">Convert photos or gallery images into a PDF document</string>
+    <string name="tool_page_number_title">Add Page Numbers</string>
+    <string name="tool_page_number_desc">Overlay customizable page numbers on headers or footers</string>
 
     <!-- Rotate Screen -->
     <string name="rotate_screen_title">Rotate PDF Pages</string>
