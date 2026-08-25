@@ -77,12 +77,15 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.size
 import com.example.ui.theme.ThemeMode
 
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+
 class MainActivity : ComponentActivity() {
     companion object {
         private const val TAG = "PDFCraft_Logcat"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         Log.d(TAG, "MainActivity.onCreate() initiated")
 

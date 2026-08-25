@@ -324,7 +324,7 @@ fun SettingsScreen(
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
-                        text = "Version 2.4.0 • Built with Jetpack Compose and Apache PDFBox.",
+                        text = "Version 1.4.0 • Built with Jetpack Compose & Apache PDFBox.",
                         style = MaterialTheme.typography.bodyMedium.copy(
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
