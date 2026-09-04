@@ -434,4 +434,89 @@ class PdfRepository(
         )
         return outputFile
     }
+
+    suspend fun convertTextToPdf(
+        context: Context,
+        rawText: String,
+        options: com.example.data.pdf.TextToPdfOptions,
+        outputName: String
+    ): File {
+        val outputFile = com.example.data.pdf.PdfTextAndMediaService.convertTextToPdf(context, rawText, options, outputName)
+        saveProjectRecord(
+            PdfProjectEntity(
+                title = outputFile.name,
+                operationType = PdfOperationType.TEXT_TO_PDF,
+                pageCount = 1,
+                originalSizeBytes = rawText.toByteArray().size.toLong(),
+                resultSizeBytes = outputFile.length(),
+                outputFilePath = outputFile.absolutePath,
+                summaryDetails = "Converted ${rawText.lines().size} lines into PDF document ${outputFile.name}"
+            )
+        )
+        return outputFile
+    }
+
+    suspend fun extractTextFromPdf(
+        context: Context,
+        pdfFile: File
+    ): String {
+        val text = com.example.data.pdf.PdfTextAndMediaService.extractTextFromPdf(pdfFile)
+        saveProjectRecord(
+            PdfProjectEntity(
+                title = "Text_${pdfFile.nameWithoutExtension}.txt",
+                operationType = PdfOperationType.PDF_TO_TEXT,
+                pageCount = 1,
+                originalSizeBytes = pdfFile.length(),
+                resultSizeBytes = text.toByteArray().size.toLong(),
+                outputFilePath = pdfFile.absolutePath,
+                summaryDetails = "Extracted ${text.length} characters from ${pdfFile.name}"
+            )
+        )
+        return text
+    }
+
+    suspend fun renderPdfToImages(
+        context: Context,
+        pdfFile: File,
+        isJpeg: Boolean = false,
+        dpiMultiplier: Float = 2.0f
+    ): List<File> {
+        val outputFiles = com.example.data.pdf.PdfTextAndMediaService.renderPdfToImages(context, pdfFile, isJpeg, dpiMultiplier)
+        if (outputFiles.isNotEmpty()) {
+            val first = outputFiles.first()
+            saveProjectRecord(
+                PdfProjectEntity(
+                    title = "${pdfFile.nameWithoutExtension}_images",
+                    operationType = PdfOperationType.PDF_TO_IMAGES,
+                    pageCount = outputFiles.size,
+                    originalSizeBytes = pdfFile.length(),
+                    resultSizeBytes = outputFiles.sumOf { it.length() },
+                    outputFilePath = first.absolutePath,
+                    summaryDetails = "Rendered ${outputFiles.size} pages into high-res images"
+                )
+            )
+        }
+        return outputFiles
+    }
+
+    suspend fun convertHtmlToPdf(
+        context: Context,
+        htmlContent: String,
+        title: String,
+        outputName: String
+    ): File {
+        val outputFile = com.example.data.pdf.PdfTextAndMediaService.convertHtmlToPdf(context, htmlContent, title, outputName)
+        saveProjectRecord(
+            PdfProjectEntity(
+                title = outputFile.name,
+                operationType = PdfOperationType.HTML_TO_PDF,
+                pageCount = 1,
+                originalSizeBytes = htmlContent.toByteArray().size.toLong(),
+                resultSizeBytes = outputFile.length(),
+                outputFilePath = outputFile.absolutePath,
+                summaryDetails = "Converted HTML markup into PDF document ${outputFile.name}"
+            )
+        )
+        return outputFile
+    }
 }

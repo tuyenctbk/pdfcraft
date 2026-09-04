@@ -644,6 +644,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         _userMessage.value = null
     }
 
+    fun showUserMessage(message: String) {
+        _userMessage.value = message
+    }
+
     private fun loadSamplePdfs() {
         viewModelScope.launch {
             try {
@@ -2119,6 +2123,251 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 onPdfOperationCompleted("page_number")
             } catch (e: Exception) {
                 _userMessage.value = "Failed to add page numbers: ${e.localizedMessage}"
+            } finally {
+                _isProcessing.value = false
+            }
+        }
+    }
+
+    // --- TEXT TO PDF STATE & FUNCTIONS ---
+    private val _textToPdfContent = MutableStateFlow("")
+    val textToPdfContent: StateFlow<String> = _textToPdfContent.asStateFlow()
+
+    private val _textToPdfOptions = MutableStateFlow(com.example.data.pdf.TextToPdfOptions())
+    val textToPdfOptions: StateFlow<com.example.data.pdf.TextToPdfOptions> = _textToPdfOptions.asStateFlow()
+
+    private val _textToPdfOutputName = MutableStateFlow("Document.pdf")
+    val textToPdfOutputName: StateFlow<String> = _textToPdfOutputName.asStateFlow()
+
+    fun setTextToPdfContent(content: String) { _textToPdfContent.value = content }
+    fun setTextToPdfOutputName(name: String) { _textToPdfOutputName.value = name }
+
+    fun updateTextToPdfOptions(
+        title: String? = null,
+        fontSize: Float? = null,
+        lineSpacingMultiplier: Float? = null,
+        marginPt: Float? = null,
+        fontFamily: com.example.data.pdf.TextFontFamily? = null,
+        pageSize: com.example.data.pdf.PageSizeFormat? = null,
+        includePageNumbers: Boolean? = null,
+        includeHeaderDate: Boolean? = null
+    ) {
+        val curr = _textToPdfOptions.value
+        _textToPdfOptions.value = curr.copy(
+            title = title ?: curr.title,
+            fontSize = fontSize ?: curr.fontSize,
+            lineSpacingMultiplier = lineSpacingMultiplier ?: curr.lineSpacingMultiplier,
+            marginPt = marginPt ?: curr.marginPt,
+            fontFamily = fontFamily ?: curr.fontFamily,
+            pageSize = pageSize ?: curr.pageSize,
+            includePageNumbers = includePageNumbers ?: curr.includePageNumbers,
+            includeHeaderDate = includeHeaderDate ?: curr.includeHeaderDate
+        )
+    }
+
+    fun loadTextFromUri(uri: Uri) {
+        viewModelScope.launch {
+            _isProcessing.value = true
+            _processingMessage.value = "Reading text file..."
+            try {
+                val text = com.example.data.pdf.PdfTextAndMediaService.readTextFromUri(getApplication(), uri)
+                _textToPdfContent.value = text
+                val fileName = uri.lastPathSegment?.substringAfterLast('/') ?: "Document.pdf"
+                _textToPdfOutputName.value = "${fileName.substringBeforeLast('.')}.pdf"
+                _userMessage.value = "Imported text file (${text.length} characters)"
+            } catch (e: Exception) {
+                _userMessage.value = "Could not read text: ${e.localizedMessage}"
+            } finally {
+                _isProcessing.value = false
+            }
+        }
+    }
+
+    fun executeTextToPdf() {
+        val text = _textToPdfContent.value
+        if (text.isBlank()) {
+            _userMessage.value = "Please enter or import text to convert."
+            return
+        }
+
+        viewModelScope.launch {
+            _isProcessing.value = true
+            _processingMessage.value = "Formatting and rendering PDF..."
+            try {
+                val outputFile = repository.convertTextToPdf(
+                    context = getApplication(),
+                    rawText = text,
+                    options = _textToPdfOptions.value,
+                    outputName = _textToPdfOutputName.value
+                )
+                _userMessage.value = "Created PDF: ${outputFile.name}!"
+                onPdfOperationCompleted("text_to_pdf")
+            } catch (e: Exception) {
+                _userMessage.value = "Conversion failed: ${e.localizedMessage}"
+            } finally {
+                _isProcessing.value = false
+            }
+        }
+    }
+
+    // --- PDF TO TEXT EXTRACTOR STATE & FUNCTIONS ---
+    private val _pdfToTextSourceUri = MutableStateFlow<Uri?>(null)
+    val pdfToTextSourceUri: StateFlow<Uri?> = _pdfToTextSourceUri.asStateFlow()
+
+    private val _pdfToTextSourceFile = MutableStateFlow<File?>(null)
+    val pdfToTextSourceFile: StateFlow<File?> = _pdfToTextSourceFile.asStateFlow()
+
+    private val _extractedPdfText = MutableStateFlow("")
+    val extractedPdfText: StateFlow<String> = _extractedPdfText.asStateFlow()
+
+    fun setExtractedPdfText(text: String) { _extractedPdfText.value = text }
+
+    fun loadPdfForTextExtraction(uri: Uri) {
+        viewModelScope.launch {
+            _isProcessing.value = true
+            _processingMessage.value = "Extracting text from PDF..."
+            try {
+                val file = PdfEngine.convertAnyFileToPdf(getApplication(), uri)
+                val info = PdfEngine.readPdfMetadata(getApplication(), uri)
+                _pdfToTextSourceUri.value = uri
+                _pdfToTextSourceFile.value = file
+
+                val text = repository.extractTextFromPdf(getApplication(), file)
+                _extractedPdfText.value = text
+
+                recordRecentFileAccess(file, info.pageCount)
+                _userMessage.value = "Extracted ${text.length} characters of text."
+            } catch (e: Exception) {
+                _userMessage.value = "Failed to extract text: ${e.localizedMessage}"
+            } finally {
+                _isProcessing.value = false
+            }
+        }
+    }
+
+    fun clearPdfToText() {
+        _pdfToTextSourceUri.value = null
+        _pdfToTextSourceFile.value = null
+        _extractedPdfText.value = ""
+    }
+
+    // --- PDF TO IMAGES STATE & FUNCTIONS ---
+    private val _pdfToImagesSourceUri = MutableStateFlow<Uri?>(null)
+    val pdfToImagesSourceUri: StateFlow<Uri?> = _pdfToImagesSourceUri.asStateFlow()
+
+    private val _pdfToImagesSourceFile = MutableStateFlow<File?>(null)
+    val pdfToImagesSourceFile: StateFlow<File?> = _pdfToImagesSourceFile.asStateFlow()
+
+    private val _exportedImages = MutableStateFlow<List<File>>(emptyList())
+    val exportedImages: StateFlow<List<File>> = _exportedImages.asStateFlow()
+
+    private val _isJpegImageExport = MutableStateFlow(false)
+    val isJpegImageExport: StateFlow<Boolean> = _isJpegImageExport.asStateFlow()
+
+    fun setIsJpegImageExport(isJpeg: Boolean) { _isJpegImageExport.value = isJpeg }
+
+    fun clearPdfToImages() {
+        _pdfToImagesSourceUri.value = null
+        _pdfToImagesSourceFile.value = null
+        _exportedImages.value = emptyList()
+    }
+
+    fun loadPdfForImageExport(uri: Uri) {
+        viewModelScope.launch {
+            _isProcessing.value = true
+            _processingMessage.value = "Reading PDF document..."
+            try {
+                val file = PdfEngine.convertAnyFileToPdf(getApplication(), uri)
+                val info = PdfEngine.readPdfMetadata(getApplication(), uri)
+                _pdfToImagesSourceUri.value = uri
+                _pdfToImagesSourceFile.value = file
+                _exportedImages.value = emptyList()
+
+                recordRecentFileAccess(file, info.pageCount)
+            } catch (e: Exception) {
+                _userMessage.value = "Could not load PDF: ${e.localizedMessage}"
+            } finally {
+                _isProcessing.value = false
+            }
+        }
+    }
+
+    fun executePdfToImages() {
+        val file = _pdfToImagesSourceFile.value ?: return
+
+        viewModelScope.launch {
+            _isProcessing.value = true
+            _processingMessage.value = "Rendering pages to high-res images..."
+            try {
+                val outputFiles = repository.renderPdfToImages(
+                    context = getApplication(),
+                    pdfFile = file,
+                    isJpeg = _isJpegImageExport.value
+                )
+                _exportedImages.value = outputFiles
+                _userMessage.value = "Rendered ${outputFiles.size} images to device!"
+                onPdfOperationCompleted("pdf_to_images")
+            } catch (e: Exception) {
+                _userMessage.value = "Failed to export images: ${e.localizedMessage}"
+            } finally {
+                _isProcessing.value = false
+            }
+        }
+    }
+
+    // --- HTML TO PDF STATE & FUNCTIONS ---
+    private val _htmlContent = MutableStateFlow("<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody { font-family: sans-serif; padding: 20px; }\nh1 { color: #0284c7; }\np { line-height: 1.6; color: #333; }\n</style>\n</head>\n<body>\n<h1>My Web Document</h1>\n<p>This is a rendered HTML document converted directly into a clean, vector PDF document using PDFCraft.</p>\n</body>\n</html>")
+    val htmlContent: StateFlow<String> = _htmlContent.asStateFlow()
+
+    private val _htmlDocTitle = MutableStateFlow("Web Report")
+    val htmlDocTitle: StateFlow<String> = _htmlDocTitle.asStateFlow()
+
+    private val _htmlOutputName = MutableStateFlow("WebDocument.pdf")
+    val htmlOutputName: StateFlow<String> = _htmlOutputName.asStateFlow()
+
+    fun setHtmlContent(content: String) { _htmlContent.value = content }
+    fun setHtmlDocTitle(title: String) { _htmlDocTitle.value = title }
+    fun setHtmlOutputName(name: String) { _htmlOutputName.value = name }
+
+    fun loadHtmlFromUri(uri: Uri) {
+        viewModelScope.launch {
+            _isProcessing.value = true
+            _processingMessage.value = "Reading HTML file..."
+            try {
+                val text = com.example.data.pdf.PdfTextAndMediaService.readTextFromUri(getApplication(), uri)
+                _htmlContent.value = text
+                val fileName = uri.lastPathSegment?.substringAfterLast('/') ?: "WebDocument.pdf"
+                _htmlOutputName.value = "${fileName.substringBeforeLast('.')}.pdf"
+                _userMessage.value = "Loaded HTML file (${text.length} chars)"
+            } catch (e: Exception) {
+                _userMessage.value = "Could not read HTML: ${e.localizedMessage}"
+            } finally {
+                _isProcessing.value = false
+            }
+        }
+    }
+
+    fun executeHtmlToPdf() {
+        val html = _htmlContent.value
+        if (html.isBlank()) {
+            _userMessage.value = "Please enter or load HTML content."
+            return
+        }
+
+        viewModelScope.launch {
+            _isProcessing.value = true
+            _processingMessage.value = "Converting HTML to PDF..."
+            try {
+                val outputFile = repository.convertHtmlToPdf(
+                    context = getApplication(),
+                    htmlContent = html,
+                    title = _htmlDocTitle.value,
+                    outputName = _htmlOutputName.value
+                )
+                _userMessage.value = "Generated PDF: ${outputFile.name}!"
+                onPdfOperationCompleted("html_to_pdf")
+            } catch (e: Exception) {
+                _userMessage.value = "HTML conversion failed: ${e.localizedMessage}"
             } finally {
                 _isProcessing.value = false
             }

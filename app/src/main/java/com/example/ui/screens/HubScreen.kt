@@ -171,7 +171,120 @@ fun HubScreen(
                 }
             }
 
-            // Quick Access Section (Top 3 Recently Modified or Opened PDF Files)
+            // Quick Actions Header
+            item {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Quick Actions",
+                        style = MaterialTheme.typography.titleMedium.copy(
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onBackground
+                        )
+                    )
+                    TextButton(onClick = { viewModel.selectTab(1) }) {
+                        Text("View All 14 Tools", color = MaterialTheme.colorScheme.primary, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                    }
+                }
+            }
+
+            // Quick Action Grid (2 columns x 4 rows)
+            item {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    QuickActionCard(
+                        title = "Merge PDFs",
+                        subtitle = "Combine files in order",
+                        icon = Icons.Default.Merge,
+                        badge = "POPULAR",
+                        modifier = Modifier.weight(1f),
+                        onClick = { viewModel.setActiveTool(PdfOperationType.MERGE) }
+                    )
+                    QuickActionCard(
+                        title = "Compress",
+                        subtitle = "Reduce document size",
+                        icon = Icons.Default.Compress,
+                        badge = "POPULAR",
+                        modifier = Modifier.weight(1f),
+                        onClick = { viewModel.setActiveTool(PdfOperationType.COMPRESS) }
+                    )
+                }
+            }
+
+            item {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    QuickActionCard(
+                        title = "Text to PDF",
+                        subtitle = "TXT, Markdown & Code",
+                        icon = Icons.Default.TextFields,
+                        badge = "NEW",
+                        modifier = Modifier.weight(1f),
+                        onClick = { viewModel.setActiveTool(PdfOperationType.TEXT_TO_PDF) }
+                    )
+                    QuickActionCard(
+                        title = "PDF to Images",
+                        subtitle = "Export pages to PNG/JPG",
+                        icon = Icons.Default.Image,
+                        badge = "NEW",
+                        modifier = Modifier.weight(1f),
+                        onClick = { viewModel.setActiveTool(PdfOperationType.PDF_TO_IMAGES) }
+                    )
+                }
+            }
+
+            item {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    QuickActionCard(
+                        title = "Images to PDF",
+                        subtitle = "Photos into one document",
+                        icon = Icons.Default.Image,
+                        modifier = Modifier.weight(1f),
+                        onClick = { viewModel.setActiveTool(PdfOperationType.IMAGE_TO_PDF) }
+                    )
+                    QuickActionCard(
+                        title = "Page Numbers",
+                        subtitle = "Add stamps & headers",
+                        icon = Icons.Default.TextFields,
+                        modifier = Modifier.weight(1f),
+                        onClick = { viewModel.setActiveTool(PdfOperationType.PAGE_NUMBER) }
+                    )
+                }
+            }
+
+            item {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    QuickActionCard(
+                        title = "Split PDF",
+                        subtitle = "Extract selected pages",
+                        icon = Icons.Default.ContentCut,
+                        modifier = Modifier.weight(1f),
+                        onClick = { viewModel.setActiveTool(PdfOperationType.SPLIT) }
+                    )
+                    QuickActionCard(
+                        title = "Rotate Pages",
+                        subtitle = "Fix orientation 90°/180°",
+                        icon = Icons.Default.RotateRight,
+                        modifier = Modifier.weight(1f),
+                        onClick = { viewModel.setActiveTool(PdfOperationType.ROTATE) }
+                    )
+                }
+            }
+
+            // Recent Files Section
             item {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
@@ -190,7 +303,7 @@ fun HubScreen(
                             ) {
                                 Box(contentAlignment = Alignment.Center) {
                                     Icon(
-                                        imageVector = Icons.Default.Bolt,
+                                        imageVector = Icons.Default.History,
                                         contentDescription = null,
                                         tint = MaterialTheme.colorScheme.tertiary,
                                         modifier = Modifier.size(16.dp)
@@ -199,28 +312,28 @@ fun HubScreen(
                             }
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = "Quick Access",
+                                text = "Recent Files",
                                 style = MaterialTheme.typography.titleMedium.copy(
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onBackground
                                 )
                             )
                         }
-                        Text(
-                            text = "3 Most Recent",
-                            style = MaterialTheme.typography.bodySmall.copy(
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                fontWeight = FontWeight.Medium
-                            )
-                        )
+
+                        if (recentFiles.isNotEmpty()) {
+                            TextButton(onClick = { viewModel.clearRecentFiles() }) {
+                                Text(
+                                    text = "Clear",
+                                    style = MaterialTheme.typography.bodySmall.copy(
+                                        color = MaterialTheme.colorScheme.primary,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                )
+                            }
+                        }
                     }
 
-                    val quickAccessList = recentFiles.take(3)
-                    AnimatedVisibility(
-                        visible = quickAccessList.isEmpty(),
-                        enter = fadeIn() + expandVertically(),
-                        exit = fadeOut() + shrinkVertically()
-                    ) {
+                    if (recentFiles.isEmpty()) {
                         Card(
                             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)),
                             border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
@@ -256,18 +369,12 @@ fun HubScreen(
                                 }
                             }
                         }
-                    }
-
-                    AnimatedVisibility(
-                        visible = quickAccessList.isNotEmpty(),
-                        enter = fadeIn() + expandVertically(),
-                        exit = fadeOut() + shrinkVertically()
-                    ) {
+                    } else {
                         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                            quickAccessList.forEachIndexed { index, item ->
+                            recentFiles.take(5).forEachIndexed { index, item ->
                                 Card(
                                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)),
+                                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.25f)),
                                     shape = RoundedCornerShape(14.dp),
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -327,185 +434,6 @@ fun HubScreen(
                                                     modifier = Modifier.size(20.dp)
                                                 )
                                             }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            // Quick Actions Header
-            item {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "Quick Actions",
-                        style = MaterialTheme.typography.titleMedium.copy(
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onBackground
-                        )
-                    )
-                    TextButton(onClick = { viewModel.selectTab(1) }) {
-                        Text("View All 10 Tools", color = MaterialTheme.colorScheme.primary, fontSize = 12.sp, fontWeight = FontWeight.Bold)
-                    }
-                }
-            }
-
-            // Quick Action Grid (2 columns x 3 rows)
-            item {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    QuickActionCard(
-                        title = "Merge PDFs",
-                        subtitle = "Combine files in order",
-                        icon = Icons.Default.Merge,
-                        badge = "POPULAR",
-                        modifier = Modifier.weight(1f),
-                        onClick = { viewModel.setActiveTool(PdfOperationType.MERGE) }
-                    )
-                    QuickActionCard(
-                        title = "Compress",
-                        subtitle = "Reduce document size",
-                        icon = Icons.Default.Compress,
-                        badge = "POPULAR",
-                        modifier = Modifier.weight(1f),
-                        onClick = { viewModel.setActiveTool(PdfOperationType.COMPRESS) }
-                    )
-                }
-            }
-
-            item {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    QuickActionCard(
-                        title = "Images to PDF",
-                        subtitle = "Photos into one document",
-                        icon = Icons.Default.Image,
-                        badge = "NEW",
-                        modifier = Modifier.weight(1f),
-                        onClick = { viewModel.setActiveTool(PdfOperationType.IMAGE_TO_PDF) }
-                    )
-                    QuickActionCard(
-                        title = "Page Numbers",
-                        subtitle = "Add stamps & headers",
-                        icon = Icons.Default.TextFields,
-                        badge = "NEW",
-                        modifier = Modifier.weight(1f),
-                        onClick = { viewModel.setActiveTool(PdfOperationType.PAGE_NUMBER) }
-                    )
-                }
-            }
-
-            item {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    QuickActionCard(
-                        title = "Split PDF",
-                        subtitle = "Extract selected pages",
-                        icon = Icons.Default.ContentCut,
-                        modifier = Modifier.weight(1f),
-                        onClick = { viewModel.setActiveTool(PdfOperationType.SPLIT) }
-                    )
-                    QuickActionCard(
-                        title = "Rotate Pages",
-                        subtitle = "Fix orientation 90°/180°",
-                        icon = Icons.Default.RotateRight,
-                        modifier = Modifier.weight(1f),
-                        onClick = { viewModel.setActiveTool(PdfOperationType.ROTATE) }
-                    )
-                }
-            }
-
-            // Recent Files Section
-            item {
-                AnimatedVisibility(
-                    visible = recentFiles.isNotEmpty(),
-                    enter = fadeIn() + expandVertically(),
-                    exit = fadeOut() + shrinkVertically()
-                ) {
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(12.dp),
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = "Recent Files",
-                                style = MaterialTheme.typography.titleMedium.copy(
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.onBackground
-                                )
-                            )
-                            TextButton(onClick = { viewModel.clearRecentFiles() }) {
-                                Text("Clear", color = MaterialTheme.colorScheme.primary)
-                            }
-                        }
-
-                        recentFiles.take(5).forEach { recent ->
-                            Card(
-                                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
-                                shape = RoundedCornerShape(12.dp),
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clickable { viewModel.openInViewer(recent.filePath) }
-                            ) {
-                                Row(
-                                    modifier = Modifier.padding(14.dp),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.Description,
-                                        contentDescription = null,
-                                        tint = MaterialTheme.colorScheme.primary,
-                                        modifier = Modifier.size(24.dp)
-                                    )
-                                    Spacer(modifier = Modifier.width(12.dp))
-                                    Column(modifier = Modifier.weight(1f)) {
-                                        Text(
-                                            text = recent.fileName,
-                                            style = MaterialTheme.typography.bodyMedium.copy(
-                                                fontWeight = FontWeight.Bold,
-                                                color = MaterialTheme.colorScheme.onSurface
-                                            ),
-                                            maxLines = 1
-                                        )
-                                        Text(
-                                            text = "${recent.fileSizeFormatted} • ${recent.pageCount} pages",
-                                            style = MaterialTheme.typography.bodySmall.copy(
-                                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                                            )
-                                        )
-                                    }
-                                    Row {
-                                        IconButton(onClick = { viewModel.inspectFileMetadata(recent.filePath) }) {
-                                            Icon(
-                                                imageVector = Icons.Default.Info,
-                                                contentDescription = "Inspect Metadata",
-                                                tint = MaterialTheme.colorScheme.primary
-                                            )
-                                        }
-                                        IconButton(onClick = { viewModel.openInViewer(recent.filePath) }) {
-                                            Icon(
-                                                imageVector = Icons.AutoMirrored.Filled.OpenInNew,
-                                                contentDescription = "Open Viewer",
-                                                tint = MaterialTheme.colorScheme.primary
-                                            )
                                         }
                                     }
                                 }

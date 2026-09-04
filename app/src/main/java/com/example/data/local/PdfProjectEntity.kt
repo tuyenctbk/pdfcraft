@@ -14,7 +14,11 @@ enum class PdfOperationType {
     METADATA,
     ROTATE,
     IMAGE_TO_PDF,
-    PAGE_NUMBER
+    PAGE_NUMBER,
+    TEXT_TO_PDF,
+    PDF_TO_TEXT,
+    PDF_TO_IMAGES,
+    HTML_TO_PDF
 }
 
 @Entity(tableName = "pdf_projects")

@@ -50,7 +50,8 @@ data class ToolItemData(
     val isNew: Boolean = false,
     val isPopular: Boolean = false,
     val iconTint: Color = Color(0xFF10B981),
-    val containerColor: Color = Color(0xFF064E3B)
+    val containerColor: Color = Color(0xFF064E3B),
+    val keywords: String = ""
 )
 
 val ALL_PDF_TOOLS = listOf(
@@ -62,7 +63,8 @@ val ALL_PDF_TOOLS = listOf(
         category = ToolCategory.CONVERT,
         isPopular = true,
         iconTint = Color(0xFF10B981),
-        containerColor = Color(0xFF064E3B)
+        containerColor = Color(0xFF064E3B),
+        keywords = "merge combine concatenate join append bind pdfs"
     ),
     ToolItemData(
         titleRes = R.string.tool_split_title,
@@ -71,7 +73,8 @@ val ALL_PDF_TOOLS = listOf(
         operationType = PdfOperationType.SPLIT,
         category = ToolCategory.PAGES,
         iconTint = Color(0xFF38BDF8),
-        containerColor = Color(0xFF075985)
+        containerColor = Color(0xFF075985),
+        keywords = "split extract cut separate range pages divide"
     ),
     ToolItemData(
         titleRes = R.string.tool_image_to_pdf_title,
@@ -81,7 +84,8 @@ val ALL_PDF_TOOLS = listOf(
         category = ToolCategory.CONVERT,
         isNew = true,
         iconTint = Color(0xFFA78BFA),
-        containerColor = Color(0xFF4C1D95)
+        containerColor = Color(0xFF4C1D95),
+        keywords = "image images photos camera gallery picture pictures convert snapshot scan"
     ),
     ToolItemData(
         titleRes = R.string.tool_page_number_title,
@@ -91,7 +95,8 @@ val ALL_PDF_TOOLS = listOf(
         category = ToolCategory.PAGES,
         isNew = true,
         iconTint = Color(0xFFFBBF24),
-        containerColor = Color(0xFF78350F)
+        containerColor = Color(0xFF78350F),
+        keywords = "page number numbers header footer stamp numbering count pagination"
     ),
     ToolItemData(
         titleRes = R.string.tool_compress_title,
@@ -101,7 +106,8 @@ val ALL_PDF_TOOLS = listOf(
         category = ToolCategory.OPTIMIZE,
         isPopular = true,
         iconTint = Color(0xFF34D399),
-        containerColor = Color(0xFF065F46)
+        containerColor = Color(0xFF065F46),
+        keywords = "compress reduce optimize shrink small smaller size mb kb storage"
     ),
     ToolItemData(
         titleRes = R.string.tool_rotate_title,
@@ -110,7 +116,8 @@ val ALL_PDF_TOOLS = listOf(
         operationType = PdfOperationType.ROTATE,
         category = ToolCategory.PAGES,
         iconTint = Color(0xFF60A5FA),
-        containerColor = Color(0xFF1E3A8A)
+        containerColor = Color(0xFF1E3A8A),
+        keywords = "rotate rotation angle orientation 90 180 270 degrees turn flip"
     ),
     ToolItemData(
         titleRes = R.string.tool_watermark_title,
@@ -119,7 +126,8 @@ val ALL_PDF_TOOLS = listOf(
         operationType = PdfOperationType.WATERMARK,
         category = ToolCategory.SECURITY,
         iconTint = Color(0xFFF472B6),
-        containerColor = Color(0xFF831843)
+        containerColor = Color(0xFF831843),
+        keywords = "watermark stamp confidential protect overlay logo text draft"
     ),
     ToolItemData(
         titleRes = R.string.tool_sign_title,
@@ -128,7 +136,8 @@ val ALL_PDF_TOOLS = listOf(
         operationType = PdfOperationType.SIGN,
         category = ToolCategory.SECURITY,
         iconTint = Color(0xFFF87171),
-        containerColor = Color(0xFF7F1D1D)
+        containerColor = Color(0xFF7F1D1D),
+        keywords = "sign signature draw autograph legal agreement contract approve"
     ),
     ToolItemData(
         titleRes = R.string.tool_encrypt_title,
@@ -137,7 +146,8 @@ val ALL_PDF_TOOLS = listOf(
         operationType = PdfOperationType.ENCRYPT,
         category = ToolCategory.SECURITY,
         iconTint = Color(0xFFFB923C),
-        containerColor = Color(0xFF7C2D12)
+        containerColor = Color(0xFF7C2D12),
+        keywords = "encrypt password lock protection protect secure security pin code"
     ),
     ToolItemData(
         titleRes = R.string.tool_metadata_title,
@@ -146,7 +156,52 @@ val ALL_PDF_TOOLS = listOf(
         operationType = PdfOperationType.METADATA,
         category = ToolCategory.OPTIMIZE,
         iconTint = Color(0xFF2DD4BF),
-        containerColor = Color(0xFF134E4A)
+        containerColor = Color(0xFF134E4A),
+        keywords = "metadata edit properties title author subject keywords tags info"
+    ),
+    ToolItemData(
+        titleRes = R.string.tool_text_to_pdf_title,
+        descRes = R.string.tool_text_to_pdf_desc,
+        icon = Icons.Default.TextFields,
+        operationType = PdfOperationType.TEXT_TO_PDF,
+        category = ToolCategory.CONVERT,
+        isNew = true,
+        iconTint = Color(0xFF38BDF8),
+        containerColor = Color(0xFF0C4A6E),
+        keywords = "text markdown csv txt notes code txt to pdf convert editor source"
+    ),
+    ToolItemData(
+        titleRes = R.string.tool_pdf_to_text_title,
+        descRes = R.string.tool_pdf_to_text_desc,
+        icon = Icons.Default.Description,
+        operationType = PdfOperationType.PDF_TO_TEXT,
+        category = ToolCategory.CONVERT,
+        isNew = true,
+        iconTint = Color(0xFFF59E0B),
+        containerColor = Color(0xFF78350F),
+        keywords = "pdf to text extract text stripper copy export ocr readable words"
+    ),
+    ToolItemData(
+        titleRes = R.string.tool_pdf_to_images_title,
+        descRes = R.string.tool_pdf_to_images_desc,
+        icon = Icons.Default.Image,
+        operationType = PdfOperationType.PDF_TO_IMAGES,
+        category = ToolCategory.CONVERT,
+        isNew = true,
+        iconTint = Color(0xFFEC4899),
+        containerColor = Color(0xFF831843),
+        keywords = "pdf to images photos render pages png jpeg jpg gallery pictures"
+    ),
+    ToolItemData(
+        titleRes = R.string.tool_html_to_pdf_title,
+        descRes = R.string.tool_html_to_pdf_desc,
+        icon = Icons.Default.Edit,
+        operationType = PdfOperationType.HTML_TO_PDF,
+        category = ToolCategory.CONVERT,
+        isNew = true,
+        iconTint = Color(0xFF8B5CF6),
+        containerColor = Color(0xFF4C1D95),
+        keywords = "html to pdf web markup website page css convert table"
     )
 )
 
@@ -158,12 +213,17 @@ fun ToolsScreen(
     var searchQuery by remember { mutableStateOf("") }
     var selectedCategory by remember { mutableStateOf(ToolCategory.ALL) }
 
+    val context = androidx.compose.ui.platform.LocalContext.current
     val filteredTools = remember(searchQuery, selectedCategory) {
         ALL_PDF_TOOLS.filter { tool ->
             val matchesCategory = selectedCategory == ToolCategory.ALL || tool.category == selectedCategory
-            val matchesSearch = searchQuery.isBlank() ||
-                    tool.operationType.name.contains(searchQuery, ignoreCase = true) ||
-                    tool.category.name.contains(searchQuery, ignoreCase = true)
+            val query = searchQuery.trim().lowercase()
+            val matchesSearch = query.isBlank() ||
+                    tool.operationType.name.lowercase().contains(query) ||
+                    tool.category.title.lowercase().contains(query) ||
+                    tool.keywords.lowercase().contains(query) ||
+                    context.getString(tool.titleRes).lowercase().contains(query) ||
+                    context.getString(tool.descRes).lowercase().contains(query)
             matchesCategory && matchesSearch
         }
     }

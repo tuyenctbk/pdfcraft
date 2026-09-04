@@ -559,6 +559,10 @@ fun LibraryScreen(
                                 PdfOperationType.ROTATE -> Icons.Default.Refresh
                                 PdfOperationType.IMAGE_TO_PDF -> Icons.Default.Image
                                 PdfOperationType.PAGE_NUMBER -> Icons.Default.TextFields
+                                PdfOperationType.TEXT_TO_PDF -> Icons.Default.TextFields
+                                PdfOperationType.PDF_TO_TEXT -> Icons.Default.TextFields
+                                PdfOperationType.PDF_TO_IMAGES -> Icons.Default.Image
+                                PdfOperationType.HTML_TO_PDF -> Icons.Default.Edit
                             }
                             Box(
                                 modifier = Modifier
@@ -620,7 +624,11 @@ fun LibraryScreen(
                                             try {
                                                 val uri = FileProvider.getUriForFile(context, "${context.packageName}.provider", file)
                                                 val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                                                    type = if (item.operationType == PdfOperationType.EXTRACT) "image/*" else "application/pdf"
+                                                    type = when (item.operationType) {
+                                                        PdfOperationType.EXTRACT, PdfOperationType.PDF_TO_IMAGES -> "image/*"
+                                                        PdfOperationType.PDF_TO_TEXT -> "text/plain"
+                                                        else -> "application/pdf"
+                                                    }
                                                     putExtra(Intent.EXTRA_STREAM, uri)
                                                     addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                                                 }
@@ -783,7 +791,11 @@ fun LibraryScreen(
                                 try {
                                     val uri = FileProvider.getUriForFile(context, "${context.packageName}.provider", file)
                                     val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                                        type = if (p.operationType == PdfOperationType.EXTRACT) "image/*" else "application/pdf"
+                                        type = when (p.operationType) {
+                                            PdfOperationType.EXTRACT, PdfOperationType.PDF_TO_IMAGES -> "image/*"
+                                            PdfOperationType.PDF_TO_TEXT -> "text/plain"
+                                            else -> "application/pdf"
+                                        }
                                         putExtra(Intent.EXTRA_STREAM, uri)
                                         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                                     }

@@ -64,13 +64,13 @@ fun ImageToPdfScreen(
             val photoFile = File.createTempFile("camera_photo_", ".jpg", context.cacheDir)
             val uri = FileProvider.getUriForFile(
                 context,
-                "${context.packageName}.fileprovider",
+                "${context.packageName}.provider",
                 photoFile
             )
             tempCameraUri = uri
             cameraLauncher.launch(uri)
         } catch (e: Exception) {
-            viewModel.setEncryptOutputName("Failed to launch camera: ${e.localizedMessage}")
+            viewModel.showUserMessage("Failed to launch camera: ${e.localizedMessage}")
         }
     }
 

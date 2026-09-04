@@ -62,6 +62,10 @@ import com.example.ui.screens.SignScreen
 import com.example.ui.screens.SplitScreen
 import com.example.ui.screens.ToolsScreen
 import com.example.ui.screens.WatermarkScreen
+import com.example.ui.screens.TextToPdfScreen
+import com.example.ui.screens.PdfToTextScreen
+import com.example.ui.screens.PdfToImagesScreen
+import com.example.ui.screens.HtmlToPdfScreen
 import com.example.ui.theme.PDFCraftTheme
 import com.example.ui.components.SuggestRateDialog
 import com.example.ui.components.SuggestShareDialog
@@ -175,6 +179,10 @@ fun PDFCraftApp(
                     PdfOperationType.ROTATE -> RotateScreen(viewModel = viewModel, onNavigateBack = { viewModel.setActiveTool(null) })
                     PdfOperationType.IMAGE_TO_PDF -> ImageToPdfScreen(viewModel = viewModel)
                     PdfOperationType.PAGE_NUMBER -> PageNumberScreen(viewModel = viewModel)
+                    PdfOperationType.TEXT_TO_PDF -> TextToPdfScreen(viewModel = viewModel)
+                    PdfOperationType.PDF_TO_TEXT -> PdfToTextScreen(viewModel = viewModel)
+                    PdfOperationType.PDF_TO_IMAGES -> PdfToImagesScreen(viewModel = viewModel)
+                    PdfOperationType.HTML_TO_PDF -> HtmlToPdfScreen(viewModel = viewModel)
                     else -> {}
                 }
             } else {

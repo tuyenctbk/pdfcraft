@@ -39,6 +39,7 @@ import androidx.compose.ui.res.stringResource
 import com.example.R
 import com.example.data.pdf.PdfEngine
 import com.example.ui.MainViewModel
+import com.example.ui.components.PdfDocumentPickerCard
 import com.example.ui.components.PdfDocumentPreviewCard
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -129,65 +130,17 @@ fun RotateScreen(
                 verticalArrangement = Arrangement.spacedBy(14.dp)
             ) {
                 if (rotateSourceFile == null) {
-                    // Empty state: Select document
-                    Card(
-                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
-                        shape = RoundedCornerShape(20.dp),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 24.dp)
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(28.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Surface(
-                                shape = CircleShape,
-                                color = MaterialTheme.colorScheme.primaryContainer,
-                                modifier = Modifier.size(64.dp)
-                            ) {
-                                Box(contentAlignment = Alignment.Center) {
-                                    Icon(
-                                        imageVector = Icons.Default.RotateRight,
-                                        contentDescription = null,
-                                        tint = MaterialTheme.colorScheme.primary,
-                                        modifier = Modifier.size(32.dp)
-                                    )
-                                }
-                            }
-
-                            Spacer(modifier = Modifier.height(16.dp))
-
-                            Text(
-                                text = stringResource(R.string.rotate_select_pdf_title),
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Bold
-                            )
-
-                            Spacer(modifier = Modifier.height(6.dp))
-
-                            Text(
-                                text = stringResource(R.string.rotate_select_pdf_desc),
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-
-                            Spacer(modifier = Modifier.height(20.dp))
-
-                            Button(
-                                onClick = { filePickerLauncher.launch(arrayOf("application/pdf")) },
-                                shape = RoundedCornerShape(12.dp),
-                                modifier = Modifier.testTag("select_pdf_for_rotate_button")
-                            ) {
-                                Icon(Icons.Default.FolderOpen, contentDescription = null, modifier = Modifier.size(18.dp))
-                                Spacer(modifier = Modifier.width(8.dp))
-                                Text(stringResource(R.string.rotate_choose_file), fontWeight = FontWeight.Bold)
-                            }
-                        }
-                    }
+                    PdfDocumentPickerCard(
+                        selectedFile = null,
+                        onFileSelected = { file ->
+                            viewModel.loadPdfForRotate(android.net.Uri.fromFile(file))
+                        },
+                        title = stringResource(R.string.rotate_select_pdf_title),
+                        subtitle = stringResource(R.string.rotate_select_pdf_desc),
+                        icon = Icons.Default.RotateRight,
+                        testTagPrefix = "rotate_pdf_picker",
+                        modifier = Modifier.padding(top = 16.dp)
+                    )
                 } else {
                     // Active document loaded state
                     PdfDocumentPreviewCard(

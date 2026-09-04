@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">PDFCraft</string>
+    <string name="tab_hub">Trang chủ</string>
+    <string name="tab_tools">Công cụ</string>
     <string name="tab_merge">Gộp</string>
     <string name="tab_split">Chia</string>
     <string name="tab_compress">Nén</string>
     <string name="tab_library">Thư viện</string>
+    <string name="tab_settings">Cài đặt</string>
+
+    <!-- Onboarding -->
     <string name="onboarding_skip">Bỏ qua</string>
     <string name="onboarding_next">Tiếp theo</string>
     <string name="onboarding_get_started">Bắt đầu</string>
     <string name="onboarding_title_1">100% trên thiết bị &amp; Riêng tư</string>
-    <string name="onboarding_desc_1">Xử lý, gộp, chia và nén tài liệu PDF trực tiếp trên thiết bị của bạn. Không tải lên đám mây.</string>
+    <string name="onboarding_desc_1">Xử lý, gộp, chia và nén tài liệu PDF trực tiếp trên thiết bị của bạn. Không tải lên đám mây, bảo mật tuyệt đối.</string>
     <string name="onboarding_title_2">Truy cập bộ nhớ cục bộ</string>
-    <string name="onboarding_desc_2">Cấp quyền bộ nhớ để dễ dàng nhập tài liệu và lưu file PDF.</string>
+    <string name="onboarding_desc_2">Cấp quyền bộ nhớ để dễ dàng nhập tài liệu và lưu file PDF trực tiếp vào thư mục Tải về.</string>
     <string name="onboarding_title_3">Hiệu suất nhanh &amp; Ngoại tuyến</string>
-    <string name="onboarding_desc_3">Trải nghiệm xử lý PDF siêu tốc mà không cần kết nối internet.</string>
+    <string name="onboarding_desc_3">Trải nghiệm xử lý PDF siêu tốc mà không cần kết nối internet. Tùy chỉnh nén và trích xuất trang dễ dàng.</string>
     <string name="grant_permission">Cấp quyền</string>
     <string name="permission_granted">Đã cấp quyền ✓</string>
+
+    <!-- Actions & Common -->
     <string name="action_merge">Gộp PDF</string>
     <string name="action_split">Chia PDF</string>
     <string name="action_compress">Nén PDF</string>
@@ -26,6 +33,27 @@
     <string name="action_close">Đóng</string>
     <string name="action_view">Xem</string>
     <string name="action_select_files">Chọn tệp</string>
+    <string name="action_change">Đổi tệp</string>
+    <string name="action_remove">Gỡ bỏ</string>
+    <string name="action_copy">Sao chép</string>
+    <string name="action_export">Xuất file</string>
+    <string name="action_clear">Xóa sạch</string>
+    <string name="action_reset">Đặt lại</string>
+    <string name="action_preview">Xem trước</string>
+    <string name="action_view_pdf">Xem PDF</string>
+    <string name="action_select_all">Chọn tất cả</string>
+    <string name="action_done">Xong</string>
+
+    <!-- Document Picker Component -->
+    <string name="picker_select_pdf_title">Chọn tài liệu PDF</string>
+    <string name="picker_select_pdf_subtitle">Chọn tệp PDF từ bộ nhớ thiết bị của bạn để bắt đầu</string>
+    <string name="picker_select_multiple_pdfs_title">Chọn nhiều tài liệu PDF</string>
+    <string name="picker_select_multiple_pdfs_subtitle">Chọn nhiều tệp PDF để gộp hoặc xử lý hàng loạt</string>
+    <string name="picker_browse_files">Duyệt tệp</string>
+    <string name="picker_add_pdfs">Thêm tệp PDF</string>
+    <string name="picker_error_reading_file">Không thể đọc tệp đã chọn. Vui lòng thử lại với tệp khác.</string>
+    <string name="picker_no_doc_selected">Chưa chọn tài liệu nào</string>
+    <string name="picker_select_prompt">Chọn tệp PDF để xem trước trực tiếp và chỉnh sửa</string>
 
     <!-- Tools & Features -->
     <string name="tool_rotate_title">Xoay trang</string>
@@ -44,6 +72,56 @@
     <string name="tool_sign_desc">Thêm khối chữ ký số chuyên nghiệp</string>
     <string name="tool_metadata_title">Sửa Metadata</string>
     <string name="tool_metadata_desc">Cập nhật tiêu đề, tác giả, chủ đề và từ khóa</string>
+    <string name="tool_image_to_pdf_title">Ảnh sang PDF</string>
+    <string name="tool_image_to_pdf_desc">Chuyển đổi ảnh hoặc bộ sưu tập thành tài liệu PDF</string>
+    <string name="tool_page_number_title">Thêm số trang</string>
+    <string name="tool_page_number_desc">Tùy chỉnh chèn số trang ở đầu trang hoặc chân trang</string>
+    <string name="tool_text_to_pdf_title">Văn bản sang PDF</string>
+    <string name="tool_text_to_pdf_desc">Chuyển đổi ghi chú TXT, Markdown, CSV và mã nguồn sang PDF</string>
+    <string name="tool_pdf_to_text_title">Trích xuất văn bản</string>
+    <string name="tool_pdf_to_text_desc">Trích xuất, xem và chỉnh sửa văn bản thô từ tài liệu PDF</string>
+    <string name="tool_pdf_to_images_title">PDF sang ảnh</string>
+    <string name="tool_pdf_to_images_desc">Kết xuất và xuất các trang PDF thành ảnh chất lượng cao</string>
+    <string name="tool_html_to_pdf_title">HTML sang PDF</string>
+    <string name="tool_html_to_pdf_desc">Chuyển đổi tài liệu HTML và mã web thành PDF sắc nét</string>
+
+    <!-- Hub Screen -->
+    <string name="hub_hero_title">PDFCraft Studio</string>
+    <string name="hub_hero_subtitle">Bộ xử lý PDF bảo mật trên thiết bị • Không qua đám mây</string>
+    <string name="hub_metric_processed">ĐÃ XỬ LÝ</string>
+    <string name="hub_metric_saved">TIẾT KIỆM</string>
+    <string name="hub_metric_privacy">BẢO MẬT</string>
+    <string name="hub_privacy_value">100% Cục bộ</string>
+    <string name="hub_quick_actions">Thao tác nhanh</string>
+    <string name="hub_view_all_tools">Xem tất cả 14 công cụ</string>
+    <string name="hub_recent_activity">Tài liệu gần đây</string>
+    <string name="hub_empty_recent">Chưa có tệp nào gần đây. Hãy chọn một công cụ ở trên để bắt đầu!</string>
+
+    <!-- Library Screen -->
+    <string name="library_title">Thư viện dự án</string>
+    <string name="library_search_hint">Tìm kiếm PDF, ghi chú hoặc tệp xuất…</string>
+    <string name="library_empty_title">Thư viện trống</string>
+    <string name="library_empty_subtitle">Các tài liệu bạn xử lý bằng PDFCraft sẽ xuất hiện tại đây.</string>
+    <string name="library_filter_all">Tất cả</string>
+    <string name="library_filter_favorites">Đánh dấu sao</string>
+    <string name="library_sort_recent">Mới nhất</string>
+    <string name="library_sort_name">Tên</string>
+    <string name="library_sort_size">Kích thước</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Cài đặt &amp; Tùy chọn</string>
+    <string name="settings_appearance_header">Giao diện &amp; Chủ đề</string>
+    <string name="settings_dark_mode_title">Chế độ tối</string>
+    <string name="settings_dark_mode_desc">Theo hệ thống hoặc chuyển đổi thủ công</string>
+    <string name="settings_privacy_header">Bảo mật &amp; Quyền riêng tư</string>
+    <string name="settings_offline_title">Công cụ ưu tiên ngoại tuyến</string>
+    <string name="settings_offline_desc">Tất cả các tác vụ chạy hoàn toàn cục bộ trên thiết bị</string>
+    <string name="settings_storage_header">Quản lý bộ nhớ</string>
+    <string name="settings_clear_cache_title">Xóa bộ nhớ đệm tạm thời</string>
+    <string name="settings_clear_cache_desc">Dọn dẹp ảnh thu nhỏ và bộ nhớ kết xuất tạm thời</string>
+    <string name="settings_about_header">Giới thiệu PDFCraft</string>
+    <string name="settings_version_title">Phiên bản ứng dụng</string>
+    <string name="settings_version_val">2.5.0 Pro (Bản ngoại tuyến)</string>
 
     <!-- Rotate Screen -->
     <string name="rotate_screen_title">Xoay trang PDF</string>
@@ -58,6 +136,7 @@
     <string name="rotate_output_name_label">Tên tệp PDF đầu ra</string>
     <string name="rotate_save_button">Lưu PDF đã xoay vào thiết bị</string>
 
+    <!-- AdMob & Polite Ads -->
     <string name="ad_sponsor">Được tài trợ</string>
     <string name="ad_polite_notice">Cảm ơn bạn đã sử dụng PDFCraft! Quảng cáo hỗ trợ phát triển ứng dụng.</string>
     <string name="ad_close">Đóng quảng cáo</string>

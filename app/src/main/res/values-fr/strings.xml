@@ -1,32 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">PDFCraft</string>
+    <string name="tab_hub">Accueil</string>
+    <string name="tab_tools">Outils</string>
     <string name="tab_merge">Fusionner</string>
     <string name="tab_split">Diviser</string>
     <string name="tab_compress">Compresser</string>
     <string name="tab_library">Bibliothèque</string>
+    <string name="tab_settings">Paramètres</string>
+
+    <!-- Onboarding -->
     <string name="onboarding_skip">Passer</string>
     <string name="onboarding_next">Suivant</string>
     <string name="onboarding_get_started">Commencer</string>
-    <string name="onboarding_title_1">100% sur l\'appareil et privé</string>
-    <string name="onboarding_desc_1">Traitez, fusionnez, divisez et compressez vos PDF directement sur votre appareil.</string>
+    <string name="onboarding_title_1">100% Hors-Ligne &amp; Privé</string>
+    <string name="onboarding_desc_1">Traitez, fusionnez, divisez et compressez vos fichiers PDF directement sur votre appareil. Aucun transfert vers le cloud.</string>
     <string name="onboarding_title_2">Accès au stockage local</string>
-    <string name="onboarding_desc_2">Accordez les autorisations pour importer et sauvegarder vos PDF.</string>
-    <string name="onboarding_title_3">Performance rapide et hors ligne</string>
-    <string name="onboarding_desc_3">Traitement PDF ultra-rapide sans connexion Internet.</string>
-    <string name="grant_permission">Accorder l\'autorisation</string>
+    <string name="onboarding_desc_2">Autorisez l\'accès au stockage pour importer des documents et sauvegarder vos PDF directement dans vos Téléchargements.</string>
+    <string name="onboarding_title_3">Rapide et autonome</string>
+    <string name="onboarding_desc_3">Profitez d\'un traitement PDF ultra-rapide sans avoir besoin d\'une connexion Internet.</string>
+    <string name="grant_permission">Autoriser</string>
     <string name="permission_granted">Autorisation accordée ✓</string>
-    <string name="action_merge">Fusionner les PDF</string>
-    <string name="action_split">Diviser le PDF</string>
-    <string name="action_compress">Compresser le PDF</string>
-    <string name="action_save">Enregistrer</string>
+
+    <!-- Actions & Common -->
+    <string name="action_merge">Fusionner PDF</string>
+    <string name="action_split">Diviser PDF</string>
+    <string name="action_compress">Compresser PDF</string>
+    <string name="action_save">Enregistrer PDF</string>
     <string name="action_share">Partager</string>
     <string name="action_delete">Supprimer</string>
     <string name="action_cancel">Annuler</string>
     <string name="action_close">Fermer</string>
-    <string name="action_view">Voir</string>
-    <string name="action_select_files">Sélectionner des fichiers</string>
+    <string name="action_view">Afficher</string>
+    <string name="action_select_files">Sélectionner</string>
+    <string name="action_change">Modifier</string>
+    <string name="action_remove">Retirer</string>
+    <string name="action_copy">Copier</string>
+    <string name="action_export">Exporter</string>
+    <string name="action_clear">Effacer</string>
+    <string name="action_reset">Réinitialiser</string>
+    <string name="action_preview">Aperçu</string>
+    <string name="action_view_pdf">Voir le PDF</string>
+    <string name="action_select_all">Tout sélectionner</string>
+    <string name="action_done">Terminé</string>
+
+    <!-- Document Picker Component -->
+    <string name="picker_select_pdf_title">Sélectionner un document PDF</string>
+    <string name="picker_select_pdf_subtitle">Choisissez un fichier PDF depuis votre appareil pour commencer</string>
+    <string name="picker_select_multiple_pdfs_title">Sélectionner plusieurs PDF</string>
+    <string name="picker_select_multiple_pdfs_subtitle">Choisissez plusieurs fichiers PDF à combiner ou traiter par lots</string>
+    <string name="picker_browse_files">Parcourir les fichiers</string>
+    <string name="picker_add_pdfs">Ajouter des fichiers PDF</string>
+    <string name="picker_error_reading_file">Impossible de lire le fichier sélectionné. Veuillez réessayer avec un autre fichier.</string>
+    <string name="picker_no_doc_selected">Aucun document sélectionné</string>
+    <string name="picker_select_prompt">Sélectionnez un fichier PDF pour activer l\'aperçu en direct</string>
+
+    <!-- Tools & Features -->
+    <string name="tool_rotate_title">Pivoter pages</string>
+    <string name="tool_rotate_desc">Pivotez les pages à 90°, 180° ou 270°</string>
+    <string name="tool_merge_title">Fusionner PDF</string>
+    <string name="tool_merge_desc">Combinez plusieurs fichiers PDF en un seul</string>
+    <string name="tool_split_title">Diviser PDF</string>
+    <string name="tool_split_desc">Extrayez des pages ou divisez le document</string>
+    <string name="tool_compress_title">Compresser PDF</string>
+    <string name="tool_compress_desc">Réduisez la taille du fichier tout en préservant la netteté</string>
+    <string name="tool_encrypt_title">Chiffrer PDF</string>
+    <string name="tool_encrypt_desc">Protégez vos documents confidentiels avec un mot de passe</string>
+    <string name="tool_watermark_title">Filigrane PDF</string>
+    <string name="tool_watermark_desc">Ajoutez un filigrane de texte personnalisé sur toutes les pages</string>
+    <string name="tool_sign_title">Signer PDF</string>
+    <string name="tool_sign_desc">Ajoutez des signatures numériques</string>
+    <string name="tool_metadata_title">Modifier métadonnées</string>
+    <string name="tool_metadata_desc">Modifiez le titre, l\'auteur, le sujet et les mots-clés</string>
+    <string name="tool_image_to_pdf_title">Images en PDF</string>
+    <string name="tool_image_to_pdf_desc">Convertissez vos photos en document PDF</string>
+    <string name="tool_page_number_title">Numéroter pages</string>
+    <string name="tool_page_number_desc">Insérez des numéros de page en en-tête ou pied de page</string>
+    <string name="tool_text_to_pdf_title">Texte en PDF</string>
+    <string name="tool_text_to_pdf_desc">Convertissez notes TXT, Markdown, CSV et code en PDF</string>
+    <string name="tool_pdf_to_text_title">Extraire texte</string>
+    <string name="tool_pdf_to_text_desc">Extrayez et éditez le texte brut de documents PDF</string>
+    <string name="tool_pdf_to_images_title">PDF en images</string>
+    <string name="tool_pdf_to_images_desc">Exportez les pages PDF sous forme d\'images haute résolution</string>
+    <string name="tool_html_to_pdf_title">HTML en PDF</string>
+    <string name="tool_html_to_pdf_desc">Convertissez pages web et balises HTML en PDF parfait</string>
+
+    <!-- Hub Screen -->
+    <string name="hub_hero_title">PDFCraft Studio</string>
+    <string name="hub_hero_subtitle">Moteur PDF local sécurisé • Zéro cloud</string>
+    <string name="hub_metric_processed">TRAITÉS</string>
+    <string name="hub_metric_saved">ÉCONOMISÉ</string>
+    <string name="hub_metric_privacy">CONFIDENTIALITÉ</string>
+    <string name="hub_privacy_value">100% Local</string>
+    <string name="hub_quick_actions">Actions rapides</string>
+    <string name="hub_view_all_tools">Voir les 14 outils</string>
+    <string name="hub_recent_activity">Documents récents</string>
+    <string name="hub_empty_recent">Aucun document récent. Choisissez un outil ci-dessus pour commencer !</string>
+
+    <!-- Library Screen -->
+    <string name="library_title">Bibliothèque de projets</string>
+    <string name="library_search_hint">Rechercher des PDF, notes ou exports…</string>
+    <string name="library_empty_title">La bibliothèque est vide</string>
+    <string name="library_empty_subtitle">Les documents que vous traitez avec PDFCraft s\'afficheront ici.</string>
+    <string name="library_filter_all">Tous</string>
+    <string name="library_filter_favorites">Favoris</string>
+    <string name="library_sort_recent">Plus récent</string>
+    <string name="library_sort_name">Nom</string>
+    <string name="library_sort_size">Taille</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Paramètres &amp; Préférences</string>
+    <string name="settings_appearance_header">Apparence &amp; Thème</string>
+    <string name="settings_dark_mode_title">Mode sombre</string>
+    <string name="settings_dark_mode_desc">Suivre le système ou changer manuellement</string>
+    <string name="settings_privacy_header">Sécurité &amp; Confidentialité</string>
+    <string name="settings_offline_title">Moteur autonome hors-ligne</string>
+    <string name="settings_offline_desc">Toutes les opérations s\'exécutent localement</string>
+    <string name="settings_storage_header">Gestion du stockage</string>
+    <string name="settings_clear_cache_title">Vider le cache temporaire</string>
+    <string name="settings_clear_cache_desc">Supprimer les vignettes et tampons de rendu temporaires</string>
+    <string name="settings_about_header">À propos de PDFCraft</string>
+    <string name="settings_version_title">Version de l\'application</string>
+    <string name="settings_version_val">2.5.0 Pro (Version Hors-Ligne)</string>
+
+    <!-- Rotate Screen -->
+    <string name="rotate_screen_title">Pivoter pages PDF</string>
+    <string name="rotate_screen_subtitle">Pivotez les pages à 90°, 180° ou 270°</string>
+    <string name="rotate_select_pdf_title">Sélectionner un PDF à faire pivoter</string>
+    <string name="rotate_select_pdf_desc">Choisissez un document pour faire pivoter une ou toutes les pages.</string>
+    <string name="rotate_choose_file">Choisir un fichier PDF</string>
+    <string name="rotate_selected_count">Pivoter pages sélectionnées (%1$d/%2$d)</string>
+    <string name="rotate_select_all">Tout sélectionner</string>
+    <string name="rotate_clear_selection">Effacer</string>
+    <string name="rotate_reset_rotations">Réinitialiser rotations</string>
+    <string name="rotate_output_name_label">Nom du fichier PDF de sortie</string>
+    <string name="rotate_save_button">Enregistrer le PDF pivoté sur l\'appareil</string>
+
+    <!-- AdMob & Polite Ads -->
     <string name="ad_sponsor">Sponsorisé</string>
-    <string name="ad_polite_notice">Merci d\'utiliser PDFCraft !</string>
-    <string name="ad_close">Fermer l\'annonce</string>
+    <string name="ad_polite_notice">Merci d\'utiliser PDFCraft ! Les publicités soutiennent le développement continu.</string>
+    <string name="ad_close">Fermer la publicité</string>
 </resources>
