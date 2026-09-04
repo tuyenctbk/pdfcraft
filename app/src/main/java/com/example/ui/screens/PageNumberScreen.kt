@@ -1,4 +1,6 @@
 package com.example.ui.screens
+import com.example.R
+import androidx.compose.ui.res.stringResource
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -119,7 +121,7 @@ fun PageNumberScreen(
                                 ) {
                                     Icon(Icons.Default.PictureAsPdf, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                                     Spacer(modifier = Modifier.width(8.dp))
-                                    Text("Choose PDF File", fontWeight = FontWeight.Bold)
+                                    Text(stringResource(R.string.action_choose_pdf_file), fontWeight = FontWeight.Bold)
                                 }
                             } else {
                                 Row(
@@ -137,7 +139,7 @@ fun PageNumberScreen(
                                     }
 
                                     TextButton(onClick = { filePickerLauncher.launch("application/pdf") }) {
-                                        Text("Change", fontWeight = FontWeight.Bold)
+                                        Text(stringResource(R.string.action_change), fontWeight = FontWeight.Bold)
                                     }
                                 }
                             }
@@ -155,8 +157,8 @@ fun PageNumberScreen(
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Column(modifier = Modifier.padding(16.dp)) {
-                                Text("Format Pattern", style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold))
-                                Text("Use {P} for current page number and {N} for total pages.", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Text(stringResource(R.string.page_number_pattern_title), style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold))
+                                Text(stringResource(R.string.page_number_pattern_desc), fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                 Spacer(modifier = Modifier.height(12.dp))
 
                                 val presetPatterns = listOf("Page {P} of {N}", "Page {P}", "{P} / {N}", "- {P} -")
@@ -176,7 +178,7 @@ fun PageNumberScreen(
                                 OutlinedTextField(
                                     value = options.formatPattern,
                                     onValueChange = { viewModel.updatePageNumberOptions(formatPattern = it) },
-                                    label = { Text("Custom Pattern String") },
+                                    label = { Text(stringResource(R.string.page_number_custom_pattern)) },
                                     singleLine = true,
                                     shape = RoundedCornerShape(12.dp),
                                     modifier = Modifier.fillMaxWidth().testTag("page_number_pattern_input")
@@ -194,7 +196,7 @@ fun PageNumberScreen(
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Column(modifier = Modifier.padding(16.dp)) {
-                                Text("Position & Placement", style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold))
+                                Text(stringResource(R.string.page_number_position), style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold))
                                 Spacer(modifier = Modifier.height(12.dp))
 
                                 val positions = listOf(
@@ -248,7 +250,7 @@ fun PageNumberScreen(
                                 OutlinedTextField(
                                     value = outputName,
                                     onValueChange = { viewModel.setPageNumberOutputName(it) },
-                                    label = { Text("Output PDF Filename") },
+                                    label = { Text(stringResource(R.string.output_file_name_label)) },
                                     singleLine = true,
                                     shape = RoundedCornerShape(12.dp),
                                     modifier = Modifier.fillMaxWidth().testTag("page_number_output_name_input")
@@ -265,7 +267,7 @@ fun PageNumberScreen(
                                 ) {
                                     Icon(Icons.Default.Numbers, contentDescription = null)
                                     Spacer(modifier = Modifier.width(8.dp))
-                                    Text("Overlay Page Numbers", fontWeight = FontWeight.Bold, fontSize = 15.sp)
+                                    Text(stringResource(R.string.page_number_apply_button), fontWeight = FontWeight.Bold, fontSize = 15.sp)
                                 }
                             }
                         }

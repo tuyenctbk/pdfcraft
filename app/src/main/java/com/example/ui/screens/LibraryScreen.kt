@@ -1,4 +1,6 @@
 package com.example.ui.screens
+import com.example.R
+import androidx.compose.ui.res.stringResource
 
 import android.content.Intent
 import android.net.Uri
@@ -191,7 +193,7 @@ fun LibraryScreen(
                             .padding(10.dp)
                     ) {
                         Column {
-                            Text("Total Processed", fontSize = 10.sp, color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold)
+                            Text(stringResource(R.string.library_total_processed), fontSize = 10.sp, color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold)
                             Text("${historyList.size} Files", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                         }
                     }
@@ -204,7 +206,7 @@ fun LibraryScreen(
                             .padding(10.dp)
                     ) {
                         Column {
-                            Text("Space Saved", fontSize = 10.sp, color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold)
+                            Text(stringResource(R.string.library_space_saved), fontSize = 10.sp, color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold)
                             Text(PdfEngine.formatFileSize(totalSavedBytes), fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                         }
                     }
@@ -217,8 +219,8 @@ fun LibraryScreen(
                             .padding(10.dp)
                     ) {
                         Column {
-                            Text("Cloud Cost", fontSize = 10.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Bold)
-                            Text("\$0.00 / mo", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
+                            Text(stringResource(R.string.library_cloud_cost), fontSize = 10.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Bold)
+                            Text(stringResource(R.string.library_cloud_cost_val), fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
                         }
                     }
                 }
@@ -229,7 +231,7 @@ fun LibraryScreen(
                 OutlinedTextField(
                     value = searchQuery,
                     onValueChange = { searchQuery = it },
-                    placeholder = { Text("Search PDF files by title...", fontSize = 13.sp) },
+                    placeholder = { Text(stringResource(R.string.library_search_by_title), fontSize = 13.sp) },
                     leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Search", modifier = Modifier.size(20.dp)) },
                     trailingIcon = {
                         if (searchQuery.isNotEmpty()) {
@@ -294,7 +296,7 @@ fun LibraryScreen(
                                     onClick = { viewModel.selectAllLibraryProjects(sortedList) },
                                     contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp)
                                 ) {
-                                    Text("Select All", fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                                    Text(stringResource(R.string.action_select_all), fontSize = 11.sp, fontWeight = FontWeight.Bold)
                                 }
 
                                 Button(
@@ -307,7 +309,7 @@ fun LibraryScreen(
                                 ) {
                                     Icon(Icons.Default.Edit, contentDescription = null, modifier = Modifier.size(14.dp))
                                     Spacer(modifier = Modifier.width(4.dp))
-                                    Text("Bulk Rename (${selectedProjectIds.size})", fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                                    Text(stringResource(R.string.library_bulk_rename, selectedProjectIds.size), fontSize = 11.sp, fontWeight = FontWeight.Bold)
                                 }
 
                                 IconButton(
@@ -322,7 +324,7 @@ fun LibraryScreen(
                                     contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
                                     modifier = Modifier.testTag("enter_bulk_rename_mode")
                                 ) {
-                                    Text("Select Files to Bulk Rename", fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                                    Text(stringResource(R.string.library_select_files_to_rename), fontSize = 11.sp, fontWeight = FontWeight.Bold)
                                 }
                             }
                         }
@@ -662,7 +664,7 @@ fun LibraryScreen(
         AlertDialog(
             onDismissRequest = { projectToDelete = null },
             icon = { Icon(Icons.Default.Delete, contentDescription = null, tint = MaterialTheme.colorScheme.error) },
-            title = { Text("Delete PDF File?") },
+            title = { Text(stringResource(R.string.library_delete_dialog_title)) },
             text = {
                 Text("Are you sure you want to permanently delete '${project.title}' from storage? This action cannot be undone.")
             },
@@ -674,7 +676,7 @@ fun LibraryScreen(
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
                 ) {
-                    Text("Delete Permanently")
+                    Text(stringResource(R.string.library_delete_dialog_confirm))
                 }
             },
             dismissButton = {
@@ -690,7 +692,7 @@ fun LibraryScreen(
         AlertDialog(
             onDismissRequest = { projectToRename = null },
             icon = { Icon(Icons.Default.Edit, contentDescription = null, tint = MaterialTheme.colorScheme.primary) },
-            title = { Text("Rename PDF File") },
+            title = { Text(stringResource(R.string.library_rename_dialog_title)) },
             text = {
                 Column {
                     Text(
@@ -702,7 +704,7 @@ fun LibraryScreen(
                     OutlinedTextField(
                         value = newFileNameInput,
                         onValueChange = { newFileNameInput = it },
-                        label = { Text("New File Name") },
+                        label = { Text(stringResource(R.string.library_new_file_name)) },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth().testTag("rename_input_field")
                     )
@@ -718,7 +720,7 @@ fun LibraryScreen(
                     },
                     enabled = newFileNameInput.isNotBlank()
                 ) {
-                    Text("Rename")
+                    Text(stringResource(R.string.action_rename))
                 }
             },
             dismissButton = {
@@ -748,7 +750,7 @@ fun LibraryScreen(
                         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                             Icon(Icons.Default.Edit, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                             Spacer(modifier = Modifier.width(12.dp))
-                            Text("Rename File")
+                            Text(stringResource(R.string.library_menu_rename))
                         }
                     }
 
@@ -763,7 +765,7 @@ fun LibraryScreen(
                         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                             Icon(Icons.AutoMirrored.Filled.OpenInNew, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                             Spacer(modifier = Modifier.width(12.dp))
-                            Text("Quick View PDF")
+                            Text(stringResource(R.string.library_menu_quick_view))
                         }
                     }
 
@@ -778,7 +780,7 @@ fun LibraryScreen(
                         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                             Icon(Icons.Default.Info, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                             Spacer(modifier = Modifier.width(12.dp))
-                            Text("Inspect Document Metadata")
+                            Text(stringResource(R.string.library_menu_metadata))
                         }
                     }
 
@@ -810,7 +812,7 @@ fun LibraryScreen(
                         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                             Icon(Icons.Default.Share, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
                             Spacer(modifier = Modifier.width(12.dp))
-                            Text("Share File")
+                            Text(stringResource(R.string.library_menu_share))
                         }
                     }
 
@@ -825,7 +827,7 @@ fun LibraryScreen(
                         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                             Icon(Icons.Default.Delete, contentDescription = null, tint = MaterialTheme.colorScheme.error)
                             Spacer(modifier = Modifier.width(12.dp))
-                            Text("Delete File", color = MaterialTheme.colorScheme.error)
+                            Text(stringResource(R.string.library_menu_delete), color = MaterialTheme.colorScheme.error)
                         }
                     }
                 }
@@ -844,7 +846,7 @@ fun LibraryScreen(
         AlertDialog(
             onDismissRequest = { showBulkRenameDialog = false },
             icon = { Icon(Icons.Default.DriveFileRenameOutline, contentDescription = null, tint = MaterialTheme.colorScheme.primary) },
-            title = { Text("Bulk Rename ${selectedProjectIds.size} Files") },
+            title = { Text(stringResource(R.string.library_bulk_rename_title, selectedProjectIds.size)) },
             text = {
                 Column {
                     Text(
@@ -856,8 +858,8 @@ fun LibraryScreen(
                     OutlinedTextField(
                         value = bulkRenamePatternInput,
                         onValueChange = { bulkRenamePatternInput = it },
-                        label = { Text("Filename Pattern or Prefix") },
-                        placeholder = { Text("e.g. Invoice_{N} or Report_{DATE}_{N}") },
+                        label = { Text(stringResource(R.string.library_pattern_prefix)) },
+                        placeholder = { Text(stringResource(R.string.library_pattern_placeholder)) },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth().testTag("bulk_rename_pattern_input")
                     )
@@ -880,7 +882,7 @@ fun LibraryScreen(
                     enabled = bulkRenamePatternInput.isNotBlank() && selectedProjectIds.isNotEmpty(),
                     modifier = Modifier.testTag("confirm_bulk_rename_button")
                 ) {
-                    Text("Rename ${selectedProjectIds.size} Files")
+                    Text(stringResource(R.string.library_bulk_rename_title, selectedProjectIds.size))
                 }
             },
             dismissButton = {

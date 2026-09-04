@@ -8,8 +8,6 @@
     <string name="tab_compress">Compresser</string>
     <string name="tab_library">Bibliothèque</string>
     <string name="tab_settings">Paramètres</string>
-
-    <!-- Onboarding -->
     <string name="onboarding_skip">Passer</string>
     <string name="onboarding_next">Suivant</string>
     <string name="onboarding_get_started">Commencer</string>
@@ -21,8 +19,6 @@
     <string name="onboarding_desc_3">Profitez d\'un traitement PDF ultra-rapide sans avoir besoin d\'une connexion Internet.</string>
     <string name="grant_permission">Autoriser</string>
     <string name="permission_granted">Autorisation accordée ✓</string>
-
-    <!-- Actions & Common -->
     <string name="action_merge">Fusionner PDF</string>
     <string name="action_split">Diviser PDF</string>
     <string name="action_compress">Compresser PDF</string>
@@ -43,8 +39,6 @@
     <string name="action_view_pdf">Voir le PDF</string>
     <string name="action_select_all">Tout sélectionner</string>
     <string name="action_done">Terminé</string>
-
-    <!-- Document Picker Component -->
     <string name="picker_select_pdf_title">Sélectionner un document PDF</string>
     <string name="picker_select_pdf_subtitle">Choisissez un fichier PDF depuis votre appareil pour commencer</string>
     <string name="picker_select_multiple_pdfs_title">Sélectionner plusieurs PDF</string>
@@ -54,8 +48,6 @@
     <string name="picker_error_reading_file">Impossible de lire le fichier sélectionné. Veuillez réessayer avec un autre fichier.</string>
     <string name="picker_no_doc_selected">Aucun document sélectionné</string>
     <string name="picker_select_prompt">Sélectionnez un fichier PDF pour activer l\'aperçu en direct</string>
-
-    <!-- Tools & Features -->
     <string name="tool_rotate_title">Pivoter pages</string>
     <string name="tool_rotate_desc">Pivotez les pages à 90°, 180° ou 270°</string>
     <string name="tool_merge_title">Fusionner PDF</string>
@@ -84,8 +76,6 @@
     <string name="tool_pdf_to_images_desc">Exportez les pages PDF sous forme d\'images haute résolution</string>
     <string name="tool_html_to_pdf_title">HTML en PDF</string>
     <string name="tool_html_to_pdf_desc">Convertissez pages web et balises HTML en PDF parfait</string>
-
-    <!-- Hub Screen -->
     <string name="hub_hero_title">PDFCraft Studio</string>
     <string name="hub_hero_subtitle">Moteur PDF local sécurisé • Zéro cloud</string>
     <string name="hub_metric_processed">TRAITÉS</string>
@@ -96,8 +86,6 @@
     <string name="hub_view_all_tools">Voir les 14 outils</string>
     <string name="hub_recent_activity">Documents récents</string>
     <string name="hub_empty_recent">Aucun document récent. Choisissez un outil ci-dessus pour commencer !</string>
-
-    <!-- Library Screen -->
     <string name="library_title">Bibliothèque de projets</string>
     <string name="library_search_hint">Rechercher des PDF, notes ou exports…</string>
     <string name="library_empty_title">La bibliothèque est vide</string>
@@ -107,8 +95,6 @@
     <string name="library_sort_recent">Plus récent</string>
     <string name="library_sort_name">Nom</string>
     <string name="library_sort_size">Taille</string>
-
-    <!-- Settings Screen -->
     <string name="settings_title">Paramètres &amp; Préférences</string>
     <string name="settings_appearance_header">Apparence &amp; Thème</string>
     <string name="settings_dark_mode_title">Mode sombre</string>
@@ -122,8 +108,6 @@
     <string name="settings_about_header">À propos de PDFCraft</string>
     <string name="settings_version_title">Version de l\'application</string>
     <string name="settings_version_val">2.5.0 Pro (Version Hors-Ligne)</string>
-
-    <!-- Rotate Screen -->
     <string name="rotate_screen_title">Pivoter pages PDF</string>
     <string name="rotate_screen_subtitle">Pivotez les pages à 90°, 180° ou 270°</string>
     <string name="rotate_select_pdf_title">Sélectionner un PDF à faire pivoter</string>
@@ -135,9 +119,180 @@
     <string name="rotate_reset_rotations">Réinitialiser rotations</string>
     <string name="rotate_output_name_label">Nom du fichier PDF de sortie</string>
     <string name="rotate_save_button">Enregistrer le PDF pivoté sur l\'appareil</string>
-
-    <!-- AdMob & Polite Ads -->
     <string name="ad_sponsor">Sponsorisé</string>
     <string name="ad_polite_notice">Merci d\'utiliser PDFCraft ! Les publicités soutiennent le développement continu.</string>
     <string name="ad_close">Fermer la publicité</string>
+    <string name="action_select_pdf">Sélectionner un PDF</string>
+    <string name="action_clear_all">Tout effacer</string>
+    <string name="action_open_pdf_file">Ouvrir le fichier PDF</string>
+    <string name="action_open_document_file">Ouvrir le document</string>
+    <string name="action_choose_pdf_file">Choisir le fichier PDF</string>
+    <string name="action_processing">Traitement en cours...</string>
+    <string name="action_rendering">Rendu en cours...</string>
+    <string name="action_rename">Renommer</string>
+    <string name="action_delete_permanently">Supprimer définitivement</string>
+    <string name="output_file_name_label">Nom du fichier PDF de sortie</string>
+    <string name="merge_clear_list">Effacer la liste</string>
+    <string name="merge_clear_grid">Effacer la grille</string>
+    <string name="merge_select_files_prompt">Sélectionner des fichiers (PDF, image, texte)</string>
+    <string name="merge_add_more_pdfs">Ajouter d\'autres PDF</string>
+    <string name="merge_output_title_label">Titre du PDF généré</string>
+    <string name="merge_button">Fusionner %1$d documents en PDF</string>
+    <string name="split_odd_pages">Pages impaires</string>
+    <string name="split_even_pages">Pages paires</string>
+    <string name="split_page_range_hint">ex. 1-3, 5, 8-10</string>
+    <string name="split_apply_range">Appliquer la plage</string>
+    <string name="split_extract_button">Extraire les %1$d pages sélectionnées</string>
+    <string name="split_separate_button">Diviser le document en %1$d fichiers</string>
+    <string name="compress_add_pdfs">Ajouter des PDF</string>
+    <string name="compress_batch_button">Tout compresser (%1$d)</string>
+    <string name="compress_single_button">Compresser le PDF</string>
+    <string name="compress_quality_max">Qualité maximale</string>
+    <string name="compress_quality_balanced">Équilibré</string>
+    <string name="compress_quality_compact">Compact / Web</string>
+    <string name="compress_target_size_label">Niveau de compression cible</string>
+    <string name="encrypt_open_file">Ouvrir le PDF à chiffrer</string>
+    <string name="encrypt_open_password_label">Mot de passe d\'ouverture (Requis)</string>
+    <string name="encrypt_open_password_placeholder">Entrez le mot de passe pour ouvrir</string>
+    <string name="encrypt_owner_password_label">Mot de passe d\'autorisation (Optionnel)</string>
+    <string name="encrypt_owner_password_placeholder">Laisser vide pour auto-générer</string>
+    <string name="encrypt_button">Chiffrer &amp; protéger le PDF</string>
+    <string name="sign_open_file">Ouvrir le PDF à signer</string>
+    <string name="sign_signer_name_label">Nom du signataire</string>
+    <string name="sign_reason_label">Motif / Objectif</string>
+    <string name="sign_button">Signer &amp; enregistrer le PDF</string>
+    <string name="metadata_doc_info">Informations du document</string>
+    <string name="metadata_file_name">Nom du fichier</string>
+    <string name="metadata_pages_size">Pages &amp; taille</string>
+    <string name="metadata_creator">Créateur</string>
+    <string name="metadata_producer">Producteur</string>
+    <string name="metadata_created">Créé le : %1$s</string>
+    <string name="metadata_modified">Modifié le : %1$s</string>
+    <string name="metadata_edit_fields">Modifier les métadonnées</string>
+    <string name="metadata_title_label">Titre du document</string>
+    <string name="metadata_title_placeholder">ex. Rapport financier T3 2026</string>
+    <string name="metadata_author_label">Auteur / Organisation</string>
+    <string name="metadata_author_placeholder">ex. Jean Dupont, ACME Corp</string>
+    <string name="metadata_subject_label">Sujet / Résumé</string>
+    <string name="metadata_subject_placeholder">ex. Analyse des bénéfices trimestriels</string>
+    <string name="metadata_keywords_label">Mots-clés</string>
+    <string name="metadata_keywords_placeholder">ex. rapport, finance, trimestriel</string>
+    <string name="metadata_quick_tags">Ajouter des tags rapides :</string>
+    <string name="metadata_quick_presets">Préréglages</string>
+    <string name="metadata_subject_presets">Sujets prédéfinis :</string>
+    <string name="metadata_export_config">Configuration d\'exportation</string>
+    <string name="metadata_save_button">Enregistrer &amp; exporter le PDF</string>
+    <string name="watermark_tab_text">Filigrane texte</string>
+    <string name="watermark_tab_image">Filigrane image</string>
+    <string name="watermark_live_preview">Aperçu en direct du filigrane</string>
+    <string name="watermark_refresh">Actualiser</string>
+    <string name="watermark_generating_preview">Génération de l\'aperçu...</string>
+    <string name="watermark_text_typography">Texte &amp; typographie du filigrane</string>
+    <string name="watermark_text_label">Texte du filigrane</string>
+    <string name="watermark_text_placeholder">ex. CONFIDENTIEL, BROUILLON</string>
+    <string name="watermark_quick_presets">Modèles rapides :</string>
+    <string name="watermark_text_size">Taille : %1$d pt</string>
+    <string name="watermark_text_color">Couleur du texte :</string>
+    <string name="watermark_logo_image">Image du logo en filigrane</string>
+    <string name="watermark_select_logo">Sélectionner l\'image du logo</string>
+    <string name="watermark_change_logo">Changer l\'image du logo</string>
+    <string name="watermark_logo_selected">Logo sélectionné</string>
+    <string name="watermark_logo_scale">Échelle du logo : %1$d%%</string>
+    <string name="watermark_position_transparency">Position &amp; transparence</string>
+    <string name="watermark_opacity">Opacité / Transparence : %1$d%%</string>
+    <string name="watermark_rotation_angle">Angle de rotation :</string>
+    <string name="watermark_placement">Placement / Alignement :</string>
+    <string name="watermark_place_center">Centre</string>
+    <string name="watermark_place_tile">Mosaïque</string>
+    <string name="watermark_place_top_left">Haut gauche</string>
+    <string name="watermark_place_top_right">Haut droite</string>
+    <string name="watermark_place_bottom_left">Bas gauche</string>
+    <string name="watermark_place_bottom_right">Bas droite</string>
+    <string name="watermark_apply_pages">Appliquer aux pages :</string>
+    <string name="watermark_all_pages">Toutes les pages</string>
+    <string name="watermark_first_page">Première page uniquement</string>
+    <string name="watermark_apply_button">Appliquer le filigrane &amp; exporter</string>
+    <string name="text_to_pdf_generating">Génération du PDF...</string>
+    <string name="text_to_pdf_convert_button">Convertir en PDF (%1$d lignes)</string>
+    <string name="text_to_pdf_sample_notes">Exemple de notes</string>
+    <string name="text_to_pdf_sample_csv">Exemple de CSV</string>
+    <string name="text_to_pdf_header_title_label">Titre d\'en-tête (Optionnel)</string>
+    <string name="text_to_pdf_header_title_placeholder">ex. Compte rendu de réunion</string>
+    <string name="text_to_pdf_include_page_numbers">Inclure numéros de page en pied</string>
+    <string name="text_to_pdf_include_date">Inclure la date dans l\'en-tête</string>
+    <string name="text_to_pdf_input_placeholder">Tapez, collez ou importez votre texte, notes ou code ici...</string>
+    <string name="html_to_pdf_converting">Conversion HTML en cours...</string>
+    <string name="html_to_pdf_convert_button">Convertir HTML en PDF</string>
+    <string name="html_to_pdf_sample_report">Exemple de rapport HTML</string>
+    <string name="html_to_pdf_sample_article">Exemple d\'article HTML</string>
+    <string name="html_to_pdf_header_title">Titre d\'en-tête du document</string>
+    <string name="pdf_to_text_words">Mots</string>
+    <string name="pdf_to_text_characters">Caractères</string>
+    <string name="pdf_to_text_lines">Lignes</string>
+    <string name="pdf_to_text_convert_to_pdf">Convertir en PDF</string>
+    <string name="pdf_to_text_extracting">Extraction du texte avec PDFBox...</string>
+    <string name="pdf_to_text_placeholder">Le texte extrait apparaîtra ici...</string>
+    <string name="pdf_to_images_render_button">Rendre toutes les pages en %1$s</string>
+    <string name="pdf_to_images_png">PNG (Sans perte)</string>
+    <string name="pdf_to_images_jpeg">JPEG (Compact)</string>
+    <string name="page_number_pattern_title">Format du motif</string>
+    <string name="page_number_pattern_desc">Utilisez {P} pour la page actuelle et {N} pour le total.</string>
+    <string name="page_number_custom_pattern">Motif personnalisé</string>
+    <string name="page_number_position">Position &amp; emplacement</string>
+    <string name="page_number_apply_button">Appliquer les numéros de page</string>
+    <string name="image_to_pdf_select_photos">Sélectionner des photos</string>
+    <string name="image_to_pdf_capture_photo">Prendre une photo</string>
+    <string name="image_to_pdf_create_button">Créer un PDF multi-pages (%1$d images)</string>
+    <string name="library_total_processed">Total traité</string>
+    <string name="library_space_saved">Espace économisé</string>
+    <string name="library_cloud_cost">Coût cloud</string>
+    <string name="library_cloud_cost_val">0,00 € / mois</string>
+    <string name="library_search_by_title">Rechercher des PDF par titre...</string>
+    <string name="library_bulk_rename">Renommer par lot (%1$d)</string>
+    <string name="library_select_files_to_rename">Sélectionner les fichiers à renommer</string>
+    <string name="library_favorites">Favoris</string>
+    <string name="library_delete_dialog_title">Supprimer le fichier PDF ?</string>
+    <string name="library_delete_dialog_confirm">Supprimer définitivement</string>
+    <string name="library_rename_dialog_title">Renommer le fichier PDF</string>
+    <string name="library_new_file_name">Nouveau nom de fichier</string>
+    <string name="library_menu_rename">Renommer le fichier</string>
+    <string name="library_menu_quick_view">Aperçu rapide</string>
+    <string name="library_menu_metadata">Inspecter les métadonnées</string>
+    <string name="library_menu_share">Partager le fichier</string>
+    <string name="library_menu_delete">Supprimer le fichier</string>
+    <string name="library_bulk_rename_title">Renommer %1$d fichiers</string>
+    <string name="library_pattern_prefix">Préfixe ou motif de nom</string>
+    <string name="library_pattern_placeholder">ex. Facture_{N} ou Rapport_{DATE}_{N}</string>
+    <string name="settings_theme_system">Système</string>
+    <string name="settings_theme_light">Clair</string>
+    <string name="settings_theme_dark">Sombre</string>
+    <string name="settings_privacy_policy">Lire la politique de confidentialité</string>
+    <string name="settings_sign_out">Déconnexion (%1$s)</string>
+    <string name="settings_sign_in_create">Connexion / Créer un compte</string>
+    <string name="settings_clear_temp_files">Effacer les fichiers temporaires</string>
+    <string name="settings_create_account">Créer un compte Firebase</string>
+    <string name="settings_sign_in_title">Se connecter à PDFCraft</string>
+    <string name="settings_email_label">Adresse e-mail</string>
+    <string name="settings_password_label">Mot de passe (min. 6 car.)</string>
+    <string name="settings_have_account">Vous avez déjà un compte ? Connexion</string>
+    <string name="settings_no_account">Pas de compte ? Créer un compte</string>
+    <string name="settings_sign_up">S\'inscrire</string>
+    <string name="settings_sign_in">Se connecter</string>
+    <string name="preview_document_live">Aperçu en direct</string>
+    <string name="preview_search_text_hint">Rechercher du texte dans le PDF...</string>
+    <string name="preview_searching">Recherche dans le PDF...</string>
+    <string name="preview_no_matches">Aucun résultat pour \'%1$s\'</string>
+    <string name="preview_could_not_render">Impossible de charger la page</string>
+    <string name="preview_unable_render">Impossible de générer la page</string>
+    <string name="preview_updating">Mise à jour...</string>
+    <string name="preview_rendering_pdfbox">Rendu avec PDFBox...</string>
+    <string name="preview_zoom_in">Zoom avant</string>
+    <string name="preview_zoom_out">Zoom arrière</string>
+    <string name="preview_reset_zoom">Réinitialiser zoom</string>
+    <string name="dialog_info_arch">Architecture de PDFCraft</string>
+    <string name="dialog_replay_tour">Revoir la présentation</string>
+    <string name="dialog_got_it">J\'ai compris</string>
+    <string name="dialog_share_app">Partager l\'application</string>
+    <string name="dialog_maybe_later">Plus tard</string>
+    <string name="dialog_not_now">Pas maintenant</string>
 </resources>

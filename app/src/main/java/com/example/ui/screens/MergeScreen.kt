@@ -1,4 +1,6 @@
 package com.example.ui.screens
+import com.example.R
+import androidx.compose.ui.res.stringResource
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -185,7 +187,7 @@ fun MergeScreen(
                         ) {
                             Icon(imageVector = Icons.Default.Clear, contentDescription = null, modifier = Modifier.size(16.dp))
                             Spacer(modifier = Modifier.width(4.dp))
-                            Text("Clear List", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                            Text(stringResource(R.string.merge_clear_list), fontSize = 12.sp, fontWeight = FontWeight.Bold)
                         }
                     } else if (selectedMergeModeTab == 1 && pages.isNotEmpty()) {
                         TextButton(
@@ -195,7 +197,7 @@ fun MergeScreen(
                         ) {
                             Icon(imageVector = Icons.Default.Clear, contentDescription = null, modifier = Modifier.size(16.dp))
                             Spacer(modifier = Modifier.width(4.dp))
-                            Text("Clear Grid", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                            Text(stringResource(R.string.merge_clear_grid), fontSize = 12.sp, fontWeight = FontWeight.Bold)
                         }
                     }
                 }
@@ -377,7 +379,7 @@ fun MergeScreen(
                                         contentDescription = null
                                     )
                                     Spacer(modifier = Modifier.width(8.dp))
-                                    Text("Select Files (PDF, Image, Text)", fontWeight = FontWeight.Bold)
+                                    Text(stringResource(R.string.merge_select_files_prompt), fontWeight = FontWeight.Bold)
                                 }
                             }
                         }
@@ -417,7 +419,7 @@ fun MergeScreen(
                             ) {
                                 Icon(imageVector = Icons.Default.Add, contentDescription = null, modifier = Modifier.size(16.dp))
                                 Spacer(modifier = Modifier.width(4.dp))
-                                Text("Add More PDFs", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                Text(stringResource(R.string.merge_add_more_pdfs), fontSize = 12.sp, fontWeight = FontWeight.Bold)
                             }
                         }
 
@@ -571,7 +573,7 @@ fun MergeScreen(
                                 OutlinedTextField(
                                     value = outputName,
                                     onValueChange = { viewModel.setMergeOutputName(it) },
-                                    label = { Text("Output PDF Title", color = MaterialTheme.colorScheme.onSurfaceVariant) },
+                                    label = { Text(stringResource(R.string.merge_output_title_label), color = MaterialTheme.colorScheme.onSurfaceVariant) },
                                     singleLine = true,
                                     colors = OutlinedTextFieldDefaults.colors(
                                         focusedBorderColor = MaterialTheme.colorScheme.primary,
@@ -847,7 +849,7 @@ fun MergeScreen(
                                 OutlinedTextField(
                                     value = outputName,
                                     onValueChange = { viewModel.setMergeOutputName(it) },
-                                    label = { Text("Output Document Title", color = MaterialTheme.colorScheme.onSurfaceVariant) },
+                                    label = { Text(stringResource(R.string.merge_output_title_label), color = MaterialTheme.colorScheme.onSurfaceVariant) },
                                     singleLine = true,
                                     colors = OutlinedTextFieldDefaults.colors(
                                         focusedBorderColor = MaterialTheme.colorScheme.primary,

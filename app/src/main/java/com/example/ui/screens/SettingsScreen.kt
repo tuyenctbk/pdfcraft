@@ -1,4 +1,6 @@
 package com.example.ui.screens
+import com.example.R
+import androidx.compose.ui.res.stringResource
 
 import android.view.ViewGroup
 import android.webkit.WebView
@@ -99,19 +101,19 @@ fun SettingsScreen(
                         FilterChip(
                             selected = themeMode == ThemeMode.SYSTEM,
                             onClick = { viewModel.setThemeMode(ThemeMode.SYSTEM) },
-                            label = { Text("System") },
+                            label = { Text(stringResource(R.string.settings_theme_system)) },
                             modifier = Modifier.weight(1f)
                         )
                         FilterChip(
                             selected = themeMode == ThemeMode.LIGHT,
                             onClick = { viewModel.setThemeMode(ThemeMode.LIGHT) },
-                            label = { Text("Light") },
+                            label = { Text(stringResource(R.string.settings_theme_light)) },
                             modifier = Modifier.weight(1f)
                         )
                         FilterChip(
                             selected = themeMode == ThemeMode.DARK,
                             onClick = { viewModel.setThemeMode(ThemeMode.DARK) },
-                            label = { Text("Dark") },
+                            label = { Text(stringResource(R.string.settings_theme_dark)) },
                             modifier = Modifier.weight(1f)
                         )
                     }
@@ -156,7 +158,7 @@ fun SettingsScreen(
                     ) {
                         Icon(imageVector = Icons.Default.Description, contentDescription = null)
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("Read Full Privacy Policy")
+                        Text(stringResource(R.string.settings_privacy_policy))
                     }
                 }
             }
@@ -294,7 +296,7 @@ fun SettingsScreen(
                         ) {
                             Icon(imageVector = Icons.Default.Delete, contentDescription = null, modifier = Modifier.size(18.dp))
                             Spacer(modifier = Modifier.width(6.dp))
-                            Text("Clear Temp Files")
+                            Text(stringResource(R.string.settings_clear_temp_files))
                         }
                     }
                 }
@@ -400,14 +402,14 @@ fun SettingsScreen(
                     OutlinedTextField(
                         value = authEmail,
                         onValueChange = { authEmail = it },
-                        label = { Text("Email Address") },
+                        label = { Text(stringResource(R.string.settings_email_label)) },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth()
                     )
                     OutlinedTextField(
                         value = authPassword,
                         onValueChange = { authPassword = it },
-                        label = { Text("Password (min 6 chars)") },
+                        label = { Text(stringResource(R.string.settings_password_label)) },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth()
                     )

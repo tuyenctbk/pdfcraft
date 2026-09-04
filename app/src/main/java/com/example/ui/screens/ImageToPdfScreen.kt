@@ -1,4 +1,6 @@
 package com.example.ui.screens
+import com.example.R
+import androidx.compose.ui.res.stringResource
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -123,7 +125,7 @@ fun ImageToPdfScreen(
                             onClick = { viewModel.clearImagesToPdf() },
                             colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
                         ) {
-                            Text("Clear All", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                            Text(stringResource(R.string.action_clear_all), fontSize = 12.sp, fontWeight = FontWeight.Bold)
                         }
                     }
                 }
@@ -144,7 +146,7 @@ fun ImageToPdfScreen(
                 ) {
                     Icon(Icons.Default.Image, contentDescription = null, modifier = Modifier.size(18.dp))
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("Select Photos", fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                    Text(stringResource(R.string.image_to_pdf_select_photos), fontWeight = FontWeight.Bold, fontSize = 13.sp)
                 }
 
                 OutlinedButton(
@@ -154,7 +156,7 @@ fun ImageToPdfScreen(
                 ) {
                     Icon(Icons.Default.CameraAlt, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(18.dp))
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("Capture Photo", fontWeight = FontWeight.Bold, fontSize = 13.sp, color = MaterialTheme.colorScheme.primary)
+                    Text(stringResource(R.string.image_to_pdf_capture_photo), fontWeight = FontWeight.Bold, fontSize = 13.sp, color = MaterialTheme.colorScheme.primary)
                 }
             }
 
@@ -257,7 +259,7 @@ fun ImageToPdfScreen(
                     OutlinedTextField(
                         value = outputName,
                         onValueChange = { viewModel.setImageToPdfOutputName(it) },
-                        label = { Text("Output PDF Filename") },
+                        label = { Text(stringResource(R.string.output_file_name_label)) },
                         singleLine = true,
                         shape = RoundedCornerShape(12.dp),
                         modifier = Modifier.fillMaxWidth().testTag("image_to_pdf_output_name_input")
@@ -274,7 +276,7 @@ fun ImageToPdfScreen(
                     ) {
                         Icon(Icons.Default.PictureAsPdf, contentDescription = null)
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("Create Multi-Page PDF (${selectedImageUris.size} Images)", fontWeight = FontWeight.Bold, fontSize = 15.sp)
+                        Text(stringResource(R.string.image_to_pdf_create_button, selectedImageUris.size), fontWeight = FontWeight.Bold, fontSize = 15.sp)
                     }
                 }
             }

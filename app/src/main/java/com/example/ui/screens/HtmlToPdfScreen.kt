@@ -104,11 +104,11 @@ fun HtmlToPdfScreen(
                                 strokeWidth = 2.dp
                             )
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text("Converting HTML...")
+                            Text(stringResource(R.string.html_to_pdf_converting))
                         } else {
                             Icon(Icons.Default.PictureAsPdf, contentDescription = null)
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text("Convert HTML to PDF", fontWeight = FontWeight.Bold)
+                            Text(stringResource(R.string.html_to_pdf_convert_button), fontWeight = FontWeight.Bold)
                         }
                     }
                 }
@@ -160,7 +160,7 @@ th { background-color: #f1f5f9; }
                             viewModel.setHtmlDocTitle("Financial Report")
                             viewModel.setHtmlOutputName("Financial_Report.pdf")
                         },
-                        label = { Text("Report HTML") },
+                        label = { Text(stringResource(R.string.html_to_pdf_sample_report)) },
                         leadingIcon = { Icon(Icons.Default.Edit, null, modifier = Modifier.size(16.dp)) }
                     )
                     AssistChip(
@@ -185,7 +185,7 @@ blockquote { font-style: italic; border-left: 4px solid #f472b6; padding-left: 1
                             viewModel.setHtmlDocTitle("Executive Brief")
                             viewModel.setHtmlOutputName("Executive_Brief.pdf")
                         },
-                        label = { Text("Article HTML") },
+                        label = { Text(stringResource(R.string.html_to_pdf_sample_article)) },
                         leadingIcon = { Icon(Icons.Default.Description, null, modifier = Modifier.size(16.dp)) }
                     )
                 }
@@ -209,7 +209,7 @@ blockquote { font-style: italic; border-left: 4px solid #f472b6; padding-left: 1
                         OutlinedTextField(
                             value = htmlTitle,
                             onValueChange = { viewModel.setHtmlDocTitle(it) },
-                            label = { Text("Document Header Title") },
+                            label = { Text(stringResource(R.string.html_to_pdf_header_title)) },
                             singleLine = true,
                             shape = RoundedCornerShape(8.dp),
                             modifier = Modifier.fillMaxWidth()
@@ -218,7 +218,7 @@ blockquote { font-style: italic; border-left: 4px solid #f472b6; padding-left: 1
                         OutlinedTextField(
                             value = outputName,
                             onValueChange = { viewModel.setHtmlOutputName(it) },
-                            label = { Text("Output PDF File Name") },
+                            label = { Text(stringResource(R.string.output_file_name_label)) },
                             singleLine = true,
                             shape = RoundedCornerShape(8.dp),
                             modifier = Modifier.fillMaxWidth().testTag("html_to_pdf_output_name_input")

@@ -1,4 +1,6 @@
 package com.example.ui.screens
+import com.example.R
+import androidx.compose.ui.res.stringResource
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -193,7 +195,7 @@ fun EncryptScreen(
                         ) {
                             Icon(imageVector = Icons.Default.FileUpload, contentDescription = null)
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text("Open PDF File to Encrypt", fontWeight = FontWeight.Bold)
+                            Text(stringResource(R.string.encrypt_open_file), fontWeight = FontWeight.Bold)
                         }
                     }
                 }
@@ -236,8 +238,8 @@ fun EncryptScreen(
                             OutlinedTextField(
                                 value = userPassword,
                                 onValueChange = { viewModel.setEncryptUserPassword(it) },
-                                label = { Text("Open Password (Required)") },
-                                placeholder = { Text("Enter password to open PDF") },
+                                label = { Text(stringResource(R.string.encrypt_open_password_label)) },
+                                placeholder = { Text(stringResource(R.string.encrypt_open_password_placeholder)) },
                                 singleLine = true,
                                 visualTransformation = if (showUserPassword) VisualTransformation.None else PasswordVisualTransformation(),
                                 trailingIcon = {
@@ -257,8 +259,8 @@ fun EncryptScreen(
                             OutlinedTextField(
                                 value = ownerPassword,
                                 onValueChange = { viewModel.setEncryptOwnerPassword(it) },
-                                label = { Text("Owner / Permission Password (Optional)") },
-                                placeholder = { Text("Leave blank to auto-generate") },
+                                label = { Text(stringResource(R.string.encrypt_owner_password_label)) },
+                                placeholder = { Text(stringResource(R.string.encrypt_owner_password_placeholder)) },
                                 singleLine = true,
                                 visualTransformation = if (showOwnerPassword) VisualTransformation.None else PasswordVisualTransformation(),
                                 trailingIcon = {
@@ -278,7 +280,7 @@ fun EncryptScreen(
                             OutlinedTextField(
                                 value = outputName,
                                 onValueChange = { viewModel.setEncryptOutputName(it) },
-                                label = { Text("Output File Name") },
+                                label = { Text(stringResource(R.string.output_file_name_label)) },
                                 singleLine = true,
                                 modifier = Modifier.fillMaxWidth().testTag("encrypt_output_name_input")
                             )
@@ -334,7 +336,7 @@ fun EncryptScreen(
                     ) {
                         Icon(imageVector = Icons.Default.Lock, contentDescription = null)
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("Encrypt & Protect PDF", fontWeight = FontWeight.Bold)
+                        Text(stringResource(R.string.encrypt_button), fontWeight = FontWeight.Bold)
                     }
                 }
             }

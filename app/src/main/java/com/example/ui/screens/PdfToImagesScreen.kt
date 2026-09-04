@@ -102,7 +102,7 @@ fun PdfToImagesScreen(
                             } else {
                                 Icon(Icons.Default.Image, contentDescription = null)
                                 Spacer(modifier = Modifier.width(8.dp))
-                                Text("Render All Pages as ${if (isJpeg) "JPEG" else "PNG"}", fontWeight = FontWeight.Bold)
+                                Text(stringResource(R.string.pdf_to_images_render_button, if (isJpeg) "JPEG" else "PNG"), fontWeight = FontWeight.Bold)
                             }
                         }
                     }
@@ -152,12 +152,12 @@ fun PdfToImagesScreen(
                         FilterChip(
                             selected = !isJpeg,
                             onClick = { viewModel.setIsJpegImageExport(false) },
-                            label = { Text("PNG (Lossless)") }
+                            label = { Text(stringResource(R.string.pdf_to_images_png)) }
                         )
                         FilterChip(
                             selected = isJpeg,
                             onClick = { viewModel.setIsJpegImageExport(true) },
-                            label = { Text("JPEG (Compact)") }
+                            label = { Text(stringResource(R.string.pdf_to_images_jpeg)) }
                         )
                     }
                 }

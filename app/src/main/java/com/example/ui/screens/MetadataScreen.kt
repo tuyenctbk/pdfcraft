@@ -1,4 +1,6 @@
 package com.example.ui.screens
+import com.example.R
+import androidx.compose.ui.res.stringResource
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -198,7 +200,7 @@ fun MetadataScreen(
                         ) {
                             Icon(imageVector = Icons.Default.FileUpload, contentDescription = null)
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text("Open Document File", fontWeight = FontWeight.Bold)
+                            Text(stringResource(R.string.action_open_document_file), fontWeight = FontWeight.Bold)
                         }
                     }
                 }
@@ -232,7 +234,7 @@ fun MetadataScreen(
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Icon(imageVector = Icons.Default.Info, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                                 Spacer(modifier = Modifier.width(8.dp))
-                                Text("Document Info", style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold))
+                                Text(stringResource(R.string.metadata_doc_info), style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold))
                             }
 
                             Spacer(modifier = Modifier.height(10.dp))
@@ -242,11 +244,11 @@ fun MetadataScreen(
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Column {
-                                    Text("File Name", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                    Text(stringResource(R.string.metadata_file_name), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                     Text(sourceFile?.name ?: "", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
                                 }
                                 Column(horizontalAlignment = Alignment.End) {
-                                    Text("Pages & Size", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                    Text(stringResource(R.string.metadata_pages_size), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                     Text("$pageCount pages • $fileSizeFormatted", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
                                 }
                             }
@@ -260,13 +262,13 @@ fun MetadataScreen(
                                 ) {
                                     if (creator.isNotBlank()) {
                                         Column {
-                                            Text("Creator", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                            Text(stringResource(R.string.metadata_creator), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                             Text(creator, style = MaterialTheme.typography.bodySmall)
                                         }
                                     }
                                     if (producer.isNotBlank()) {
                                         Column(horizontalAlignment = Alignment.End) {
-                                            Text("Producer", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                            Text(stringResource(R.string.metadata_producer), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                             Text(producer, style = MaterialTheme.typography.bodySmall)
                                         }
                                     }
@@ -296,15 +298,15 @@ fun MetadataScreen(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Column(modifier = Modifier.padding(16.dp)) {
-                            Text("Edit Metadata Fields", style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold))
+                            Text(stringResource(R.string.metadata_edit_fields), style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold))
                             Spacer(modifier = Modifier.height(14.dp))
 
                             // 1. Title
                             OutlinedTextField(
                                 value = title,
                                 onValueChange = { viewModel.setMetadataTitle(it) },
-                                label = { Text("Document Title") },
-                                placeholder = { Text("e.g. Q3 Financial Report 2026") },
+                                label = { Text(stringResource(R.string.metadata_title_label)) },
+                                placeholder = { Text(stringResource(R.string.metadata_title_placeholder)) },
                                 leadingIcon = { Icon(Icons.Default.Title, contentDescription = null) },
                                 singleLine = true,
                                 modifier = Modifier.fillMaxWidth().testTag("metadata_title_input")
@@ -316,8 +318,8 @@ fun MetadataScreen(
                             OutlinedTextField(
                                 value = author,
                                 onValueChange = { viewModel.setMetadataAuthor(it) },
-                                label = { Text("Author / Organization") },
-                                placeholder = { Text("e.g. John Doe, ACME Corp") },
+                                label = { Text(stringResource(R.string.metadata_author_label)) },
+                                placeholder = { Text(stringResource(R.string.metadata_author_placeholder)) },
                                 leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
                                 singleLine = true,
                                 modifier = Modifier.fillMaxWidth().testTag("metadata_author_input")
@@ -329,8 +331,8 @@ fun MetadataScreen(
                             OutlinedTextField(
                                 value = subject,
                                 onValueChange = { viewModel.setMetadataSubject(it) },
-                                label = { Text("Subject / Summary") },
-                                placeholder = { Text("e.g. Quarterly earnings analysis and projections") },
+                                label = { Text(stringResource(R.string.metadata_subject_label)) },
+                                placeholder = { Text(stringResource(R.string.metadata_subject_placeholder)) },
                                 leadingIcon = { Icon(Icons.Default.Topic, contentDescription = null) },
                                 modifier = Modifier.fillMaxWidth().testTag("metadata_subject_input")
                             )
@@ -341,8 +343,8 @@ fun MetadataScreen(
                             OutlinedTextField(
                                 value = keywords,
                                 onValueChange = { viewModel.setMetadataKeywords(it) },
-                                label = { Text("Keywords / Search Tags") },
-                                placeholder = { Text("e.g. report, finance, quarterly, acme") },
+                                label = { Text(stringResource(R.string.metadata_keywords_label)) },
+                                placeholder = { Text(stringResource(R.string.metadata_keywords_placeholder)) },
                                 leadingIcon = { Icon(Icons.Default.Label, contentDescription = null) },
                                 modifier = Modifier.fillMaxWidth().testTag("metadata_keywords_input")
                             )
@@ -350,7 +352,7 @@ fun MetadataScreen(
                             Spacer(modifier = Modifier.height(10.dp))
 
                             // Quick keyword chips
-                            Text("Add Quick Tags:", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Text(stringResource(R.string.metadata_quick_tags), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             Spacer(modifier = Modifier.height(6.dp))
 
                             val tagPresets = listOf("Confidential", "Draft", "Final", "Financial", "Legal", "Marketing", "Report")
@@ -381,10 +383,10 @@ fun MetadataScreen(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Column(modifier = Modifier.padding(16.dp)) {
-                            Text("Quick Presets", style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold))
+                            Text(stringResource(R.string.metadata_quick_presets), style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold))
                             Spacer(modifier = Modifier.height(10.dp))
 
-                            Text("Subject Presets:", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Text(stringResource(R.string.metadata_subject_presets), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             Spacer(modifier = Modifier.height(6.dp))
 
                             val subjectPresets = listOf("Annual Report", "Business Proposal", "Contract Agreement", "Project Spec", "Meeting Agenda")
@@ -410,13 +412,13 @@ fun MetadataScreen(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Column(modifier = Modifier.padding(16.dp)) {
-                            Text("Export Configuration", style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold))
+                            Text(stringResource(R.string.metadata_export_config), style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold))
                             Spacer(modifier = Modifier.height(12.dp))
 
                             OutlinedTextField(
                                 value = outputName,
                                 onValueChange = { viewModel.setMetadataOutputName(it) },
-                                label = { Text("Output PDF File Name") },
+                                label = { Text(stringResource(R.string.output_file_name_label)) },
                                 singleLine = true,
                                 modifier = Modifier.fillMaxWidth().testTag("metadata_output_name_input")
                             )
@@ -444,7 +446,7 @@ fun MetadataScreen(
                     ) {
                         Icon(imageVector = Icons.Default.Save, contentDescription = null)
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("Save Metadata & Export PDF", fontWeight = FontWeight.Bold)
+                        Text(stringResource(R.string.metadata_save_button), fontWeight = FontWeight.Bold)
                     }
                 }
             }

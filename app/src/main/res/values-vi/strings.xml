@@ -8,8 +8,6 @@
     <string name="tab_compress">Nén</string>
     <string name="tab_library">Thư viện</string>
     <string name="tab_settings">Cài đặt</string>
-
-    <!-- Onboarding -->
     <string name="onboarding_skip">Bỏ qua</string>
     <string name="onboarding_next">Tiếp theo</string>
     <string name="onboarding_get_started">Bắt đầu</string>
@@ -21,8 +19,6 @@
     <string name="onboarding_desc_3">Trải nghiệm xử lý PDF siêu tốc mà không cần kết nối internet. Tùy chỉnh nén và trích xuất trang dễ dàng.</string>
     <string name="grant_permission">Cấp quyền</string>
     <string name="permission_granted">Đã cấp quyền ✓</string>
-
-    <!-- Actions & Common -->
     <string name="action_merge">Gộp PDF</string>
     <string name="action_split">Chia PDF</string>
     <string name="action_compress">Nén PDF</string>
@@ -43,8 +39,6 @@
     <string name="action_view_pdf">Xem PDF</string>
     <string name="action_select_all">Chọn tất cả</string>
     <string name="action_done">Xong</string>
-
-    <!-- Document Picker Component -->
     <string name="picker_select_pdf_title">Chọn tài liệu PDF</string>
     <string name="picker_select_pdf_subtitle">Chọn tệp PDF từ bộ nhớ thiết bị của bạn để bắt đầu</string>
     <string name="picker_select_multiple_pdfs_title">Chọn nhiều tài liệu PDF</string>
@@ -54,8 +48,6 @@
     <string name="picker_error_reading_file">Không thể đọc tệp đã chọn. Vui lòng thử lại với tệp khác.</string>
     <string name="picker_no_doc_selected">Chưa chọn tài liệu nào</string>
     <string name="picker_select_prompt">Chọn tệp PDF để xem trước trực tiếp và chỉnh sửa</string>
-
-    <!-- Tools & Features -->
     <string name="tool_rotate_title">Xoay trang</string>
     <string name="tool_rotate_desc">Xoay hướng trang theo 90°, 180° hoặc 270°</string>
     <string name="tool_merge_title">Gộp PDF</string>
@@ -84,8 +76,6 @@
     <string name="tool_pdf_to_images_desc">Kết xuất và xuất các trang PDF thành ảnh chất lượng cao</string>
     <string name="tool_html_to_pdf_title">HTML sang PDF</string>
     <string name="tool_html_to_pdf_desc">Chuyển đổi tài liệu HTML và mã web thành PDF sắc nét</string>
-
-    <!-- Hub Screen -->
     <string name="hub_hero_title">PDFCraft Studio</string>
     <string name="hub_hero_subtitle">Bộ xử lý PDF bảo mật trên thiết bị • Không qua đám mây</string>
     <string name="hub_metric_processed">ĐÃ XỬ LÝ</string>
@@ -96,8 +86,6 @@
     <string name="hub_view_all_tools">Xem tất cả 14 công cụ</string>
     <string name="hub_recent_activity">Tài liệu gần đây</string>
     <string name="hub_empty_recent">Chưa có tệp nào gần đây. Hãy chọn một công cụ ở trên để bắt đầu!</string>
-
-    <!-- Library Screen -->
     <string name="library_title">Thư viện dự án</string>
     <string name="library_search_hint">Tìm kiếm PDF, ghi chú hoặc tệp xuất…</string>
     <string name="library_empty_title">Thư viện trống</string>
@@ -107,8 +95,6 @@
     <string name="library_sort_recent">Mới nhất</string>
     <string name="library_sort_name">Tên</string>
     <string name="library_sort_size">Kích thước</string>
-
-    <!-- Settings Screen -->
     <string name="settings_title">Cài đặt &amp; Tùy chọn</string>
     <string name="settings_appearance_header">Giao diện &amp; Chủ đề</string>
     <string name="settings_dark_mode_title">Chế độ tối</string>
@@ -122,8 +108,6 @@
     <string name="settings_about_header">Giới thiệu PDFCraft</string>
     <string name="settings_version_title">Phiên bản ứng dụng</string>
     <string name="settings_version_val">2.5.0 Pro (Bản ngoại tuyến)</string>
-
-    <!-- Rotate Screen -->
     <string name="rotate_screen_title">Xoay trang PDF</string>
     <string name="rotate_screen_subtitle">Xoay hướng trang theo 90°, 180° hoặc 270°</string>
     <string name="rotate_select_pdf_title">Chọn PDF để xoay trang</string>
@@ -135,9 +119,180 @@
     <string name="rotate_reset_rotations">Đặt lại xoay</string>
     <string name="rotate_output_name_label">Tên tệp PDF đầu ra</string>
     <string name="rotate_save_button">Lưu PDF đã xoay vào thiết bị</string>
-
-    <!-- AdMob & Polite Ads -->
     <string name="ad_sponsor">Được tài trợ</string>
     <string name="ad_polite_notice">Cảm ơn bạn đã sử dụng PDFCraft! Quảng cáo hỗ trợ phát triển ứng dụng.</string>
     <string name="ad_close">Đóng quảng cáo</string>
+    <string name="action_select_pdf">Chọn PDF</string>
+    <string name="action_clear_all">Xóa tất cả</string>
+    <string name="action_open_pdf_file">Mở tệp PDF</string>
+    <string name="action_open_document_file">Mở tài liệu</string>
+    <string name="action_choose_pdf_file">Chọn tệp PDF</string>
+    <string name="action_processing">Đang xử lý...</string>
+    <string name="action_rendering">Đang vẽ trang...</string>
+    <string name="action_rename">Đổi tên</string>
+    <string name="action_delete_permanently">Xóa vĩnh viễn</string>
+    <string name="output_file_name_label">Tên tệp PDF đầu ra</string>
+    <string name="merge_clear_list">Xóa danh sách</string>
+    <string name="merge_clear_grid">Xóa lưới</string>
+    <string name="merge_select_files_prompt">Chọn tệp (PDF, Ảnh, Văn bản)</string>
+    <string name="merge_add_more_pdfs">Thêm tệp PDF</string>
+    <string name="merge_output_title_label">Tiêu đề PDF xuất</string>
+    <string name="merge_button">Gộp %1$d tài liệu thành PDF</string>
+    <string name="split_odd_pages">Trang lẻ</string>
+    <string name="split_even_pages">Trang chẵn</string>
+    <string name="split_page_range_hint">ví dụ: 1-3, 5, 8-10</string>
+    <string name="split_apply_range">Áp dụng khoảng</string>
+    <string name="split_extract_button">Trích xuất %1$d trang đã chọn</string>
+    <string name="split_separate_button">Tách tài liệu thành %1$d tệp</string>
+    <string name="compress_add_pdfs">Thêm tệp PDF</string>
+    <string name="compress_batch_button">Nén hàng loạt (%1$d)</string>
+    <string name="compress_single_button">Nén PDF theo mức chọn</string>
+    <string name="compress_quality_max">Chất lượng cao nhất</string>
+    <string name="compress_quality_balanced">Cân bằng</string>
+    <string name="compress_quality_compact">Nhỏ gọn / Web</string>
+    <string name="compress_target_size_label">Mức độ nén mục tiêu</string>
+    <string name="encrypt_open_file">Mở tệp PDF cần mã hóa</string>
+    <string name="encrypt_open_password_label">Mật khẩu mở tệp (Bắt buộc)</string>
+    <string name="encrypt_open_password_placeholder">Nhập mật khẩu mở PDF</string>
+    <string name="encrypt_owner_password_label">Mật khẩu quyền (Tùy chọn)</string>
+    <string name="encrypt_owner_password_placeholder">Để trống để tự tạo</string>
+    <string name="encrypt_button">Mã hóa &amp; Bảo vệ PDF</string>
+    <string name="sign_open_file">Mở tệp PDF để ký</string>
+    <string name="sign_signer_name_label">Tên người ký</string>
+    <string name="sign_reason_label">Lý do / Mục đích</string>
+    <string name="sign_button">Ký &amp; Lưu PDF</string>
+    <string name="metadata_doc_info">Thông tin tài liệu</string>
+    <string name="metadata_file_name">Tên tệp</string>
+    <string name="metadata_pages_size">Trang &amp; Kích thước</string>
+    <string name="metadata_creator">Người tạo</string>
+    <string name="metadata_producer">Phần mềm tạo</string>
+    <string name="metadata_created">Ngày tạo: %1$s</string>
+    <string name="metadata_modified">Chỉnh sửa: %1$s</string>
+    <string name="metadata_edit_fields">Chỉnh sửa trường siêu dữ liệu</string>
+    <string name="metadata_title_label">Tiêu đề tài liệu</string>
+    <string name="metadata_title_placeholder">ví dụ: Báo cáo tài chính quý 3</string>
+    <string name="metadata_author_label">Tác giả / Tổ chức</string>
+    <string name="metadata_author_placeholder">ví dụ: Nguyễn Văn A</string>
+    <string name="metadata_subject_label">Chủ đề / Tóm tắt</string>
+    <string name="metadata_subject_placeholder">ví dụ: Phân tích doanh thu và dự báo</string>
+    <string name="metadata_keywords_label">Từ khóa / Thẻ tìm kiếm</string>
+    <string name="metadata_keywords_placeholder">ví dụ: báo cáo, tài chính, quý 3</string>
+    <string name="metadata_quick_tags">Thêm nhanh thẻ:</string>
+    <string name="metadata_quick_presets">Mẫu có sẵn</string>
+    <string name="metadata_subject_presets">Mẫu chủ đề:</string>
+    <string name="metadata_export_config">Cấu hình xuất tệp</string>
+    <string name="metadata_save_button">Lưu siêu dữ liệu &amp; Xuất PDF</string>
+    <string name="watermark_tab_text">Chữ mờ</string>
+    <string name="watermark_tab_image">Ảnh mờ (Logo)</string>
+    <string name="watermark_live_preview">Xem trước chữ mờ trực tiếp</string>
+    <string name="watermark_refresh">Làm mới</string>
+    <string name="watermark_generating_preview">Đang tạo bản xem trước...</string>
+    <string name="watermark_text_typography">Chữ mờ &amp; Kiểu chữ</string>
+    <string name="watermark_text_label">Nội dung chữ mờ</string>
+    <string name="watermark_text_placeholder">ví dụ: BẢO MẬT, BẢN THẢO, ĐÃ DUYỆT</string>
+    <string name="watermark_quick_presets">Mẫu nhanh:</string>
+    <string name="watermark_text_size">Cỡ chữ: %1$d pt</string>
+    <string name="watermark_text_color">Màu chữ:</string>
+    <string name="watermark_logo_image">Ảnh logo đóng dấu</string>
+    <string name="watermark_select_logo">Chọn ảnh logo làm dấu mờ</string>
+    <string name="watermark_change_logo">Đổi ảnh logo</string>
+    <string name="watermark_logo_selected">Đã chọn logo</string>
+    <string name="watermark_logo_scale">Tỷ lệ logo: %1$d%%</string>
+    <string name="watermark_position_transparency">Vị trí &amp; Độ trong suốt</string>
+    <string name="watermark_opacity">Độ mờ / Độ trong suốt: %1$d%%</string>
+    <string name="watermark_rotation_angle">Góc xoay:</string>
+    <string name="watermark_placement">Vị trí đặt:</string>
+    <string name="watermark_place_center">Chính giữa</string>
+    <string name="watermark_place_tile">Lặp đều (Tile)</string>
+    <string name="watermark_place_top_left">Góc trên trái</string>
+    <string name="watermark_place_top_right">Góc trên phải</string>
+    <string name="watermark_place_bottom_left">Góc dưới trái</string>
+    <string name="watermark_place_bottom_right">Góc dưới phải</string>
+    <string name="watermark_apply_pages">Áp dụng cho trang:</string>
+    <string name="watermark_all_pages">Tất cả các trang</string>
+    <string name="watermark_first_page">Chỉ trang đầu tiên</string>
+    <string name="watermark_apply_button">Đóng dấu mờ &amp; Xuất PDF</string>
+    <string name="text_to_pdf_generating">Đang tạo PDF...</string>
+    <string name="text_to_pdf_convert_button">Chuyển thành PDF (%1$d dòng)</string>
+    <string name="text_to_pdf_sample_notes">Ghi chú mẫu</string>
+    <string name="text_to_pdf_sample_csv">CSV mẫu</string>
+    <string name="text_to_pdf_header_title_label">Tiêu đề đầu trang (Tùy chọn)</string>
+    <string name="text_to_pdf_header_title_placeholder">ví dụ: Biên bản cuộc họp tuần</string>
+    <string name="text_to_pdf_include_page_numbers">Thêm số trang ở chân trang</string>
+    <string name="text_to_pdf_include_date">Thêm ngày tháng ở đầu trang</string>
+    <string name="text_to_pdf_input_placeholder">Nhập, dán hoặc nhập văn bản, ghi chú, mã nguồn vào đây...</string>
+    <string name="html_to_pdf_converting">Đang chuyển đổi HTML...</string>
+    <string name="html_to_pdf_convert_button">Chuyển HTML thành PDF</string>
+    <string name="html_to_pdf_sample_report">Mẫu báo cáo HTML</string>
+    <string name="html_to_pdf_sample_article">Mẫu bài viết HTML</string>
+    <string name="html_to_pdf_header_title">Tiêu đề tài liệu đầu trang</string>
+    <string name="pdf_to_text_words">Từ</string>
+    <string name="pdf_to_text_characters">Ký tự</string>
+    <string name="pdf_to_text_lines">Dòng</string>
+    <string name="pdf_to_text_convert_to_pdf">Chuyển sang PDF</string>
+    <string name="pdf_to_text_extracting">Đang trích xuất văn bản bằng PDFBox...</string>
+    <string name="pdf_to_text_placeholder">Văn bản trích xuất từ PDF sẽ hiển thị ở đây để xem hoặc chỉnh sửa...</string>
+    <string name="pdf_to_images_render_button">Xuất tất cả các trang dưới dạng %1$s</string>
+    <string name="pdf_to_images_png">PNG (Chất lượng gốc)</string>
+    <string name="pdf_to_images_jpeg">JPEG (Dung lượng nhẹ)</string>
+    <string name="page_number_pattern_title">Định dạng số trang</string>
+    <string name="page_number_pattern_desc">Dùng {P} cho số trang hiện tại và {N} cho tổng số trang.</string>
+    <string name="page_number_custom_pattern">Chuỗi mẫu tùy chỉnh</string>
+    <string name="page_number_position">Vị trí &amp; Đặt số trang</string>
+    <string name="page_number_apply_button">Thêm số trang vào PDF</string>
+    <string name="image_to_pdf_select_photos">Chọn ảnh</string>
+    <string name="image_to_pdf_capture_photo">Chụp ảnh mới</string>
+    <string name="image_to_pdf_create_button">Tạo PDF nhiều trang (%1$d ảnh)</string>
+    <string name="library_total_processed">Đã xử lý</string>
+    <string name="library_space_saved">Tiết kiệm dung lượng</string>
+    <string name="library_cloud_cost">Chi phí đám mây</string>
+    <string name="library_cloud_cost_val">0 đ / tháng</string>
+    <string name="library_search_by_title">Tìm tệp PDF theo tiêu đề...</string>
+    <string name="library_bulk_rename">Đổi tên hàng loạt (%1$d)</string>
+    <string name="library_select_files_to_rename">Chọn tệp để đổi tên hàng loạt</string>
+    <string name="library_favorites">Yêu thích</string>
+    <string name="library_delete_dialog_title">Xóa tệp PDF này?</string>
+    <string name="library_delete_dialog_confirm">Xóa vĩnh viễn</string>
+    <string name="library_rename_dialog_title">Đổi tên tệp PDF</string>
+    <string name="library_new_file_name">Tên tệp mới</string>
+    <string name="library_menu_rename">Đổi tên tệp</string>
+    <string name="library_menu_quick_view">Xem nhanh PDF</string>
+    <string name="library_menu_metadata">Kiểm tra siêu dữ liệu</string>
+    <string name="library_menu_share">Chia sẻ tệp</string>
+    <string name="library_menu_delete">Xóa tệp</string>
+    <string name="library_bulk_rename_title">Đổi tên %1$d tệp</string>
+    <string name="library_pattern_prefix">Mẫu tên hoặc tiền tố</string>
+    <string name="library_pattern_placeholder">ví dụ: HoaDon_{N} hoặc BaoCao_{DATE}_{N}</string>
+    <string name="settings_theme_system">Theo hệ thống</string>
+    <string name="settings_theme_light">Sáng</string>
+    <string name="settings_theme_dark">Tối</string>
+    <string name="settings_privacy_policy">Đọc chính sách quyền riêng tư</string>
+    <string name="settings_sign_out">Đăng xuất (%1$s)</string>
+    <string name="settings_sign_in_create">Đăng nhập / Tạo tài khoản</string>
+    <string name="settings_clear_temp_files">Xóa tệp tạm</string>
+    <string name="settings_create_account">Tạo tài khoản Firebase</string>
+    <string name="settings_sign_in_title">Đăng nhập vào PDFCraft</string>
+    <string name="settings_email_label">Địa chỉ Email</string>
+    <string name="settings_password_label">Mật khẩu (tối thiểu 6 ký tự)</string>
+    <string name="settings_have_account">Đã có tài khoản? Đăng nhập</string>
+    <string name="settings_no_account">Chưa có tài khoản? Tạo mới</string>
+    <string name="settings_sign_up">Đăng ký</string>
+    <string name="settings_sign_in">Đăng nhập</string>
+    <string name="preview_document_live">Xem trước tài liệu trực tiếp</string>
+    <string name="preview_search_text_hint">Tìm từ khóa trong PDF...</string>
+    <string name="preview_searching">Đang tìm trong PDF...</string>
+    <string name="preview_no_matches">Không tìm thấy kết quả cho \'%1$s\'</string>
+    <string name="preview_could_not_render">Không thể hiển thị trang</string>
+    <string name="preview_unable_render">Không thể kết xuất trang</string>
+    <string name="preview_updating">Đang cập nhật...</string>
+    <string name="preview_rendering_pdfbox">Đang kết xuất trang bằng PDFBox...</string>
+    <string name="preview_zoom_in">Phóng to</string>
+    <string name="preview_zoom_out">Thu nhỏ</string>
+    <string name="preview_reset_zoom">Đặt lại kích cỡ</string>
+    <string name="dialog_info_arch">Kiến trúc PDFCraft</string>
+    <string name="dialog_replay_tour">Xem lại hướng dẫn</string>
+    <string name="dialog_got_it">Đã hiểu</string>
+    <string name="dialog_share_app">Chia sẻ ứng dụng PDFCraft</string>
+    <string name="dialog_maybe_later">Để sau</string>
+    <string name="dialog_not_now">Không phải lúc này</string>
 </resources>

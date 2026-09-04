@@ -166,7 +166,7 @@ fun SplitScreen(
                                     .testTag("select_odd_split_pages"),
                                 contentAlignment = Alignment.Center
                             ) {
-                                Text("Odd Pages", fontSize = 11.sp, color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Medium)
+                                Text(stringResource(R.string.split_odd_pages), fontSize = 11.sp, color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Medium)
                             }
 
                             Box(
@@ -178,7 +178,7 @@ fun SplitScreen(
                                     .testTag("select_even_split_pages"),
                                 contentAlignment = Alignment.Center
                             ) {
-                                Text("Even Pages", fontSize = 11.sp, color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Medium)
+                                Text(stringResource(R.string.split_even_pages), fontSize = 11.sp, color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Medium)
                             }
                         }
 
@@ -193,7 +193,7 @@ fun SplitScreen(
                             OutlinedTextField(
                                 value = customRangeText,
                                 onValueChange = { customRangeText = it },
-                                placeholder = { Text("e.g. 1-3, 5, 8-10", fontSize = 12.sp) },
+                                placeholder = { Text(stringResource(R.string.split_page_range_hint), fontSize = 12.sp) },
                                 singleLine = true,
                                 shape = RoundedCornerShape(10.dp),
                                 modifier = Modifier
@@ -210,7 +210,7 @@ fun SplitScreen(
                                 contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
                                 modifier = Modifier.height(50.dp).testTag("apply_split_range_button")
                             ) {
-                                Text("Apply Range", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                Text(stringResource(R.string.split_apply_range), fontSize = 12.sp, fontWeight = FontWeight.Bold)
                             }
                         }
 

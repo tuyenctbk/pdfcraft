@@ -1,4 +1,6 @@
 package com.example.ui.screens
+import com.example.R
+import androidx.compose.ui.res.stringResource
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -328,7 +330,7 @@ fun CompressScreen(
                                 ) {
                                     Icon(imageVector = Icons.Default.Add, contentDescription = null, modifier = Modifier.size(18.dp))
                                     Spacer(modifier = Modifier.width(4.dp))
-                                    Text("Add PDFs", fontWeight = FontWeight.Bold)
+                                    Text(stringResource(R.string.compress_add_pdfs), fontWeight = FontWeight.Bold)
                                 }
                             }
                         }
@@ -467,7 +469,7 @@ fun CompressScreen(
                                 onClick = { viewModel.clearBatchCompressList() },
                                 modifier = Modifier.weight(1f)
                             ) {
-                                Text("Clear All", color = MaterialTheme.colorScheme.error)
+                                Text(stringResource(R.string.action_clear_all), color = MaterialTheme.colorScheme.error)
                             }
 
                             Button(
@@ -478,7 +480,7 @@ fun CompressScreen(
                             ) {
                                 Icon(imageVector = Icons.Default.Compress, contentDescription = null)
                                 Spacer(modifier = Modifier.width(8.dp))
-                                Text("Batch Compress All (${batchCompressList.size})", fontWeight = FontWeight.Bold)
+                                Text(stringResource(R.string.compress_batch_button, batchCompressList.size), fontWeight = FontWeight.Bold)
                             }
                         }
                     }
@@ -536,7 +538,7 @@ fun CompressScreen(
                         ) {
                             Icon(imageVector = Icons.Default.FileUpload, contentDescription = null)
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text("Open PDF File", fontWeight = FontWeight.Bold)
+                            Text(stringResource(R.string.action_open_pdf_file), fontWeight = FontWeight.Bold)
                         }
                     }
                 }

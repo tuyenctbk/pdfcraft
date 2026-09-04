@@ -144,15 +144,15 @@ fun PdfToTextScreen(
                         ) {
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                 Text("$wordCount", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
-                                Text("Words", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Text(stringResource(R.string.pdf_to_text_words), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                 Text("$charCount", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
-                                Text("Characters", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Text(stringResource(R.string.pdf_to_text_characters), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                 Text("${extractedText.lines().size}", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
-                                Text("Lines", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Text(stringResource(R.string.pdf_to_text_lines), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
                         }
                     }
@@ -187,7 +187,7 @@ fun PdfToTextScreen(
                                 ) {
                                     Icon(Icons.Default.PictureAsPdf, contentDescription = null, modifier = Modifier.size(16.dp))
                                     Spacer(modifier = Modifier.width(4.dp))
-                                    Text("Convert to PDF", fontSize = 12.sp)
+                                    Text(stringResource(R.string.pdf_to_text_convert_to_pdf), fontSize = 12.sp)
                                 }
                             }
                         }
@@ -202,14 +202,14 @@ fun PdfToTextScreen(
                                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                     CircularProgressIndicator()
                                     Spacer(modifier = Modifier.height(12.dp))
-                                    Text("Extracting text with PDFBox...")
+                                    Text(stringResource(R.string.pdf_to_text_extracting))
                                 }
                             }
                         } else {
                             OutlinedTextField(
                                 value = extractedText,
                                 onValueChange = { viewModel.setExtractedPdfText(it) },
-                                placeholder = { Text("Extracted text from the selected PDF will appear here for viewing or editing...") },
+                                placeholder = { Text(stringResource(R.string.pdf_to_text_placeholder)) },
                                 minLines = 14,
                                 maxLines = 30,
                                 shape = RoundedCornerShape(8.dp),

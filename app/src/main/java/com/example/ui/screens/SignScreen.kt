@@ -1,4 +1,6 @@
 package com.example.ui.screens
+import com.example.R
+import androidx.compose.ui.res.stringResource
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -184,7 +186,7 @@ fun SignScreen(
                         ) {
                             Icon(imageVector = Icons.Default.FileUpload, contentDescription = null)
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text("Open PDF File to Sign", fontWeight = FontWeight.Bold)
+                            Text(stringResource(R.string.sign_open_file), fontWeight = FontWeight.Bold)
                         }
                     }
                 }
@@ -226,7 +228,7 @@ fun SignScreen(
                             OutlinedTextField(
                                 value = signerName,
                                 onValueChange = { viewModel.setSignerName(it) },
-                                label = { Text("Signer Name") },
+                                label = { Text(stringResource(R.string.sign_signer_name_label)) },
                                 singleLine = true,
                                 modifier = Modifier.fillMaxWidth().testTag("signer_name_input")
                             )
@@ -236,7 +238,7 @@ fun SignScreen(
                             OutlinedTextField(
                                 value = signReason,
                                 onValueChange = { viewModel.setSignReason(it) },
-                                label = { Text("Reason / Purpose") },
+                                label = { Text(stringResource(R.string.sign_reason_label)) },
                                 singleLine = true,
                                 modifier = Modifier.fillMaxWidth().testTag("sign_reason_input")
                             )
@@ -246,7 +248,7 @@ fun SignScreen(
                             OutlinedTextField(
                                 value = outputName,
                                 onValueChange = { viewModel.setSignOutputName(it) },
-                                label = { Text("Output File Name") },
+                                label = { Text(stringResource(R.string.output_file_name_label)) },
                                 singleLine = true,
                                 modifier = Modifier.fillMaxWidth().testTag("sign_output_name_input")
                             )
@@ -273,7 +275,7 @@ fun SignScreen(
                     ) {
                         Icon(imageVector = Icons.Default.Draw, contentDescription = null)
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("Sign & Save PDF", fontWeight = FontWeight.Bold)
+                        Text(stringResource(R.string.sign_button), fontWeight = FontWeight.Bold)
                     }
                 }
             }

@@ -1,4 +1,6 @@
 package com.example.ui.screens
+import com.example.R
+import androidx.compose.ui.res.stringResource
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -210,7 +212,7 @@ fun WatermarkScreen(
                         ) {
                             Icon(imageVector = Icons.Default.FileUpload, contentDescription = null)
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text("Open Document File", fontWeight = FontWeight.Bold)
+                            Text(stringResource(R.string.action_open_document_file), fontWeight = FontWeight.Bold)
                         }
                     }
                 }
@@ -239,7 +241,7 @@ fun WatermarkScreen(
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Icon(imageVector = Icons.Default.TextFields, contentDescription = null, modifier = Modifier.size(18.dp))
                                     Spacer(modifier = Modifier.width(6.dp))
-                                    Text("Text Watermark", fontWeight = FontWeight.Bold)
+                                    Text(stringResource(R.string.watermark_tab_text), fontWeight = FontWeight.Bold)
                                 }
                             }
                         )
@@ -250,7 +252,7 @@ fun WatermarkScreen(
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Icon(imageVector = Icons.Default.Image, contentDescription = null, modifier = Modifier.size(18.dp))
                                     Spacer(modifier = Modifier.width(6.dp))
-                                    Text("Image Watermark", fontWeight = FontWeight.Bold)
+                                    Text(stringResource(R.string.watermark_tab_image), fontWeight = FontWeight.Bold)
                                 }
                             }
                         )
@@ -274,11 +276,11 @@ fun WatermarkScreen(
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Icon(imageVector = Icons.Default.RemoveRedEye, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                                     Spacer(modifier = Modifier.width(8.dp))
-                                    Text("Live Document Watermark Preview", style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold))
+                                    Text(stringResource(R.string.watermark_live_preview), style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold))
                                 }
                                 AssistChip(
                                     onClick = { viewModel.triggerWatermarkPreviewUpdate() },
-                                    label = { Text("Refresh") },
+                                    label = { Text(stringResource(R.string.watermark_refresh)) },
                                     leadingIcon = { Icon(Icons.Default.Refresh, contentDescription = null, modifier = Modifier.size(14.dp)) }
                                 )
                             }
@@ -304,7 +306,7 @@ fun WatermarkScreen(
                                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                         CircularProgressIndicator(strokeWidth = 2.dp, modifier = Modifier.size(24.dp))
                                         Spacer(modifier = Modifier.height(8.dp))
-                                        Text("Generating live preview...", style = MaterialTheme.typography.bodySmall)
+                                        Text(stringResource(R.string.watermark_generating_preview), style = MaterialTheme.typography.bodySmall)
                                     }
                                 }
                             }
@@ -344,21 +346,21 @@ fun WatermarkScreen(
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Column(modifier = Modifier.padding(16.dp)) {
-                                Text("Watermark Text & Typography", style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold))
+                                Text(stringResource(R.string.watermark_text_typography), style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold))
                                 Spacer(modifier = Modifier.height(12.dp))
 
                                 OutlinedTextField(
                                     value = watermarkText,
                                     onValueChange = { viewModel.setWatermarkText(it) },
-                                    label = { Text("Watermark Text") },
-                                    placeholder = { Text("e.g. CONFIDENTIAL, DRAFT, APPROVED") },
+                                    label = { Text(stringResource(R.string.watermark_text_label)) },
+                                    placeholder = { Text(stringResource(R.string.watermark_text_placeholder)) },
                                     singleLine = true,
                                     modifier = Modifier.fillMaxWidth().testTag("watermark_text_input")
                                 )
 
                                 Spacer(modifier = Modifier.height(10.dp))
 
-                                Text("Quick Presets:", style = MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant))
+                                Text(stringResource(R.string.watermark_quick_presets), style = MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant))
                                 Spacer(modifier = Modifier.height(6.dp))
 
                                 val textPresets = listOf("CONFIDENTIAL", "DRAFT", "APPROVED", "SAMPLE", "DO NOT COPY", "INTERNAL USE")
@@ -385,7 +387,7 @@ fun WatermarkScreen(
 
                                 Spacer(modifier = Modifier.height(12.dp))
 
-                                Text("Text Color:", style = MaterialTheme.typography.labelMedium)
+                                Text(stringResource(R.string.watermark_text_color), style = MaterialTheme.typography.labelMedium)
                                 Spacer(modifier = Modifier.height(8.dp))
 
                                 val colorPalette = listOf(
@@ -437,7 +439,7 @@ fun WatermarkScreen(
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Column(modifier = Modifier.padding(16.dp)) {
-                                Text("Watermark Logo Image", style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold))
+                                Text(stringResource(R.string.watermark_logo_image), style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold))
                                 Spacer(modifier = Modifier.height(12.dp))
 
                                 Button(
@@ -459,9 +461,9 @@ fun WatermarkScreen(
                                     ) {
                                         Icon(imageVector = Icons.Default.Image, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                                         Spacer(modifier = Modifier.width(8.dp))
-                                        Text("Logo selected", style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
+                                        Text(stringResource(R.string.watermark_logo_selected), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
                                         TextButton(onClick = { viewModel.setWatermarkImageUri(null) }) {
-                                            Text("Remove", color = MaterialTheme.colorScheme.error)
+                                            Text(stringResource(R.string.action_remove), color = MaterialTheme.colorScheme.error)
                                         }
                                     }
                                 }
@@ -489,7 +491,7 @@ fun WatermarkScreen(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Column(modifier = Modifier.padding(16.dp)) {
-                            Text("Watermark Position & Transparency", style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold))
+                            Text(stringResource(R.string.watermark_position_transparency), style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold))
                             Spacer(modifier = Modifier.height(14.dp))
 
                             Text("Opacity / Transparency: ${(watermarkOpacity * 100).toInt()}%", style = MaterialTheme.typography.labelMedium)
@@ -502,7 +504,7 @@ fun WatermarkScreen(
 
                             Spacer(modifier = Modifier.height(12.dp))
 
-                            Text("Rotation Angle:", style = MaterialTheme.typography.labelMedium)
+                            Text(stringResource(R.string.watermark_rotation_angle), style = MaterialTheme.typography.labelMedium)
                             Spacer(modifier = Modifier.height(6.dp))
 
                             val angles = listOf(
@@ -524,7 +526,7 @@ fun WatermarkScreen(
 
                             Spacer(modifier = Modifier.height(16.dp))
 
-                            Text("Placement / Alignment:", style = MaterialTheme.typography.labelMedium)
+                            Text(stringResource(R.string.watermark_placement), style = MaterialTheme.typography.labelMedium)
                             Spacer(modifier = Modifier.height(8.dp))
 
                             val positions = listOf(
@@ -541,13 +543,13 @@ fun WatermarkScreen(
                                     FilterChip(
                                         selected = watermarkPosition == WatermarkPosition.CENTER,
                                         onClick = { viewModel.setWatermarkPosition(WatermarkPosition.CENTER) },
-                                        label = { Text("Center") },
+                                        label = { Text(stringResource(R.string.watermark_place_center)) },
                                         modifier = Modifier.weight(1f)
                                     )
                                     FilterChip(
                                         selected = watermarkPosition == WatermarkPosition.TILE,
                                         onClick = { viewModel.setWatermarkPosition(WatermarkPosition.TILE) },
-                                        label = { Text("Tile Pattern") },
+                                        label = { Text(stringResource(R.string.watermark_place_tile)) },
                                         modifier = Modifier.weight(1f)
                                     )
                                 }
@@ -555,13 +557,13 @@ fun WatermarkScreen(
                                     FilterChip(
                                         selected = watermarkPosition == WatermarkPosition.TOP_LEFT,
                                         onClick = { viewModel.setWatermarkPosition(WatermarkPosition.TOP_LEFT) },
-                                        label = { Text("Top Left") },
+                                        label = { Text(stringResource(R.string.watermark_place_top_left)) },
                                         modifier = Modifier.weight(1f)
                                     )
                                     FilterChip(
                                         selected = watermarkPosition == WatermarkPosition.TOP_RIGHT,
                                         onClick = { viewModel.setWatermarkPosition(WatermarkPosition.TOP_RIGHT) },
-                                        label = { Text("Top Right") },
+                                        label = { Text(stringResource(R.string.watermark_place_top_right)) },
                                         modifier = Modifier.weight(1f)
                                     )
                                 }
@@ -569,13 +571,13 @@ fun WatermarkScreen(
                                     FilterChip(
                                         selected = watermarkPosition == WatermarkPosition.BOTTOM_LEFT,
                                         onClick = { viewModel.setWatermarkPosition(WatermarkPosition.BOTTOM_LEFT) },
-                                        label = { Text("Bottom Left") },
+                                        label = { Text(stringResource(R.string.watermark_place_bottom_left)) },
                                         modifier = Modifier.weight(1f)
                                     )
                                     FilterChip(
                                         selected = watermarkPosition == WatermarkPosition.BOTTOM_RIGHT,
                                         onClick = { viewModel.setWatermarkPosition(WatermarkPosition.BOTTOM_RIGHT) },
-                                        label = { Text("Bottom Right") },
+                                        label = { Text(stringResource(R.string.watermark_place_bottom_right)) },
                                         modifier = Modifier.weight(1f)
                                     )
                                 }
@@ -583,20 +585,20 @@ fun WatermarkScreen(
 
                             Spacer(modifier = Modifier.height(16.dp))
 
-                            Text("Apply to Pages:", style = MaterialTheme.typography.labelMedium)
+                            Text(stringResource(R.string.watermark_apply_pages), style = MaterialTheme.typography.labelMedium)
                             Spacer(modifier = Modifier.height(6.dp))
 
                             Row(horizontalArrangement = Arrangement.spacedBy(6.dp), modifier = Modifier.fillMaxWidth()) {
                                 FilterChip(
                                     selected = watermarkPageRange == WatermarkPageRange.ALL_PAGES,
                                     onClick = { viewModel.setWatermarkPageRange(WatermarkPageRange.ALL_PAGES) },
-                                    label = { Text("All Pages") },
+                                    label = { Text(stringResource(R.string.watermark_all_pages)) },
                                     modifier = Modifier.weight(1f)
                                 )
                                 FilterChip(
                                     selected = watermarkPageRange == WatermarkPageRange.FIRST_PAGE_ONLY,
                                     onClick = { viewModel.setWatermarkPageRange(WatermarkPageRange.FIRST_PAGE_ONLY) },
-                                    label = { Text("First Page Only") },
+                                    label = { Text(stringResource(R.string.watermark_first_page)) },
                                     modifier = Modifier.weight(1f)
                                 )
                             }
@@ -619,7 +621,7 @@ fun WatermarkScreen(
                             OutlinedTextField(
                                 value = outputName,
                                 onValueChange = { viewModel.setWatermarkOutputName(it) },
-                                label = { Text("Output PDF File Name") },
+                                label = { Text(stringResource(R.string.output_file_name_label)) },
                                 singleLine = true,
                                 modifier = Modifier.fillMaxWidth().testTag("watermark_output_name_input")
                             )
@@ -647,7 +649,7 @@ fun WatermarkScreen(
                     ) {
                         Icon(imageVector = Icons.Default.BrandingWatermark, contentDescription = null)
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("Apply Watermark & Export PDF", fontWeight = FontWeight.Bold)
+                        Text(stringResource(R.string.watermark_apply_button), fontWeight = FontWeight.Bold)
                     }
                 }
             }

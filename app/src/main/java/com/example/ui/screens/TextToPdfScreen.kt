@@ -119,11 +119,11 @@ fun TextToPdfScreen(
                                 strokeWidth = 2.dp
                             )
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text("Generating PDF...")
+                            Text(stringResource(R.string.text_to_pdf_generating))
                         } else {
                             Icon(Icons.Default.PictureAsPdf, contentDescription = null)
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text("Convert to PDF (${lineCount} Lines)", fontWeight = FontWeight.Bold)
+                            Text(stringResource(R.string.text_to_pdf_convert_button, lineCount), fontWeight = FontWeight.Bold)
                         }
                     }
                 }
@@ -188,7 +188,7 @@ PDFCraft is an offline-first, private mobile document manipulation tool built wi
                             )
                             viewModel.setTextToPdfOutputName("Project_Overview.pdf")
                         },
-                        label = { Text("Sample Notes") },
+                        label = { Text(stringResource(R.string.text_to_pdf_sample_notes)) },
                         leadingIcon = { Icon(Icons.Default.Edit, null, modifier = Modifier.size(16.dp)) }
                     )
                     AssistChip(
@@ -205,7 +205,7 @@ TOTAL REVENUE: $2,318.00""".trimIndent()
                             viewModel.setTextToPdfOutputName("Invoice_Report.pdf")
                             viewModel.updateTextToPdfOptions(fontFamily = TextFontFamily.MONOSPACE)
                         },
-                        label = { Text("Sample CSV") },
+                        label = { Text(stringResource(R.string.text_to_pdf_sample_csv)) },
                         leadingIcon = { Icon(Icons.Default.Info, null, modifier = Modifier.size(16.dp)) }
                     )
                     if (textContent.isNotEmpty()) {
@@ -236,8 +236,8 @@ TOTAL REVENUE: $2,318.00""".trimIndent()
                         OutlinedTextField(
                             value = options.title,
                             onValueChange = { viewModel.updateTextToPdfOptions(title = it) },
-                            label = { Text("Page Header Title (Optional)") },
-                            placeholder = { Text("e.g. Weekly Meeting Minutes") },
+                            label = { Text(stringResource(R.string.text_to_pdf_header_title_label)) },
+                            placeholder = { Text(stringResource(R.string.text_to_pdf_header_title_placeholder)) },
                             singleLine = true,
                             shape = RoundedCornerShape(8.dp),
                             modifier = Modifier.fillMaxWidth()
@@ -246,7 +246,7 @@ TOTAL REVENUE: $2,318.00""".trimIndent()
                         OutlinedTextField(
                             value = outputName,
                             onValueChange = { viewModel.setTextToPdfOutputName(it) },
-                            label = { Text("Output PDF File Name") },
+                            label = { Text(stringResource(R.string.output_file_name_label)) },
                             singleLine = true,
                             shape = RoundedCornerShape(8.dp),
                             modifier = Modifier.fillMaxWidth().testTag("text_to_pdf_output_name_input")
@@ -360,7 +360,7 @@ TOTAL REVENUE: $2,318.00""".trimIndent()
                                     horizontalArrangement = Arrangement.SpaceBetween,
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    Text("Include Page Numbers Footer")
+                                    Text(stringResource(R.string.text_to_pdf_include_page_numbers))
                                     Switch(
                                         checked = options.includePageNumbers,
                                         onCheckedChange = { viewModel.updateTextToPdfOptions(includePageNumbers = it) }
@@ -371,7 +371,7 @@ TOTAL REVENUE: $2,318.00""".trimIndent()
                                     horizontalArrangement = Arrangement.SpaceBetween,
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    Text("Include Date in Header")
+                                    Text(stringResource(R.string.text_to_pdf_include_date))
                                     Switch(
                                         checked = options.includeHeaderDate,
                                         onCheckedChange = { viewModel.updateTextToPdfOptions(includeHeaderDate = it) }
@@ -412,7 +412,7 @@ TOTAL REVENUE: $2,318.00""".trimIndent()
                         OutlinedTextField(
                             value = textContent,
                             onValueChange = { viewModel.setTextToPdfContent(it) },
-                            placeholder = { Text("Type, paste or import your text, notes, logs, or code here...") },
+                            placeholder = { Text(stringResource(R.string.text_to_pdf_input_placeholder)) },
                             textStyle = MaterialTheme.typography.bodyMedium.copy(
                                 fontFamily = if (options.fontFamily == TextFontFamily.MONOSPACE) FontFamily.Monospace else FontFamily.Default,
                                 lineHeight = 20.sp
