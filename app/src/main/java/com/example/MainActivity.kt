@@ -210,15 +210,17 @@ fun PDFCraftApp(
             Scaffold(
                 modifier = Modifier.weight(1f),
                 topBar = {
-                    AppTopBar(
-                        onOpenInfoDialog = { showInfoDialog = true },
-                        onOpenSettingsDialog = { showSettingsDialog = true },
-                        themeMode = themeMode,
-                        onToggleTheme = {
-                            val nextMode = if (themeMode == ThemeMode.DARK) ThemeMode.LIGHT else ThemeMode.DARK
-                            viewModel.setThemeMode(nextMode)
-                        }
-                    )
+                    if (activeTool == null) {
+                        AppTopBar(
+                            onOpenInfoDialog = { showInfoDialog = true },
+                            onOpenSettingsDialog = { showSettingsDialog = true },
+                            themeMode = themeMode,
+                            onToggleTheme = {
+                                val nextMode = if (themeMode == ThemeMode.DARK) ThemeMode.LIGHT else ThemeMode.DARK
+                                viewModel.setThemeMode(nextMode)
+                            }
+                        )
+                    }
                 },
                 bottomBar = {
                     PoliteAdBanner()
@@ -232,23 +234,27 @@ fun PDFCraftApp(
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             topBar = {
-                AppTopBar(
-                    onOpenInfoDialog = { showInfoDialog = true },
-                    onOpenSettingsDialog = { showSettingsDialog = true },
-                    themeMode = themeMode,
-                    onToggleTheme = {
-                        val nextMode = if (themeMode == ThemeMode.DARK) ThemeMode.LIGHT else ThemeMode.DARK
-                        viewModel.setThemeMode(nextMode)
-                    }
-                )
+                if (activeTool == null) {
+                    AppTopBar(
+                        onOpenInfoDialog = { showInfoDialog = true },
+                        onOpenSettingsDialog = { showSettingsDialog = true },
+                        themeMode = themeMode,
+                        onToggleTheme = {
+                            val nextMode = if (themeMode == ThemeMode.DARK) ThemeMode.LIGHT else ThemeMode.DARK
+                            viewModel.setThemeMode(nextMode)
+                        }
+                    )
+                }
             },
             bottomBar = {
                 Column {
                     PoliteAdBanner()
-                    AppBottomNav(
-                        selectedTab = currentTab,
-                        onTabSelected = { viewModel.selectTab(it) }
-                    )
+                    if (activeTool == null) {
+                        AppBottomNav(
+                            selectedTab = currentTab,
+                            onTabSelected = { viewModel.selectTab(it) }
+                        )
+                    }
                 }
             },
             snackbarHost = { SnackbarHost(snackbarHostState) }

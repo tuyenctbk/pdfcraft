@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -76,19 +77,32 @@ fun SplitScreen(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Column(modifier = Modifier.weight(1f)) {
-                            Text(
-                                text = stringResource(R.string.tool_split_title),
-                                style = MaterialTheme.typography.titleMedium.copy(
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.onSurface
+                        Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
+                            IconButton(
+                                onClick = { viewModel.setActiveTool(null) },
+                                modifier = Modifier.size(36.dp).testTag("split_back_button")
+                            ) {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                    contentDescription = stringResource(R.string.action_cancel),
+                                    tint = MaterialTheme.colorScheme.onSurface
                                 )
-                            )
-                            Text(
-                                text = sourceFile?.let { "${it.name} (${totalPages} pages • ${PdfEngine.formatFileSize(it.length())})" }
-                                    ?: stringResource(R.string.tool_split_desc),
-                                style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
-                            )
+                            }
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Column {
+                                Text(
+                                    text = stringResource(R.string.tool_split_title),
+                                    style = MaterialTheme.typography.titleMedium.copy(
+                                        fontWeight = FontWeight.Bold,
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
+                                )
+                                Text(
+                                    text = sourceFile?.let { "${it.name} (${totalPages} pages • ${PdfEngine.formatFileSize(it.length())})" }
+                                        ?: stringResource(R.string.tool_split_desc),
+                                    style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                )
+                            }
                         }
 
                         Row(

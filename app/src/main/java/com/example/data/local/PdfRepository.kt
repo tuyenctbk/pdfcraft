@@ -442,11 +442,16 @@ class PdfRepository(
         outputName: String
     ): File {
         val outputFile = com.example.data.pdf.PdfTextAndMediaService.convertTextToPdf(context, rawText, options, outputName)
+        val actualPages = try {
+            PdfEngine.readPdfMetadata(context, Uri.fromFile(outputFile)).pageCount.coerceAtLeast(1)
+        } catch (e: Exception) {
+            1
+        }
         saveProjectRecord(
             PdfProjectEntity(
                 title = outputFile.name,
                 operationType = PdfOperationType.TEXT_TO_PDF,
-                pageCount = 1,
+                pageCount = actualPages,
                 originalSizeBytes = rawText.toByteArray().size.toLong(),
                 resultSizeBytes = outputFile.length(),
                 outputFilePath = outputFile.absolutePath,
@@ -461,17 +466,24 @@ class PdfRepository(
         pdfFile: File
     ): String {
         val text = com.example.data.pdf.PdfTextAndMediaService.extractTextFromPdf(pdfFile)
-        saveProjectRecord(
-            PdfProjectEntity(
-                title = "Text_${pdfFile.nameWithoutExtension}.txt",
-                operationType = PdfOperationType.PDF_TO_TEXT,
-                pageCount = 1,
-                originalSizeBytes = pdfFile.length(),
-                resultSizeBytes = text.toByteArray().size.toLong(),
-                outputFilePath = pdfFile.absolutePath,
-                summaryDetails = "Extracted ${text.length} characters from ${pdfFile.name}"
+        val outputDir = File(context.filesDir, "exports").apply { mkdirs() }
+        val txtFile = File(outputDir, "${pdfFile.nameWithoutExtension}_text.txt")
+        try {
+            txtFile.writeText(text)
+            saveProjectRecord(
+                PdfProjectEntity(
+                    title = txtFile.name,
+                    operationType = PdfOperationType.PDF_TO_TEXT,
+                    pageCount = 1,
+                    originalSizeBytes = pdfFile.length(),
+                    resultSizeBytes = txtFile.length(),
+                    outputFilePath = txtFile.absolutePath,
+                    summaryDetails = "Extracted ${text.length} characters from ${pdfFile.name}"
+                )
             )
-        )
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
         return text
     }
 
@@ -506,11 +518,16 @@ class PdfRepository(
         outputName: String
     ): File {
         val outputFile = com.example.data.pdf.PdfTextAndMediaService.convertHtmlToPdf(context, htmlContent, title, outputName)
+        val actualPages = try {
+            PdfEngine.readPdfMetadata(context, Uri.fromFile(outputFile)).pageCount.coerceAtLeast(1)
+        } catch (e: Exception) {
+            1
+        }
         saveProjectRecord(
             PdfProjectEntity(
                 title = outputFile.name,
                 operationType = PdfOperationType.HTML_TO_PDF,
-                pageCount = 1,
+                pageCount = actualPages,
                 originalSizeBytes = htmlContent.toByteArray().size.toLong(),
                 resultSizeBytes = outputFile.length(),
                 outputFilePath = outputFile.absolutePath,

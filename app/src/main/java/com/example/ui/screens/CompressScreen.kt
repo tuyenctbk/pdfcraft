@@ -33,6 +33,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Compress
 import androidx.compose.material.icons.filled.Description
@@ -139,19 +140,32 @@ fun CompressScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = "Compress & Extract Studio",
-                            style = MaterialTheme.typography.titleMedium.copy(
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onSurface
+                    Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
+                        IconButton(
+                            onClick = { viewModel.setActiveTool(null) },
+                            modifier = Modifier.size(36.dp).testTag("compress_back_button")
+                        ) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "Back",
+                                tint = MaterialTheme.colorScheme.onSurface
                             )
-                        )
-                        Text(
-                            text = sourceFile?.let { "${it.name} (${pageCount} pages • ${PdfEngine.formatFileSize(it.length())})" }
-                                ?: "Downsample PDF or extract high-res images offline",
-                            style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        )
+                        }
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Column {
+                            Text(
+                                text = "Compress & Extract Studio",
+                                style = MaterialTheme.typography.titleMedium.copy(
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                            )
+                            Text(
+                                text = sourceFile?.let { "${it.name} (${pageCount} pages • ${PdfEngine.formatFileSize(it.length())})" }
+                                    ?: "Downsample PDF or extract high-res images offline",
+                                style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            )
+                        }
                     }
 
                     Button(

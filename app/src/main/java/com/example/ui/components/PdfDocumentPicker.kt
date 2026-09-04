@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.NoteAdd
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -103,7 +104,7 @@ fun PdfDocumentPickerCard(
                     val localFile = withContext(Dispatchers.IO) {
                         PdfEngine.getLocalFileFromUri(context, uri)
                     }
-                    if (localFile != null && localFile.exists()) {
+                    if (localFile.exists()) {
                         onFileSelected(localFile)
                     } else {
                         errorMessage = context.getString(R.string.picker_error_reading_file)
@@ -362,7 +363,7 @@ fun PdfMultipleDocumentPickerCard(
                         val file = withContext(Dispatchers.IO) {
                             PdfEngine.getLocalFileFromUri(context, uri)
                         }
-                        if (file != null && file.exists()) {
+                        if (file.exists()) {
                             newFiles.add(file)
                         }
                     }
@@ -408,7 +409,7 @@ fun PdfMultipleDocumentPickerCard(
                         )
                     } else {
                         Icon(
-                            imageVector = Icons.Default.NoteAdd,
+                            imageVector = Icons.AutoMirrored.Filled.NoteAdd,
                             contentDescription = null,
                             tint = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.size(28.dp)
@@ -507,7 +508,7 @@ fun PdfDocumentPickerButton(
                 val localFile = withContext(Dispatchers.IO) {
                     PdfEngine.getLocalFileFromUri(context, uri)
                 }
-                if (localFile != null && localFile.exists()) {
+                if (localFile.exists()) {
                     onFileSelected(localFile)
                 }
             }

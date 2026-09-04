@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.RotateRight
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.*
@@ -112,7 +113,7 @@ val ALL_PDF_TOOLS = listOf(
     ToolItemData(
         titleRes = R.string.tool_rotate_title,
         descRes = R.string.tool_rotate_desc,
-        icon = Icons.Default.RotateRight,
+        icon = Icons.AutoMirrored.Filled.RotateRight,
         operationType = PdfOperationType.ROTATE,
         category = ToolCategory.PAGES,
         iconTint = Color(0xFF60A5FA),

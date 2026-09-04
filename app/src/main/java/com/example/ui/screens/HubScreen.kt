@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
+import androidx.compose.material.icons.automirrored.filled.RotateRight
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -277,7 +278,7 @@ fun HubScreen(
                     QuickActionCard(
                         title = "Rotate Pages",
                         subtitle = "Fix orientation 90°/180°",
-                        icon = Icons.Default.RotateRight,
+                        icon = Icons.AutoMirrored.Filled.RotateRight,
                         modifier = Modifier.weight(1f),
                         onClick = { viewModel.setActiveTool(PdfOperationType.ROTATE) }
                     )

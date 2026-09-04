@@ -72,11 +72,11 @@ object PdfTextAndMediaService {
     }
 
     /**
-     * Converts raw or markdown text into a paginated PDF document.
+     * Converts raw or markdown text / formatted CharSequence into a paginated PDF document.
      */
     suspend fun convertTextToPdf(
         context: Context,
-        rawText: String,
+        rawText: CharSequence,
         options: TextToPdfOptions,
         outputFileName: String
     ): File = withContext(Dispatchers.IO) {
@@ -128,45 +128,43 @@ object PdfTextAndMediaService {
         val footerHeight = if (options.includePageNumbers) 28f else 10f
         val availableContentHeight = (pageHeight - (margin * 2) - headerHeight - footerHeight).toInt().coerceAtLeast(100)
 
-        // Split text into paragraphs and prepare StaticLayout
-        val paragraphs = rawText.split("\n")
-        val linesList = mutableListOf<StaticLayout>()
-        for (para in paragraphs) {
-            val textToLayout = if (para.isEmpty()) " " else para
-            val layout = StaticLayout.Builder.obtain(
-                textToLayout,
-                0,
-                textToLayout.length,
-                textPaint,
-                contentWidth
-            )
-                .setAlignment(Layout.Alignment.ALIGN_NORMAL)
-                .setLineSpacing(0f, options.lineSpacingMultiplier)
-                .setIncludePad(false)
-                .build()
-            linesList.add(layout)
-        }
+        val textToLayout = if (rawText.isEmpty()) " " else rawText
+        val layout = StaticLayout.Builder.obtain(
+            textToLayout,
+            0,
+            textToLayout.length,
+            textPaint,
+            contentWidth
+        )
+            .setAlignment(Layout.Alignment.ALIGN_NORMAL)
+            .setLineSpacing(0f, options.lineSpacingMultiplier)
+            .setIncludePad(false)
+            .build()
 
-        // Paginate layouts
-        val pagesLayouts = mutableListOf<MutableList<StaticLayout>>()
-        var currentPage = mutableListOf<StaticLayout>()
-        var currentHeight = 0
+        // Paginate line by line based on layout line heights
+        val lineCount = layout.lineCount
+        val pageRanges = mutableListOf<Pair<Int, Int>>() // Pair(startLine, endLine) inclusive
+        var currentStartLine = 0
 
-        for (layout in linesList) {
-            val layoutH = layout.height
-            if (currentHeight + layoutH > availableContentHeight && currentPage.isNotEmpty()) {
-                pagesLayouts.add(currentPage)
-                currentPage = mutableListOf()
-                currentHeight = 0
+        while (currentStartLine < lineCount) {
+            val startTop = layout.getLineTop(currentStartLine)
+            var currentEndLine = currentStartLine
+
+            while (currentEndLine + 1 < lineCount &&
+                (layout.getLineBottom(currentEndLine + 1) - startTop) <= availableContentHeight
+            ) {
+                currentEndLine++
             }
-            currentPage.add(layout)
-            currentHeight += layoutH
-        }
-        if (currentPage.isNotEmpty() || pagesLayouts.isEmpty()) {
-            pagesLayouts.add(currentPage)
+
+            pageRanges.add(currentStartLine to currentEndLine)
+            currentStartLine = currentEndLine + 1
         }
 
-        val totalPages = pagesLayouts.size
+        if (pageRanges.isEmpty()) {
+            pageRanges.add(0 to 0)
+        }
+
+        val totalPages = pageRanges.size
         val dateString = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date())
 
         for (pageIndex in 0 until totalPages) {
@@ -193,16 +191,15 @@ object PdfTextAndMediaService {
             }
 
             // Body Content
+            val (startLine, endLine) = pageRanges[pageIndex]
+            val startTop = layout.getLineTop(startLine)
+            val endBottom = layout.getLineBottom(endLine)
+            val blockHeight = endBottom - startTop
+
             canvas.save()
-            canvas.translate(margin, topY)
-            var runningY = 0f
-            for (layout in pagesLayouts[pageIndex]) {
-                canvas.save()
-                canvas.translate(0f, runningY)
-                layout.draw(canvas)
-                canvas.restore()
-                runningY += layout.height
-            }
+            canvas.clipRect(margin, topY, margin + contentWidth, topY + blockHeight.toFloat())
+            canvas.translate(margin, topY - startTop)
+            layout.draw(canvas)
             canvas.restore()
 
             // Footer
@@ -263,8 +260,14 @@ object PdfTextAndMediaService {
 
                 for (pageIndex in 0 until pageCount) {
                     val page = renderer.openPage(pageIndex)
-                    val width = (page.width * dpiMultiplier).toInt().coerceAtLeast(100)
-                    val height = (page.height * dpiMultiplier).toInt().coerceAtLeast(100)
+                    val maxDimension = 3000
+                    var width = (page.width * dpiMultiplier).toInt().coerceAtLeast(100)
+                    var height = (page.height * dpiMultiplier).toInt().coerceAtLeast(100)
+                    if (width > maxDimension || height > maxDimension) {
+                        val scale = maxDimension.toFloat() / maxOf(width, height)
+                        width = (width * scale).toInt().coerceAtLeast(100)
+                        height = (height * scale).toInt().coerceAtLeast(100)
+                    }
 
                     val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
                     val canvas = Canvas(bitmap)
@@ -310,8 +313,7 @@ object PdfTextAndMediaService {
         title: String,
         outputFileName: String
     ): File = withContext(Dispatchers.IO) {
-        // Strip HTML tags or convert to structured markdown-like text for printing
-        val cleanPlainText = android.text.Html.fromHtml(htmlContent, android.text.Html.FROM_HTML_MODE_LEGACY).toString()
+        val spanned = android.text.Html.fromHtml(htmlContent, android.text.Html.FROM_HTML_MODE_LEGACY)
         val options = TextToPdfOptions(
             title = title.ifBlank { "HTML Document" },
             fontSize = 11f,
@@ -322,6 +324,6 @@ object PdfTextAndMediaService {
             includePageNumbers = true,
             includeHeaderDate = true
         )
-        convertTextToPdf(context, cleanPlainText, options, outputFileName)
+        convertTextToPdf(context, spanned, options, outputFileName)
     }
 }
