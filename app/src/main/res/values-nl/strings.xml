@@ -416,4 +416,5 @@
     <string name="support_crypto_desc">Gedecentraliseerde steun voor privacy-tools</string>
     <string name="support_crypto_copied">Wallet-adres gekopieerd naar klembord!</string>
     <string name="support_kofi_button">Steun op Ko-fi</string>
+    <string name="tool_try_sample_document">Probeer met voorbeelddocument</string>
 </resources>

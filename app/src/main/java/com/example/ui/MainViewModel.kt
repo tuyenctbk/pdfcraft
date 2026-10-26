@@ -1018,6 +1018,34 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         addPdfDocumentsForPdfBoxMerge(files.map { Uri.fromFile(it) })
     }
 
+    fun loadSampleDocumentForActiveTool() {
+        viewModelScope.launch {
+            try {
+                val samples = repository.generateSamples(getApplication())
+                if (samples.isNotEmpty()) {
+                    val sample = samples.first()
+                    val uri = Uri.fromFile(sample)
+                    when (_activeTool.value) {
+                        PdfOperationType.COMPRESS -> loadPdfForCompress(uri)
+                        PdfOperationType.ENCRYPT -> loadPdfForEncrypt(uri)
+                        PdfOperationType.WATERMARK -> loadPdfForWatermark(uri)
+                        PdfOperationType.SPLIT -> loadPdfForSplit(uri)
+                        PdfOperationType.SIGN -> loadPdfForSign(uri)
+                        PdfOperationType.ROTATE -> loadPdfForRotate(uri)
+                        PdfOperationType.PAGE_NUMBER -> loadPdfForPageNumber(uri)
+                        PdfOperationType.METADATA -> loadPdfForMetadata(uri)
+                        PdfOperationType.PDF_TO_TEXT -> loadPdfForTextExtraction(uri)
+                        PdfOperationType.PDF_TO_IMAGES -> loadPdfForImageExport(uri)
+                        PdfOperationType.MERGE -> addSamplePdfDocumentsForPdfBoxMerge(samples)
+                        else -> {}
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
     fun removePdfDocumentForPdfBoxMerge(id: String) {
         _selectedPdfDocuments.value = _selectedPdfDocuments.value.filterNot { it.id == id }
     }

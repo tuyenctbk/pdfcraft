@@ -416,4 +416,5 @@
     <string name="support_crypto_desc">Gizlilik odaklı bağımsız yazılımlar için doğrudan destek</string>
     <string name="support_crypto_copied">Cüzdan adresi panoya kopyalandı!</string>
     <string name="support_kofi_button">Ko-fi üzerinden destekle</string>
+    <string name="tool_try_sample_document">Örnek Belge ile Deneyin</string>
 </resources>

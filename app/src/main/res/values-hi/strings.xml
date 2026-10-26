@@ -416,4 +416,5 @@
     <string name="support_crypto_desc">गोपनीय और स्वतंत्र ऐप्स के लिए विकेंद्रीकृत सहयोग</string>
     <string name="support_crypto_copied">वॉलेट पता क्लिपबोर्ड पर कॉपी किया गया!</string>
     <string name="support_kofi_button">Ko-fi पर सहयोग करें</string>
+    <string name="tool_try_sample_document">नमूना दस्तावेज़ के साथ आज़माएँ</string>
 </resources>

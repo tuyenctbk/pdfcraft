@@ -416,4 +416,5 @@
     <string name="support_crypto_desc">Zdecentralizowane wsparcie dla prywatnych narzędzi</string>
     <string name="support_crypto_copied">Adres portfela skopiowany do schowka!</string>
     <string name="support_kofi_button">Wesprzyj na Ko-fi</string>
+    <string name="tool_try_sample_document">Wypróbuj z przykładowym dokumentem</string>
 </resources>

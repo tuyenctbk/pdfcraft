@@ -416,4 +416,5 @@
     <string name="support_crypto_desc">Децентрализованная помощь приватным офлайн-утилитам</string>
     <string name="support_crypto_copied">Адрес кошелька скопирован в буфер обмена!</string>
     <string name="support_kofi_button">Поддержать на Ko-fi</string>
+    <string name="tool_try_sample_document">Попробовать с примером документа</string>
 </resources>

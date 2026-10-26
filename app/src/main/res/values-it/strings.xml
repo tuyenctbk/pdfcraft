@@ -416,4 +416,5 @@
     <string name="support_crypto_desc">Supporto decentralizzato per strumenti dedicati alla privacy</string>
     <string name="support_crypto_copied">Indirizzo del portafoglio copiato negli appunti!</string>
     <string name="support_kofi_button">Supporta su Ko-fi</string>
+    <string name="tool_try_sample_document">Prova con un documento di esempio</string>
 </resources>

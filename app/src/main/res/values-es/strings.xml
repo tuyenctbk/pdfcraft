@@ -416,4 +416,5 @@
     <string name="support_crypto_desc">Apoyo descentralizado para el software libre y privado</string>
     <string name="support_crypto_copied">¡Dirección de billetera copiada!</string>
     <string name="support_kofi_button">Apoyar en Ko-fi</string>
+    <string name="tool_try_sample_document">Probar con documento de muestra</string>
 </resources>

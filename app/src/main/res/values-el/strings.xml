@@ -416,4 +416,5 @@
     <string name="support_crypto_desc">Αποκεντρωμένη υποστήριξη για ιδιωτικά εργαλεία</string>
     <string name="support_crypto_copied">Η διεύθυνση πορτοφολιού αντιγράφηκε!</string>
     <string name="support_kofi_button">Υποστήριξη στο Ko-fi</string>
+    <string name="tool_try_sample_document">Δοκιμή με δείγμα εγγράφου</string>
 </resources>

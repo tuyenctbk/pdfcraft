@@ -416,4 +416,5 @@
     <string name="support_crypto_desc">去中心化支持注重隐私保护的开源独立应用</string>
     <string name="support_crypto_copied">钱包地址已复制到剪贴板！</string>
     <string name="support_kofi_button">在 Ko-fi 上支持</string>
+    <string name="tool_try_sample_document">使用示例文件体验</string>
 </resources>

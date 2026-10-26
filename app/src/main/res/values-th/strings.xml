@@ -416,4 +416,5 @@
     <string name="support_crypto_desc">การสนับสนุนแบบกระจายศูนย์สำหรับเครื่องมือส่วนตัว</string>
     <string name="support_crypto_copied">คัดลอกที่อยู่กระเป๋าเงินแล้ว!</string>
     <string name="support_kofi_button">สนับสนุนบน Ko-fi</string>
+    <string name="tool_try_sample_document">ลองใช้เอกสารตัวอย่าง</string>
 </resources>

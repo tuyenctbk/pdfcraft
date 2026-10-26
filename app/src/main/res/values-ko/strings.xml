@@ -416,4 +416,5 @@
     <string name="support_crypto_desc">프라이버시 우선 독립 개발을 위한 탈중앙화 후원</string>
     <string name="support_crypto_copied">지갑 주소가 클립보드에 복사되었습니다!</string>
     <string name="support_kofi_button">Ko-fi에서 후원하기</string>
+    <string name="tool_try_sample_document">샘플 문서로 사용해 보기</string>
 </resources>

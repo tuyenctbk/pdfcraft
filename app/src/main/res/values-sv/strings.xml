@@ -416,4 +416,5 @@
     <string name="support_crypto_desc">Decentraliserat stöd för programvara med integritet</string>
     <string name="support_crypto_copied">Plånboksadress kopierad till urklipp!</string>
     <string name="support_kofi_button">Stöd på Ko-fi</string>
+    <string name="tool_try_sample_document">Testa med exempeldokument</string>
 </resources>

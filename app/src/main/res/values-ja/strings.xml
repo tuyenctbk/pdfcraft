@@ -416,4 +416,5 @@
     <string name="support_crypto_desc">プライバシー重視の開発を直接支援できます</string>
     <string name="support_crypto_copied">ウォレットアドレスをクリップボードにコピーしました！</string>
     <string name="support_kofi_button">Ko-fiでサポート</string>
+    <string name="tool_try_sample_document">サンプル文書で試す</string>
 </resources>

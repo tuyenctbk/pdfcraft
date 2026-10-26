@@ -416,4 +416,5 @@
     <string name="support_crypto_desc">Susținere descentralizată pentru aplicații private</string>
     <string name="support_crypto_copied">Adresa portofelului a fost copiată!</string>
     <string name="support_kofi_button">Susține pe Ko-fi</string>
+    <string name="tool_try_sample_document">Încercați cu un document mostră</string>
 </resources>

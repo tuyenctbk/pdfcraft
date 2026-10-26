@@ -26,8 +26,8 @@ android {
     applicationId = "com.soloprono.pdfcraft"
     minSdk = 24
     targetSdk = 36
-    versionCode = 15
-    versionName = "1.6.2"
+    versionCode = 16
+    versionName = "1.6.3"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
@@ -117,7 +117,7 @@ dependencies {
   implementation("com.google.firebase:firebase-analytics")
   implementation("com.google.firebase:firebase-config")
   implementation("com.google.zxing:core:3.5.3")
-  implementation("com.android.billingclient:billing-ktx:7.1.1")
+  implementation("com.android.billingclient:billing-ktx:8.0.0")
   // implementation("com.google.firebase:firebase-crashlytics")
   // implementation(libs.firebase.firestore)
 
