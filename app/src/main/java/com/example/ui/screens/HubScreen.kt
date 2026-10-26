@@ -21,6 +21,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,6 +34,14 @@ import com.example.data.local.PdfOperationType
 import com.example.data.pdf.PdfEngine
 import com.example.ui.MainViewModel
 
+data class HubActionItem(
+    val title: String,
+    val subtitle: String,
+    val icon: androidx.compose.ui.graphics.vector.ImageVector,
+    val badge: String? = null,
+    val op: PdfOperationType
+)
+
 @Composable
 fun HubScreen(
     viewModel: MainViewModel,
@@ -42,6 +51,19 @@ fun HubScreen(
     val recentFiles by viewModel.recentFilesState.collectAsState()
 
     val totalSavedBytes = history.sumOf { (it.originalSizeBytes - it.resultSizeBytes).coerceAtLeast(0) }
+
+    val quickActionItems = remember {
+        listOf(
+            HubActionItem("Merge PDFs", "Combine files in order", Icons.Default.Merge, "POPULAR", PdfOperationType.MERGE),
+            HubActionItem("Compress", "Reduce document size", Icons.Default.Compress, "POPULAR", PdfOperationType.COMPRESS),
+            HubActionItem("Text to PDF", "TXT, Markdown & Code", Icons.Default.TextFields, "NEW", PdfOperationType.TEXT_TO_PDF),
+            HubActionItem("PDF to Images", "Export pages to PNG/JPG", Icons.Default.Image, "NEW", PdfOperationType.PDF_TO_IMAGES),
+            HubActionItem("Images to PDF", "Photos into one document", Icons.Default.Image, null, PdfOperationType.IMAGE_TO_PDF),
+            HubActionItem("Page Numbers", "Add stamps & headers", Icons.Default.TextFields, null, PdfOperationType.PAGE_NUMBER),
+            HubActionItem("Split PDF", "Extract selected pages", Icons.Default.ContentCut, null, PdfOperationType.SPLIT),
+            HubActionItem("Rotate Pages", "Fix orientation 90°/180°", Icons.AutoMirrored.Filled.RotateRight, null, PdfOperationType.ROTATE)
+        )
+    }
 
     BoxWithConstraints(
         modifier = modifier
@@ -192,96 +214,32 @@ fun HubScreen(
                 }
             }
 
-            // Quick Action Grid (2 columns x 4 rows)
-            item {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    QuickActionCard(
-                        title = "Merge PDFs",
-                        subtitle = "Combine files in order",
-                        icon = Icons.Default.Merge,
-                        badge = "POPULAR",
-                        modifier = Modifier.weight(1f),
-                        onClick = { viewModel.setActiveTool(PdfOperationType.MERGE) }
-                    )
-                    QuickActionCard(
-                        title = "Compress",
-                        subtitle = "Reduce document size",
-                        icon = Icons.Default.Compress,
-                        badge = "POPULAR",
-                        modifier = Modifier.weight(1f),
-                        onClick = { viewModel.setActiveTool(PdfOperationType.COMPRESS) }
-                    )
-                }
+            // Adaptive Quick Action Grid
+            val columnCount = when {
+                maxWidth >= 720.dp -> 4
+                maxWidth >= 440.dp -> 3
+                else -> 2
             }
 
-            item {
+            items(quickActionItems.chunked(columnCount)) { chunk ->
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    QuickActionCard(
-                        title = "Text to PDF",
-                        subtitle = "TXT, Markdown & Code",
-                        icon = Icons.Default.TextFields,
-                        badge = "NEW",
-                        modifier = Modifier.weight(1f),
-                        onClick = { viewModel.setActiveTool(PdfOperationType.TEXT_TO_PDF) }
-                    )
-                    QuickActionCard(
-                        title = "PDF to Images",
-                        subtitle = "Export pages to PNG/JPG",
-                        icon = Icons.Default.Image,
-                        badge = "NEW",
-                        modifier = Modifier.weight(1f),
-                        onClick = { viewModel.setActiveTool(PdfOperationType.PDF_TO_IMAGES) }
-                    )
-                }
-            }
-
-            item {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    QuickActionCard(
-                        title = "Images to PDF",
-                        subtitle = "Photos into one document",
-                        icon = Icons.Default.Image,
-                        modifier = Modifier.weight(1f),
-                        onClick = { viewModel.setActiveTool(PdfOperationType.IMAGE_TO_PDF) }
-                    )
-                    QuickActionCard(
-                        title = "Page Numbers",
-                        subtitle = "Add stamps & headers",
-                        icon = Icons.Default.TextFields,
-                        modifier = Modifier.weight(1f),
-                        onClick = { viewModel.setActiveTool(PdfOperationType.PAGE_NUMBER) }
-                    )
-                }
-            }
-
-            item {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    QuickActionCard(
-                        title = "Split PDF",
-                        subtitle = "Extract selected pages",
-                        icon = Icons.Default.ContentCut,
-                        modifier = Modifier.weight(1f),
-                        onClick = { viewModel.setActiveTool(PdfOperationType.SPLIT) }
-                    )
-                    QuickActionCard(
-                        title = "Rotate Pages",
-                        subtitle = "Fix orientation 90°/180°",
-                        icon = Icons.AutoMirrored.Filled.RotateRight,
-                        modifier = Modifier.weight(1f),
-                        onClick = { viewModel.setActiveTool(PdfOperationType.ROTATE) }
-                    )
+                    chunk.forEach { item ->
+                        QuickActionCard(
+                            title = item.title,
+                            subtitle = item.subtitle,
+                            icon = item.icon,
+                            badge = item.badge,
+                            modifier = Modifier.weight(1f),
+                            onClick = { viewModel.setActiveTool(item.op) }
+                        )
+                    }
+                    val emptySlots = columnCount - chunk.size
+                    for (i in 0 until emptySlots) {
+                        Spacer(modifier = Modifier.weight(1f))
+                    }
                 }
             }
 
@@ -461,7 +419,7 @@ fun QuickActionCard(
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
         shape = RoundedCornerShape(16.dp),
         modifier = modifier
-            .height(104.dp)
+            .defaultMinSize(minHeight = 104.dp)
             .clickable { onClick() }
     ) {
         Column(

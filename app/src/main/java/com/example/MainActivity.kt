@@ -6,7 +6,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -184,34 +189,43 @@ fun PDFCraftApp(
         Box(
             modifier = modifier.fillMaxSize()
         ) {
-            if (activeTool != null) {
-                when (activeTool) {
-                    PdfOperationType.MERGE -> MergeScreen(viewModel = viewModel)
-                    PdfOperationType.SPLIT -> SplitScreen(viewModel = viewModel)
-                    PdfOperationType.COMPRESS -> CompressScreen(viewModel = viewModel)
-                    PdfOperationType.METADATA -> MetadataScreen(viewModel = viewModel)
-                    PdfOperationType.ENCRYPT -> EncryptScreen(viewModel = viewModel)
-                    PdfOperationType.WATERMARK -> WatermarkScreen(viewModel = viewModel)
-                    PdfOperationType.SIGN -> SignScreen(viewModel = viewModel)
-                    PdfOperationType.ROTATE -> RotateScreen(viewModel = viewModel, onNavigateBack = { viewModel.setActiveTool(null) })
-                    PdfOperationType.IMAGE_TO_PDF -> ImageToPdfScreen(viewModel = viewModel)
-                    PdfOperationType.PAGE_NUMBER -> PageNumberScreen(viewModel = viewModel)
-                    PdfOperationType.TEXT_TO_PDF -> TextToPdfScreen(viewModel = viewModel)
-                    PdfOperationType.PDF_TO_TEXT -> PdfToTextScreen(viewModel = viewModel)
-                    PdfOperationType.PDF_TO_IMAGES -> PdfToImagesScreen(viewModel = viewModel)
-                    PdfOperationType.HTML_TO_PDF -> HtmlToPdfScreen(viewModel = viewModel)
-                    else -> {}
-                }
-            } else {
-                Crossfade(
-                    targetState = currentTab,
-                    label = "tabCrossfade"
-                ) { tab ->
-                    when (tab) {
-                        0 -> HubScreen(viewModel = viewModel)
-                        1 -> ToolsScreen(viewModel = viewModel)
-                        2 -> LibraryScreen(viewModel = viewModel)
-                        3 -> SettingsScreen(viewModel = viewModel)
+            AnimatedContent(
+                targetState = activeTool,
+                transitionSpec = {
+                    fadeIn(animationSpec = tween(220)) togetherWith fadeOut(animationSpec = tween(220))
+                },
+                label = "activeToolTransition"
+            ) { tool ->
+                if (tool != null) {
+                    when (tool) {
+                        PdfOperationType.MERGE -> MergeScreen(viewModel = viewModel)
+                        PdfOperationType.SPLIT -> SplitScreen(viewModel = viewModel)
+                        PdfOperationType.COMPRESS -> CompressScreen(viewModel = viewModel)
+                        PdfOperationType.METADATA -> MetadataScreen(viewModel = viewModel)
+                        PdfOperationType.ENCRYPT -> EncryptScreen(viewModel = viewModel)
+                        PdfOperationType.WATERMARK -> WatermarkScreen(viewModel = viewModel)
+                        PdfOperationType.SIGN -> SignScreen(viewModel = viewModel)
+                        PdfOperationType.ROTATE -> RotateScreen(viewModel = viewModel, onNavigateBack = { viewModel.setActiveTool(null) })
+                        PdfOperationType.IMAGE_TO_PDF -> ImageToPdfScreen(viewModel = viewModel)
+                        PdfOperationType.PAGE_NUMBER -> PageNumberScreen(viewModel = viewModel)
+                        PdfOperationType.TEXT_TO_PDF -> TextToPdfScreen(viewModel = viewModel)
+                        PdfOperationType.PDF_TO_TEXT -> PdfToTextScreen(viewModel = viewModel)
+                        PdfOperationType.PDF_TO_IMAGES -> PdfToImagesScreen(viewModel = viewModel)
+                        PdfOperationType.HTML_TO_PDF -> HtmlToPdfScreen(viewModel = viewModel)
+                        else -> {}
+                    }
+                } else {
+                    Crossfade(
+                        targetState = currentTab,
+                        animationSpec = tween(200),
+                        label = "tabCrossfade"
+                    ) { tab ->
+                        when (tab) {
+                            0 -> HubScreen(viewModel = viewModel)
+                            1 -> ToolsScreen(viewModel = viewModel)
+                            2 -> LibraryScreen(viewModel = viewModel)
+                            3 -> SettingsScreen(viewModel = viewModel)
+                        }
                     }
                 }
             }

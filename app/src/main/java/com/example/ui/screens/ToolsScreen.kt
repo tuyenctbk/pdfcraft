@@ -395,7 +395,7 @@ fun ToolsScreen(
                             shape = RoundedCornerShape(16.dp),
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(168.dp)
+                                .defaultMinSize(minHeight = 168.dp)
                                 .clickable { viewModel.setActiveTool(tool.operationType) }
                                 .testTag("tool_card_${tool.operationType.name}")
                         ) {
