@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.R
@@ -461,7 +462,8 @@ fun ToolsScreen(
                                             fontWeight = FontWeight.Bold,
                                             color = MaterialTheme.colorScheme.onSurface
                                         ),
-                                        maxLines = 1
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis
                                     )
                                     Spacer(modifier = Modifier.height(3.dp))
                                     Text(
@@ -471,7 +473,8 @@ fun ToolsScreen(
                                             fontSize = 11.sp,
                                             lineHeight = 15.sp
                                         ),
-                                        maxLines = 2
+                                        maxLines = 2,
+                                        overflow = TextOverflow.Ellipsis
                                     )
                                 }
                             }

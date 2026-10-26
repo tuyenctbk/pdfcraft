@@ -5,16 +5,19 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.filled.Close
@@ -36,6 +39,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -70,18 +74,20 @@ fun openDonationLink(context: Context, amountUsd: Int? = null, onCopyFallback: (
 
 /**
  * Buy Me a Coffee / Support Developer Interactive Card.
- * Designed for SettingsScreen, HubScreen, and About screens.
+ * Designed for SettingsScreen and standalone containers.
  */
 @Composable
 fun BuyMeACoffeeCard(
     modifier: Modifier = Modifier,
+    showHeader: Boolean = true,
+    onOpenQr: (() -> Unit)? = null,
     onShowMessage: ((String) -> Unit)? = null
 ) {
     val context = LocalContext.current
     var showThankYou by remember { mutableStateOf(false) }
     var showQrDialog by remember { mutableStateOf(false) }
 
-    if (showQrDialog) {
+    if (showQrDialog && onOpenQr == null) {
         BuyMeACoffeeQrDialog(
             onDismiss = { showQrDialog = false },
             onShowMessage = onShowMessage
@@ -98,73 +104,84 @@ fun BuyMeACoffeeCard(
             .fillMaxWidth()
             .testTag("buy_me_a_coffee_card")
     ) {
-        Column(modifier = Modifier.padding(18.dp)) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Box(
-                        modifier = Modifier
-                            .size(44.dp)
-                            .clip(CircleShape)
-                            .background(CoffeeAmber.copy(alpha = 0.15f)),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.LocalCafe,
-                            contentDescription = null,
-                            tint = CoffeeAmber,
-                            modifier = Modifier.size(24.dp)
-                        )
-                    }
-                    Spacer(modifier = Modifier.width(12.dp))
-                    Column {
-                        Text(
-                            text = stringResource(R.string.support_dev_title),
-                            style = MaterialTheme.typography.titleMedium.copy(
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onSurface
-                            )
-                        )
-                        Text(
-                            text = "paypal.me/tuyenphamvn",
-                            style = MaterialTheme.typography.bodySmall.copy(
-                                color = CoffeeAmber,
-                                fontWeight = FontWeight.Medium
-                            )
-                        )
-                    }
-                }
-
-                Surface(
-                    shape = RoundedCornerShape(12.dp),
-                    color = CoffeeAmber.copy(alpha = 0.12f),
-                    border = BorderStroke(0.5.dp, CoffeeAmber.copy(alpha = 0.3f))
+        Column(modifier = Modifier.padding(16.dp)) {
+            if (showHeader) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     Row(
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.weight(1f, fill = false)
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.Favorite,
-                            contentDescription = null,
-                            tint = Color(0xFFEF4444),
-                            modifier = Modifier.size(12.dp)
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            text = "100% Free",
-                            fontSize = 10.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = CoffeeAmber
-                        )
+                        Box(
+                            modifier = Modifier
+                                .size(40.dp)
+                                .clip(CircleShape)
+                                .background(CoffeeAmber.copy(alpha = 0.15f)),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.LocalCafe,
+                                contentDescription = null,
+                                tint = CoffeeAmber,
+                                modifier = Modifier.size(22.dp)
+                            )
+                        }
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Column {
+                            Text(
+                                text = stringResource(R.string.support_dev_title),
+                                style = MaterialTheme.typography.titleMedium.copy(
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                ),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                            Text(
+                                text = "paypal.me/tuyenphamvn",
+                                style = MaterialTheme.typography.bodySmall.copy(
+                                    color = CoffeeAmber,
+                                    fontWeight = FontWeight.Medium
+                                ),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    Surface(
+                        shape = RoundedCornerShape(12.dp),
+                        color = CoffeeAmber.copy(alpha = 0.12f),
+                        border = BorderStroke(0.5.dp, CoffeeAmber.copy(alpha = 0.3f))
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Favorite,
+                                contentDescription = null,
+                                tint = Color(0xFFEF4444),
+                                modifier = Modifier.size(12.dp)
+                            )
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text(
+                                text = "100% Free",
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = CoffeeAmber
+                            )
+                        }
                     }
                 }
-            }
 
-            Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(10.dp))
+            }
 
             Text(
                 text = stringResource(R.string.support_dev_subtitle),
@@ -175,7 +192,7 @@ fun BuyMeACoffeeCard(
                 )
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(14.dp))
 
             // Preset Donation Options Row ($3, $5, $10)
             Row(
@@ -189,6 +206,7 @@ fun BuyMeACoffeeCard(
                         }
                         showThankYou = true
                     },
+                    contentPadding = PaddingValues(horizontal = 4.dp, vertical = 8.dp),
                     shape = RoundedCornerShape(12.dp),
                     border = BorderStroke(1.dp, CoffeeAmber.copy(alpha = 0.6f)),
                     colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.onSurface),
@@ -197,7 +215,9 @@ fun BuyMeACoffeeCard(
                     Text(
                         text = "$3 ☕",
                         fontSize = 13.sp,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        maxLines = 1,
+                        softWrap = false
                     )
                 }
 
@@ -208,6 +228,7 @@ fun BuyMeACoffeeCard(
                         }
                         showThankYou = true
                     },
+                    contentPadding = PaddingValues(horizontal = 4.dp, vertical = 8.dp),
                     shape = RoundedCornerShape(12.dp),
                     border = BorderStroke(1.dp, CoffeeAmber.copy(alpha = 0.6f)),
                     colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.onSurface),
@@ -216,7 +237,9 @@ fun BuyMeACoffeeCard(
                     Text(
                         text = "$5 🍕",
                         fontSize = 13.sp,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        maxLines = 1,
+                        softWrap = false
                     )
                 }
 
@@ -227,6 +250,7 @@ fun BuyMeACoffeeCard(
                         }
                         showThankYou = true
                     },
+                    contentPadding = PaddingValues(horizontal = 4.dp, vertical = 8.dp),
                     shape = RoundedCornerShape(12.dp),
                     border = BorderStroke(1.dp, CoffeeAmber.copy(alpha = 0.6f)),
                     colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.onSurface),
@@ -235,7 +259,9 @@ fun BuyMeACoffeeCard(
                     Text(
                         text = "$10 🚀",
                         fontSize = 13.sp,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        maxLines = 1,
+                        softWrap = false
                     )
                 }
             }
@@ -249,15 +275,22 @@ fun BuyMeACoffeeCard(
             ) {
                 // Scan QR Button
                 OutlinedButton(
-                    onClick = { showQrDialog = true },
+                    onClick = {
+                        if (onOpenQr != null) {
+                            onOpenQr()
+                        } else {
+                            showQrDialog = true
+                        }
+                    },
                     shape = RoundedCornerShape(12.dp),
+                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
                     border = BorderStroke(1.dp, CoffeeAmber),
                     colors = ButtonDefaults.outlinedButtonColors(
                         contentColor = CoffeeAmber
                     ),
                     modifier = Modifier
                         .weight(1f)
-                        .height(44.dp)
+                        .height(46.dp)
                         .testTag("scan_qr_button")
                 ) {
                     Icon(
@@ -269,7 +302,9 @@ fun BuyMeACoffeeCard(
                     Text(
                         text = stringResource(R.string.support_qr_button),
                         fontWeight = FontWeight.Bold,
-                        fontSize = 12.sp
+                        fontSize = 12.sp,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
 
@@ -281,6 +316,7 @@ fun BuyMeACoffeeCard(
                         }
                         showThankYou = true
                     },
+                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = CoffeeAmber,
@@ -288,7 +324,7 @@ fun BuyMeACoffeeCard(
                     ),
                     modifier = Modifier
                         .weight(1.3f)
-                        .height(44.dp)
+                        .height(46.dp)
                         .testTag("paypal_donate_button")
                 ) {
                     Icon(
@@ -300,7 +336,9 @@ fun BuyMeACoffeeCard(
                     Text(
                         text = stringResource(R.string.support_paypal_custom),
                         fontWeight = FontWeight.Bold,
-                        fontSize = 12.sp
+                        fontSize = 12.sp,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Icon(
@@ -311,7 +349,7 @@ fun BuyMeACoffeeCard(
                 }
             }
 
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(4.dp))
 
             // Copy Link Button
             TextButton(
@@ -363,12 +401,11 @@ fun BuyMeACoffeeCard(
 }
 
 /**
- * Scan QR Code to "Buy Me a Coffee" Modal Dialog.
- * Generates dynamic high-contrast QR code for instant camera or PayPal scan.
+ * QR Code Display Component.
+ * Self-contained, responsive, and adaptive.
  */
 @Composable
-fun BuyMeACoffeeQrDialog(
-    onDismiss: () -> Unit,
+fun BuyMeACoffeeQrView(
     modifier: Modifier = Modifier,
     onShowMessage: ((String) -> Unit)? = null
 ) {
@@ -392,6 +429,192 @@ fun BuyMeACoffeeQrDialog(
         )
     }
 
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        // Amount Selection Chips with clean compact styling
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
+            FilterChip(
+                selected = selectedAmount == null,
+                onClick = { selectedAmount = null },
+                label = { Text(stringResource(R.string.support_qr_amount_any), fontSize = 11.sp, maxLines = 1) },
+                modifier = Modifier.weight(1f)
+            )
+            FilterChip(
+                selected = selectedAmount == 3,
+                onClick = { selectedAmount = 3 },
+                label = { Text(stringResource(R.string.support_qr_amount_3), fontSize = 11.sp, maxLines = 1) },
+                modifier = Modifier.weight(1f)
+            )
+            FilterChip(
+                selected = selectedAmount == 5,
+                onClick = { selectedAmount = 5 },
+                label = { Text(stringResource(R.string.support_qr_amount_5), fontSize = 11.sp, maxLines = 1) },
+                modifier = Modifier.weight(1f)
+            )
+            FilterChip(
+                selected = selectedAmount == 10,
+                onClick = { selectedAmount = 10 },
+                label = { Text(stringResource(R.string.support_qr_amount_10), fontSize = 11.sp, maxLines = 1) },
+                modifier = Modifier.weight(1f)
+            )
+        }
+
+        Spacer(modifier = Modifier.height(14.dp))
+
+        // High Contrast QR Display Container
+        Surface(
+            shape = RoundedCornerShape(16.dp),
+            color = Color.White,
+            border = BorderStroke(1.5.dp, CoffeeAmber.copy(alpha = 0.3f)),
+            shadowElevation = 3.dp,
+            modifier = Modifier.size(175.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(12.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                if (qrBitmap != null) {
+                    Image(
+                        bitmap = qrBitmap.asImageBitmap(),
+                        contentDescription = stringResource(R.string.support_qr_title),
+                        modifier = Modifier.fillMaxSize()
+                    )
+                } else {
+                    CircularProgressIndicator(color = CoffeeAmber)
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Text(
+            text = currentUrl.removePrefix("https://"),
+            style = MaterialTheme.typography.bodySmall.copy(
+                fontWeight = FontWeight.SemiBold,
+                color = CoffeeAmber,
+                fontSize = 12.sp
+            )
+        )
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        Text(
+            text = stringResource(R.string.support_qr_subtitle),
+            style = MaterialTheme.typography.bodySmall.copy(
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                fontSize = 12.sp,
+                textAlign = TextAlign.Center
+            ),
+            modifier = Modifier.padding(horizontal = 8.dp)
+        )
+
+        Spacer(modifier = Modifier.height(14.dp))
+
+        // Primary Action: Open PayPal
+        Button(
+            onClick = {
+                openDonationLink(context, selectedAmount)
+            },
+            shape = RoundedCornerShape(12.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = CoffeeAmber),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(44.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Default.VolunteerActivism,
+                contentDescription = null,
+                modifier = Modifier.size(18.dp)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = stringResource(R.string.support_paypal_custom),
+                fontWeight = FontWeight.Bold,
+                fontSize = 13.sp
+            )
+            Spacer(modifier = Modifier.width(6.dp))
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.OpenInNew,
+                contentDescription = null,
+                modifier = Modifier.size(14.dp)
+            )
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        // Secondary Actions: Share & Copy side by side with plenty of room
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            OutlinedButton(
+                onClick = {
+                    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_TEXT, currentUrl)
+                    }
+                    context.startActivity(Intent.createChooser(shareIntent, "Share Donation Link"))
+                },
+                shape = RoundedCornerShape(12.dp),
+                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 6.dp),
+                modifier = Modifier.weight(1f)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Share,
+                    contentDescription = null,
+                    modifier = Modifier.size(15.dp)
+                )
+                Spacer(modifier = Modifier.width(6.dp))
+                Text(
+                    text = "Share Link",
+                    fontSize = 12.sp,
+                    maxLines = 1
+                )
+            }
+
+            OutlinedButton(
+                onClick = {
+                    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+                    clipboard?.setPrimaryClip(ClipData.newPlainText("Donation URL", currentUrl))
+                    onShowMessage?.invoke(context.getString(R.string.support_link_copied, currentUrl))
+                },
+                shape = RoundedCornerShape(12.dp),
+                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 6.dp),
+                modifier = Modifier.weight(1f)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.ContentCopy,
+                    contentDescription = null,
+                    modifier = Modifier.size(15.dp)
+                )
+                Spacer(modifier = Modifier.width(6.dp))
+                Text(
+                    text = "Copy Link",
+                    fontSize = 12.sp,
+                    maxLines = 1
+                )
+            }
+        }
+    }
+}
+
+/**
+ * Scan QR Code to "Buy Me a Coffee" Modal Dialog.
+ * Used when launching directly from settings or shortcuts.
+ */
+@Composable
+fun BuyMeACoffeeQrDialog(
+    onDismiss: () -> Unit,
+    modifier: Modifier = Modifier,
+    onShowMessage: ((String) -> Unit)? = null
+) {
     Dialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false)
@@ -450,177 +673,30 @@ fun BuyMeACoffeeQrDialog(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(14.dp))
 
-                // Amount Selection Chips
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(6.dp)
-                ) {
-                    FilterChip(
-                        selected = selectedAmount == null,
-                        onClick = { selectedAmount = null },
-                        label = { Text(stringResource(R.string.support_qr_amount_any), fontSize = 11.sp) },
-                        modifier = Modifier.weight(1f)
-                    )
-                    FilterChip(
-                        selected = selectedAmount == 3,
-                        onClick = { selectedAmount = 3 },
-                        label = { Text(stringResource(R.string.support_qr_amount_3), fontSize = 11.sp) },
-                        modifier = Modifier.weight(1f)
-                    )
-                    FilterChip(
-                        selected = selectedAmount == 5,
-                        onClick = { selectedAmount = 5 },
-                        label = { Text(stringResource(R.string.support_qr_amount_5), fontSize = 11.sp) },
-                        modifier = Modifier.weight(1f)
-                    )
-                    FilterChip(
-                        selected = selectedAmount == 10,
-                        onClick = { selectedAmount = 10 },
-                        label = { Text(stringResource(R.string.support_qr_amount_10), fontSize = 11.sp) },
-                        modifier = Modifier.weight(1f)
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // High Contrast QR Display Container
-                Surface(
-                    shape = RoundedCornerShape(16.dp),
-                    color = Color.White,
-                    border = BorderStroke(1.5.dp, CoffeeAmber.copy(alpha = 0.3f)),
-                    shadowElevation = 4.dp,
-                    modifier = Modifier.size(230.dp)
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(14.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        if (qrBitmap != null) {
-                            Image(
-                                bitmap = qrBitmap.asImageBitmap(),
-                                contentDescription = stringResource(R.string.support_qr_title),
-                                modifier = Modifier.fillMaxSize()
-                            )
-                        } else {
-                            CircularProgressIndicator(color = CoffeeAmber)
-                        }
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                Text(
-                    text = currentUrl.removePrefix("https://"),
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontWeight = FontWeight.SemiBold,
-                        color = CoffeeAmber,
-                        fontSize = 12.sp
-                    )
-                )
-
-                Spacer(modifier = Modifier.height(6.dp))
-
-                Text(
-                    text = stringResource(R.string.support_qr_subtitle),
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontSize = 12.sp,
-                        textAlign = TextAlign.Center
-                    ),
-                    modifier = Modifier.padding(horizontal = 12.dp)
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // Actions: Share QR, Copy Link, Open PayPal
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    OutlinedButton(
-                        onClick = {
-                            val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                                type = "text/plain"
-                                putExtra(Intent.EXTRA_TEXT, currentUrl)
-                            }
-                            context.startActivity(Intent.createChooser(shareIntent, "Share Donation Link"))
-                        },
-                        shape = RoundedCornerShape(12.dp),
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Share,
-                            contentDescription = null,
-                            modifier = Modifier.size(16.dp)
-                        )
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Text(
-                            text = "Share",
-                            fontSize = 12.sp
-                        )
-                    }
-
-                    OutlinedButton(
-                        onClick = {
-                            val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
-                            clipboard?.setPrimaryClip(ClipData.newPlainText("Donation URL", currentUrl))
-                            onShowMessage?.invoke(context.getString(R.string.support_link_copied, currentUrl))
-                        },
-                        shape = RoundedCornerShape(12.dp),
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.ContentCopy,
-                            contentDescription = null,
-                            modifier = Modifier.size(16.dp)
-                        )
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Text(
-                            text = "Copy",
-                            fontSize = 12.sp
-                        )
-                    }
-
-                    Button(
-                        onClick = {
-                            openDonationLink(context, selectedAmount)
-                            onDismiss()
-                        },
-                        shape = RoundedCornerShape(12.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = CoffeeAmber),
-                        modifier = Modifier.weight(1.2f)
-                    ) {
-                        Text(
-                            text = "PayPal",
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 12.sp
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.OpenInNew,
-                            contentDescription = null,
-                            modifier = Modifier.size(14.dp)
-                        )
-                    }
-                }
+                BuyMeACoffeeQrView(onShowMessage = onShowMessage)
             }
         }
     }
 }
 
 /**
- * Buy Me a Coffee Dialog for easy modal access from Hub or Tool screens.
+ * Comprehensive Buy Me a Coffee Dialog with Dual Modes:
+ * Mode 0: Direct Options ($3, $5, $10, PayPal, Copy)
+ * Mode 1: Scan QR Code (dynamic QR generator for Camera / PayPal App)
+ * Seamlessly toggles within one dialog without nested stacking!
  */
 @Composable
 fun BuyMeACoffeeDialog(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
+    initialTab: Int = 0,
     onShowMessage: ((String) -> Unit)? = null
 ) {
+    var selectedTab by remember { mutableIntStateOf(initialTab) }
+    val scrollState = rememberScrollState()
+
     Dialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false)
@@ -635,13 +711,21 @@ fun BuyMeACoffeeDialog(
                 .padding(16.dp)
                 .testTag("buy_me_a_coffee_dialog")
         ) {
-            Column(modifier = Modifier.padding(20.dp)) {
+            Column(
+                modifier = Modifier
+                    .padding(20.dp)
+                    .verticalScroll(scrollState)
+            ) {
+                // Header with Title & Dismiss
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.weight(1f, fill = false)
+                    ) {
                         Box(
                             modifier = Modifier
                                 .size(36.dp)
@@ -650,7 +734,7 @@ fun BuyMeACoffeeDialog(
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(
-                                imageVector = Icons.Default.LocalCafe,
+                                imageVector = if (selectedTab == 0) Icons.Default.LocalCafe else Icons.Default.QrCode2,
                                 contentDescription = null,
                                 tint = CoffeeAmber,
                                 modifier = Modifier.size(20.dp)
@@ -658,10 +742,12 @@ fun BuyMeACoffeeDialog(
                         }
                         Spacer(modifier = Modifier.width(10.dp))
                         Text(
-                            text = stringResource(R.string.support_dev_title),
+                            text = stringResource(if (selectedTab == 0) R.string.support_dev_title else R.string.support_qr_title),
                             style = MaterialTheme.typography.titleMedium.copy(
                                 fontWeight = FontWeight.Bold
-                            )
+                            ),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
                         )
                     }
 
@@ -674,9 +760,96 @@ fun BuyMeACoffeeDialog(
                     }
                 }
 
+                Spacer(modifier = Modifier.height(12.dp))
+
+                // Mode Selector Tabs (Options vs Scan QR)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                        .padding(4.dp),
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Surface(
+                        onClick = { selectedTab = 0 },
+                        shape = RoundedCornerShape(10.dp),
+                        color = if (selectedTab == 0) MaterialTheme.colorScheme.surface else Color.Transparent,
+                        border = if (selectedTab == 0) BorderStroke(1.dp, CoffeeAmber.copy(alpha = 0.5f)) else null,
+                        shadowElevation = if (selectedTab == 0) 2.dp else 0.dp,
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(vertical = 8.dp),
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.LocalCafe,
+                                contentDescription = null,
+                                tint = if (selectedTab == 0) CoffeeAmber else MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.size(16.dp)
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = "Options",
+                                fontSize = 12.sp,
+                                fontWeight = if (selectedTab == 0) FontWeight.Bold else FontWeight.Normal,
+                                color = if (selectedTab == 0) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+
+                    Surface(
+                        onClick = { selectedTab = 1 },
+                        shape = RoundedCornerShape(10.dp),
+                        color = if (selectedTab == 1) MaterialTheme.colorScheme.surface else Color.Transparent,
+                        border = if (selectedTab == 1) BorderStroke(1.dp, CoffeeAmber.copy(alpha = 0.5f)) else null,
+                        shadowElevation = if (selectedTab == 1) 2.dp else 0.dp,
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(vertical = 8.dp),
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.QrCode2,
+                                contentDescription = null,
+                                tint = if (selectedTab == 1) CoffeeAmber else MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.size(16.dp)
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = stringResource(R.string.support_qr_button),
+                                fontSize = 12.sp,
+                                fontWeight = if (selectedTab == 1) FontWeight.Bold else FontWeight.Normal,
+                                color = if (selectedTab == 1) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+                }
+
                 Spacer(modifier = Modifier.height(14.dp))
 
-                BuyMeACoffeeCard(onShowMessage = onShowMessage)
+                // Smooth animated transition between Options and Scan QR
+                AnimatedContent(
+                    targetState = selectedTab,
+                    transitionSpec = { fadeIn() togetherWith fadeOut() },
+                    label = "coffee_mode_switch"
+                ) { tab ->
+                    if (tab == 0) {
+                        BuyMeACoffeeCard(
+                            showHeader = false,
+                            onOpenQr = { selectedTab = 1 },
+                            onShowMessage = onShowMessage
+                        )
+                    } else {
+                        BuyMeACoffeeQrView(
+                            onShowMessage = onShowMessage
+                        )
+                    }
+                }
             }
         }
     }
