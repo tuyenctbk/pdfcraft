@@ -102,9 +102,26 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
 
+        val incomingUri = intent?.data
+
         setContent {
             val viewModel: MainViewModel = viewModel()
             val themeMode by viewModel.themeMode.collectAsState()
+
+            LaunchedEffect(incomingUri) {
+                incomingUri?.let { uri ->
+                    try {
+                        val localFile = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                            com.example.data.pdf.PdfEngine.getLocalFileFromUri(applicationContext, uri)
+                        }
+                        if (localFile != null && localFile.exists()) {
+                            viewModel.openInViewer(localFile.absolutePath)
+                        }
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Error handling incoming URI", e)
+                    }
+                }
+            }
 
             PDFCraftTheme(themeMode = themeMode) {
                 Surface(

@@ -214,6 +214,33 @@ fun PdfDocumentPickerCard(
                         fontSize = 14.sp
                     )
                 }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                OutlinedButton(
+                    onClick = {
+                        val sample = getOrCreateDefaultSamplePdf(context)
+                        if (sample.exists()) {
+                            onFileSelected(sample)
+                        }
+                    },
+                    shape = RoundedCornerShape(12.dp),
+                    contentPadding = PaddingValues(horizontal = 20.dp, vertical = 10.dp),
+                    modifier = Modifier.testTag("${testTagPrefix}_default_sample_button")
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Description,
+                        contentDescription = null,
+                        modifier = Modifier.size(16.dp),
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text(
+                        text = "Open Default Sample PDF",
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 13.sp
+                    )
+                }
             } else {
                 // Selected file state
                 Row(
@@ -529,4 +556,38 @@ fun PdfDocumentPickerButton(
         Spacer(modifier = Modifier.width(8.dp))
         Text(text = text, fontWeight = FontWeight.SemiBold)
     }
+}
+
+fun getOrCreateDefaultSamplePdf(context: Context): File {
+    val file = File(context.cacheDir, "Default_Sample_Document.pdf")
+    if (!file.exists()) {
+        try {
+            val doc = android.graphics.pdf.PdfDocument()
+            val pageInfo = android.graphics.pdf.PdfDocument.PageInfo.Builder(595, 842, 1).create()
+            val page = doc.startPage(pageInfo)
+            val canvas = page.canvas
+            canvas.drawColor(android.graphics.Color.WHITE)
+            
+            val paintTitle = android.graphics.Paint().apply {
+                color = android.graphics.Color.parseColor("#0F172A")
+                textSize = 24f
+                isFakeBoldText = true
+            }
+            val paintBody = android.graphics.Paint().apply {
+                color = android.graphics.Color.parseColor("#334155")
+                textSize = 14f
+            }
+            
+            canvas.drawText("PDFCraft Default Sample Document", 40f, 60f, paintTitle)
+            canvas.drawText("This is the default sample PDF provided for quick testing and editing.", 40f, 100f, paintBody)
+            canvas.drawText("You can view, merge, split, rotate, or compress this document instantly.", 40f, 130f, paintBody)
+            
+            doc.finishPage(page)
+            java.io.FileOutputStream(file).use { doc.writeTo(it) }
+            doc.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+    return file
 }
