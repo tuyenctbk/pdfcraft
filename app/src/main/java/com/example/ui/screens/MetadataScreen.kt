@@ -254,7 +254,7 @@ fun MetadataScreen(
                             }
 
                             if (creator.isNotBlank() || producer.isNotBlank()) {
-                                Divider(modifier = Modifier.padding(vertical = 10.dp), color = MaterialTheme.colorScheme.outlineVariant)
+                                HorizontalDivider(modifier = Modifier.padding(vertical = 10.dp), color = MaterialTheme.colorScheme.outlineVariant)
 
                                 Row(
                                     modifier = Modifier.fillMaxWidth(),

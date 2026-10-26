@@ -19,8 +19,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.NewReleases
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.SystemUpdate
 import androidx.compose.material.icons.outlined.StarOutline
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -43,12 +45,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.example.R
 
 /**
  * Smart Auto-Suggest Rate 5-Star Dialog.
@@ -99,7 +103,7 @@ fun SuggestRateDialog(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = "Enjoying PDFCraft?",
+                    text = stringResource(R.string.rate_dialog_title),
                     style = MaterialTheme.typography.titleLarge.copy(
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface
@@ -110,7 +114,7 @@ fun SuggestRateDialog(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "Your rating helps us keep PDFCraft 100% offline, private, and feature-packed for everyone!",
+                    text = stringResource(R.string.rate_dialog_desc),
                     style = MaterialTheme.typography.bodyMedium.copy(
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 13.sp
@@ -152,7 +156,7 @@ fun SuggestRateDialog(
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
                 ) {
                     Text(
-                        text = if (selectedRating == 5) "Rate 5 Stars on Play Store" else "Submit Rating",
+                        text = if (selectedRating == 5) stringResource(R.string.rate_dialog_rate_5_stars) else stringResource(R.string.rate_dialog_submit),
                         fontWeight = FontWeight.Bold
                     )
                 }
@@ -167,14 +171,14 @@ fun SuggestRateDialog(
                         onClick = { onDismiss(false) },
                         modifier = Modifier.testTag("rate_dialog_cancel_button")
                     ) {
-                        Text("Maybe Later", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Text(stringResource(R.string.rate_dialog_maybe_later), color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
 
                     TextButton(
                         onClick = { onDismiss(true) },
                         modifier = Modifier.testTag("rate_dialog_never_button")
                     ) {
-                        Text("Don't Ask Again", color = MaterialTheme.colorScheme.error)
+                        Text(stringResource(R.string.rate_dialog_never), color = MaterialTheme.colorScheme.error)
                     }
                 }
             }
@@ -230,7 +234,7 @@ fun SuggestShareDialog(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = "Share PDFCraft with Friends",
+                    text = stringResource(R.string.share_dialog_title),
                     style = MaterialTheme.typography.titleLarge.copy(
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface
@@ -241,7 +245,7 @@ fun SuggestShareDialog(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "Help your colleagues and friends easily merge, split, compress, and lock PDFs offline!",
+                    text = stringResource(R.string.share_dialog_desc),
                     style = MaterialTheme.typography.bodyMedium.copy(
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 13.sp
@@ -261,9 +265,9 @@ fun SuggestShareDialog(
                         modifier = Modifier.padding(14.dp),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        FeatureBullet("100% Offline & Private local engine")
-                        FeatureBullet("Merge, Split, Compress & Rotate PDFs")
-                        FeatureBullet("Password Lock & Image Extraction")
+                        FeatureBullet(stringResource(R.string.share_dialog_bullet_offline))
+                        FeatureBullet(stringResource(R.string.share_dialog_bullet_tools))
+                        FeatureBullet(stringResource(R.string.share_dialog_bullet_security))
                     }
                 }
 
@@ -279,7 +283,7 @@ fun SuggestShareDialog(
                 ) {
                     Icon(Icons.Default.Share, contentDescription = null, modifier = Modifier.size(18.dp))
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("Share PDFCraft App", fontWeight = FontWeight.Bold)
+                    Text(stringResource(R.string.share_dialog_share_button), fontWeight = FontWeight.Bold)
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -292,14 +296,160 @@ fun SuggestShareDialog(
                         onClick = { onDismiss(false) },
                         modifier = Modifier.testTag("share_dialog_cancel_button")
                     ) {
-                        Text("Not Now", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Text(stringResource(R.string.share_dialog_not_now), color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
 
                     TextButton(
                         onClick = { onDismiss(true) },
                         modifier = Modifier.testTag("share_dialog_never_button")
                     ) {
-                        Text("Don't Ask Again", color = MaterialTheme.colorScheme.error)
+                        Text(stringResource(R.string.rate_dialog_never), color = MaterialTheme.colorScheme.error)
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Smart Auto-Suggest Update Dialog.
+ * Notifies user when a new release is available on Google Play Store without recurring annoyance.
+ */
+@Composable
+fun SuggestUpdateDialog(
+    versionName: String = "1.6.2",
+    releaseNotes: String? = null,
+    onUpdateNow: (context: Context) -> Unit,
+    onLater: () -> Unit = {},
+    onSkipVersion: () -> Unit = {},
+    modifier: Modifier = Modifier
+) {
+    val context = LocalContext.current
+
+    Dialog(
+        onDismissRequest = onLater,
+        properties = DialogProperties(usePlatformDefaultWidth = false)
+    ) {
+        Surface(
+            shape = RoundedCornerShape(24.dp),
+            color = MaterialTheme.colorScheme.surface,
+            tonalElevation = 8.dp,
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+            modifier = modifier
+                .fillMaxWidth(0.92f)
+                .padding(16.dp)
+                .testTag("suggest_update_dialog")
+        ) {
+            Column(
+                modifier = Modifier.padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(56.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.primaryContainer),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.SystemUpdate,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.size(30.dp)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Text(
+                    text = stringResource(R.string.update_dialog_title),
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface
+                    ),
+                    textAlign = TextAlign.Center
+                )
+
+                if (versionName.isNotBlank()) {
+                    Text(
+                        text = "v$versionName",
+                        style = MaterialTheme.typography.labelMedium.copy(
+                            fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text(
+                    text = stringResource(R.string.update_dialog_desc),
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        fontSize = 13.sp
+                    ),
+                    textAlign = TextAlign.Center
+                )
+
+                if (!releaseNotes.isNullOrBlank()) {
+                    Spacer(modifier = Modifier.height(14.dp))
+                    Card(
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)),
+                        shape = RoundedCornerShape(12.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Column(modifier = Modifier.padding(12.dp)) {
+                            Text(
+                                text = stringResource(R.string.update_dialog_release_notes_label),
+                                style = MaterialTheme.typography.labelSmall.copy(
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = releaseNotes,
+                                style = MaterialTheme.typography.bodySmall.copy(
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            )
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Button(
+                    onClick = { onUpdateNow(context) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(48.dp)
+                        .testTag("update_dialog_update_button"),
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+                ) {
+                    Icon(Icons.Default.SystemUpdate, contentDescription = null, modifier = Modifier.size(18.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(stringResource(R.string.update_dialog_update_now), fontWeight = FontWeight.Bold)
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    TextButton(
+                        onClick = onLater,
+                        modifier = Modifier.testTag("update_dialog_later_button")
+                    ) {
+                        Text(stringResource(R.string.update_dialog_later), color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+
+                    TextButton(
+                        onClick = onSkipVersion,
+                        modifier = Modifier.testTag("update_dialog_skip_button")
+                    ) {
+                        Text(stringResource(R.string.update_dialog_skip), color = MaterialTheme.colorScheme.error)
                     }
                 }
             }

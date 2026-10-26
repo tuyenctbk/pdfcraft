@@ -316,7 +316,7 @@ fun PdfDocumentPreviewCard(
                 }
             }
 
-            Divider(color = MaterialTheme.colorScheme.outlineVariant)
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
 
             // --- CANVAS PAGE DISPLAY AREA ---
             Box(
@@ -508,7 +508,7 @@ fun PdfDocumentPreviewCard(
             // --- HORIZONTAL PAGE THUMBNAILS DRAWER ---
             AnimatedVisibility(visible = showThumbnailDrawer && totalPages > 1) {
                 Column(modifier = Modifier.fillMaxWidth()) {
-                    Divider(color = MaterialTheme.colorScheme.outlineVariant)
+                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                     Surface(
                         color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
                         modifier = Modifier.fillMaxWidth()

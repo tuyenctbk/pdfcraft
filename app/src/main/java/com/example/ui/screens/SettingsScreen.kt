@@ -23,6 +23,10 @@ import androidx.compose.ui.platform.testTag
 import com.example.ui.MainViewModel
 import com.example.ui.theme.ThemeMode
 
+import com.example.ui.components.BuyMeACoffeeCard
+import androidx.compose.material.icons.automirrored.filled.Logout
+import androidx.compose.material.icons.automirrored.filled.Login
+
 @Composable
 fun SettingsScreen(
     viewModel: MainViewModel,
@@ -57,7 +61,7 @@ fun SettingsScreen(
         ) {
         item {
             Text(
-                text = "Preferences & Settings",
+                text = stringResource(R.string.settings_pref_title),
                 style = MaterialTheme.typography.titleLarge.copy(
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onBackground
@@ -65,10 +69,16 @@ fun SettingsScreen(
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "Customize your PDFCraft experience and security settings",
+                text = stringResource(R.string.settings_pref_subtitle),
                 style = MaterialTheme.typography.bodyMedium.copy(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
+            )
+        }
+
+        item {
+            BuyMeACoffeeCard(
+                onShowMessage = { msg -> viewModel.showUserMessage(msg) }
             )
         }
 
@@ -84,7 +94,7 @@ fun SettingsScreen(
                         Icon(imageVector = Icons.Default.Brightness6, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                         Spacer(modifier = Modifier.width(12.dp))
                         Text(
-                            text = "Theme Appearance",
+                            text = stringResource(R.string.settings_theme_appearance),
                             style = MaterialTheme.typography.titleMedium.copy(
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onSurface
@@ -133,7 +143,7 @@ fun SettingsScreen(
                         Icon(imageVector = Icons.Default.Security, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                         Spacer(modifier = Modifier.width(12.dp))
                         Text(
-                            text = "Security & Privacy",
+                            text = stringResource(R.string.settings_security_privacy),
                             style = MaterialTheme.typography.titleMedium.copy(
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onSurface
@@ -144,7 +154,7 @@ fun SettingsScreen(
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
-                        text = "All PDF operations (Merging, Splitting, Compression, Encryption, Watermarking, Signing) execute 100% locally on-device. No document content is ever uploaded to external cloud servers.",
+                        text = stringResource(R.string.settings_security_privacy_desc),
                         style = MaterialTheme.typography.bodyMedium.copy(
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -176,7 +186,7 @@ fun SettingsScreen(
                         Icon(imageVector = Icons.Default.CloudSync, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                         Spacer(modifier = Modifier.width(12.dp))
                         Text(
-                            text = "Cloud Sync & Firebase Account",
+                            text = stringResource(R.string.settings_cloud_sync_title),
                             style = MaterialTheme.typography.titleMedium.copy(
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onSurface
@@ -191,9 +201,9 @@ fun SettingsScreen(
 
                     Text(
                         text = if (currentUserEmail != null) 
-                            "Signed in as $currentUserEmail. Your PDF preferences and history can be synchronized securely." 
+                            stringResource(R.string.settings_cloud_sync_signed_in, currentUserEmail ?: "")
                         else 
-                            "Sign in with Email/Password via Firebase Authentication to sync preferences and history across devices.",
+                            stringResource(R.string.settings_cloud_sync_signed_out),
                         style = MaterialTheme.typography.bodyMedium.copy(
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -208,7 +218,7 @@ fun SettingsScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Enable Cloud Sync",
+                                text = stringResource(R.string.settings_enable_cloud_sync),
                                 style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium),
                                 color = MaterialTheme.colorScheme.onSurface
                             )
@@ -223,18 +233,18 @@ fun SettingsScreen(
                             modifier = Modifier.fillMaxWidth(),
                             colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error)
                         ) {
-                            Icon(imageVector = Icons.Default.Logout, contentDescription = null)
+                            Icon(imageVector = Icons.AutoMirrored.Filled.Logout, contentDescription = null)
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text("Sign Out (${currentUserEmail})")
+                            Text(stringResource(R.string.settings_sign_out, currentUserEmail ?: ""))
                         }
                     } else {
                         Button(
                             onClick = { showAuthDialog = true },
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            Icon(imageVector = Icons.Default.Login, contentDescription = null)
+                            Icon(imageVector = Icons.AutoMirrored.Filled.Login, contentDescription = null)
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text("Sign In / Create Account")
+                            Text(stringResource(R.string.settings_sign_in_create))
                         }
                     }
                 }
@@ -253,7 +263,7 @@ fun SettingsScreen(
                         Icon(imageVector = Icons.Default.DeleteSweep, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                         Spacer(modifier = Modifier.width(12.dp))
                         Text(
-                            text = "Storage Management",
+                            text = stringResource(R.string.settings_storage_title),
                             style = MaterialTheme.typography.titleMedium.copy(
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onSurface
@@ -266,7 +276,7 @@ fun SettingsScreen(
                     val tempSize by viewModel.tempFilesSize.collectAsState()
 
                     Text(
-                        text = "Temporary cache files accumulate during merge, split, rotation, or signature actions. Clearing these files releases local space safely.",
+                        text = stringResource(R.string.settings_storage_desc),
                         style = MaterialTheme.typography.bodyMedium.copy(
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -280,7 +290,7 @@ fun SettingsScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Temporary Files: $tempSize",
+                            text = stringResource(R.string.settings_temp_files_label, tempSize),
                             style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
                             color = MaterialTheme.colorScheme.onSurface
                         )
@@ -315,7 +325,7 @@ fun SettingsScreen(
                         Icon(imageVector = Icons.Default.PictureAsPdf, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                         Spacer(modifier = Modifier.width(12.dp))
                         Text(
-                            text = "Default PDF App & Association",
+                            text = stringResource(R.string.settings_default_app_title),
                             style = MaterialTheme.typography.titleMedium.copy(
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onSurface
@@ -326,7 +336,7 @@ fun SettingsScreen(
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
-                        text = "PDFCraft is registered as a system PDF viewer. When opening any PDF file from your device file manager or email, you can select PDFCraft and tap 'Always' to set it as your default PDF viewer.",
+                        text = stringResource(R.string.settings_default_app_desc),
                         style = MaterialTheme.typography.bodyMedium.copy(
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -343,7 +353,7 @@ fun SettingsScreen(
                                 }
                                 context.startActivity(intent)
                             } catch (e: Exception) {
-                                viewModel.showUserMessage("Could not open application settings")
+                                viewModel.showUserMessage(context.getString(R.string.settings_manage_settings_error))
                             }
                         },
                         modifier = Modifier.fillMaxWidth(),
@@ -351,7 +361,7 @@ fun SettingsScreen(
                     ) {
                         Icon(imageVector = Icons.Default.Settings, contentDescription = null, modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("Manage Default App Settings")
+                        Text(stringResource(R.string.settings_manage_default_app))
                     }
                 }
             }
@@ -369,7 +379,7 @@ fun SettingsScreen(
                         Icon(imageVector = Icons.Default.Info, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                         Spacer(modifier = Modifier.width(12.dp))
                         Text(
-                            text = "About PDFCraft Pro",
+                            text = stringResource(R.string.settings_about_app_title),
                             style = MaterialTheme.typography.titleMedium.copy(
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onSurface
@@ -380,7 +390,7 @@ fun SettingsScreen(
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
-                        text = "Version ${com.example.BuildConfig.VERSION_NAME} • Built with Jetpack Compose & Apache PDFBox.",
+                        text = stringResource(R.string.settings_about_app_desc, com.example.BuildConfig.VERSION_NAME),
                         style = MaterialTheme.typography.bodyMedium.copy(
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -398,7 +408,7 @@ fun SettingsScreen(
                     Icon(imageVector = Icons.Default.Security, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "Privacy Policy",
+                        text = stringResource(R.string.settings_security_privacy),
                         style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
                     )
                 }
@@ -430,7 +440,7 @@ fun SettingsScreen(
             },
             confirmButton = {
                 TextButton(onClick = { showPrivacyPolicy = false }) {
-                    Text("Close")
+                    Text(stringResource(R.string.action_close))
                 }
             },
             shape = RoundedCornerShape(24.dp),
@@ -446,7 +456,7 @@ fun SettingsScreen(
         AlertDialog(
             onDismissRequest = { showAuthDialog = false; authError = null },
             title = {
-                Text(if (isSignUpMode) "Create Firebase Account" else "Sign In to PDFCraft")
+                Text(if (isSignUpMode) stringResource(R.string.settings_create_account) else stringResource(R.string.settings_sign_in_title))
             },
             text = {
                 Column(
@@ -475,7 +485,7 @@ fun SettingsScreen(
                         )
                     }
                     TextButton(onClick = { isSignUpMode = !isSignUpMode; authError = null }) {
-                        Text(if (isSignUpMode) "Already have an account? Sign In" else "No account? Create one")
+                        Text(if (isSignUpMode) stringResource(R.string.settings_have_account) else stringResource(R.string.settings_no_account))
                     }
                 }
             },
@@ -499,12 +509,12 @@ fun SettingsScreen(
                         }
                     }
                 ) {
-                    Text(if (isSignUpMode) "Sign Up" else "Sign In")
+                    Text(if (isSignUpMode) stringResource(R.string.settings_sign_up) else stringResource(R.string.settings_sign_in))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showAuthDialog = false; authError = null }) {
-                    Text("Cancel")
+                    Text(stringResource(R.string.action_cancel))
                 }
             },
             shape = RoundedCornerShape(24.dp),

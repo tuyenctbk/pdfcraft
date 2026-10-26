@@ -32,13 +32,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.data.local.PdfOperationType
 import com.example.data.pdf.PdfEngine
+import androidx.compose.ui.res.stringResource
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import com.example.R
 import com.example.ui.MainViewModel
+import com.example.ui.components.BuyMeACoffeeDialog
 
 data class HubActionItem(
-    val title: String,
-    val subtitle: String,
+    val titleRes: Int,
+    val subtitleRes: Int,
     val icon: androidx.compose.ui.graphics.vector.ImageVector,
-    val badge: String? = null,
+    val badgeRes: Int? = null,
     val op: PdfOperationType
 )
 
@@ -49,19 +54,20 @@ fun HubScreen(
 ) {
     val history by viewModel.historyState.collectAsState()
     val recentFiles by viewModel.recentFilesState.collectAsState()
+    var showCoffeeDialog by remember { mutableStateOf(false) }
 
     val totalSavedBytes = history.sumOf { (it.originalSizeBytes - it.resultSizeBytes).coerceAtLeast(0) }
 
     val quickActionItems = remember {
         listOf(
-            HubActionItem("Merge PDFs", "Combine files in order", Icons.Default.Merge, "POPULAR", PdfOperationType.MERGE),
-            HubActionItem("Compress", "Reduce document size", Icons.Default.Compress, "POPULAR", PdfOperationType.COMPRESS),
-            HubActionItem("Text to PDF", "TXT, Markdown & Code", Icons.Default.TextFields, "NEW", PdfOperationType.TEXT_TO_PDF),
-            HubActionItem("PDF to Images", "Export pages to PNG/JPG", Icons.Default.Image, "NEW", PdfOperationType.PDF_TO_IMAGES),
-            HubActionItem("Images to PDF", "Photos into one document", Icons.Default.Image, null, PdfOperationType.IMAGE_TO_PDF),
-            HubActionItem("Page Numbers", "Add stamps & headers", Icons.Default.TextFields, null, PdfOperationType.PAGE_NUMBER),
-            HubActionItem("Split PDF", "Extract selected pages", Icons.Default.ContentCut, null, PdfOperationType.SPLIT),
-            HubActionItem("Rotate Pages", "Fix orientation 90°/180°", Icons.AutoMirrored.Filled.RotateRight, null, PdfOperationType.ROTATE)
+            HubActionItem(R.string.hub_action_merge_title, R.string.hub_action_merge_desc, Icons.Default.Merge, R.string.hub_badge_popular, PdfOperationType.MERGE),
+            HubActionItem(R.string.hub_action_compress_title, R.string.hub_action_compress_desc, Icons.Default.Compress, R.string.hub_badge_popular, PdfOperationType.COMPRESS),
+            HubActionItem(R.string.hub_action_text_to_pdf_title, R.string.hub_action_text_to_pdf_desc, Icons.Default.TextFields, R.string.hub_badge_new, PdfOperationType.TEXT_TO_PDF),
+            HubActionItem(R.string.hub_action_pdf_to_images_title, R.string.hub_action_pdf_to_images_desc, Icons.Default.Image, R.string.hub_badge_new, PdfOperationType.PDF_TO_IMAGES),
+            HubActionItem(R.string.hub_action_images_to_pdf_title, R.string.hub_action_images_to_pdf_desc, Icons.Default.Image, null, PdfOperationType.IMAGE_TO_PDF),
+            HubActionItem(R.string.hub_action_page_numbers_title, R.string.hub_action_page_numbers_desc, Icons.Default.TextFields, null, PdfOperationType.PAGE_NUMBER),
+            HubActionItem(R.string.hub_action_split_title, R.string.hub_action_split_desc, Icons.Default.ContentCut, null, PdfOperationType.SPLIT),
+            HubActionItem(R.string.hub_action_rotate_title, R.string.hub_action_rotate_desc, Icons.AutoMirrored.Filled.RotateRight, null, PdfOperationType.ROTATE)
         )
     }
 
@@ -104,14 +110,14 @@ fun HubScreen(
                             Spacer(modifier = Modifier.width(16.dp))
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(
-                                    text = "PDFCraft Studio",
+                                    text = stringResource(R.string.hub_hero_title),
                                     style = MaterialTheme.typography.titleLarge.copy(
                                         fontWeight = FontWeight.Bold,
                                         color = MaterialTheme.colorScheme.onPrimaryContainer
                                     )
                                 )
                                 Text(
-                                    text = "Private on-device PDF engine • Zero cloud upload",
+                                    text = stringResource(R.string.hub_hero_subtitle),
                                     style = MaterialTheme.typography.bodySmall.copy(
                                         color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.85f),
                                         fontWeight = FontWeight.Medium
@@ -134,13 +140,13 @@ fun HubScreen(
                             ) {
                                 Column(modifier = Modifier.padding(10.dp)) {
                                     Text(
-                                        text = "PROCESSED",
+                                        text = stringResource(R.string.hub_metric_processed),
                                         fontSize = 9.sp,
                                         fontWeight = FontWeight.ExtraBold,
                                         color = MaterialTheme.colorScheme.primary
                                     )
                                     Text(
-                                        text = "${history.size} Files",
+                                        text = stringResource(R.string.hub_files_count, history.size),
                                         fontSize = 15.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = MaterialTheme.colorScheme.onSurface
@@ -155,7 +161,7 @@ fun HubScreen(
                             ) {
                                 Column(modifier = Modifier.padding(10.dp)) {
                                     Text(
-                                        text = "SPACE SAVED",
+                                        text = stringResource(R.string.hub_metric_saved),
                                         fontSize = 9.sp,
                                         fontWeight = FontWeight.ExtraBold,
                                         color = MaterialTheme.colorScheme.primary
@@ -176,19 +182,97 @@ fun HubScreen(
                             ) {
                                 Column(modifier = Modifier.padding(10.dp)) {
                                     Text(
-                                        text = "DATA PRIVACY",
+                                        text = stringResource(R.string.hub_metric_privacy),
                                         fontSize = 9.sp,
                                         fontWeight = FontWeight.ExtraBold,
                                         color = MaterialTheme.colorScheme.primary
                                     )
                                     Text(
-                                        text = "100% Local",
+                                        text = stringResource(R.string.hub_privacy_value),
                                         fontSize = 15.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = MaterialTheme.colorScheme.onSurface
                                     )
                                 }
                             }
+                        }
+                    }
+                }
+            }
+
+            // Buy Me a Coffee Support Banner
+            item {
+                Card(
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                    border = BorderStroke(1.dp, Color(0xFFD97706).copy(alpha = 0.4f)),
+                    shape = RoundedCornerShape(18.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { showCoffeeDialog = true }
+                        .testTag("hub_coffee_banner")
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Surface(
+                                shape = CircleShape,
+                                color = Color(0xFFD97706).copy(alpha = 0.15f),
+                                modifier = Modifier.size(42.dp)
+                            ) {
+                                Box(contentAlignment = Alignment.Center) {
+                                    Icon(
+                                        imageVector = Icons.Default.LocalCafe,
+                                        contentDescription = null,
+                                        tint = Color(0xFFD97706),
+                                        modifier = Modifier.size(22.dp)
+                                    )
+                                }
+                            }
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Column {
+                                Text(
+                                    text = stringResource(R.string.support_hub_banner_title),
+                                    style = MaterialTheme.typography.titleMedium.copy(
+                                        fontWeight = FontWeight.Bold,
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
+                                )
+                                Text(
+                                    text = stringResource(R.string.support_hub_banner_subtitle),
+                                    style = MaterialTheme.typography.bodySmall.copy(
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                )
+                            }
+                        }
+                        Spacer(modifier = Modifier.width(8.dp))
+                        FilledTonalButton(
+                            onClick = { showCoffeeDialog = true },
+                            colors = ButtonDefaults.filledTonalButtonColors(
+                                containerColor = Color(0xFFD97706).copy(alpha = 0.15f),
+                                contentColor = Color(0xFFD97706)
+                            ),
+                            shape = RoundedCornerShape(12.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Favorite,
+                                contentDescription = null,
+                                modifier = Modifier.size(16.dp)
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = stringResource(R.string.support_dev_title),
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 12.sp
+                            )
                         }
                     }
                 }
@@ -202,14 +286,14 @@ fun HubScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Quick Actions",
+                        text = stringResource(R.string.hub_quick_actions),
                         style = MaterialTheme.typography.titleMedium.copy(
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onBackground
                         )
                     )
                     TextButton(onClick = { viewModel.selectTab(1) }) {
-                        Text("View All 14 Tools", color = MaterialTheme.colorScheme.primary, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                        Text(stringResource(R.string.hub_view_all_tools), color = MaterialTheme.colorScheme.primary, fontSize = 12.sp, fontWeight = FontWeight.Bold)
                     }
                 }
             }
@@ -228,10 +312,10 @@ fun HubScreen(
                 ) {
                     chunk.forEach { item ->
                         QuickActionCard(
-                            title = item.title,
-                            subtitle = item.subtitle,
+                            title = stringResource(item.titleRes),
+                            subtitle = stringResource(item.subtitleRes),
                             icon = item.icon,
-                            badge = item.badge,
+                            badge = item.badgeRes?.let { stringResource(it) },
                             modifier = Modifier.weight(1f),
                             onClick = { viewModel.setActiveTool(item.op) }
                         )
@@ -271,7 +355,7 @@ fun HubScreen(
                             }
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = "Recent Files",
+                                text = stringResource(R.string.hub_recent_files),
                                 style = MaterialTheme.typography.titleMedium.copy(
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onBackground
@@ -282,7 +366,7 @@ fun HubScreen(
                         if (recentFiles.isNotEmpty()) {
                             TextButton(onClick = { viewModel.clearRecentFiles() }) {
                                 Text(
-                                    text = "Clear",
+                                    text = stringResource(R.string.hub_clear_recent),
                                     style = MaterialTheme.typography.bodySmall.copy(
                                         color = MaterialTheme.colorScheme.primary,
                                         fontWeight = FontWeight.Bold
@@ -312,14 +396,14 @@ fun HubScreen(
                                 Spacer(modifier = Modifier.width(14.dp))
                                 Column(modifier = Modifier.weight(1f)) {
                                     Text(
-                                        text = "No Recent Files Yet",
+                                        text = stringResource(R.string.hub_no_recent_title),
                                         style = MaterialTheme.typography.titleSmall.copy(
                                             fontWeight = FontWeight.Bold,
                                             color = MaterialTheme.colorScheme.onSurface
                                         )
                                     )
                                     Text(
-                                        text = "Open, merge, or compress a PDF to create quick access shortcuts here.",
+                                        text = stringResource(R.string.hub_no_recent_desc),
                                         style = MaterialTheme.typography.bodySmall.copy(
                                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                                             fontSize = 11.sp
@@ -401,6 +485,13 @@ fun HubScreen(
                     }
                 }
             }
+        }
+
+        if (showCoffeeDialog) {
+            BuyMeACoffeeDialog(
+                onDismiss = { showCoffeeDialog = false },
+                onShowMessage = { msg -> viewModel.showUserMessage(msg) }
+            )
         }
     }
 }

@@ -29,18 +29,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+import androidx.compose.ui.res.stringResource
+import com.example.R
+
 data class NavItem(
-    val title: String,
+    val titleRes: Int,
     val selectedIcon: androidx.compose.ui.graphics.vector.ImageVector,
     val unselectedIcon: androidx.compose.ui.graphics.vector.ImageVector,
     val testTag: String
 )
 
 val NAV_ITEMS = listOf(
-    NavItem("Hub", Icons.Filled.GridView, Icons.Outlined.GridView, "nav_hub_tab"),
-    NavItem("Tools", Icons.Filled.Build, Icons.Outlined.Build, "nav_tools_tab"),
-    NavItem("Library", Icons.Filled.FolderSpecial, Icons.Outlined.FolderSpecial, "nav_library_tab"),
-    NavItem("Settings", Icons.Filled.Settings, Icons.Outlined.Settings, "nav_settings_tab")
+    NavItem(R.string.nav_hub, Icons.Filled.GridView, Icons.Outlined.GridView, "nav_hub_tab"),
+    NavItem(R.string.nav_tools, Icons.Filled.Build, Icons.Outlined.Build, "nav_tools_tab"),
+    NavItem(R.string.nav_library, Icons.Filled.FolderSpecial, Icons.Outlined.FolderSpecial, "nav_library_tab"),
+    NavItem(R.string.nav_settings, Icons.Filled.Settings, Icons.Outlined.Settings, "nav_settings_tab")
 )
 
 @Composable
@@ -56,18 +59,19 @@ fun AppBottomNav(
     ) {
         NAV_ITEMS.forEachIndexed { index, item ->
             val isSelected = selectedTab == index
+            val title = stringResource(item.titleRes)
             NavigationBarItem(
                 selected = isSelected,
                 onClick = { onTabSelected(index) },
                 icon = {
                     Icon(
                         imageVector = if (isSelected) item.selectedIcon else item.unselectedIcon,
-                        contentDescription = item.title
+                        contentDescription = title
                     )
                 },
                 label = {
                     Text(
-                        text = item.title,
+                        text = title,
                         fontSize = 11.sp,
                         fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium
                     )
@@ -107,18 +111,19 @@ fun AppNavigationRail(
 
         NAV_ITEMS.forEachIndexed { index, item ->
             val isSelected = selectedTab == index
+            val title = stringResource(item.titleRes)
             NavigationRailItem(
                 selected = isSelected,
                 onClick = { onTabSelected(index) },
                 icon = {
                     Icon(
                         imageVector = if (isSelected) item.selectedIcon else item.unselectedIcon,
-                        contentDescription = item.title
+                        contentDescription = title
                     )
                 },
                 label = {
                     Text(
-                        text = item.title,
+                        text = title,
                         fontSize = 10.sp,
                         fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium
                     )

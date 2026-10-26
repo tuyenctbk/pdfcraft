@@ -33,7 +33,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -145,7 +145,7 @@ fun SettingsDialog(
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
-                Divider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // --- SECTION 1: APPEARANCE & THEME ---
@@ -231,7 +231,7 @@ fun SettingsDialog(
                 }
 
                 Spacer(modifier = Modifier.height(20.dp))
-                Divider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // --- SECTION 3: PRIVACY & SYSTEM ---

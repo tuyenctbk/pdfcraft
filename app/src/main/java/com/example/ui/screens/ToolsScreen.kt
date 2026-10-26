@@ -34,12 +34,12 @@ import com.example.R
 import com.example.data.local.PdfOperationType
 import com.example.ui.MainViewModel
 
-enum class ToolCategory(val title: String) {
-    ALL("All Tools"),
-    CONVERT("Convert & Merge"),
-    PAGES("Page Tools"),
-    SECURITY("Security"),
-    OPTIMIZE("Optimize")
+enum class ToolCategory(val titleRes: Int) {
+    ALL(R.string.tools_category_all),
+    CONVERT(R.string.tools_category_convert),
+    PAGES(R.string.tools_category_pages),
+    SECURITY(R.string.tools_category_security),
+    OPTIMIZE(R.string.tools_category_optimize)
 }
 
 data class ToolItemData(
@@ -221,7 +221,7 @@ fun ToolsScreen(
             val query = searchQuery.trim().lowercase()
             val matchesSearch = query.isBlank() ||
                     tool.operationType.name.lowercase().contains(query) ||
-                    tool.category.title.lowercase().contains(query) ||
+                    context.getString(tool.category.titleRes).lowercase().contains(query) ||
                     tool.keywords.lowercase().contains(query) ||
                     context.getString(tool.titleRes).lowercase().contains(query) ||
                     context.getString(tool.descRes).lowercase().contains(query)
@@ -249,14 +249,14 @@ fun ToolsScreen(
             ) {
                 Column {
                     Text(
-                        text = "PDF Tool Suite",
+                        text = stringResource(R.string.tools_suite_title),
                         style = MaterialTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onBackground
                         )
                     )
                     Text(
-                        text = "10 high-performance tools • 100% on-device",
+                        text = stringResource(R.string.tools_suite_subtitle, ALL_PDF_TOOLS.size),
                         style = MaterialTheme.typography.bodySmall.copy(
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -279,7 +279,7 @@ fun ToolsScreen(
                         )
                         Spacer(modifier = Modifier.width(6.dp))
                         Text(
-                            text = "OFFLINE",
+                            text = stringResource(R.string.tools_badge_offline),
                             fontSize = 10.sp,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.primary
@@ -294,7 +294,7 @@ fun ToolsScreen(
             OutlinedTextField(
                 value = searchQuery,
                 onValueChange = { searchQuery = it },
-                placeholder = { Text("Search tools (e.g. merge, compress, sign)...", fontSize = 13.sp) },
+                placeholder = { Text(stringResource(R.string.tools_search_placeholder), fontSize = 13.sp) },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Outlined.Search,
@@ -342,7 +342,7 @@ fun ToolsScreen(
                             .testTag("tool_category_${category.name}")
                     ) {
                         Text(
-                            text = category.title,
+                            text = stringResource(category.titleRes),
                             fontSize = 12.sp,
                             fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
                             color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
@@ -371,12 +371,12 @@ fun ToolsScreen(
                         )
                         Spacer(modifier = Modifier.height(12.dp))
                         Text(
-                            text = "No tools match '$searchQuery'",
+                            text = stringResource(R.string.tools_no_match_title, searchQuery),
                             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = "Try searching for a different keyword or choose another category",
+                            text = stringResource(R.string.tools_no_match_desc),
                             style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
                         )
                     }

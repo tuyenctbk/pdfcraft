@@ -26,14 +26,23 @@ object FirebaseConfigManager {
     private val _interstitialAdUnitId = MutableStateFlow("ca-app-pub-3940256099942544/1033173712")
     val interstitialAdUnitId: StateFlow<String> = _interstitialAdUnitId.asStateFlow()
 
-    private val _ratePromptThreshold = MutableStateFlow(2)
+    private val _ratePromptThreshold = MutableStateFlow(3)
     val ratePromptThreshold: StateFlow<Int> = _ratePromptThreshold.asStateFlow()
 
-    private val _sharePromptThreshold = MutableStateFlow(3)
+    private val _sharePromptThreshold = MutableStateFlow(6)
     val sharePromptThreshold: StateFlow<Int> = _sharePromptThreshold.asStateFlow()
 
     private val _appShareUrl = MutableStateFlow("https://play.google.com/store/apps/details?id=com.soloprono.pdfcraft")
     val appShareUrl: StateFlow<String> = _appShareUrl.asStateFlow()
+
+    private val _latestVersionCode = MutableStateFlow(15)
+    val latestVersionCode: StateFlow<Int> = _latestVersionCode.asStateFlow()
+
+    private val _latestVersionName = MutableStateFlow("1.6.2")
+    val latestVersionName: StateFlow<String> = _latestVersionName.asStateFlow()
+
+    private val _updateReleaseNotes = MutableStateFlow("Performance optimizations, bug fixes, and improved offline rendering.")
+    val updateReleaseNotes: StateFlow<String> = _updateReleaseNotes.asStateFlow()
 
     private var firebaseAnalytics: FirebaseAnalytics? = null
 
@@ -62,11 +71,14 @@ object FirebaseConfigManager {
 
                 val defaults = mapOf(
                     "is_admob_enabled" to false,
-                    "rate_prompt_operation_threshold" to 2,
-                    "share_prompt_operation_threshold" to 3,
+                    "rate_prompt_operation_threshold" to 3,
+                    "share_prompt_operation_threshold" to 6,
                     "app_share_url" to "https://play.google.com/store/apps/details?id=com.soloprono.pdfcraft",
                     "banner_ad_unit_id" to "ca-app-pub-3940256099942544/6300978111",
-                    "interstitial_ad_unit_id" to "ca-app-pub-3940256099942544/1033173712"
+                    "interstitial_ad_unit_id" to "ca-app-pub-3940256099942544/1033173712",
+                    "latest_version_code" to 15,
+                    "latest_version_name" to "1.6.2",
+                    "update_release_notes" to "Performance optimizations, bug fixes, and improved offline rendering."
                 )
                 remoteConfig.setDefaultsAsync(defaults)
 
@@ -92,7 +104,17 @@ object FirebaseConfigManager {
                         if (interstitialId.isNotBlank()) {
                             _interstitialAdUnitId.value = interstitialId
                         }
-                        Log.d(TAG, "Remote Config fetched successfully. AdMob enabled = $adMobEnabled")
+
+                        val vCode = remoteConfig.getLong("latest_version_code").toInt()
+                        if (vCode > 0) _latestVersionCode.value = vCode
+
+                        val vName = remoteConfig.getString("latest_version_name")
+                        if (vName.isNotBlank()) _latestVersionName.value = vName
+
+                        val notes = remoteConfig.getString("update_release_notes")
+                        if (notes.isNotBlank()) _updateReleaseNotes.value = notes
+
+                        Log.d(TAG, "Remote Config fetched successfully. AdMob enabled = $adMobEnabled, vCode = $vCode")
                     } else {
                         Log.w(TAG, "Remote Config fetch failed", task.exception)
                     }

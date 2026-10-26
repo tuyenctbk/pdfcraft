@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.R
 import com.example.data.local.PdfDatabase
 import com.example.data.local.PdfOperationType
 import com.example.data.local.PdfProjectEntity
@@ -108,6 +109,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _showShareDialog = MutableStateFlow(false)
     val showShareDialog: StateFlow<Boolean> = _showShareDialog.asStateFlow()
+
+    private val _showUpdateDialog = MutableStateFlow(false)
+    val showUpdateDialog: StateFlow<Boolean> = _showUpdateDialog.asStateFlow()
+
+    private var sessionPromptShown = false
 
     // Firebase Auth & Cloud Sync State
     private val _currentUserEmail = MutableStateFlow<String?>(null)
@@ -246,6 +252,58 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    companion object {
+        private const val MIN_ENGAGEMENT_INTERVAL_MS = 3 * 24 * 60 * 60 * 1000L // 72 hours minimum interval
+        private const val MAX_RATE_PROMPT_COUNT = 2
+        private const val MAX_SHARE_PROMPT_COUNT = 2
+    }
+
+    fun checkForUpdateSuggestion() {
+        if (sessionPromptShown) return
+        val latestCode = FirebaseConfigManager.latestVersionCode.value
+        val currentCode = com.example.BuildConfig.VERSION_CODE
+        val skippedCode = prefs.getInt("pref_skipped_update_version_code", 0)
+        val lastPromptTime = prefs.getLong("pref_last_prompt_timestamp", 0L)
+        val now = System.currentTimeMillis()
+
+        if (latestCode > currentCode && latestCode != skippedCode) {
+            if (now - lastPromptTime >= MIN_ENGAGEMENT_INTERVAL_MS) {
+                sessionPromptShown = true
+                prefs.edit().putLong("pref_last_prompt_timestamp", now).apply()
+                _showUpdateDialog.value = true
+            }
+        }
+    }
+
+    fun dismissUpdateDialog(skipThisVersion: Boolean = false) {
+        _showUpdateDialog.value = false
+        if (skipThisVersion) {
+            val latestCode = FirebaseConfigManager.latestVersionCode.value
+            prefs.edit().putInt("pref_skipped_update_version_code", latestCode).apply()
+        }
+    }
+
+    fun openPlayStoreForUpdate(context: Context) {
+        _showUpdateDialog.value = false
+        try {
+            val intent = android.content.Intent(
+                android.content.Intent.ACTION_VIEW,
+                Uri.parse("market://details?id=${context.packageName}")
+            ).apply {
+                addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            context.startActivity(intent)
+        } catch (_: Exception) {
+            val intent = android.content.Intent(
+                android.content.Intent.ACTION_VIEW,
+                Uri.parse(FirebaseConfigManager.appShareUrl.value)
+            ).apply {
+                addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            context.startActivity(intent)
+        }
+    }
+
     fun onPdfOperationCompleted(operationName: String) {
         val count = prefs.getInt("pref_completed_operations_count", 0) + 1
         prefs.edit().putInt("pref_completed_operations_count", count).apply()
@@ -256,18 +314,46 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             mapOf("operation" to operationName, "total_count" to count)
         )
 
-        val rateThreshold = FirebaseConfigManager.ratePromptThreshold.value
-        val shareThreshold = FirebaseConfigManager.sharePromptThreshold.value
-        val hasRated = prefs.getBoolean("pref_has_rated_app", false)
-        val hasShared = prefs.getBoolean("pref_has_shared_app", false)
-        val rateDismissedSession = prefs.getBoolean("pref_rate_dismissed_session", false)
-        val shareDismissedSession = prefs.getBoolean("pref_share_dismissed_session", false)
+        if (sessionPromptShown) {
+            return
+        }
 
-        if (!hasRated && !rateDismissedSession && count >= rateThreshold && count % rateThreshold == 0) {
+        val now = System.currentTimeMillis()
+        val lastPromptTime = prefs.getLong("pref_last_prompt_timestamp", 0L)
+        val cooldownPassed = (now - lastPromptTime) >= MIN_ENGAGEMENT_INTERVAL_MS
+
+        val hasRated = prefs.getBoolean("pref_has_rated_app", false)
+        val rateCount = prefs.getInt("pref_rate_prompt_shown_count", 0)
+        val rateThreshold = FirebaseConfigManager.ratePromptThreshold.value.coerceAtLeast(3)
+
+        val hasShared = prefs.getBoolean("pref_has_shared_app", false)
+        val shareCount = prefs.getInt("pref_share_prompt_shown_count", 0)
+        val shareThreshold = FirebaseConfigManager.sharePromptThreshold.value.coerceAtLeast(6)
+
+        // Priority 1: Rating (User has completed >= 3 operations and hasn't rated yet, and prompt count < 2)
+        if (!hasRated && count >= rateThreshold && rateCount < MAX_RATE_PROMPT_COUNT && cooldownPassed) {
+            sessionPromptShown = true
+            prefs.edit()
+                .putLong("pref_last_prompt_timestamp", now)
+                .putInt("pref_rate_prompt_shown_count", rateCount + 1)
+                .apply()
             _showRateDialog.value = true
-        } else if (!hasShared && !shareDismissedSession && count >= shareThreshold && count % shareThreshold == 0) {
+            return
+        }
+
+        // Priority 2: Share (User has completed >= 6 operations, distinct threshold from rate, and prompt count < 2)
+        if (!hasShared && count >= shareThreshold && shareCount < MAX_SHARE_PROMPT_COUNT && cooldownPassed) {
+            sessionPromptShown = true
+            prefs.edit()
+                .putLong("pref_last_prompt_timestamp", now)
+                .putInt("pref_share_prompt_shown_count", shareCount + 1)
+                .apply()
             _showShareDialog.value = true
-        } else if (FirebaseConfigManager.isAdMobEnabled.value) {
+            return
+        }
+
+        // Fallback: Polite Ad dialog if AdMob is explicitly enabled via Remote Config
+        if (FirebaseConfigManager.isAdMobEnabled.value && count % 5 == 0) {
             _showPoliteAdDialog.value = true
         }
     }
@@ -303,7 +389,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 context.startActivity(intent)
             }
         } else {
-            _userMessage.value = "Thank you for your feedback!"
+            _userMessage.value = context.getString(R.string.rate_feedback_thanks)
         }
     }
 
@@ -321,15 +407,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         FirebaseConfigManager.logAnalyticsEvent("share_app_clicked")
 
         val shareUrl = FirebaseConfigManager.appShareUrl.value
+        val shareSubject = context.getString(R.string.share_dialog_title)
+        val shareDesc = context.getString(R.string.share_dialog_desc)
+        val chooserTitle = context.getString(R.string.dialog_share_app)
         val shareIntent = android.content.Intent(android.content.Intent.ACTION_SEND).apply {
             type = "text/plain"
-            putExtra(android.content.Intent.EXTRA_SUBJECT, "PDFCraft - Minimalist Offline PDF Studio")
+            putExtra(android.content.Intent.EXTRA_SUBJECT, shareSubject)
             putExtra(
                 android.content.Intent.EXTRA_TEXT,
-                "Check out PDFCraft! Merge, split, compress, rotate, watermark, and lock PDF files directly on your phone: $shareUrl"
+                "$shareSubject\n\n$shareDesc\n\n$shareUrl"
             )
         }
-        val chooser = android.content.Intent.createChooser(shareIntent, "Share PDFCraft with Friends")
+        val chooser = android.content.Intent.createChooser(shareIntent, chooserTitle)
         chooser.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(chooser)
     }

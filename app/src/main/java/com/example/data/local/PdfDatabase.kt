@@ -35,7 +35,7 @@ abstract class PdfDatabase : RoomDatabase() {
                     context.applicationContext,
                     PdfDatabase::class.java,
                     "pdfcraft_database"
-                ).fallbackToDestructiveMigration().build()
+                ).fallbackToDestructiveMigration(dropAllTables = true).build()
                 INSTANCE = instance
                 instance
             }

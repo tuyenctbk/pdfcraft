@@ -74,6 +74,8 @@ import com.example.ui.screens.HtmlToPdfScreen
 import com.example.ui.theme.PDFCraftTheme
 import com.example.ui.components.SuggestRateDialog
 import com.example.ui.components.SuggestShareDialog
+import com.example.ui.components.SuggestUpdateDialog
+import androidx.compose.ui.res.stringResource
 import com.example.data.remote.FirebaseConfigManager
 
 import androidx.compose.material3.CircularProgressIndicator
@@ -95,6 +97,18 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
+        splashScreen.setOnExitAnimationListener { splashScreenViewProvider ->
+            val splashScreenView = splashScreenViewProvider.view
+            val fadeOut = android.animation.ObjectAnimator.ofFloat(splashScreenView, android.view.View.ALPHA, 1f, 0f)
+            fadeOut.interpolator = android.view.animation.AccelerateInterpolator()
+            fadeOut.duration = 350L
+            fadeOut.addListener(object : android.animation.AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: android.animation.Animator) {
+                    splashScreenViewProvider.remove()
+                }
+            })
+            fadeOut.start()
+        }
         super.onCreate(savedInstanceState)
         Log.d(TAG, "MainActivity.onCreate() initiated")
 
@@ -119,7 +133,7 @@ class MainActivity : ComponentActivity() {
                         val localFile = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
                             com.example.data.pdf.PdfEngine.getLocalFileFromUri(applicationContext, uri)
                         }
-                        if (localFile != null && localFile.exists()) {
+                        if (localFile.exists()) {
                             viewModel.openInViewer(localFile.absolutePath)
                         }
                     } catch (e: Exception) {
@@ -153,6 +167,7 @@ fun PDFCraftApp(
     val showPoliteAdDialog by viewModel.showPoliteAdDialog.collectAsState()
     val showRateDialog by viewModel.showRateDialog.collectAsState()
     val showShareDialog by viewModel.showShareDialog.collectAsState()
+    val showUpdateDialog by viewModel.showUpdateDialog.collectAsState()
     val themeMode by viewModel.themeMode.collectAsState()
     val isProcessing by viewModel.isProcessing.collectAsState()
     val processingMessage by viewModel.processingMessage.collectAsState()
@@ -161,6 +176,10 @@ fun PDFCraftApp(
     var showSettingsDialog by remember { mutableStateOf(false) }
 
     val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(Unit) {
+        viewModel.checkForUpdateSuggestion()
+    }
 
     LaunchedEffect(userMessage) {
         userMessage?.let { msg ->
@@ -329,6 +348,16 @@ fun PDFCraftApp(
         )
     }
 
+    if (showUpdateDialog) {
+        SuggestUpdateDialog(
+            versionName = FirebaseConfigManager.latestVersionName.value,
+            releaseNotes = FirebaseConfigManager.updateReleaseNotes.value,
+            onUpdateNow = { ctx -> viewModel.openPlayStoreForUpdate(ctx) },
+            onLater = { viewModel.dismissUpdateDialog(skipThisVersion = false) },
+            onSkipVersion = { viewModel.dismissUpdateDialog(skipThisVersion = true) }
+        )
+    }
+
     activeViewerFile?.let { file ->
         PdfViewerDialog(
             file = file,
@@ -372,12 +401,12 @@ fun PDFCraftApp(
                     )
                     Spacer(modifier = Modifier.height(20.dp))
                     Text(
-                        text = "Processing PDF",
+                        text = stringResource(R.string.op_processing_pdf),
                         style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
                     )
                     Spacer(modifier = Modifier.height(6.dp))
                     Text(
-                        text = processingMessage.ifBlank { "Executing operation on local device engine..." },
+                        text = processingMessage.ifBlank { stringResource(R.string.op_executing_local) },
                         style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
                         textAlign = TextAlign.Center
                     )
