@@ -394,4 +394,26 @@
     <string name="support_qr_amount_5">$5 🍕</string>
     <string name="support_qr_amount_10">$10 🚀</string>
     <string name="support_qr_share">แชร์ลิงก์สนับสนุน</string>
+
+    <!-- Donation & Multi-Method Support Expansion -->
+    <string name="support_hub_compact_title">ชอบ PDFCraft ไหม? ☕</string>
+    <string name="support_hub_compact_subtitle">ช่วยให้ PDFCraft ใช้งานแบบออฟไลน์และเป็นส่วนตัว 100%</string>
+    <string name="support_hub_btn_tip">สนับสนุน ☕</string>
+    <string name="support_hub_dismiss">ปิด</string>
+    <string name="support_tab_google_play">Google Play</string>
+    <string name="support_tab_paypal_qr">PayPal &amp; QR</string>
+    <string name="support_tab_web_crypto">เว็บ &amp; คริปโต</string>
+    <string name="support_iap_title">สนับสนุนด้วย 1 แตะผ่าน Google Play</string>
+    <string name="support_iap_desc">สะดวกและปลอดภัยผ่าน Google Pay หรือยอดเงินคงเหลือ</string>
+    <string name="support_tip_coffee">เอสเปรสโซ ($1.99) ☕</string>
+    <string name="support_tip_snack">กาแฟและของว่าง ($4.99) 🥐</string>
+    <string name="support_tip_supporter">ผู้สนับสนุนระดับซูเปอร์ ($9.99) 🚀</string>
+    <string name="support_tip_hero">ผู้สนับสนุนระดับฮีโร่ ($19.99) 👑</string>
+    <string name="support_thank_you_title">ขอบพระคุณเป็นอย่างยิ่งสำหรับการสนับสนุน! ❤️</string>
+    <string name="support_thank_you_desc">ความช่วยเหลือของคุณช่วยให้ PDFCraft ใช้งานได้ฟรี ออฟไลน์ และปลอดภัย</string>
+    <string name="support_status_active">ผู้สนับสนุนที่ใช้งานอยู่ ⭐</string>
+    <string name="support_crypto_title">สนับสนุนด้วยคริปโต (USDT / BTC)</string>
+    <string name="support_crypto_desc">การสนับสนุนแบบกระจายศูนย์สำหรับเครื่องมือส่วนตัว</string>
+    <string name="support_crypto_copied">คัดลอกที่อยู่กระเป๋าเงินแล้ว!</string>
+    <string name="support_kofi_button">สนับสนุนบน Ko-fi</string>
 </resources>

@@ -394,4 +394,26 @@
     <string name="support_qr_amount_5">5 $ 🍕</string>
     <string name="support_qr_amount_10">10 $ 🚀</string>
     <string name="support_qr_share">Distribuie linkul de donație</string>
+
+    <!-- Donation & Multi-Method Support Expansion -->
+    <string name="support_hub_compact_title">Îți place PDFCraft? ☕</string>
+    <string name="support_hub_compact_subtitle">Păstrează PDFCraft 100% offline și privat</string>
+    <string name="support_hub_btn_tip">Susține ☕</string>
+    <string name="support_hub_dismiss">Închide</string>
+    <string name="support_tab_google_play">Google Play</string>
+    <string name="support_tab_paypal_qr">PayPal și QR</string>
+    <string name="support_tab_web_crypto">Web și Cripto</string>
+    <string name="support_iap_title">Bacșiș cu 1 atingere pe Google Play</string>
+    <string name="support_iap_desc">Rapid și sigur prin Google Pay sau soldul Play Store</string>
+    <string name="support_tip_coffee">Espresso (1,99 $) ☕</string>
+    <string name="support_tip_snack">Cafea și gustare (4,99 $) 🥐</string>
+    <string name="support_tip_supporter">Super Susținător (9,99 $) 🚀</string>
+    <string name="support_tip_hero">Erou Susținător (19,99 $) 👑</string>
+    <string name="support_thank_you_title">Îți mulțumim din suflet pentru susținere! ❤️</string>
+    <string name="support_thank_you_desc">Sprijinul tău menține PDFCraft 100% offline, gratuit și privat.</string>
+    <string name="support_status_active">Susținător Activ ⭐</string>
+    <string name="support_crypto_title">Donație Cripto (USDT / BTC)</string>
+    <string name="support_crypto_desc">Susținere descentralizată pentru aplicații private</string>
+    <string name="support_crypto_copied">Adresa portofelului a fost copiată!</string>
+    <string name="support_kofi_button">Susține pe Ko-fi</string>
 </resources>

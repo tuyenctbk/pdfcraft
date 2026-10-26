@@ -394,4 +394,26 @@
     <string name="support_qr_amount_5">5 USD 🍕</string>
     <string name="support_qr_amount_10">10 USD 🚀</string>
     <string name="support_qr_share">Chia sẻ liên kết ủng hộ</string>
+
+    <!-- Donation & Multi-Method Support Expansion -->
+    <string name="support_hub_compact_title">Bạn thấy PDFCraft hữu ích? ☕</string>
+    <string name="support_hub_compact_subtitle">Chung tay giữ PDFCraft 100% offline &amp; bảo mật</string>
+    <string name="support_hub_btn_tip">Ủng hộ ☕</string>
+    <string name="support_hub_dismiss">Đóng</string>
+    <string name="support_tab_google_play">Google Play</string>
+    <string name="support_tab_paypal_qr">PayPal &amp; QR</string>
+    <string name="support_tab_web_crypto">Web &amp; Crypto</string>
+    <string name="support_iap_title">Ủng hộ 1 chạm qua Google Play</string>
+    <string name="support_iap_desc">Thanh toán nhanh chóng, an toàn qua Google Pay hoặc số dư Play</string>
+    <string name="support_tip_coffee">Ly cà phê ($1.99) ☕</string>
+    <string name="support_tip_snack">Cà phê &amp; Bánh ($4.99) 🥐</string>
+    <string name="support_tip_supporter">Super Supporter ($9.99) 🚀</string>
+    <string name="support_tip_hero">Hero Supporter ($19.99) 👑</string>
+    <string name="support_thank_you_title">Chân thành cảm ơn sự ủng hộ của bạn! ❤️</string>
+    <string name="support_thank_you_desc">Sự đóng góp của bạn giúp PDFCraft duy trì phát triển 100% miễn phí, offline và bảo mật tuyệt đối.</string>
+    <string name="support_status_active">Người ủng hộ tích cực ⭐</string>
+    <string name="support_crypto_title">Ủng hộ qua Crypto (USDT / BTC)</string>
+    <string name="support_crypto_desc">Ủng hộ phi tập trung cho ứng dụng độc lập vì sự riêng tư</string>
+    <string name="support_crypto_copied">Đã sao chép địa chỉ ví vào bộ nhớ tạm!</string>
+    <string name="support_kofi_button">Ủng hộ qua Ko-fi</string>
 </resources>

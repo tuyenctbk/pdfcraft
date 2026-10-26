@@ -394,4 +394,26 @@
     <string name="support_qr_amount_5">5 $ 🍕</string>
     <string name="support_qr_amount_10">10 $ 🚀</string>
     <string name="support_qr_share">Поделиться ссылкой</string>
+
+    <!-- Donation & Multi-Method Support Expansion -->
+    <string name="support_hub_compact_title">Нравится PDFCraft? ☕</string>
+    <string name="support_hub_compact_subtitle">Помогите сохранить PDFCraft полностью офлайн и безопасным</string>
+    <string name="support_hub_btn_tip">Поддержать ☕</string>
+    <string name="support_hub_dismiss">Закрыть</string>
+    <string name="support_tab_google_play">Google Play</string>
+    <string name="support_tab_paypal_qr">PayPal и QR</string>
+    <string name="support_tab_web_crypto">Веб и Крипто</string>
+    <string name="support_iap_title">Быстрая поддержка через Google Play</string>
+    <string name="support_iap_desc">Безопасная оплата в один клик через Google Pay или баланс</string>
+    <string name="support_tip_coffee">Эспрессо ($1.99) ☕</string>
+    <string name="support_tip_snack">Кофе и круассан ($4.99) 🥐</string>
+    <string name="support_tip_supporter">Супер Поддержка ($9.99) 🚀</string>
+    <string name="support_tip_hero">Герой Поддержки ($19.99) 👑</string>
+    <string name="support_thank_you_title">Огромное спасибо за вашу поддержку! ❤️</string>
+    <string name="support_thank_you_desc">Ваш вклад помогает развивать PDFCraft без рекламы, облаков и подписок.</string>
+    <string name="support_status_active">Активный спонсор ⭐</string>
+    <string name="support_crypto_title">Крипто-донат (USDT / BTC)</string>
+    <string name="support_crypto_desc">Децентрализованная помощь приватным офлайн-утилитам</string>
+    <string name="support_crypto_copied">Адрес кошелька скопирован в буфер обмена!</string>
+    <string name="support_kofi_button">Поддержать на Ko-fi</string>
 </resources>

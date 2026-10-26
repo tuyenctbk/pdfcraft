@@ -117,6 +117,7 @@ dependencies {
   implementation("com.google.firebase:firebase-analytics")
   implementation("com.google.firebase:firebase-config")
   implementation("com.google.zxing:core:3.5.3")
+  implementation("com.android.billingclient:billing-ktx:7.1.1")
   // implementation("com.google.firebase:firebase-crashlytics")
   // implementation(libs.firebase.firestore)
 

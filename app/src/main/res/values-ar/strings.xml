@@ -394,4 +394,26 @@
     <string name="support_qr_amount_5">5 دولارات 🍕</string>
     <string name="support_qr_amount_10">10 دولارات 🚀</string>
     <string name="support_qr_share">مشاركة رابط التبرع</string>
+
+    <!-- Donation & Multi-Method Support Expansion -->
+    <string name="support_hub_compact_title">هل يعجبك PDFCraft؟ ☕</string>
+    <string name="support_hub_compact_subtitle">حافظ على PDFCraft بدون إنترنت وخاص 100%</string>
+    <string name="support_hub_btn_tip">دعم ☕</string>
+    <string name="support_hub_dismiss">تجاهل</string>
+    <string name="support_tab_google_play">Google Play</string>
+    <string name="support_tab_paypal_qr">PayPal والرمز</string>
+    <string name="support_tab_web_crypto">الويب والعملات</string>
+    <string name="support_iap_title">دعم بنقرة واحدة عبر Google Play</string>
+    <string name="support_iap_desc">دعم سريع وآمن عبر Google Pay أو رصيد المتجر</string>
+    <string name="support_tip_coffee">إسبريسو ($1.99) ☕</string>
+    <string name="support_tip_snack">قهوة ووجبة ($4.99) 🥐</string>
+    <string name="support_tip_supporter">داعم مميز ($9.99) 🚀</string>
+    <string name="support_tip_hero">بطل داعم ($19.99) 👑</string>
+    <string name="support_thank_you_title">شكراً جزيلاً لدعمك! ❤️</string>
+    <string name="support_thank_you_desc">مساهمتك تحافظ على PDFCraft مجانياً وخاصاً بالكامل دون إنترنت.</string>
+    <string name="support_status_active">داعم نشط ⭐</string>
+    <string name="support_crypto_title">دعم بالعملات المشفرة (USDT / BTC)</string>
+    <string name="support_crypto_desc">دعم لامركزي لتطوير الأدوات الآمنة والخاصة</string>
+    <string name="support_crypto_copied">تم نسخ عنوان المحفظة إلى الحافظة!</string>
+    <string name="support_kofi_button">ادعمنا على Ko-fi</string>
 </resources>

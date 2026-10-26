@@ -394,4 +394,26 @@
     <string name="support_qr_amount_5">$5 🍕</string>
     <string name="support_qr_amount_10">$10 🚀</string>
     <string name="support_qr_share">寄付リンクを共有</string>
+
+    <!-- Donation & Multi-Method Support Expansion -->
+    <string name="support_hub_compact_title">PDFCraftはいかがですか？ ☕</string>
+    <string name="support_hub_compact_subtitle">100%完全オフライン＆プライベートを維持</string>
+    <string name="support_hub_btn_tip">応援する ☕</string>
+    <string name="support_hub_dismiss">閉じる</string>
+    <string name="support_tab_google_play">Google Play</string>
+    <string name="support_tab_paypal_qr">PayPal &amp; QR</string>
+    <string name="support_tab_web_crypto">Web &amp; 仮想通貨</string>
+    <string name="support_iap_title">Google Play 1タップ応援</string>
+    <string name="support_iap_desc">Google PayやPlay残高で安心・簡単にチップを送れます</string>
+    <string name="support_tip_coffee">エスプレッソ ($1.99) ☕</string>
+    <string name="support_tip_snack">コーヒーと軽食 ($4.99) 🥐</string>
+    <string name="support_tip_supporter">スーパーサポーター ($9.99) 🚀</string>
+    <string name="support_tip_hero">ヒーローサポーター ($19.99) 👑</string>
+    <string name="support_thank_you_title">ご支援誠にありがとうございます！ ❤️</string>
+    <string name="support_thank_you_desc">皆様のご支援のおかげで、PDFCraftは完全オフライン・無料でプライバシーを守り続けられます。</string>
+    <string name="support_status_active">アクティブサポーター ⭐</string>
+    <string name="support_crypto_title">仮想通貨での寄付 (USDT / BTC)</string>
+    <string name="support_crypto_desc">プライバシー重視の開発を直接支援できます</string>
+    <string name="support_crypto_copied">ウォレットアドレスをクリップボードにコピーしました！</string>
+    <string name="support_kofi_button">Ko-fiでサポート</string>
 </resources>

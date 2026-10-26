@@ -394,4 +394,26 @@
     <string name="support_qr_amount_5">5 $ 🍕</string>
     <string name="support_qr_amount_10">10 $ 🚀</string>
     <string name="support_qr_share">Κοινή χρήση συνδέσμου δωρεάς</string>
+
+    <!-- Donation & Multi-Method Support Expansion -->
+    <string name="support_hub_compact_title">Σας αρέσει το PDFCraft; ☕</string>
+    <string name="support_hub_compact_subtitle">Κρατήστε το PDFCraft 100% offline &amp; ιδιωτικό</string>
+    <string name="support_hub_btn_tip">Υποστήριξη ☕</string>
+    <string name="support_hub_dismiss">Απόρριψη</string>
+    <string name="support_tab_google_play">Google Play</string>
+    <string name="support_tab_paypal_qr">PayPal &amp; QR</string>
+    <string name="support_tab_web_crypto">Web &amp; Crypto</string>
+    <string name="support_iap_title">Υποστήριξη 1-Tap Google Play</string>
+    <string name="support_iap_desc">Γρήγορη και ασφαλής δωρεά μέσω Google Pay ή υπολοίπου</string>
+    <string name="support_tip_coffee">Εσπρέσο ($1.99) ☕</string>
+    <string name="support_tip_snack">Καφές &amp; Σνακ ($4.99) 🥐</string>
+    <string name="support_tip_supporter">Super Υποστηρικτής ($9.99) 🚀</string>
+    <string name="support_tip_hero">Hero Υποστηρικτής ($19.99) 👑</string>
+    <string name="support_thank_you_title">Ευχαριστούμε για την υποστήριξή σας! ❤️</string>
+    <string name="support_thank_you_desc">Η συνεισφορά σας διατηρεί το PDFCraft εντελώς offline και ασφαλές.</string>
+    <string name="support_status_active">Ενεργός Υποστηρικτής ⭐</string>
+    <string name="support_crypto_title">Δωρεά Crypto (USDT / BTC)</string>
+    <string name="support_crypto_desc">Αποκεντρωμένη υποστήριξη για ιδιωτικά εργαλεία</string>
+    <string name="support_crypto_copied">Η διεύθυνση πορτοφολιού αντιγράφηκε!</string>
+    <string name="support_kofi_button">Υποστήριξη στο Ko-fi</string>
 </resources>

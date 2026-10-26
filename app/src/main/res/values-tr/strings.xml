@@ -394,4 +394,26 @@
     <string name="support_qr_amount_5">5 $ 🍕</string>
     <string name="support_qr_amount_10">10 $ 🚀</string>
     <string name="support_qr_share">Bağış bağlantısını paylaş</string>
+
+    <!-- Donation & Multi-Method Support Expansion -->
+    <string name="support_hub_compact_title">PDFCraft\'ı beğendiniz mi? ☕</string>
+    <string name="support_hub_compact_subtitle">PDFCraft\'ın %100 çevrimdışı ve gizli kalmasını sağlayın</string>
+    <string name="support_hub_btn_tip">Destek ☕</string>
+    <string name="support_hub_dismiss">Kapat</string>
+    <string name="support_tab_google_play">Google Play</string>
+    <string name="support_tab_paypal_qr">PayPal ve QR</string>
+    <string name="support_tab_web_crypto">Web ve Kripto</string>
+    <string name="support_iap_title">Google Play ile Tek Tıkla Destek</string>
+    <string name="support_iap_desc">Google Pay veya bakiye ile hızlı ve güvenli bağış yapın</string>
+    <string name="support_tip_coffee">Espresso ($1.99) ☕</string>
+    <string name="support_tip_snack">Kahve ve Atıştırmalık ($4.99) 🥐</string>
+    <string name="support_tip_supporter">Süper Destekçi ($9.99) 🚀</string>
+    <string name="support_tip_hero">Kahraman Destekçi ($19.99) 👑</string>
+    <string name="support_thank_you_title">Desteğiniz için çok teşekkürler! ❤️</string>
+    <string name="support_thank_you_desc">Katkınız PDFCraft\'ın ücretsiz, reklamsız ve gizli kalmasını sağlar.</string>
+    <string name="support_status_active">Aktif Destekçi ⭐</string>
+    <string name="support_crypto_title">Kripto ile Destek (USDT / BTC)</string>
+    <string name="support_crypto_desc">Gizlilik odaklı bağımsız yazılımlar için doğrudan destek</string>
+    <string name="support_crypto_copied">Cüzdan adresi panoya kopyalandı!</string>
+    <string name="support_kofi_button">Ko-fi üzerinden destekle</string>
 </resources>

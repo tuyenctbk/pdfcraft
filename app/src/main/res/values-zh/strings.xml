@@ -394,4 +394,26 @@
     <string name="support_qr_amount_5">$5 🍕</string>
     <string name="support_qr_amount_10">$10 🚀</string>
     <string name="support_qr_share">分享贊助連結</string>
+
+    <!-- Donation & Multi-Method Support Expansion -->
+    <string name="support_hub_compact_title">喜歡 PDFCraft 嗎？☕</string>
+    <string name="support_hub_compact_subtitle">協助我們保持 100% 完全離線與隱私保護</string>
+    <string name="support_hub_btn_tip">支持贊助 ☕</string>
+    <string name="support_hub_dismiss">關閉</string>
+    <string name="support_tab_google_play">Google Play</string>
+    <string name="support_tab_paypal_qr">PayPal 與 QR</string>
+    <string name="support_tab_web_crypto">網頁與加密貨幣</string>
+    <string name="support_iap_title">Google Play 一鍵贊助</string>
+    <string name="support_iap_desc">透過 Google Pay 或 Play 餘額快速且安全地支持</string>
+    <string name="support_tip_coffee">濃縮咖啡 ($1.99) ☕</string>
+    <string name="support_tip_snack">咖啡與點心 ($4.99) 🥐</string>
+    <string name="support_tip_supporter">超級支持者 ($9.99) 🚀</string>
+    <string name="support_tip_hero">英雄支持者 ($19.99) 👑</string>
+    <string name="support_thank_you_title">衷心感謝您的鼎力支持！❤️</string>
+    <string name="support_thank_you_desc">您的贊助讓 PDFCraft 能持續維持 100% 離線、免費且完全保護個人隱私。</string>
+    <string name="support_status_active">榮譽支持者 ⭐</string>
+    <string name="support_crypto_title">加密貨幣贊助 (USDT / BTC)</string>
+    <string name="support_crypto_desc">去中心化支持專注於隱私保護的開源獨立軟體</string>
+    <string name="support_crypto_copied">錢包地址已複製到剪貼簿！</string>
+    <string name="support_kofi_button">在 Ko-fi 上支持</string>
 </resources>

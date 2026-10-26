@@ -394,4 +394,26 @@
     <string name="support_qr_amount_5">5 $ 🍕</string>
     <string name="support_qr_amount_10">10 $ 🚀</string>
     <string name="support_qr_share">Dela donationslänk</string>
+
+    <!-- Donation & Multi-Method Support Expansion -->
+    <string name="support_hub_compact_title">Gillar du PDFCraft? ☕</string>
+    <string name="support_hub_compact_subtitle">Håll PDFCraft 100% offline och privat</string>
+    <string name="support_hub_btn_tip">Stöd ☕</string>
+    <string name="support_hub_dismiss">Avfärda</string>
+    <string name="support_tab_google_play">Google Play</string>
+    <string name="support_tab_paypal_qr">PayPal &amp; QR</string>
+    <string name="support_tab_web_crypto">Webb &amp; Krypto</string>
+    <string name="support_iap_title">1-Klick Google Play Dricks</string>
+    <string name="support_iap_desc">Snabbt och säkert via Google Pay eller Play-saldo</string>
+    <string name="support_tip_coffee">Espresso ($1.99) ☕</string>
+    <string name="support_tip_snack">Kaffe och mellanmål ($4.99) 🥐</string>
+    <string name="support_tip_supporter">Super Supporter ($9.99) 🚀</string>
+    <string name="support_tip_hero">Hjälte Supporter ($19.99) 👑</string>
+    <string name="support_thank_you_title">Tack så mycket för ditt stöd! ❤️</string>
+    <string name="support_thank_you_desc">Ditt bidrag håller PDFCraft helt offline, gratis och privat.</string>
+    <string name="support_status_active">Aktiv Supporter ⭐</string>
+    <string name="support_crypto_title">Krypto Donering (USDT / BTC)</string>
+    <string name="support_crypto_desc">Decentraliserat stöd för programvara med integritet</string>
+    <string name="support_crypto_copied">Plånboksadress kopierad till urklipp!</string>
+    <string name="support_kofi_button">Stöd på Ko-fi</string>
 </resources>

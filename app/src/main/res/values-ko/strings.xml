@@ -394,4 +394,26 @@
     <string name="support_qr_amount_5">$5 🍕</string>
     <string name="support_qr_amount_10">$10 🚀</string>
     <string name="support_qr_share">기부 링크 공유</string>
+
+    <!-- Donation & Multi-Method Support Expansion -->
+    <string name="support_hub_compact_title">PDFCraft에 만족하시나요? ☕</string>
+    <string name="support_hub_compact_subtitle">100% 완전 오프라인 &amp; 프라이빗 유지 지원</string>
+    <string name="support_hub_btn_tip">후원하기 ☕</string>
+    <string name="support_hub_dismiss">닫기</string>
+    <string name="support_tab_google_play">Google Play</string>
+    <string name="support_tab_paypal_qr">PayPal &amp; QR</string>
+    <string name="support_tab_web_crypto">웹 &amp; 암호화폐</string>
+    <string name="support_iap_title">Google Play 원터치 후원</string>
+    <string name="support_iap_desc">Google Pay 또는 Play 잔액으로 빠르고 안전하게 후원</string>
+    <string name="support_tip_coffee">에스프레소 ($1.99) ☕</string>
+    <string name="support_tip_snack">커피와 간식 ($4.99) 🥐</string>
+    <string name="support_tip_supporter">슈퍼 서포터 ($9.99) 🚀</string>
+    <string name="support_tip_hero">히어로 서포터 ($19.99) 👑</string>
+    <string name="support_thank_you_title">후원해 주셔서 진심으로 감사드립니다! ❤️</string>
+    <string name="support_thank_you_desc">여러분의 소중한 후원으로 PDFCraft는 100% 무료 및 오프라인 보안을 지킵니다.</string>
+    <string name="support_status_active">활성 서포터 ⭐</string>
+    <string name="support_crypto_title">암호화폐 후원 (USDT / BTC)</string>
+    <string name="support_crypto_desc">프라이버시 우선 독립 개발을 위한 탈중앙화 후원</string>
+    <string name="support_crypto_copied">지갑 주소가 클립보드에 복사되었습니다!</string>
+    <string name="support_kofi_button">Ko-fi에서 후원하기</string>
 </resources>

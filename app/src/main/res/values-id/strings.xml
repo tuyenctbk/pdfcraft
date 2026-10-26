@@ -394,4 +394,26 @@
     <string name="support_qr_amount_5">$5 🍕</string>
     <string name="support_qr_amount_10">$10 🚀</string>
     <string name="support_qr_share">Bagikan Tautan Donasi</string>
+
+    <!-- Donation & Multi-Method Support Expansion -->
+    <string name="support_hub_compact_title">Menikmati PDFCraft? ☕</string>
+    <string name="support_hub_compact_subtitle">Jaga PDFCraft tetap 100% offline &amp; privat</string>
+    <string name="support_hub_btn_tip">Dukung ☕</string>
+    <string name="support_hub_dismiss">Tutup</string>
+    <string name="support_tab_google_play">Google Play</string>
+    <string name="support_tab_paypal_qr">PayPal &amp; QR</string>
+    <string name="support_tab_web_crypto">Web &amp; Kripto</string>
+    <string name="support_iap_title">Donasi 1-Klik Google Play</string>
+    <string name="support_iap_desc">Cepat &amp; aman via Google Pay atau saldo Google Play</string>
+    <string name="support_tip_coffee">Kopi Espresso ($1.99) ☕</string>
+    <string name="support_tip_snack">Kopi &amp; Kudapan ($4.99) 🥐</string>
+    <string name="support_tip_supporter">Pendukung Super ($9.99) 🚀</string>
+    <string name="support_tip_hero">Pendukung Utama ($19.99) 👑</string>
+    <string name="support_thank_you_title">Terima kasih banyak atas dukungan Anda! ❤️</string>
+    <string name="support_thank_you_desc">Dukungan Anda menjaga PDFCraft 100% offline, gratis, dan privat.</string>
+    <string name="support_status_active">Pendukung Aktif ⭐</string>
+    <string name="support_crypto_title">Donasi Kripto (USDT / BTC)</string>
+    <string name="support_crypto_desc">Dukungan terdesentralisasi untuk aplikasi ramah privasi</string>
+    <string name="support_crypto_copied">Alamat dompet disalin ke papan klip!</string>
+    <string name="support_kofi_button">Dukung di Ko-fi</string>
 </resources>

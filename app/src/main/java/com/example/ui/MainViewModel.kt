@@ -99,6 +99,25 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     // Engagement Popups State (Rate 5 Stars & Share App)
+    val satisfactionManager = com.example.ui.util.SatisfactionManager.getInstance(application)
+    val showHomeDonationBanner: StateFlow<Boolean> = satisfactionManager.showHomeDonationBanner
+    val isSupporter: StateFlow<Boolean> = satisfactionManager.isSupporter
+
+    private val _showDonationDialog = MutableStateFlow(false)
+    val showDonationDialog: StateFlow<Boolean> = _showDonationDialog.asStateFlow()
+
+    fun openDonationDialog() {
+        _showDonationDialog.value = true
+    }
+
+    fun dismissDonationDialog() {
+        _showDonationDialog.value = false
+    }
+
+    fun dismissHomeDonationBanner() {
+        satisfactionManager.dismissHomeBanner()
+    }
+
     private val _completedOperationCount = MutableStateFlow(
         prefs.getInt("pref_completed_operations_count", 0)
     )
@@ -123,6 +142,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val isCloudSyncEnabled: StateFlow<Boolean> = _isCloudSyncEnabled.asStateFlow()
 
     init {
+        satisfactionManager.onAppLaunch()
         try {
             val auth = com.google.firebase.auth.FirebaseAuth.getInstance()
             _currentUserEmail.value = auth.currentUser?.email
@@ -308,6 +328,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val count = prefs.getInt("pref_completed_operations_count", 0) + 1
         prefs.edit().putInt("pref_completed_operations_count", count).apply()
         _completedOperationCount.value = count
+        satisfactionManager.onOperationCompleted()
 
         FirebaseConfigManager.logAnalyticsEvent(
             "pdf_operation_completed",
@@ -349,6 +370,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 .putInt("pref_share_prompt_shown_count", shareCount + 1)
                 .apply()
             _showShareDialog.value = true
+            return
+        }
+
+        // Priority 3: Rare voluntary support suggestion (Only for power users who are satisfied and have completed >= 7 operations)
+        if (satisfactionManager.shouldAutoShowDonationDialog() && cooldownPassed) {
+            sessionPromptShown = true
+            satisfactionManager.markAutoDonationPromptShown()
+            prefs.edit().putLong("pref_last_prompt_timestamp", now).apply()
+            _showDonationDialog.value = true
             return
         }
 

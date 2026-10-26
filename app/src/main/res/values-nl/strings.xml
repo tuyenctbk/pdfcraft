@@ -394,4 +394,26 @@
     <string name="support_qr_amount_5">$5 🍕</string>
     <string name="support_qr_amount_10">$10 🚀</string>
     <string name="support_qr_share">Donatielink delen</string>
+
+    <!-- Donation & Multi-Method Support Expansion -->
+    <string name="support_hub_compact_title">Blij met PDFCraft? ☕</string>
+    <string name="support_hub_compact_subtitle">Houd PDFCraft 100% offline &amp; privé</string>
+    <string name="support_hub_btn_tip">Steunen ☕</string>
+    <string name="support_hub_dismiss">Sluiten</string>
+    <string name="support_tab_google_play">Google Play</string>
+    <string name="support_tab_paypal_qr">PayPal &amp; QR</string>
+    <string name="support_tab_web_crypto">Web &amp; Crypto</string>
+    <string name="support_iap_title">1-Tik Google Play Fooi</string>
+    <string name="support_iap_desc">Snel &amp; veilig via Google Pay of Play-saldo</string>
+    <string name="support_tip_coffee">Espresso ($1.99) ☕</string>
+    <string name="support_tip_snack">Koffie &amp; Snack ($4.99) 🥐</string>
+    <string name="support_tip_supporter">Super Supporter ($9.99) 🚀</string>
+    <string name="support_tip_hero">Held Supporter ($19.99) 👑</string>
+    <string name="support_thank_you_title">Hartelijk dank voor je steun! ❤️</string>
+    <string name="support_thank_you_desc">Jouw steun houdt PDFCraft 100% offline, gratis en privé.</string>
+    <string name="support_status_active">Actieve Supporter ⭐</string>
+    <string name="support_crypto_title">Crypto Donatie (USDT / BTC)</string>
+    <string name="support_crypto_desc">Gedecentraliseerde steun voor privacy-tools</string>
+    <string name="support_crypto_copied">Wallet-adres gekopieerd naar klembord!</string>
+    <string name="support_kofi_button">Steun op Ko-fi</string>
 </resources>

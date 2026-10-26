@@ -394,4 +394,26 @@
     <string name="support_qr_amount_5">5 $ 🍕</string>
     <string name="support_qr_amount_10">10 $ 🚀</string>
     <string name="support_qr_share">Поділитися посиланням</string>
+
+    <!-- Donation & Multi-Method Support Expansion -->
+    <string name="support_hub_compact_title">Подобається PDFCraft? ☕</string>
+    <string name="support_hub_compact_subtitle">Збережіть PDFCraft на 100% офлайн та приватним</string>
+    <string name="support_hub_btn_tip">Підтримати ☕</string>
+    <string name="support_hub_dismiss">Закрити</string>
+    <string name="support_tab_google_play">Google Play</string>
+    <string name="support_tab_paypal_qr">PayPal та QR</string>
+    <string name="support_tab_web_crypto">Веб та Крипто</string>
+    <string name="support_iap_title">Підтримка в 1 дотик через Google Play</string>
+    <string name="support_iap_desc">Швидко та надійно через Google Pay або баланс Play</string>
+    <string name="support_tip_coffee">Еспресо ($1.99) ☕</string>
+    <string name="support_tip_snack">Кава та перекус ($4.99) 🥐</string>
+    <string name="support_tip_supporter">Супер Підтримка ($9.99) 🚀</string>
+    <string name="support_tip_hero">Герой Підтримки ($19.99) 👑</string>
+    <string name="support_thank_you_title">Щиро дякуємо за вашу підтримку! ❤️</string>
+    <string name="support_thank_you_desc">Ваш внесок допомагає PDFCraft залишатися безкоштовним, офлайн та безпечним.</string>
+    <string name="support_status_active">Активний Підтримувач ⭐</string>
+    <string name="support_crypto_title">Крипто-донат (USDT / BTC)</string>
+    <string name="support_crypto_desc">Децентралізована підтримка приватних додатків</string>
+    <string name="support_crypto_copied">Адресу гаманця скопійовано!</string>
+    <string name="support_kofi_button">Підтримати на Ko-fi</string>
 </resources>
