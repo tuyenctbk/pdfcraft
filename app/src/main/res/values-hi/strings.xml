@@ -197,9 +197,9 @@
     <string name="watermark_select_logo">Select Watermark Logo Image</string>
     <string name="watermark_change_logo">Change Logo Image</string>
     <string name="watermark_logo_selected">Logo selected</string>
-    <string name="watermark_logo_scale">Logo Scale: %1$d%%%</string>
+    <string name="watermark_logo_scale">Logo Scale: %1$d%%</string>
     <string name="watermark_position_transparency">Watermark Position &amp; Transparency</string>
-    <string name="watermark_opacity">Opacity / Transparency: %1$d%%%</string>
+    <string name="watermark_opacity">Opacity / Transparency: %1$d%%</string>
     <string name="watermark_rotation_angle">Rotation Angle:</string>
     <string name="watermark_placement">Placement / Alignment:</string>
     <string name="watermark_place_center">Center</string>
@@ -385,4 +385,13 @@
     <string name="settings_manage_settings_error">एप्लिकेशन सेटिंग्स नहीं खोली जा सकीं</string>
     <string name="op_processing_pdf">पीडीएफ प्रोसेस हो रहा है</string>
     <string name="op_executing_local">स्थानीय डिवाइस इंजन पर कार्य निष्पादित हो रहा है...</string>
+    <string name="support_qr_button">QR कोड स्कैन करें</string>
+    <string name="support_qr_title">दान करने के लिए QR स्कैन करें</string>
+    <string name="support_qr_subtitle">सीधे दान करने के लिए अपने कैमरा, PayPal या बैंकिंग ऐप से स्कैन करें</string>
+    <string name="support_qr_scan_prompt">PDFCraft का समर्थन करने के लिए स्कैन करें</string>
+    <string name="support_qr_amount_any">कोई भी राशि</string>
+    <string name="support_qr_amount_3">$3 ☕</string>
+    <string name="support_qr_amount_5">$5 🍕</string>
+    <string name="support_qr_amount_10">$10 🚀</string>
+    <string name="support_qr_share">दान लिंक साझा करें</string>
 </resources>

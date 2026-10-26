@@ -197,9 +197,9 @@
     <string name="watermark_select_logo">Select Watermark Logo Image</string>
     <string name="watermark_change_logo">Change Logo Image</string>
     <string name="watermark_logo_selected">Logo selected</string>
-    <string name="watermark_logo_scale">Logo Scale: %1$d%%%</string>
+    <string name="watermark_logo_scale">Logo Scale: %1$d%%</string>
     <string name="watermark_position_transparency">Watermark Position &amp; Transparency</string>
-    <string name="watermark_opacity">Opacity / Transparency: %1$d%%%</string>
+    <string name="watermark_opacity">Opacity / Transparency: %1$d%%</string>
     <string name="watermark_rotation_angle">Rotation Angle:</string>
     <string name="watermark_placement">Placement / Alignment:</string>
     <string name="watermark_place_center">Center</string>
@@ -385,4 +385,13 @@
     <string name="settings_manage_settings_error">Impossibile aprire le impostazioni dell\'applicazione</string>
     <string name="op_processing_pdf">Elaborazione PDF in corso</string>
     <string name="op_executing_local">Esecuzione dell\'operazione sul motore locale del dispositivo...</string>
+    <string name="support_qr_button">Scansiona codice QR</string>
+    <string name="support_qr_title">Scansiona QR per donare</string>
+    <string name="support_qr_subtitle">Scansiona con fotocamera, PayPal o app bancaria per donare direttamente</string>
+    <string name="support_qr_scan_prompt">Scansiona per supportare PDFCraft</string>
+    <string name="support_qr_amount_any">Qualsiasi importo</string>
+    <string name="support_qr_amount_3">3 $ ☕</string>
+    <string name="support_qr_amount_5">5 $ 🍕</string>
+    <string name="support_qr_amount_10">10 $ 🚀</string>
+    <string name="support_qr_share">Condividi link per la donazione</string>
 </resources>

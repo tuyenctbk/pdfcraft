@@ -197,9 +197,9 @@
     <string name="watermark_select_logo">Chọn ảnh logo làm dấu mờ</string>
     <string name="watermark_change_logo">Đổi ảnh logo</string>
     <string name="watermark_logo_selected">Đã chọn logo</string>
-    <string name="watermark_logo_scale">Tỷ lệ logo: %1$d%%%</string>
+    <string name="watermark_logo_scale">Tỷ lệ logo: %1$d%%</string>
     <string name="watermark_position_transparency">Vị trí &amp; Độ trong suốt</string>
-    <string name="watermark_opacity">Độ mờ / Độ trong suốt: %1$d%%%</string>
+    <string name="watermark_opacity">Độ mờ / Độ trong suốt: %1$d%%</string>
     <string name="watermark_rotation_angle">Góc xoay:</string>
     <string name="watermark_placement">Vị trí đặt:</string>
     <string name="watermark_place_center">Chính giữa</string>
@@ -385,4 +385,13 @@
     <string name="settings_manage_settings_error">Không thể mở cài đặt ứng dụng</string>
     <string name="op_processing_pdf">Đang xử lý PDF</string>
     <string name="op_executing_local">Đang thực thi tác vụ trên động cơ cục bộ...</string>
+    <string name="support_qr_button">Quét mã QR</string>
+    <string name="support_qr_title">Quét mã QR để ủng hộ</string>
+    <string name="support_qr_subtitle">Quét bằng camera, PayPal hoặc ứng dụng ngân hàng để ủng hộ trực tiếp</string>
+    <string name="support_qr_scan_prompt">Quét để ủng hộ phát triển PDFCraft</string>
+    <string name="support_qr_amount_any">Tùy tâm</string>
+    <string name="support_qr_amount_3">3 USD ☕</string>
+    <string name="support_qr_amount_5">5 USD 🍕</string>
+    <string name="support_qr_amount_10">10 USD 🚀</string>
+    <string name="support_qr_share">Chia sẻ liên kết ủng hộ</string>
 </resources>

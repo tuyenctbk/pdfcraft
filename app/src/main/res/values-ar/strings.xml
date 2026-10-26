@@ -197,9 +197,9 @@
     <string name="watermark_select_logo">Select Watermark Logo Image</string>
     <string name="watermark_change_logo">Change Logo Image</string>
     <string name="watermark_logo_selected">Logo selected</string>
-    <string name="watermark_logo_scale">Logo Scale: %1$d%%%</string>
+    <string name="watermark_logo_scale">Logo Scale: %1$d%%</string>
     <string name="watermark_position_transparency">Watermark Position &amp; Transparency</string>
-    <string name="watermark_opacity">Opacity / Transparency: %1$d%%%</string>
+    <string name="watermark_opacity">Opacity / Transparency: %1$d%%</string>
     <string name="watermark_rotation_angle">Rotation Angle:</string>
     <string name="watermark_placement">Placement / Alignment:</string>
     <string name="watermark_place_center">Center</string>
@@ -385,4 +385,13 @@
     <string name="settings_manage_settings_error">تعذر فتح إعدادات التطبيق</string>
     <string name="op_processing_pdf">جارٍ معالجة PDF</string>
     <string name="op_executing_local">جارٍ تنفيذ العملية على محرك الجهاز المحلي...</string>
+    <string name="support_qr_button">مسح رمز الاستجابة السريعة</string>
+    <string name="support_qr_title">مسح رمز الاستجابة السريعة للتبرع</string>
+    <string name="support_qr_subtitle">امسح باستخدام الكاميرا أو تطبيق PayPal أو التطبيق المصرفي للتبرع مباشرة</string>
+    <string name="support_qr_scan_prompt">امسح لدعم PDFCraft</string>
+    <string name="support_qr_amount_any">أي مبلغ</string>
+    <string name="support_qr_amount_3">3 دولارات ☕</string>
+    <string name="support_qr_amount_5">5 دولارات 🍕</string>
+    <string name="support_qr_amount_10">10 دولارات 🚀</string>
+    <string name="support_qr_share">مشاركة رابط التبرع</string>
 </resources>

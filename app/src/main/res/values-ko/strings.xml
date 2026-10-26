@@ -197,9 +197,9 @@
     <string name="watermark_select_logo">로고 이미지 선택</string>
     <string name="watermark_change_logo">로고 이미지 변경</string>
     <string name="watermark_logo_selected">로고 선택됨</string>
-    <string name="watermark_logo_scale">로고 크기: %1$d%%%</string>
+    <string name="watermark_logo_scale">로고 크기: %1$d%%</string>
     <string name="watermark_position_transparency">위치 및 투명도</string>
-    <string name="watermark_opacity">불투명도: %1$d%%%</string>
+    <string name="watermark_opacity">불투명도: %1$d%%</string>
     <string name="watermark_rotation_angle">회전 각도:</string>
     <string name="watermark_placement">배치 위치:</string>
     <string name="watermark_place_center">가운데</string>
@@ -385,4 +385,13 @@
     <string name="settings_manage_settings_error">앱 설정을 열 수 없습니다</string>
     <string name="op_processing_pdf">PDF 처리 중</string>
     <string name="op_executing_local">로컬 디바이스 엔진에서 작업을 실행하고 있습니다...</string>
+    <string name="support_qr_button">QR 코드 스츤</string>
+    <string name="support_qr_title">기부용 QR 스츤</string>
+    <string name="support_qr_subtitle">카메라, PayPal 또는 은행 앱으로 스츤하여 바로 기부하세요</string>
+    <string name="support_qr_scan_prompt">스츤하여 PDFCraft 후원하기</string>
+    <string name="support_qr_amount_any">임의 금액</string>
+    <string name="support_qr_amount_3">$3 ☕</string>
+    <string name="support_qr_amount_5">$5 🍕</string>
+    <string name="support_qr_amount_10">$10 🚀</string>
+    <string name="support_qr_share">기부 링크 공유</string>
 </resources>

@@ -197,9 +197,9 @@
     <string name="watermark_select_logo">Select Watermark Logo Image</string>
     <string name="watermark_change_logo">Change Logo Image</string>
     <string name="watermark_logo_selected">Logo selected</string>
-    <string name="watermark_logo_scale">Logo Scale: %1$d%%%</string>
+    <string name="watermark_logo_scale">Logo Scale: %1$d%%</string>
     <string name="watermark_position_transparency">Watermark Position &amp; Transparency</string>
-    <string name="watermark_opacity">Opacity / Transparency: %1$d%%%</string>
+    <string name="watermark_opacity">Opacity / Transparency: %1$d%%</string>
     <string name="watermark_rotation_angle">Rotation Angle:</string>
     <string name="watermark_placement">Placement / Alignment:</string>
     <string name="watermark_place_center">Center</string>
@@ -385,4 +385,13 @@
     <string name="settings_manage_settings_error">Не вдалося відкрити налаштування програми</string>
     <string name="op_processing_pdf">Обробка PDF</string>
     <string name="op_executing_local">Виконання операції на локальному рушії пристрою...</string>
+    <string name="support_qr_button">Сканувати QR-код</string>
+    <string name="support_qr_title">Сканувати QR для донату</string>
+    <string name="support_qr_subtitle">Скануйте камерою, PayPal або банківським додатком</string>
+    <string name="support_qr_scan_prompt">Скануйте для підтримки PDFCraft</string>
+    <string name="support_qr_amount_any">Будь-яка сума</string>
+    <string name="support_qr_amount_3">3 $ ☕</string>
+    <string name="support_qr_amount_5">5 $ 🍕</string>
+    <string name="support_qr_amount_10">10 $ 🚀</string>
+    <string name="support_qr_share">Поділитися посиланням</string>
 </resources>

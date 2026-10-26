@@ -197,9 +197,9 @@
     <string name="watermark_select_logo">ロゴ画像を選択</string>
     <string name="watermark_change_logo">ロゴ画像を変更</string>
     <string name="watermark_logo_selected">ロゴ選択済み</string>
-    <string name="watermark_logo_scale">ロゴ倍率: %1$d%%%</string>
+    <string name="watermark_logo_scale">ロゴ倍率: %1$d%%</string>
     <string name="watermark_position_transparency">位置と透明度</string>
-    <string name="watermark_opacity">不透明度: %1$d%%%</string>
+    <string name="watermark_opacity">不透明度: %1$d%%</string>
     <string name="watermark_rotation_angle">回転角度:</string>
     <string name="watermark_placement">配置 / 配置方法:</string>
     <string name="watermark_place_center">中央</string>
@@ -385,4 +385,13 @@
     <string name="settings_manage_settings_error">アプリ設定を開けませんでした</string>
     <string name="op_processing_pdf">PDFを処理中</string>
     <string name="op_executing_local">ローカルエンジンで処理を実行中...</string>
+    <string name="support_qr_button">QRコードをスキャン</string>
+    <string name="support_qr_title">QRをスキャンして寄付</string>
+    <string name="support_qr_subtitle">カメラ、PayPal、または銀行アプリでスキャンして直接寄付</string>
+    <string name="support_qr_scan_prompt">スキャンしてPDFCraftを応援</string>
+    <string name="support_qr_amount_any">任意の金額</string>
+    <string name="support_qr_amount_3">$3 ☕</string>
+    <string name="support_qr_amount_5">$5 🍕</string>
+    <string name="support_qr_amount_10">$10 🚀</string>
+    <string name="support_qr_share">寄付リンクを共有</string>
 </resources>

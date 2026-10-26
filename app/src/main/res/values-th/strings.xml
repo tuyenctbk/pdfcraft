@@ -197,9 +197,9 @@
     <string name="watermark_select_logo">Select Watermark Logo Image</string>
     <string name="watermark_change_logo">Change Logo Image</string>
     <string name="watermark_logo_selected">Logo selected</string>
-    <string name="watermark_logo_scale">Logo Scale: %1$d%%%</string>
+    <string name="watermark_logo_scale">Logo Scale: %1$d%%</string>
     <string name="watermark_position_transparency">Watermark Position &amp; Transparency</string>
-    <string name="watermark_opacity">Opacity / Transparency: %1$d%%%</string>
+    <string name="watermark_opacity">Opacity / Transparency: %1$d%%</string>
     <string name="watermark_rotation_angle">Rotation Angle:</string>
     <string name="watermark_placement">Placement / Alignment:</string>
     <string name="watermark_place_center">Center</string>
@@ -385,4 +385,13 @@
     <string name="settings_manage_settings_error">ไม่สามารถเปิดการตั้งค่าแอปพลิเคชันได้</string>
     <string name="op_processing_pdf">กำลังประมวลผล PDF</string>
     <string name="op_executing_local">กำลังดำเนินการบนเครื่องมือประมวลผลของอุปกรณ์...</string>
+    <string name="support_qr_button">สแกนคิวอาร์โค้ด</string>
+    <string name="support_qr_title">สแกน QR เพื่อสนับสนุน</string>
+    <string name="support_qr_subtitle">สแกนด้วยกล้อง, PayPal หรือแอปธนาคารเพื่อสนับสนุนโดยตรง</string>
+    <string name="support_qr_scan_prompt">สแกนเพื่อสนับสนุน PDFCraft</string>
+    <string name="support_qr_amount_any">จำนวนเงินตามใจ</string>
+    <string name="support_qr_amount_3">$3 ☕</string>
+    <string name="support_qr_amount_5">$5 🍕</string>
+    <string name="support_qr_amount_10">$10 🚀</string>
+    <string name="support_qr_share">แชร์ลิงก์สนับสนุน</string>
 </resources>

@@ -197,9 +197,9 @@
     <string name="watermark_select_logo">选择Logo图片</string>
     <string name="watermark_change_logo">更换Logo图片</string>
     <string name="watermark_logo_selected">已选择Logo</string>
-    <string name="watermark_logo_scale">Logo缩放: %1$d%%%</string>
+    <string name="watermark_logo_scale">Logo缩放: %1$d%%</string>
     <string name="watermark_position_transparency">位置与透明度</string>
-    <string name="watermark_opacity">不透明度: %1$d%%%</string>
+    <string name="watermark_opacity">不透明度: %1$d%%</string>
     <string name="watermark_rotation_angle">旋转角度:</string>
     <string name="watermark_placement">对齐位置:</string>
     <string name="watermark_place_center">居中</string>
@@ -385,4 +385,13 @@
     <string name="settings_manage_settings_error">无法打开应用设置</string>
     <string name="op_processing_pdf">正在处理 PDF</string>
     <string name="op_executing_local">正在本地引擎上执行操作...</string>
+    <string name="support_qr_button">掃描 QR 碼</string>
+    <string name="support_qr_title">掃描 QR 碼贊助</string>
+    <string name="support_qr_subtitle">使用相機、PayPal 或銀行應用程式掃描直接贊助</string>
+    <string name="support_qr_scan_prompt">掃描以支持 PDFCraft</string>
+    <string name="support_qr_amount_any">自訂金額</string>
+    <string name="support_qr_amount_3">$3 ☕</string>
+    <string name="support_qr_amount_5">$5 🍕</string>
+    <string name="support_qr_amount_10">$10 🚀</string>
+    <string name="support_qr_share">分享贊助連結</string>
 </resources>

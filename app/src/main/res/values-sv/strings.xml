@@ -197,9 +197,9 @@
     <string name="watermark_select_logo">Select Watermark Logo Image</string>
     <string name="watermark_change_logo">Change Logo Image</string>
     <string name="watermark_logo_selected">Logo selected</string>
-    <string name="watermark_logo_scale">Logo Scale: %1$d%%%</string>
+    <string name="watermark_logo_scale">Logo Scale: %1$d%%</string>
     <string name="watermark_position_transparency">Watermark Position &amp; Transparency</string>
-    <string name="watermark_opacity">Opacity / Transparency: %1$d%%%</string>
+    <string name="watermark_opacity">Opacity / Transparency: %1$d%%</string>
     <string name="watermark_rotation_angle">Rotation Angle:</string>
     <string name="watermark_placement">Placement / Alignment:</string>
     <string name="watermark_place_center">Center</string>
@@ -385,4 +385,13 @@
     <string name="settings_manage_settings_error">Kunde inte öppna applikationsinställningar</string>
     <string name="op_processing_pdf">Bearbetar PDF</string>
     <string name="op_executing_local">Kör åtgärd på enhetens lokala motor...</string>
+    <string name="support_qr_button">Skanna QR-kod</string>
+    <string name="support_qr_title">Skanna QR för att donera</string>
+    <string name="support_qr_subtitle">Skanna med kamera, PayPal eller bankapp för att donera direkt</string>
+    <string name="support_qr_scan_prompt">Skanna för att stödja PDFCraft</string>
+    <string name="support_qr_amount_any">Valfritt belopp</string>
+    <string name="support_qr_amount_3">3 $ ☕</string>
+    <string name="support_qr_amount_5">5 $ 🍕</string>
+    <string name="support_qr_amount_10">10 $ 🚀</string>
+    <string name="support_qr_share">Dela donationslänk</string>
 </resources>

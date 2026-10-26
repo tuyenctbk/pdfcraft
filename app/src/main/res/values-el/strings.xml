@@ -197,9 +197,9 @@
     <string name="watermark_select_logo">Select Watermark Logo Image</string>
     <string name="watermark_change_logo">Change Logo Image</string>
     <string name="watermark_logo_selected">Logo selected</string>
-    <string name="watermark_logo_scale">Logo Scale: %1$d%%%</string>
+    <string name="watermark_logo_scale">Logo Scale: %1$d%%</string>
     <string name="watermark_position_transparency">Watermark Position &amp; Transparency</string>
-    <string name="watermark_opacity">Opacity / Transparency: %1$d%%%</string>
+    <string name="watermark_opacity">Opacity / Transparency: %1$d%%</string>
     <string name="watermark_rotation_angle">Rotation Angle:</string>
     <string name="watermark_placement">Placement / Alignment:</string>
     <string name="watermark_place_center">Center</string>
@@ -385,4 +385,13 @@
     <string name="settings_manage_settings_error">Δεν ήταν δυνατό το άνοιγμα των ρυθμίσεων της εφαρμογής</string>
     <string name="op_processing_pdf">Επεξεργασία PDF</string>
     <string name="op_executing_local">Εκτέλεση λειτουργίας στην τοπική μηχανή της συσκευής...</string>
+    <string name="support_qr_button">Σάρωση κωδικού QR</string>
+    <string name="support_qr_title">Σάρωση QR για δωρεά</string>
+    <string name="support_qr_subtitle">Σαρώστε με την κάμερα, το PayPal ή την τραπεζική σας εφαρμογή για άμεση δωρεά</string>
+    <string name="support_qr_scan_prompt">Σαρώστε για να υποστηρίξετε το PDFCraft</string>
+    <string name="support_qr_amount_any">Οποιοδήποτε ποσό</string>
+    <string name="support_qr_amount_3">3 $ ☕</string>
+    <string name="support_qr_amount_5">5 $ 🍕</string>
+    <string name="support_qr_amount_10">10 $ 🚀</string>
+    <string name="support_qr_share">Κοινή χρήση συνδέσμου δωρεάς</string>
 </resources>
