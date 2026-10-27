@@ -35,10 +35,10 @@ object FirebaseConfigManager {
     private val _appShareUrl = MutableStateFlow("https://play.google.com/store/apps/details?id=com.soloprono.pdfcraft")
     val appShareUrl: StateFlow<String> = _appShareUrl.asStateFlow()
 
-    private val _latestVersionCode = MutableStateFlow(18)
+    private val _latestVersionCode = MutableStateFlow(19)
     val latestVersionCode: StateFlow<Int> = _latestVersionCode.asStateFlow()
 
-    private val _latestVersionName = MutableStateFlow("1.6.5")
+    private val _latestVersionName = MutableStateFlow("1.6.6")
     val latestVersionName: StateFlow<String> = _latestVersionName.asStateFlow()
 
     private val _updateReleaseNotes = MutableStateFlow("Performance optimizations, bug fixes, and improved offline rendering.")
@@ -76,8 +76,8 @@ object FirebaseConfigManager {
                     "app_share_url" to "https://play.google.com/store/apps/details?id=com.soloprono.pdfcraft",
                     "banner_ad_unit_id" to "ca-app-pub-3940256099942544/6300978111",
                     "interstitial_ad_unit_id" to "ca-app-pub-3940256099942544/1033173712",
-                    "latest_version_code" to 18,
-                    "latest_version_name" to "1.6.5",
+                    "latest_version_code" to 19,
+                    "latest_version_name" to "1.6.6",
                     "update_release_notes" to "Performance optimizations, bug fixes, and improved offline rendering."
                 )
                 remoteConfig.setDefaultsAsync(defaults)

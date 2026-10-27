@@ -63,8 +63,6 @@ val CoffeeWarmContainer = Color(0xFF78350F)
 val CoffeeGold = Color(0xFFF59E0B)
 
 const val KOFI_URL = "https://ko-fi.com/tuyenphamvn"
-const val CRYPTO_USDT_TRC20 = "TYENphamVnPdfCraftTrc20SupportAddress"
-const val CRYPTO_BTC_ADDRESS = "bc1qtuyenphamvnpdfcraftbtcsupport001"
 
 /**
  * Utility function to launch donation link or copy to clipboard on failure.
@@ -624,66 +622,77 @@ fun BuyMeACoffeeQrView(
         }
     }
 }
-
 /**
- * Tab 2: Web (Ko-fi) & Decentralized Crypto Donation (USDT/BTC).
+ * Tab 2: Web (Ko-fi) Tip Jar View.
  */
 @Composable
-fun WebAndCryptoTipView(
+fun WebTipView(
     onShowMessage: ((String) -> Unit)? = null
 ) {
     val context = LocalContext.current
-    var selectedCrypto by remember { mutableStateOf("USDT") }
-
-    val cryptoAddress = if (selectedCrypto == "USDT") CRYPTO_USDT_TRC20 else CRYPTO_BTC_ADDRESS
-
-    val qrBitmap by produceState<android.graphics.Bitmap?>(initialValue = null, key1 = cryptoAddress) {
-        value = QrCodeGenerator.generateQrBitmap(
-            content = cryptoAddress,
-            sizePx = 512
-        )
-    }
 
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Web Platform Option: Ko-fi
         Surface(
-            shape = RoundedCornerShape(12.dp),
+            shape = RoundedCornerShape(16.dp),
             color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.35f),
-            border = BorderStroke(1.dp, CoffeeAmber.copy(alpha = 0.3f)),
+            border = BorderStroke(1.5.dp, CoffeeAmber.copy(alpha = 0.35f)),
             modifier = Modifier.fillMaxWidth()
         ) {
-            Row(
+            Column(
                 modifier = Modifier
-                    .padding(12.dp)
+                    .padding(18.dp)
                     .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                    modifier = Modifier
+                        .size(52.dp)
+                        .clip(CircleShape)
+                        .background(CoffeeAmber.copy(alpha = 0.15f)),
+                    contentAlignment = Alignment.Center
+                ) {
                     Icon(
                         imageVector = Icons.Default.Language,
                         contentDescription = null,
                         tint = CoffeeAmber,
-                        modifier = Modifier.size(20.dp)
+                        modifier = Modifier.size(28.dp)
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Column {
-                        Text(
-                            text = "Ko-fi Tip Jar",
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 13.sp,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                        Text(
-                            text = "ko-fi.com/tuyenphamvn",
-                            fontSize = 11.sp,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
                 }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                Text(
+                    text = "Ko-fi Tip Jar",
+                    style = MaterialTheme.typography.titleMedium.copy(
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                )
+
+                Text(
+                    text = "ko-fi.com/tuyenphamvn",
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        color = CoffeeAmber,
+                        fontWeight = FontWeight.Medium
+                    )
+                )
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Text(
+                    text = "Support independent offline development with a quick one-time tip via Ko-fi.",
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        fontSize = 11.5.sp,
+                        textAlign = TextAlign.Center
+                    ),
+                    modifier = Modifier.padding(horizontal = 8.dp)
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
                     onClick = {
@@ -702,127 +711,23 @@ fun WebAndCryptoTipView(
                         containerColor = CoffeeAmber,
                         contentColor = Color.White
                     ),
-                    shape = RoundedCornerShape(8.dp),
-                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp)
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(44.dp)
                 ) {
+                    Icon(
+                        imageVector = Icons.Default.VolunteerActivism,
+                        contentDescription = null,
+                        modifier = Modifier.size(18.dp)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
                     Text(
                         text = stringResource(R.string.support_kofi_button),
                         fontWeight = FontWeight.Bold,
-                        fontSize = 11.sp
+                        fontSize = 13.sp
                     )
                 }
-            }
-        }
-
-        Spacer(modifier = Modifier.height(14.dp))
-
-        // Decentralized Crypto Option
-        Text(
-            text = stringResource(R.string.support_crypto_title),
-            style = MaterialTheme.typography.titleSmall.copy(
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurface
-            ),
-            textAlign = TextAlign.Center
-        )
-        Text(
-            text = stringResource(R.string.support_crypto_desc),
-            style = MaterialTheme.typography.bodySmall.copy(
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                fontSize = 11.sp
-            ),
-            textAlign = TextAlign.Center
-        )
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        // Crypto Toggle (USDT vs BTC)
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            FilterChip(
-                selected = selectedCrypto == "USDT",
-                onClick = { selectedCrypto = "USDT" },
-                label = { Text("USDT (TRC20)", fontSize = 11.sp) },
-                colors = FilterChipDefaults.filterChipColors(
-                    selectedContainerColor = CoffeeAmber.copy(alpha = 0.2f),
-                    selectedLabelColor = CoffeeAmber
-                )
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            FilterChip(
-                selected = selectedCrypto == "BTC",
-                onClick = { selectedCrypto = "BTC" },
-                label = { Text("Bitcoin (BTC)", fontSize = 11.sp) },
-                colors = FilterChipDefaults.filterChipColors(
-                    selectedContainerColor = CoffeeAmber.copy(alpha = 0.2f),
-                    selectedLabelColor = CoffeeAmber
-                )
-            )
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        // Crypto QR Box
-        Surface(
-            shape = RoundedCornerShape(14.dp),
-            color = Color.White,
-            border = BorderStroke(1.5.dp, CoffeeAmber.copy(alpha = 0.35f)),
-            modifier = Modifier.size(150.dp)
-        ) {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier.padding(8.dp)
-            ) {
-                if (qrBitmap != null) {
-                    Image(
-                        bitmap = qrBitmap!!.asImageBitmap(),
-                        contentDescription = "Crypto QR Code",
-                        modifier = Modifier.fillMaxSize()
-                    )
-                } else {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(28.dp),
-                        color = CoffeeAmber
-                    )
-                }
-            }
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Surface(
-            color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-            shape = RoundedCornerShape(8.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable {
-                    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
-                    clipboard?.setPrimaryClip(ClipData.newPlainText("Wallet Address", cryptoAddress))
-                    onShowMessage?.invoke(context.getString(R.string.support_crypto_copied))
-                }
-        ) {
-            Row(
-                modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = cryptoAddress,
-                    fontSize = 10.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.weight(1f)
-                )
-                Icon(
-                    imageVector = Icons.Default.ContentCopy,
-                    contentDescription = "Copy",
-                    tint = CoffeeAmber,
-                    modifier = Modifier.size(14.dp)
-                )
             }
         }
     }
@@ -832,7 +737,7 @@ fun WebAndCryptoTipView(
  * Multi-Method Buy Me a Coffee Dialog:
  * Tab 0: [ 🛍️ Google Play ] (1-Tap Google Pay In-App Purchases: $1.99, $4.99, $9.99, $19.99)
  * Tab 1: [ 📷 PayPal & QR ] (PayPal presets & live QR code generator)
- * Tab 2: [ 🌐 Web & Crypto ] (Ko-fi link & decentralized USDT/BTC options)
+ * Tab 2: [ 🌐 Web / Ko-fi ] (Ko-fi tip jar with direct support button)
  */
 @Composable
 fun BuyMeACoffeeDialog(
@@ -913,7 +818,7 @@ fun BuyMeACoffeeDialog(
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                // Mode Selector Tabs (Google Play | PayPal & QR | Web & Crypto)
+                // Mode Selector Tabs (Google Play | PayPal & QR | Web / Ko-fi)
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -984,7 +889,7 @@ fun BuyMeACoffeeDialog(
                         }
                     }
 
-                    // Tab 2: Web & Crypto
+                    // Tab 2: Web / Ko-fi
                     Surface(
                         onClick = { selectedTab = 2 },
                         shape = RoundedCornerShape(10.dp),
@@ -1027,7 +932,7 @@ fun BuyMeACoffeeDialog(
                     when (tab) {
                         0 -> GooglePlayTipView(onShowMessage = onShowMessage)
                         1 -> BuyMeACoffeeQrView(onShowMessage = onShowMessage)
-                        else -> WebAndCryptoTipView(onShowMessage = onShowMessage)
+                        else -> WebTipView(onShowMessage = onShowMessage)
                     }
                 }
             }

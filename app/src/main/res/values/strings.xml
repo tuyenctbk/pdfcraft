@@ -454,7 +454,7 @@
     <string name="support_hub_dismiss">Dismiss</string>
     <string name="support_tab_google_play">Google Play</string>
     <string name="support_tab_paypal_qr">PayPal &amp; QR</string>
-    <string name="support_tab_web_crypto">Web &amp; Crypto</string>
+    <string name="support_tab_web_crypto">Web / Ko-fi</string>
     <string name="support_iap_title">1-Tap Google Play Tip</string>
     <string name="support_iap_desc">Quick &amp; secure in-app tip via Google Pay or Play Balance</string>
     <string name="support_tip_coffee">Espresso ($1.99) ☕</string>
