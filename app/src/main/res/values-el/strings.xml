@@ -417,4 +417,11 @@
     <string name="support_crypto_copied">Η διεύθυνση πορτοφολιού αντιγράφηκε!</string>
     <string name="support_kofi_button">Υποστήριξη στο Ko-fi</string>
     <string name="tool_try_sample_document">Δοκιμή με δείγμα εγγράφου</string>
+
+    <string name="action_select">Επιλογή</string>
+    <string name="recent_history_title">Πρόσφατο ιστορικό</string>
+    <string name="recent_history_subtitle">Φιλτράρετε και διαχειριστείτε το ιστορικό PDF</string>
+    <string name="recent_selected_count">Επιλέχθηκαν (%1$d/%2$d)</string>
+    <string name="recent_search_hint">Αναζήτηση πρόσφατων PDF…</string>
+    <string name="recent_no_match">Δεν βρέθηκαν PDF για: %1$s</string>
 </resources>

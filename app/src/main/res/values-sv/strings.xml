@@ -417,4 +417,11 @@
     <string name="support_crypto_copied">Plånboksadress kopierad till urklipp!</string>
     <string name="support_kofi_button">Stöd på Ko-fi</string>
     <string name="tool_try_sample_document">Testa med exempeldokument</string>
+
+    <string name="action_select">Välj</string>
+    <string name="recent_history_title">Senaste historik</string>
+    <string name="recent_history_subtitle">Filtrera och hantera lokal PDF-historik</string>
+    <string name="recent_selected_count">Valda (%1$d/%2$d)</string>
+    <string name="recent_search_hint">Sök senaste PDF-filer…</string>
+    <string name="recent_no_match">Inga PDF-filer matchar: %1$s</string>
 </resources>

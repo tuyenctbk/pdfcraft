@@ -417,4 +417,11 @@
     <string name="support_crypto_copied">Adres portfela skopiowany do schowka!</string>
     <string name="support_kofi_button">Wesprzyj na Ko-fi</string>
     <string name="tool_try_sample_document">Wypróbuj z przykładowym dokumentem</string>
+
+    <string name="action_select">Wybierz</string>
+    <string name="recent_history_title">Ostatnia historia</string>
+    <string name="recent_history_subtitle">Filtruj i zarządzaj lokalną historią PDF</string>
+    <string name="recent_selected_count">Wybrano (%1$d/%2$d)</string>
+    <string name="recent_search_hint">Szukaj ostatnich plików PDF…</string>
+    <string name="recent_no_match">Brak pasujących plików PDF: %1$s</string>
 </resources>

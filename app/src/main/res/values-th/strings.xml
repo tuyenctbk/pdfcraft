@@ -417,4 +417,11 @@
     <string name="support_crypto_copied">คัดลอกที่อยู่กระเป๋าเงินแล้ว!</string>
     <string name="support_kofi_button">สนับสนุนบน Ko-fi</string>
     <string name="tool_try_sample_document">ลองใช้เอกสารตัวอย่าง</string>
+
+    <string name="action_select">เลือก</string>
+    <string name="recent_history_title">ประวัติล่าสุด</string>
+    <string name="recent_history_subtitle">กรองและจัดการประวัติ PDF ในเครื่อง</string>
+    <string name="recent_selected_count">เลือกแล้ว (%1$d/%2$d)</string>
+    <string name="recent_search_hint">ค้นหา PDF ล่าสุด…</string>
+    <string name="recent_no_match">ไม่พบ PDF ที่ตรงกัน: %1$s</string>
 </resources>

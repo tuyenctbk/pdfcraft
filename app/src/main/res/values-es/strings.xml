@@ -417,4 +417,11 @@
     <string name="support_crypto_copied">¡Dirección de billetera copiada!</string>
     <string name="support_kofi_button">Apoyar en Ko-fi</string>
     <string name="tool_try_sample_document">Probar con documento de muestra</string>
+
+    <string name="action_select">Seleccionar</string>
+    <string name="recent_history_title">Historial reciente</string>
+    <string name="recent_history_subtitle">Filtrar y administrar el historial local de PDF</string>
+    <string name="recent_selected_count">Seleccionados (%1$d/%2$d)</string>
+    <string name="recent_search_hint">Buscar archivos PDF recientes…</string>
+    <string name="recent_no_match">No hay archivos PDF que coincidan: %1$s</string>
 </resources>

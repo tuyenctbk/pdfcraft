@@ -417,4 +417,11 @@
     <string name="support_crypto_copied">Cüzdan adresi panoya kopyalandı!</string>
     <string name="support_kofi_button">Ko-fi üzerinden destekle</string>
     <string name="tool_try_sample_document">Örnek Belge ile Deneyin</string>
+
+    <string name="action_select">Seç</string>
+    <string name="recent_history_title">Son Geçmiş</string>
+    <string name="recent_history_subtitle">Yerel PDF geçmişini filtreleyin ve yönetin</string>
+    <string name="recent_selected_count">Seçilen (%1$d/%2$d)</string>
+    <string name="recent_search_hint">Son PDFleri ara…</string>
+    <string name="recent_no_match">Eşleşen PDF bulunamadı: %1$s</string>
 </resources>

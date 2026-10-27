@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -269,7 +270,10 @@ fun LibraryScreen(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.weight(1f, fill = false)
+                        ) {
                             IconButton(
                                 onClick = { viewModel.toggleLibraryMultiSelectMode() },
                                 modifier = Modifier.size(28.dp).testTag("toggle_library_multiselect")
@@ -286,17 +290,22 @@ fun LibraryScreen(
                                 text = if (isMultiSelectMode) "${selectedProjectIds.size} Selected" else "Bulk Rename Mode",
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = if (isMultiSelectMode) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                                color = if (isMultiSelectMode) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
                             )
                         }
+
+                        Spacer(modifier = Modifier.width(8.dp))
 
                         Row(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
                             if (isMultiSelectMode) {
                                 TextButton(
                                     onClick = { viewModel.selectAllLibraryProjects(sortedList) },
-                                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp)
+                                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
+                                    modifier = Modifier.defaultMinSize(minWidth = 1.dp, minHeight = 32.dp)
                                 ) {
-                                    Text(stringResource(R.string.action_select_all), fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                                    Text(stringResource(R.string.action_select_all), fontSize = 11.sp, fontWeight = FontWeight.Bold, maxLines = 1, softWrap = false)
                                 }
 
                                 Button(
@@ -309,7 +318,7 @@ fun LibraryScreen(
                                 ) {
                                     Icon(Icons.Default.Edit, contentDescription = null, modifier = Modifier.size(14.dp))
                                     Spacer(modifier = Modifier.width(4.dp))
-                                    Text(stringResource(R.string.library_bulk_rename, selectedProjectIds.size), fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                                    Text(stringResource(R.string.library_bulk_rename, selectedProjectIds.size), fontSize = 11.sp, fontWeight = FontWeight.Bold, maxLines = 1, softWrap = false)
                                 }
 
                                 IconButton(
@@ -322,9 +331,9 @@ fun LibraryScreen(
                                 TextButton(
                                     onClick = { viewModel.toggleLibraryMultiSelectMode() },
                                     contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
-                                    modifier = Modifier.testTag("enter_bulk_rename_mode")
+                                    modifier = Modifier.defaultMinSize(minWidth = 1.dp, minHeight = 32.dp).testTag("enter_bulk_rename_mode")
                                 ) {
-                                    Text(stringResource(R.string.library_select_files_to_rename), fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                                    Text(stringResource(R.string.library_select_files_to_rename), fontSize = 11.sp, fontWeight = FontWeight.Bold, maxLines = 1, softWrap = false)
                                 }
                             }
                         }
@@ -516,7 +525,7 @@ fun LibraryScreen(
                         shape = RoundedCornerShape(14.dp),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .animateItemPlacement()
+                            .animateItem()
                             .combinedClickable(
                                 onClick = {
                                     if (isMultiSelectMode) {

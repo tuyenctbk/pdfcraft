@@ -417,4 +417,11 @@
     <string name="support_crypto_copied">Адресу гаманця скопійовано!</string>
     <string name="support_kofi_button">Підтримати на Ko-fi</string>
     <string name="tool_try_sample_document">Спробувати із зразком документа</string>
+
+    <string name="action_select">Вибрати</string>
+    <string name="recent_history_title">Недавня історія</string>
+    <string name="recent_history_subtitle">Фільтрація та керування локальною історією PDF</string>
+    <string name="recent_selected_count">Вибрано (%1$d/%2$d)</string>
+    <string name="recent_search_hint">Пошук останніх PDF…</string>
+    <string name="recent_no_match">Немає відповідних PDF: %1$s</string>
 </resources>

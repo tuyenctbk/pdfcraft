@@ -417,4 +417,11 @@
     <string name="support_crypto_copied">ウォレットアドレスをクリップボードにコピーしました！</string>
     <string name="support_kofi_button">Ko-fiでサポート</string>
     <string name="tool_try_sample_document">サンプル文書で試す</string>
+
+    <string name="action_select">選択</string>
+    <string name="recent_history_title">閲覧履歴</string>
+    <string name="recent_history_subtitle">端末内のPDF履歴を管理・検索</string>
+    <string name="recent_selected_count">選択中 (%1$d/%2$d)</string>
+    <string name="recent_search_hint">最近のPDFを検索…</string>
+    <string name="recent_no_match">一致するPDFはありません: %1$s</string>
 </resources>

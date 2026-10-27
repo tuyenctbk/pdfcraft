@@ -417,4 +417,11 @@
     <string name="support_crypto_copied">지갑 주소가 클립보드에 복사되었습니다!</string>
     <string name="support_kofi_button">Ko-fi에서 후원하기</string>
     <string name="tool_try_sample_document">샘플 문서로 사용해 보기</string>
+
+    <string name="action_select">선택</string>
+    <string name="recent_history_title">최근 기록</string>
+    <string name="recent_history_subtitle">로컬 PDF 기록 필터링 및 관리</string>
+    <string name="recent_selected_count">선택됨 (%1$d/%2$d)</string>
+    <string name="recent_search_hint">최근 PDF 검색…</string>
+    <string name="recent_no_match">일치하는 PDF 없음: %1$s</string>
 </resources>

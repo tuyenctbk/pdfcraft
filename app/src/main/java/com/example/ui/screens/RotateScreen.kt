@@ -33,6 +33,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.stringResource
@@ -169,21 +170,41 @@ fun RotateScreen(
                                     text = stringResource(R.string.rotate_selected_count, selectedPages.size, pageCount),
                                     style = MaterialTheme.typography.titleSmall,
                                     fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.onSurface
+                                    color = MaterialTheme.colorScheme.onSurface,
+                                    modifier = Modifier.weight(1f, fill = false),
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
                                 )
 
-                                Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                                Spacer(modifier = Modifier.width(8.dp))
+
+                                Row(
+                                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
                                     TextButton(
                                         onClick = { viewModel.selectAllRotatePages() },
-                                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp)
+                                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
+                                        modifier = Modifier.defaultMinSize(minWidth = 1.dp, minHeight = 32.dp)
                                     ) {
-                                        Text(stringResource(R.string.rotate_select_all), fontSize = 12.sp)
+                                        Text(
+                                            text = stringResource(R.string.rotate_select_all),
+                                            fontSize = 12.sp,
+                                            maxLines = 1,
+                                            softWrap = false
+                                        )
                                     }
                                     TextButton(
                                         onClick = { viewModel.clearRotatePageSelection() },
-                                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp)
+                                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
+                                        modifier = Modifier.defaultMinSize(minWidth = 1.dp, minHeight = 32.dp)
                                     ) {
-                                        Text(stringResource(R.string.rotate_clear_selection), fontSize = 12.sp)
+                                        Text(
+                                            text = stringResource(R.string.rotate_clear_selection),
+                                            fontSize = 12.sp,
+                                            maxLines = 1,
+                                            softWrap = false
+                                        )
                                     }
                                 }
                             }
@@ -191,7 +212,8 @@ fun RotateScreen(
                             // 90, 180, 270 degree rotation buttons
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Button(
                                     onClick = { viewModel.rotateSelectedPagesBy(90) },
@@ -201,11 +223,11 @@ fun RotateScreen(
                                         .weight(1f)
                                         .testTag("rotate_90_button"),
                                     shape = RoundedCornerShape(10.dp),
-                                    contentPadding = PaddingValues(vertical = 8.dp)
+                                    contentPadding = PaddingValues(horizontal = 4.dp, vertical = 8.dp)
                                 ) {
                                     Icon(Icons.Default.RotateRight, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(16.dp))
                                     Spacer(modifier = Modifier.width(4.dp))
-                                    Text("+90°", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
+                                    Text("+90°", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary, maxLines = 1, softWrap = false)
                                 }
 
                                 Button(
@@ -216,11 +238,11 @@ fun RotateScreen(
                                         .weight(1f)
                                         .testTag("rotate_180_button"),
                                     shape = RoundedCornerShape(10.dp),
-                                    contentPadding = PaddingValues(vertical = 8.dp)
+                                    contentPadding = PaddingValues(horizontal = 4.dp, vertical = 8.dp)
                                 ) {
                                     Icon(Icons.Default.ScreenRotation, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(16.dp))
                                     Spacer(modifier = Modifier.width(4.dp))
-                                    Text("+180°", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
+                                    Text("+180°", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary, maxLines = 1, softWrap = false)
                                 }
 
                                 Button(
@@ -231,11 +253,11 @@ fun RotateScreen(
                                         .weight(1f)
                                         .testTag("rotate_270_button"),
                                     shape = RoundedCornerShape(10.dp),
-                                    contentPadding = PaddingValues(vertical = 8.dp)
+                                    contentPadding = PaddingValues(horizontal = 4.dp, vertical = 8.dp)
                                 ) {
                                     Icon(Icons.Default.RotateLeft, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(16.dp))
                                     Spacer(modifier = Modifier.width(4.dp))
-                                    Text("-90° ↺", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
+                                    Text("-90° ↺", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary, maxLines = 1, softWrap = false)
                                 }
 
                                 if (pageRotations.isNotEmpty() && pageRotations.any { it.value % 360 != 0 }) {

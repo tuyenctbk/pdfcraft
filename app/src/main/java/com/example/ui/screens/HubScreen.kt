@@ -407,10 +407,25 @@ fun HubScreen(
                         style = MaterialTheme.typography.titleMedium.copy(
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onBackground
-                        )
+                        ),
+                        modifier = Modifier.weight(1f, fill = false),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
-                    TextButton(onClick = { viewModel.selectTab(1) }) {
-                        Text(stringResource(R.string.hub_view_all_tools), color = MaterialTheme.colorScheme.primary, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                    Spacer(modifier = Modifier.width(8.dp))
+                    TextButton(
+                        onClick = { viewModel.selectTab(1) },
+                        modifier = Modifier.defaultMinSize(minWidth = 1.dp, minHeight = 32.dp),
+                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.hub_view_all_tools),
+                            color = MaterialTheme.colorScheme.primary,
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold,
+                            maxLines = 1,
+                            softWrap = false
+                        )
                     }
                 }
             }
@@ -455,7 +470,10 @@ fun HubScreen(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.weight(1f, fill = false)
+                        ) {
                             Surface(
                                 color = MaterialTheme.colorScheme.tertiaryContainer,
                                 shape = CircleShape,
@@ -476,18 +494,26 @@ fun HubScreen(
                                 style = MaterialTheme.typography.titleMedium.copy(
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onBackground
-                                )
+                                ),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
                             )
                         }
 
                         if (recentFiles.isNotEmpty()) {
-                            TextButton(onClick = { viewModel.clearRecentFiles() }) {
+                            TextButton(
+                                onClick = { viewModel.clearRecentFiles() },
+                                modifier = Modifier.defaultMinSize(minWidth = 1.dp, minHeight = 32.dp),
+                                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+                            ) {
                                 Text(
                                     text = stringResource(R.string.hub_clear_recent),
                                     style = MaterialTheme.typography.bodySmall.copy(
                                         color = MaterialTheme.colorScheme.primary,
                                         fontWeight = FontWeight.Bold
-                                    )
+                                    ),
+                                    maxLines = 1,
+                                    softWrap = false
                                 )
                             }
                         }

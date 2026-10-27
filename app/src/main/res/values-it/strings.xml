@@ -417,4 +417,11 @@
     <string name="support_crypto_copied">Indirizzo del portafoglio copiato negli appunti!</string>
     <string name="support_kofi_button">Supporta su Ko-fi</string>
     <string name="tool_try_sample_document">Prova con un documento di esempio</string>
+
+    <string name="action_select">Seleziona</string>
+    <string name="recent_history_title">Cronologia recente</string>
+    <string name="recent_history_subtitle">Filtra e gestisci la cronologia PDF locale</string>
+    <string name="recent_selected_count">Selezionati (%1$d/%2$d)</string>
+    <string name="recent_search_hint">Cerca PDF recenti…</string>
+    <string name="recent_no_match">Nessun PDF corrisponde: %1$s</string>
 </resources>

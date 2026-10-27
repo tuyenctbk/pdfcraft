@@ -417,4 +417,11 @@
     <string name="support_crypto_copied">钱包地址已复制到剪贴板！</string>
     <string name="support_kofi_button">在 Ko-fi 上支持</string>
     <string name="tool_try_sample_document">使用示例文件体验</string>
+
+    <string name="action_select">选择</string>
+    <string name="recent_history_title">最近记录</string>
+    <string name="recent_history_subtitle">筛选和管理本地PDF记录</string>
+    <string name="recent_selected_count">已选择 (%1$d/%2$d)</string>
+    <string name="recent_search_hint">搜索最近的PDF…</string>
+    <string name="recent_no_match">没有匹配的PDF: %1$s</string>
 </resources>

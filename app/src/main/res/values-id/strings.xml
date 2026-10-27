@@ -417,4 +417,11 @@
     <string name="support_crypto_copied">Alamat dompet disalin ke papan klip!</string>
     <string name="support_kofi_button">Dukung di Ko-fi</string>
     <string name="tool_try_sample_document">Coba dengan Dokumen Contoh</string>
+
+    <string name="action_select">Pilih</string>
+    <string name="recent_history_title">Riwayat Terkini</string>
+    <string name="recent_history_subtitle">Saring dan kelola riwayat PDF lokal Anda</string>
+    <string name="recent_selected_count">Terpilih (%1$d/%2$d)</string>
+    <string name="recent_search_hint">Cari PDF terkini…</string>
+    <string name="recent_no_match">Tidak ada PDF yang cocok: %1$s</string>
 </resources>

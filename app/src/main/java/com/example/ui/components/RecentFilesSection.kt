@@ -54,6 +54,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.ui.res.stringResource
+import com.example.R
 import com.example.data.local.RecentFileEntity
 import com.example.data.pdf.PdfEngine
 import com.example.ui.MainViewModel
@@ -101,7 +104,10 @@ fun RecentFilesSection(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    modifier = Modifier.weight(1f, fill = false),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     Box(
                         modifier = Modifier
                             .size(32.dp)
@@ -117,30 +123,43 @@ fun RecentFilesSection(
                         )
                     }
                     Spacer(modifier = Modifier.width(10.dp))
-                    Column {
+                    Column(modifier = Modifier.weight(1f, fill = false)) {
                         Text(
-                            text = if (isMultiSelectMode) "Selected (${selectedPaths.size}/${recentFiles.size})" else "Recent History",
+                            text = if (isMultiSelectMode) {
+                                stringResource(R.string.recent_selected_count, selectedPaths.size, recentFiles.size)
+                            } else {
+                                stringResource(R.string.recent_history_title)
+                            },
                             style = MaterialTheme.typography.titleMedium.copy(
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onSurface
-                            )
+                            ),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
                         )
                         Text(
-                            text = "Filter and manage your local PDF history",
+                            text = stringResource(R.string.recent_history_subtitle),
                             style = MaterialTheme.typography.labelSmall.copy(
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
+                            ),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
                         )
                     }
                 }
 
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Spacer(modifier = Modifier.width(8.dp))
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
                     if (isMultiSelectMode) {
                         IconButton(
                             onClick = { viewModel.selectAllRecentFiles(recentFiles) },
                             modifier = Modifier.size(32.dp).testTag("select_all_recent_button")
                         ) {
-                            Icon(Icons.Default.SelectAll, contentDescription = "Select All", tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(18.dp))
+                            Icon(Icons.Default.SelectAll, contentDescription = stringResource(R.string.action_select_all), tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(18.dp))
                         }
 
                         if (selectedPaths.isNotEmpty()) {
@@ -148,7 +167,7 @@ fun RecentFilesSection(
                                 onClick = { viewModel.deleteSelectedRecentFiles() },
                                 modifier = Modifier.size(32.dp).testTag("delete_selected_recent_button")
                             ) {
-                                Icon(Icons.Default.Delete, contentDescription = "Delete Selected", tint = MaterialTheme.colorScheme.error, modifier = Modifier.size(18.dp))
+                                Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.action_delete), tint = MaterialTheme.colorScheme.error, modifier = Modifier.size(18.dp))
                             }
                         }
 
@@ -156,25 +175,39 @@ fun RecentFilesSection(
                             onClick = { viewModel.toggleRecentMultiSelectMode() },
                             modifier = Modifier.size(32.dp).testTag("exit_multi_select_button")
                         ) {
-                            Icon(Icons.Default.Close, contentDescription = "Exit Multi Select", tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(18.dp))
+                            Icon(Icons.Default.Close, contentDescription = stringResource(R.string.action_close), tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(18.dp))
                         }
                     } else {
                         TextButton(
                             onClick = { viewModel.toggleRecentMultiSelectMode() },
-                            modifier = Modifier.testTag("enable_multi_select_button")
+                            modifier = Modifier
+                                .defaultMinSize(minWidth = 1.dp, minHeight = 32.dp)
+                                .testTag("enable_multi_select_button"),
+                            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
                         ) {
-                            Text("Select", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                            Text(
+                                text = stringResource(R.string.action_select),
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Bold,
+                                maxLines = 1,
+                                softWrap = false
+                            )
                         }
 
                         TextButton(
                             onClick = { viewModel.clearRecentFiles() },
-                            modifier = Modifier.testTag("clear_recent_files_button")
+                            modifier = Modifier
+                                .defaultMinSize(minWidth = 1.dp, minHeight = 32.dp)
+                                .testTag("clear_recent_files_button"),
+                            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
                         ) {
                             Text(
-                                text = "Clear All",
+                                text = stringResource(R.string.action_clear_all),
                                 fontSize = 12.sp,
                                 color = MaterialTheme.colorScheme.error,
-                                fontWeight = FontWeight.Bold
+                                fontWeight = FontWeight.Bold,
+                                maxLines = 1,
+                                softWrap = false
                             )
                         }
                     }
@@ -187,7 +220,7 @@ fun RecentFilesSection(
             OutlinedTextField(
                 value = searchQuery,
                 onValueChange = { viewModel.setRecentSearchQuery(it) },
-                placeholder = { Text("Search recent PDFs...", fontSize = 12.sp) },
+                placeholder = { Text(stringResource(R.string.recent_search_hint), fontSize = 12.sp) },
                 leadingIcon = { Icon(Icons.Default.Search, contentDescription = null, modifier = Modifier.size(16.dp)) },
                 trailingIcon = if (searchQuery.isNotBlank()) {
                     {
@@ -213,7 +246,7 @@ fun RecentFilesSection(
 
             if (recentFiles.isEmpty()) {
                 Text(
-                    text = "No recent PDFs match '$searchQuery'",
+                    text = if (searchQuery.isNotBlank()) stringResource(R.string.recent_no_match, searchQuery) else stringResource(R.string.hub_empty_recent),
                     style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
                 )
@@ -237,7 +270,7 @@ fun RecentFilesSection(
                             },
                             onOpenViewer = { viewModel.openInViewer(item.filePath) },
                             onRemove = { viewModel.removeRecentFile(item.filePath) },
-                            modifier = Modifier.animateItemPlacement()
+                            modifier = Modifier.animateItem()
                         )
                     }
                 }

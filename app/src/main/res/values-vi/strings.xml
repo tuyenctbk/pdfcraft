@@ -417,4 +417,11 @@
     <string name="support_crypto_copied">Đã sao chép địa chỉ ví vào bộ nhớ tạm!</string>
     <string name="support_kofi_button">Ủng hộ qua Ko-fi</string>
     <string name="tool_try_sample_document">Thử với tài liệu mẫu</string>
+
+    <string name="action_select">Chọn</string>
+    <string name="recent_history_title">Lịch sử gần đây</string>
+    <string name="recent_history_subtitle">Lọc và quản lý lịch sử tệp PDF trên máy</string>
+    <string name="recent_selected_count">Đã chọn (%1$d/%2$d)</string>
+    <string name="recent_search_hint">Tìm tệp PDF gần đây…</string>
+    <string name="recent_no_match">Không có tệp PDF khớp: %1$s</string>
 </resources>

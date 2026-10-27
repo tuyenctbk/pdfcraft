@@ -417,4 +417,11 @@
     <string name="support_crypto_copied">Adresa portofelului a fost copiată!</string>
     <string name="support_kofi_button">Susține pe Ko-fi</string>
     <string name="tool_try_sample_document">Încercați cu un document mostră</string>
+
+    <string name="action_select">Selectează</string>
+    <string name="recent_history_title">Istoric recent</string>
+    <string name="recent_history_subtitle">Filtrați și gestionați istoricul local PDF</string>
+    <string name="recent_selected_count">Selectate (%1$d/%2$d)</string>
+    <string name="recent_search_hint">Căutați PDF-uri recente…</string>
+    <string name="recent_no_match">Niciun PDF nu corespunde: %1$s</string>
 </resources>

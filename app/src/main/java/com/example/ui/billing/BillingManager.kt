@@ -179,9 +179,10 @@ class BillingManager private constructor(private val appContext: Context) : Purc
             .setProductList(productList)
             .build()
 
-        client.queryProductDetailsAsync(params) { billingResult, queryProductDetailsList ->
-            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && queryProductDetailsList.isNotEmpty()) {
-                val detailsMap = queryProductDetailsList.associateBy { it.productId }
+        client.queryProductDetailsAsync(params) { billingResult, queryProductDetailsResult ->
+            val productDetailsList = queryProductDetailsResult.productDetailsList ?: emptyList()
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && productDetailsList.isNotEmpty()) {
+                val detailsMap = productDetailsList.associateBy { it.productId }
                 val updated = defaultFallbackTips().map { fallback ->
                     val liveDetails = detailsMap[fallback.id]
                     if (liveDetails != null) {

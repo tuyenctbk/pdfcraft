@@ -417,4 +417,11 @@
     <string name="support_crypto_copied">Endereço da carteira copiado com sucesso!</string>
     <string name="support_kofi_button">Apoiar no Ko-fi</string>
     <string name="tool_try_sample_document">Experimentar com documento de exemplo</string>
+
+    <string name="action_select">Selecionar</string>
+    <string name="recent_history_title">Histórico recente</string>
+    <string name="recent_history_subtitle">Filtrar e gerenciar histórico local de PDFs</string>
+    <string name="recent_selected_count">Selecionados (%1$d/%2$d)</string>
+    <string name="recent_search_hint">Pesquisar PDFs recentes…</string>
+    <string name="recent_no_match">Nenhum PDF corresponde: %1$s</string>
 </resources>

@@ -417,4 +417,11 @@
     <string name="support_crypto_copied">Adresse du portefeuille copiée dans le presse-papiers !</string>
     <string name="support_kofi_button">Soutenir sur Ko-fi</string>
     <string name="tool_try_sample_document">Essayer avec un document d\'exemple</string>
+
+    <string name="action_select">Sélectionner</string>
+    <string name="recent_history_title">Historique récent</string>
+    <string name="recent_history_subtitle">Filtrer et gérer le dossier PDF local</string>
+    <string name="recent_selected_count">Sélectionné (%1$d/%2$d)</string>
+    <string name="recent_search_hint">Rechercher dans les PDF récents…</string>
+    <string name="recent_no_match">Aucun PDF ne correspond: %1$s</string>
 </resources>

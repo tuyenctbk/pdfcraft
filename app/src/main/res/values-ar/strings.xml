@@ -417,4 +417,11 @@
     <string name="support_crypto_copied">تم نسخ عنوان المحفظة إلى الحافظة!</string>
     <string name="support_kofi_button">ادعمنا على Ko-fi</string>
     <string name="tool_try_sample_document">جرب مع مستند نموذجي</string>
+
+    <string name="action_select">تحديد</string>
+    <string name="recent_history_title">السجل الأخير</string>
+    <string name="recent_history_subtitle">تصفية وإدارة سجل PDF المحلي</string>
+    <string name="recent_selected_count">محدد (%1$d/%2$d)</string>
+    <string name="recent_search_hint">البحث في ملفات PDF الأخيرة…</string>
+    <string name="recent_no_match">لا توجد ملفات PDF تطابق: %1$s</string>
 </resources>

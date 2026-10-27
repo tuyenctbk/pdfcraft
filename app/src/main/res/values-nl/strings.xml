@@ -417,4 +417,11 @@
     <string name="support_crypto_copied">Wallet-adres gekopieerd naar klembord!</string>
     <string name="support_kofi_button">Steun op Ko-fi</string>
     <string name="tool_try_sample_document">Probeer met voorbeelddocument</string>
+
+    <string name="action_select">Selecteren</string>
+    <string name="recent_history_title">Recente geschiedenis</string>
+    <string name="recent_history_subtitle">Filter en beheer lokale PDF-geschiedenis</string>
+    <string name="recent_selected_count">Geselecteerd (%1$d/%2$d)</string>
+    <string name="recent_search_hint">Zoek recente PDFs…</string>
+    <string name="recent_no_match">Geen PDFs komen overeen: %1$s</string>
 </resources>

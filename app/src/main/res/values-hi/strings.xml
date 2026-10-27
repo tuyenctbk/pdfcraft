@@ -417,4 +417,11 @@
     <string name="support_crypto_copied">वॉलेट पता क्लिपबोर्ड पर कॉपी किया गया!</string>
     <string name="support_kofi_button">Ko-fi पर सहयोग करें</string>
     <string name="tool_try_sample_document">नमूना दस्तावेज़ के साथ आज़माएँ</string>
+
+    <string name="action_select">चुनें</string>
+    <string name="recent_history_title">हालिया इतिहास</string>
+    <string name="recent_history_subtitle">अपने स्थानीय पीडीएफ इतिहास को फ़िल्टर और प्रबंधित करें</string>
+    <string name="recent_selected_count">चयनित (%1$d/%2$d)</string>
+    <string name="recent_search_hint">हालिया पीडीएफ खोजें…</string>
+    <string name="recent_no_match">कोई पीडीएफ मेल नहीं खाता: %1$s</string>
 </resources>

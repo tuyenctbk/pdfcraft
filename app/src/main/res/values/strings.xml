@@ -469,4 +469,11 @@
     <string name="support_crypto_copied">Wallet address copied to clipboard!</string>
     <string name="support_kofi_button">Support on Ko-fi</string>
     <string name="tool_try_sample_document">Try With Sample Document</string>
+
+    <string name="action_select">Select</string>
+    <string name="recent_history_title">Recent History</string>
+    <string name="recent_history_subtitle">Filter and manage your local PDF history</string>
+    <string name="recent_selected_count">Selected (%1$d/%2$d)</string>
+    <string name="recent_search_hint">Search recent PDFs…</string>
+    <string name="recent_no_match">No recent PDFs match: %1$s</string>
 </resources>
