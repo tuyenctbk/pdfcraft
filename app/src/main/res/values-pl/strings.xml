@@ -448,4 +448,21 @@
     <string name="preview_pdf_version_label">Wersja PDF: %1$s</string>
     <string name="preview_action_previous">Wstecz</string>
     <string name="preview_action_next">Dalej</string>
+    <string name="hub_open_pdf_reader_title">Otwórz i czytaj PDF</string>
+    <string name="hub_open_pdf_reader_desc">Czytaj, szukaj, czytaj na głos, tryb nocny i drukuj</string>
+    <string name="viewer_mode_day">Dzień</string>
+    <string name="viewer_mode_night">Noc</string>
+    <string name="viewer_mode_sepia">Sepia</string>
+    <string name="viewer_read_aloud">Czytaj na głos</string>
+    <string name="viewer_stop_reading">Zatrzymaj głos</string>
+    <string name="viewer_print_pdf">Drukuj</string>
+    <string name="viewer_share_pdf">Udostępnij</string>
+    <string name="viewer_send_to_sign">Podpisz</string>
+    <string name="viewer_send_to_compress">Kompresuj</string>
+    <string name="viewer_send_to_rotate">Obróć</string>
+    <string name="viewer_send_to_text">Wyodrębnij tekst</string>
+    <string name="viewer_page_of_total">Strona %1$d z %2$d</string>
+    <string name="viewer_match_of_total">Wynik %1$d z %2$d (Strona %3$d)</string>
+    <string name="onboarding_title_4">Inteligentny czytnik PDF i Głos</string>
+    <string name="onboarding_desc_4">Czytaj pliki PDF w trybie nocnym i sepii, z szybkim wyszukiwaniem tekstu, suwakiem stron i czytaniem głosowym offline.</string>
 </resources>

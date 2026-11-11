@@ -448,4 +448,21 @@
     <string name="preview_pdf_version_label">Versiune PDF: %1$s</string>
     <string name="preview_action_previous">Anterior</string>
     <string name="preview_action_next">Următor</string>
+    <string name="hub_open_pdf_reader_title">Deschide și Citește PDF</string>
+    <string name="hub_open_pdf_reader_desc">Citește, caută, citire vocală, mod noapte și imprimă</string>
+    <string name="viewer_mode_day">Zi</string>
+    <string name="viewer_mode_night">Noapte</string>
+    <string name="viewer_mode_sepia">Sepia</string>
+    <string name="viewer_read_aloud">Citire vocală</string>
+    <string name="viewer_stop_reading">Oprește vocea</string>
+    <string name="viewer_print_pdf">Imprimă</string>
+    <string name="viewer_share_pdf">Distribuie</string>
+    <string name="viewer_send_to_sign">Semnează</string>
+    <string name="viewer_send_to_compress">Comprimă</string>
+    <string name="viewer_send_to_rotate">Rotește</string>
+    <string name="viewer_send_to_text">Extrage text</string>
+    <string name="viewer_page_of_total">Pagina %1$d din %2$d</string>
+    <string name="viewer_match_of_total">Rezultat %1$d din %2$d (Pag. %3$d)</string>
+    <string name="onboarding_title_4">Cititor PDF Inteligent și Voce</string>
+    <string name="onboarding_desc_4">Citește orice PDF cu modurile Noapte și Sepia, căutare rapidă în text și citire vocală offline.</string>
 </resources>

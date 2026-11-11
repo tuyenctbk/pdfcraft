@@ -448,4 +448,21 @@
     <string name="preview_pdf_version_label">PDF-Version: %1$s</string>
     <string name="preview_action_previous">Zurück</string>
     <string name="preview_action_next">Weiter</string>
+    <string name="hub_open_pdf_reader_title">PDF öffnen &amp; lesen</string>
+    <string name="hub_open_pdf_reader_desc">Lesen, suchen, vorlesen, Nachtmodus &amp; drucken</string>
+    <string name="viewer_mode_day">Tag</string>
+    <string name="viewer_mode_night">Nacht</string>
+    <string name="viewer_mode_sepia">Sepia</string>
+    <string name="viewer_read_aloud">Vorlesen</string>
+    <string name="viewer_stop_reading">Stopp</string>
+    <string name="viewer_print_pdf">Drucken</string>
+    <string name="viewer_share_pdf">Teilen</string>
+    <string name="viewer_send_to_sign">Signieren</string>
+    <string name="viewer_send_to_compress">Komprimieren</string>
+    <string name="viewer_send_to_rotate">Drehen</string>
+    <string name="viewer_send_to_text">Text extrahieren</string>
+    <string name="viewer_page_of_total">Seite %1$d von %2$d</string>
+    <string name="viewer_match_of_total">Treffer %1$d von %2$d (Seite %3$d)</string>
+    <string name="onboarding_title_4">Smarter PDF-Reader &amp; Vorlesen</string>
+    <string name="onboarding_desc_4">Lesen Sie PDFs im augenschonenden Nacht- und Sepia-Modus mit Volltextsuche, Seitenregler und Offline-Sprachausgabe.</string>
 </resources>

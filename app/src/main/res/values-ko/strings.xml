@@ -448,4 +448,21 @@
     <string name="preview_pdf_version_label">PDF 버전: %1$s</string>
     <string name="preview_action_previous">이전</string>
     <string name="preview_action_next">다음</string>
+    <string name="hub_open_pdf_reader_title">PDF 열기 및 읽기</string>
+    <string name="hub_open_pdf_reader_desc">읽기, 검색, 음성 낭독, 야간 모드 및 인쇄</string>
+    <string name="viewer_mode_day">주간</string>
+    <string name="viewer_mode_night">야간</string>
+    <string name="viewer_mode_sepia">세피아</string>
+    <string name="viewer_read_aloud">음성 낭독</string>
+    <string name="viewer_stop_reading">음성 중지</string>
+    <string name="viewer_print_pdf">인쇄</string>
+    <string name="viewer_share_pdf">공유</string>
+    <string name="viewer_send_to_sign">서명</string>
+    <string name="viewer_send_to_compress">압축</string>
+    <string name="viewer_send_to_rotate">회전</string>
+    <string name="viewer_send_to_text">텍스트 추출</string>
+    <string name="viewer_page_of_total">%2$d페이지 중 %1$d</string>
+    <string name="viewer_match_of_total">일치 %1$d/%2$d (%3$d페이지)</string>
+    <string name="onboarding_title_4">스마트 PDF 리더 및 음성 낭독</string>
+    <string name="onboarding_desc_4">눈이 편안한 야간 및 세피아 모드, 빠른 텍스트 검색, 페이지 슬라이더, 오프라인 음성 낭독으로 PDF를 편리하게 읽으세요.</string>
 </resources>

@@ -448,4 +448,21 @@
     <string name="preview_pdf_version_label">PDF-versie: %1$s</string>
     <string name="preview_action_previous">Vorige</string>
     <string name="preview_action_next">Volgende</string>
+    <string name="hub_open_pdf_reader_title">PDF openen &amp; lezen</string>
+    <string name="hub_open_pdf_reader_desc">Lezen, zoeken, voorlezen, nachtmodus &amp; afdrukken</string>
+    <string name="viewer_mode_day">Dag</string>
+    <string name="viewer_mode_night">Nacht</string>
+    <string name="viewer_mode_sepia">Sepia</string>
+    <string name="viewer_read_aloud">Voorlezen</string>
+    <string name="viewer_stop_reading">Stop stem</string>
+    <string name="viewer_print_pdf">Afdrukken</string>
+    <string name="viewer_share_pdf">Delen</string>
+    <string name="viewer_send_to_sign">Ondertekenen</string>
+    <string name="viewer_send_to_compress">Comprimeren</string>
+    <string name="viewer_send_to_rotate">Draaien</string>
+    <string name="viewer_send_to_text">Tekst extraheren</string>
+    <string name="viewer_page_of_total">Pagina %1$d van %2$d</string>
+    <string name="viewer_match_of_total">Resultaat %1$d van %2$d (Pag. %3$d)</string>
+    <string name="onboarding_title_4">Slimme PDF-lezer &amp; Spraak</string>
+    <string name="onboarding_desc_4">Lees elke PDF met Nacht- en Sepia-modus, direct tekst zoeken, paginaschuifregelaar en offline voorlezen.</string>
 </resources>

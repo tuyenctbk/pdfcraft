@@ -500,4 +500,21 @@
     <string name="preview_pdf_version_label">PDF Version: %1$s</string>
     <string name="preview_action_previous">Previous</string>
     <string name="preview_action_next">Next</string>
+    <string name="hub_open_pdf_reader_title">Open &amp; Read PDF</string>
+    <string name="hub_open_pdf_reader_desc">Read, search, listen aloud, night mode &amp; print</string>
+    <string name="viewer_mode_day">Day</string>
+    <string name="viewer_mode_night">Night</string>
+    <string name="viewer_mode_sepia">Sepia</string>
+    <string name="viewer_read_aloud">Read Aloud</string>
+    <string name="viewer_stop_reading">Stop Voice</string>
+    <string name="viewer_print_pdf">Print</string>
+    <string name="viewer_share_pdf">Share</string>
+    <string name="viewer_send_to_sign">Sign</string>
+    <string name="viewer_send_to_compress">Compress</string>
+    <string name="viewer_send_to_rotate">Rotate</string>
+    <string name="viewer_send_to_text">Extract Text</string>
+    <string name="viewer_page_of_total">Page %1$d of %2$d</string>
+    <string name="viewer_match_of_total">Match %1$d of %2$d (Page %3$d)</string>
+    <string name="onboarding_title_4">Smart PDF Reader &amp; Voice</string>
+    <string name="onboarding_desc_4">Read any PDF with Night &amp; Sepia eye-comfort modes, instant text search, page scrubber, and offline voice Read Aloud.</string>
 </resources>

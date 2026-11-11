@@ -448,4 +448,21 @@
     <string name="preview_pdf_version_label">PDF Sürümü: %1$s</string>
     <string name="preview_action_previous">Önceki</string>
     <string name="preview_action_next">Sonraki</string>
+    <string name="hub_open_pdf_reader_title">PDF Aç ve Oku</string>
+    <string name="hub_open_pdf_reader_desc">Oku, ara, sesli oku, gece modu ve yazdır</string>
+    <string name="viewer_mode_day">Gündüz</string>
+    <string name="viewer_mode_night">Gece</string>
+    <string name="viewer_mode_sepia">Sepya</string>
+    <string name="viewer_read_aloud">Sesli Oku</string>
+    <string name="viewer_stop_reading">Sesi Durdur</string>
+    <string name="viewer_print_pdf">Yazdır</string>
+    <string name="viewer_share_pdf">Paylaş</string>
+    <string name="viewer_send_to_sign">İmzala</string>
+    <string name="viewer_send_to_compress">Sıkıştır</string>
+    <string name="viewer_send_to_rotate">Döndür</string>
+    <string name="viewer_send_to_text">Metin Çıkar</string>
+    <string name="viewer_page_of_total">Sayfa %1$d / %2$d</string>
+    <string name="viewer_match_of_total">Eşleşme %1$d / %2$d (Sayfa %3$d)</string>
+    <string name="onboarding_title_4">Akıllı PDF Okuyucu ve Ses</string>
+    <string name="onboarding_desc_4">Gece ve Sepya göz konforu modları, anında metin arama, sayfa kaydırıcı ve çevrimdışı sesli okuma ile PDF okuyun.</string>
 </resources>

@@ -448,4 +448,21 @@
     <string name="preview_pdf_version_label">PDF 版本：%1$s</string>
     <string name="preview_action_previous">上一页</string>
     <string name="preview_action_next">下一页</string>
+    <string name="hub_open_pdf_reader_title">打开并阅读 PDF</string>
+    <string name="hub_open_pdf_reader_desc">阅读、搜索、语音朗读、夜间模式与打印</string>
+    <string name="viewer_mode_day">日间</string>
+    <string name="viewer_mode_night">夜间</string>
+    <string name="viewer_mode_sepia">护眼</string>
+    <string name="viewer_read_aloud">语音朗读</string>
+    <string name="viewer_stop_reading">停止朗读</string>
+    <string name="viewer_print_pdf">打印</string>
+    <string name="viewer_share_pdf">分享</string>
+    <string name="viewer_send_to_sign">签名</string>
+    <string name="viewer_send_to_compress">压缩</string>
+    <string name="viewer_send_to_rotate">旋转</string>
+    <string name="viewer_send_to_text">提取文本</string>
+    <string name="viewer_page_of_total">第 %1$d / %2$d 页</string>
+    <string name="viewer_match_of_total">匹配 %1$d / %2$d (第 %3$d 页)</string>
+    <string name="onboarding_title_4">智能 PDF 阅读器与语音朗读</string>
+    <string name="onboarding_desc_4">支持夜间与护眼羊皮纸模式、全文搜索、页面滑块快速跳转以及离线语音朗读。</string>
 </resources>

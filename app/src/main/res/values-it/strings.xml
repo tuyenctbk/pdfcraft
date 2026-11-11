@@ -448,4 +448,21 @@
     <string name="preview_pdf_version_label">Versione PDF: %1$s</string>
     <string name="preview_action_previous">Precedente</string>
     <string name="preview_action_next">Successivo</string>
+    <string name="hub_open_pdf_reader_title">Apri e Leggi PDF</string>
+    <string name="hub_open_pdf_reader_desc">Leggi, cerca, lettura vocale, modalità notte e stampa</string>
+    <string name="viewer_mode_day">Giorno</string>
+    <string name="viewer_mode_night">Notte</string>
+    <string name="viewer_mode_sepia">Seppia</string>
+    <string name="viewer_read_aloud">Leggi ad alta voce</string>
+    <string name="viewer_stop_reading">Ferma voce</string>
+    <string name="viewer_print_pdf">Stampa</string>
+    <string name="viewer_share_pdf">Condividi</string>
+    <string name="viewer_send_to_sign">Firma</string>
+    <string name="viewer_send_to_compress">Comprimi</string>
+    <string name="viewer_send_to_rotate">Ruota</string>
+    <string name="viewer_send_to_text">Estrai testo</string>
+    <string name="viewer_page_of_total">Pagina %1$d di %2$d</string>
+    <string name="viewer_match_of_total">Risultato %1$d di %2$d (Pag. %3$d)</string>
+    <string name="onboarding_title_4">Lettore PDF Smart e Voce</string>
+    <string name="onboarding_desc_4">Leggi qualsiasi PDF con le modalità Notte e Seppia, ricerca rapida, cursore pagine e lettura vocale offline.</string>
 </resources>

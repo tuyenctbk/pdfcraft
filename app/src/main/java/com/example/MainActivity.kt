@@ -370,7 +370,8 @@ fun PDFCraftApp(
     activeViewerFile?.let { file ->
         PdfViewerDialog(
             file = file,
-            onDismiss = { viewModel.closeViewer() }
+            onDismiss = { viewModel.closeViewer() },
+            onSendToTool = { tool -> viewModel.sendViewerFileToTool(file, tool) }
         )
     }
 

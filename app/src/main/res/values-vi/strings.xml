@@ -448,4 +448,21 @@
     <string name="preview_pdf_version_label">Phiên bản PDF: %1$s</string>
     <string name="preview_action_previous">Trước</string>
     <string name="preview_action_next">Tiếp</string>
+    <string name="hub_open_pdf_reader_title">Mở &amp; Đọc PDF</string>
+    <string name="hub_open_pdf_reader_desc">Đọc, tìm kiếm, đọc thành tiếng, chế độ tối &amp; in</string>
+    <string name="viewer_mode_day">Ngày</string>
+    <string name="viewer_mode_night">Đêm</string>
+    <string name="viewer_mode_sepia">Sepia</string>
+    <string name="viewer_read_aloud">Đọc to</string>
+    <string name="viewer_stop_reading">Dừng đọc</string>
+    <string name="viewer_print_pdf">In</string>
+    <string name="viewer_share_pdf">Chia sẻ</string>
+    <string name="viewer_send_to_sign">Ký tên</string>
+    <string name="viewer_send_to_compress">Nén</string>
+    <string name="viewer_send_to_rotate">Xoay</string>
+    <string name="viewer_send_to_text">Trích xuất chữ</string>
+    <string name="viewer_page_of_total">Trang %1$d / %2$d</string>
+    <string name="viewer_match_of_total">Khớp %1$d / %2$d (Trang %3$d)</string>
+    <string name="onboarding_title_4">Trình Đọc PDF Thông Minh &amp; Giọng Đọc</string>
+    <string name="onboarding_desc_4">Đọc mọi tệp PDF với chế độ Đêm &amp; Sepia dịu mắt, tìm kiếm văn bản tức thì, thanh trượt trang và đọc thành tiếng ngoại tuyến.</string>
 </resources>

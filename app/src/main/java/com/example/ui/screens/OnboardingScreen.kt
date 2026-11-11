@@ -47,9 +47,9 @@ fun OnboardingScreen(
 ) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
-    val pagerState = rememberPagerState(pageCount = { 3 })
+    val pagerState = rememberPagerState(pageCount = { 4 })
 
-    // Check runtime permission state
+    // Check runtime notification permission state
     var isPermissionGranted by remember {
         mutableStateOf<Boolean>(checkStorageOrNotificationPermission(context))
     }
@@ -67,13 +67,18 @@ fun OnboardingScreen(
             descRes = R.string.onboarding_desc_1
         ),
         OnboardingPageData(
+            icon = Icons.Default.Speed,
+            titleRes = R.string.onboarding_title_4,
+            descRes = R.string.onboarding_desc_4
+        ),
+        OnboardingPageData(
             icon = Icons.Default.FolderSpecial,
             titleRes = R.string.onboarding_title_2,
             descRes = R.string.onboarding_desc_2,
-            isPermissionPage = true
+            isPermissionPage = false
         ),
         OnboardingPageData(
-            icon = Icons.Default.Speed,
+            icon = Icons.Default.CheckCircle,
             titleRes = R.string.onboarding_title_3,
             descRes = R.string.onboarding_desc_3
         )
@@ -110,7 +115,7 @@ fun OnboardingScreen(
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "PDFCRAFT",
+                        text = stringResource(R.string.app_name).uppercase(),
                         style = MaterialTheme.typography.titleMedium.copy(
                             color = MaterialTheme.colorScheme.onBackground,
                             fontWeight = FontWeight.Bold,

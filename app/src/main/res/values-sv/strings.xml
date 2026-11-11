@@ -448,4 +448,21 @@
     <string name="preview_pdf_version_label">PDF-version: %1$s</string>
     <string name="preview_action_previous">Föregående</string>
     <string name="preview_action_next">Nästa</string>
+    <string name="hub_open_pdf_reader_title">Öppna &amp; Läs PDF</string>
+    <string name="hub_open_pdf_reader_desc">Läs, sök, läs högt, nattläge &amp; skriv ut</string>
+    <string name="viewer_mode_day">Dag</string>
+    <string name="viewer_mode_night">Natt</string>
+    <string name="viewer_mode_sepia">Sepia</string>
+    <string name="viewer_read_aloud">Läs högt</string>
+    <string name="viewer_stop_reading">Stoppa röst</string>
+    <string name="viewer_print_pdf">Skriv ut</string>
+    <string name="viewer_share_pdf">Dela</string>
+    <string name="viewer_send_to_sign">Signera</string>
+    <string name="viewer_send_to_compress">Komprimera</string>
+    <string name="viewer_send_to_rotate">Rotera</string>
+    <string name="viewer_send_to_text">Extrahera text</string>
+    <string name="viewer_page_of_total">Sida %1$d av %2$d</string>
+    <string name="viewer_match_of_total">Träff %1$d av %2$d (Sida %3$d)</string>
+    <string name="onboarding_title_4">Smart PDF-läsare &amp; Röst</string>
+    <string name="onboarding_desc_4">Läs alla PDF-filer med Natt- och Sepia-läge, snabb textsökning, sidreglage och offline-uppläsning.</string>
 </resources>

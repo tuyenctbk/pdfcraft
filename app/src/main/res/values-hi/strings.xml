@@ -448,4 +448,21 @@
     <string name="preview_pdf_version_label">पीडीएफ संस्करण: %1$s</string>
     <string name="preview_action_previous">पिछला</string>
     <string name="preview_action_next">अगला</string>
+    <string name="hub_open_pdf_reader_title">PDF खोलें और पढ़ें</string>
+    <string name="hub_open_pdf_reader_desc">पढ़ें, खोजें, बोलकर सुनें, नाइट मोड और प्रिंट</string>
+    <string name="viewer_mode_day">दिन</string>
+    <string name="viewer_mode_night">रात</string>
+    <string name="viewer_mode_sepia">सेपिया</string>
+    <string name="viewer_read_aloud">बोलकर पढ़ें</string>
+    <string name="viewer_stop_reading">आवाज़ रोकें</string>
+    <string name="viewer_print_pdf">प्रिंट</string>
+    <string name="viewer_share_pdf">शेयर</string>
+    <string name="viewer_send_to_sign">हस्ताक्षर</string>
+    <string name="viewer_send_to_compress">कम्प्रेस</string>
+    <string name="viewer_send_to_rotate">घुमाएँ</string>
+    <string name="viewer_send_to_text">टेक्स्ट निकालें</string>
+    <string name="viewer_page_of_total">पृष्ठ %1$d / %2$d</string>
+    <string name="viewer_match_of_total">मिलान %1$d / %2$d (पृष्ठ %3$d)</string>
+    <string name="onboarding_title_4">स्मार्ट PDF रीडर और वॉइस</string>
+    <string name="onboarding_desc_4">नाइट और सेपिया आई-कम्फर्ट मोड, तेज़ टेक्स्ट सर्च, पेज स्लाइडर और ऑफ़लाइन वॉइस रीड अलाउड के साथ कोई भी PDF पढ़ें।</string>
 </resources>

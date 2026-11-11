@@ -1,29 +1,33 @@
 language_code,language_name,app_name,short_description,full_description
-en,English,PDFCraft,"100% on-device private PDF studio for merging, splitting, and compressing","PDFCraft is a comprehensive, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+en,English,PDFCraft: PDF Reader & Toolkit,"Offline PDF reader with night mode, voice read aloud, merge, compress & sign.","PDFCraft is a private, offline PDF reader and document toolkit designed to view, convert, and manage PDF files directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, academic, and business documents.
 
-KEY FEATURES
+SMART PDF READER & VOICE
+• Eye-Comfort Reading Modes: Switch seamlessly between Standard Day, Dark Night Invert, and Warm Sepia reading filters.
+• Offline Voice Read Aloud: Listen to PDF pages hands-free using on-device text-to-speech synthesis.
+• Fast Navigation & Search: Scrub through multi-page documents with the interactive page slider, pinch-to-zoom up to 4.5x, double-tap zoom, and instant full-text search.
+• Native Print & Share: Print documents directly via Android Print services or send the open PDF into any editing tool in one tap.
 
-• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
-• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+14 OFFLINE PDF TOOLS
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom page ordering.
+• Split & Extract: Extract specific pages, page ranges, or divide multi-page documents into separate files.
 • Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
-• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
-• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
-• Sign Documents: Add signatures and formal signing details directly to your PDF files.
-• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
-• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
-• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Sign Documents: Draw handwritten electronic signatures and apply them directly onto PDF pages.
+• Protect & Encrypt: Secure confidential documents with password protection and permission controls.
+• Watermark: Stamp custom text or image watermarks with adjustable opacity, rotation, and position.
+• Rotate Pages: Rotate individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Add customizable page numbering and headers to documents.
 • Convert Formats:
-  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
-  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
-  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
-  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
-• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+  - Image to PDF: Turn camera scans and gallery photos into multi-page PDFs.
+  - PDF to Images: Render PDF pages as crisp PNG or JPEG images.
+  - Text to PDF: Convert plain text, notes, CSV, and Markdown into formatted PDFs.
+  - PDF to Text: Extract selectable text and word statistics from PDF documents.
+  - HTML to PDF: Convert HTML markup and styled tables into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and keywords.
 
 PRIVACY & PERFORMANCE
-• 100% On-Device: No internet connection required. Your files never leave your device.
-• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
-• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-es,Spanish,PDFCraft,"Estudio PDF privado y local para unir, dividir, comprimir y ver documentos","PDFCraft es un completo estudio PDF sin conexion disenado para procesar y gestionar documentos directamente en su dispositivo. Todas las operaciones se ejecutan localmente sin subir archivos a la nube, garantizando absoluta privacidad y seguridad.
+• 100% On-Device Processing: Works completely offline with no internet required.
+• Adaptive Material 3 UI: Designed for phones, tablets, foldables, and Android TV."
+es,Spanish,PDFCraft: Lector y Editor PDF,"Lector PDF offline con modo noche, lectura en voz alta, unir, comprimir y firma","PDFCraft es un completo estudio PDF sin conexion disenado para procesar y gestionar documentos directamente en su dispositivo. Todas las operaciones se ejecutan localmente sin subir archivos a la nube, garantizando absoluta privacidad y seguridad.
 
 CARACTERISTICAS PRINCIPALES
 
@@ -47,7 +51,7 @@ PRIVACIDAD Y RENDIMIENTO
 • 100% Local: No requiere conexion a internet. Sus documentos nunca salen de su dispositivo.
 • Rapido y Seguro: Motor nativo embebido de alto rendimiento.
 • Diseno Adaptable: Optimizado para telefonos, tabletas y Android TV."
-fr,French,PDFCraft,"Studio PDF prive hors ligne pour fusionner, diviser, compresser et signer","PDFCraft est un studio PDF hors ligne complet conçu pour traiter et gerer vos documents directement sur votre appareil. Toutes les operations s'executent localement sans aucun transfert vers le cloud, garantissant une confidentialite totale.
+fr,French,PDFCraft: Lecteur & Outils PDF,"Lecteur PDF hors ligne: mode nuit, lecture vocale, fusionner, compresser, signer","PDFCraft est un studio PDF hors ligne complet conçu pour traiter et gerer vos documents directement sur votre appareil. Toutes les operations s'executent localement sans aucun transfert vers le cloud, garantissant une confidentialite totale.
 
 FONCTIONNALITES PRINCIPALES
 
@@ -71,7 +75,7 @@ CONFIDENTIALITE ET PERFORMANCE
 • 100% Local: Aucune connexion requise. Vos fichiers restent strictement sur votre appareil.
 • Rapide et Efficace: Moteur nativo integre pour une execution instantanee.
 • Interface Moderne: Concue pour smartphones, tablettes et Android TV."
-de,German,PDFCraft,"Lokales Offline-PDF-Studio zum Zusammenfuehren, Teilen und Komprimieren","PDFCraft ist ein vollstaendiges, sicheres Offline-PDF-Studio zur direkten Dokumentenverarbeitung auf Ihrem Geraet. Alle Aktionen laufen lokal ab, ohne Cloud-Uploads, wodurch Ihre Daten absolut privat und geschuetzt bleiben.
+de,German,PDFCraft: PDF-Reader & Tools,"Offline-PDF-Reader mit Nachtmodus, Vorlesen, Zusammenführen und Komprimieren.","PDFCraft ist ein vollstaendiges, sicheres Offline-PDF-Studio zur direkten Dokumentenverarbeitung auf Ihrem Geraet. Alle Aktionen laufen lokal ab, ohne Cloud-Uploads, wodurch Ihre Daten absolut privat und geschuetzt bleiben.
 
 HAUPTFUNKTIONEN
 
@@ -95,7 +99,7 @@ DATENSCHUTZ UND LEISTUNG
 • 100% Lokal: Funktioniert vollstaendig ohne Internetverbindung.
 • Schnell & Ressourcenschonend: Optimierte native Verarbeitungs-Engine.
 • Flexibles Design: Perfekt angepasst an Smartphones, Tablets und Android TV."
-zh,Chinese (Simplified),PDFCraft,全本地离线私密PDF工具箱，支持合并、拆分、压缩与多功能查看,"PDFCraft 是一款功能全面的本地离线 PDF 工具箱，专为在设备本地处理和管理文档而设计。所有操作均在本地执行，无需上传到云端，确保个人与工作文档的绝对隐私与安全。
+zh,Chinese (Simplified),PDFCraft: 离线PDF阅读器与工具箱,100%离线PDF阅读器与工具箱：支持夜间护眼、语音朗读、合并、拆分、压缩与电子签名,"PDFCraft 是一款功能全面的本地离线 PDF 工具箱，专为在设备本地处理和管理文档而设计。所有操作均在本地执行，无需上传到云端，确保个人与工作文档的绝对隐私与安全。
 
 核心功能
 
@@ -119,7 +123,7 @@ zh,Chinese (Simplified),PDFCraft,全本地离线私密PDF工具箱，支持合�
 • 100% 离线运行：完全无需网络连接，文件始终留存在设备上。
 • 快速高效：内置轻量高效的处理引擎。
 • 自适应布局：完美适配手机、折叠屏、平板电脑与 Android TV。"
-ja,Japanese,PDFCraft,結合・分割・圧縮・閲覧に対応した完全オフライン高機能PDFスタジオ,"PDFCraftは、端末上で直接ドキュメントを処理・編集できる完全オフラインのPDFスタジオです。すべての処理はデバイス内で完結し、クラウドへのアップロードは一切行われないため、重要書類の機密性が完全に保護されます。
+ja,Japanese,PDFCraft: PDFリーダー＆編集ツール,夜間モード・音声読み上げ・結合・分割・圧縮・署名を備えた100%オフラインPDFリーダー＆ツール,"PDFCraftは、端末上で直接ドキュメントを処理・編集できる完全オフラインのPDFスタジオです。すべての処理はデバイス内で完結し、クラウドへのアップロードは一切行われないため、重要書類の機密性が完全に保護されます。
 
 主な機能
 
@@ -143,7 +147,7 @@ ja,Japanese,PDFCraft,結合・分割・圧縮・閲覧に対応した完全オ�
 • 100%オンデバイス: インターネット不要。データが端末外部に送信されることはありません。
 • 高速・軽量: 最適化されたネイティブエンジンを搭載。
 • マルチデバイス対応: スマートフォン、折りたたみ端末、タブレット、Android TVに最適化。"
-ko,Korean,PDFCraft,"병합, 분할, 압축 및 뷰어를 지원하는 100% 온디바이스 오프라인 PDF 스튜디오","PDFCraft는 기기 내에서 직접 문서를 처리하고 관리할 수 있도록 설계된 강력한 오프라인 PDF 스튜디오입니다. 모든 작업이 클라우드 업로드 없이 로컬에서 실행되므로 개인 및 비즈니스 문서의 보안과 프라이버시가 완벽히 보장됩니다.
+ko,Korean,PDFCraft: PDF 리더 및 편집 도구,"야간 모드, 오프라인 음성 낭독, 병합, 분할, 압축 및 서명을 지원하는 PDF 리더 및 도구","PDFCraft는 기기 내에서 직접 문서를 처리하고 관리할 수 있도록 설계된 강력한 오프라인 PDF 스튜디오입니다. 모든 작업이 클라우드 업로드 없이 로컬에서 실행되므로 개인 및 비즈니스 문서의 보안과 프라이버시가 완벽히 보장됩니다.
 
 주요 기능
 
@@ -167,7 +171,7 @@ ko,Korean,PDFCraft,"병합, 분할, 압축 및 뷰어를 지원하는 100% 온�
 • 100% 로컬 실행: 인터넷 연결이 필요 없으며 파일이 외부로 유출되지 않습니다.
 • 신속하고 가벼운 엔진: 내장 네이티브 처리 기술 탑재.
 • 유연한 반응형 UI: 스마트폰, 폴더블, 태블릿 및 Android TV 완벽 지원."
-pt,Portuguese,PDFCraft,"Estudio PDF offline e privado para juntar, dividir, comprimir e visualizar","PDFCraft e um estudio PDF offline completo e seguro para processar e organizar documentos diretamente no seu aparelho. Todas as operacoes ocorrem localmente sem envios para a nuvem, assegurando total privacidade dos seus dados.
+pt,Portuguese,PDFCraft: Leitor e Editor PDF,"Leitor PDF offline com modo noturno, voz alta, juntar, comprimir e assinar.","PDFCraft e um estudio PDF offline completo e seguro para processar e organizar documentos diretamente no seu aparelho. Todas as operacoes ocorrem localmente sem envios para a nuvem, assegurando total privacidade dos seus dados.
 
 RECURSOS PRINCIPAIS
 
@@ -191,7 +195,7 @@ PRIVACIDADE E DESEMPENHO
 • 100% no Aparelho: Nao necessita de conexao com a internet.
 • Leve e Agil: Motor de processamento nativo incorporado.
 • Interface Moderna: Adaptada para celulares, tablets e Android TV."
-ru,Russian,PDFCraft,"Полный офлайн PDF-инструмент для объединения, разделения, сжатия и подписи","PDFCraft — надежная офлайн-студия для локальной обработки и редактирования PDF-документов прямо на вашем устройстве. Все процессы выполняются локально без передачи данных на облачные серверы, что гарантирует полную конфиденциальность.
+ru,Russian,PDFCraft: Читалка и PDF-студия,"Офлайн PDF-читалка с ночным режимом, озвучкой, объединением, сжатием и подписью","PDFCraft — надежная офлайн-студия для локальной обработки и редактирования PDF-документов прямо на вашем устройстве. Все процессы выполняются локально без передачи данных на облачные серверы, что гарантирует полную конфиденциальность.
 
 ОСНОВНЫЕ ВОЗМОЖНОСТИ
 
@@ -215,7 +219,7 @@ ru,Russian,PDFCraft,"Полный офлайн PDF-инструмент для �
 • 100% на устройстве: подключение к интернету не требуется.
 • Быстрый движок: автономная обработка файлов без задержек.
 • Адаптивный интерфейс: оптимизирован для смартфонов, планшетов и Android TV."
-it,Italian,PDFCraft,"Studio PDF offline e privato per unire, dividere, comprimere e visualizzare","PDFCraft e uno studio PDF offline completo per elaborare e organizzare i tuoi documenti direttamente sul dispositivo. Tutte le operazioni vengono eseguite localmente senza caricare file sul cloud, assicurando massima riservatezza.
+it,Italian,PDFCraft: Lettore e Editor PDF,"Lettore PDF offline con modalità notte, lettura vocale, unisci, comprimi e firma","PDFCraft e uno studio PDF offline completo per elaborare e organizzare i tuoi documenti direttamente sul dispositivo. Tutte le operazioni vengono eseguite localmente senza caricare file sul cloud, assicurando massima riservatezza.
 
 FUNZIONALITA PRINCIPALI
 
@@ -239,7 +243,7 @@ SICUREZZA E PRESTAZIONI
 • 100% in Locale: Nessuna connessione a internet richiesta.
 • Veloce e Snello: Motore di elaborazione nativo incorporato.
 • Layout Adattivo: Ideale per smartphone, tablet e Android TV."
-ar,Arabic,PDFCraft,استوديو PDF بدون انترنت لدمج وتقسيم وضغط وعرض الملفات بخصوصية تامة,"PDFCraft هو استوديو متكامل للتعامل مع ملفات PDF دون الحاجة الى الاتصال بالانترنت. تتم جميع العمليات محليا على جهازك دون رفع اي ملف الى السحابة، مما يوفر اقصى درجات الامان والسرية لمستنداتك الشخصية والرسمية.
+ar,Arabic,PDFCraft: قارئ وأدوات PDF,قارئ وأدوات PDF بدون إنترنت مع الوضع الليلي والقراءة الصوتية والدمج والضغط,"PDFCraft هو استوديو متكامل للتعامل مع ملفات PDF دون الحاجة الى الاتصال بالانترنت. تتم جميع العمليات محليا على جهازك دون رفع اي ملف الى السحابة، مما يوفر اقصى درجات الامان والسرية لمستنداتك الشخصية والرسمية.
 
 الميزات الاساسية
 
@@ -263,7 +267,7 @@ ar,Arabic,PDFCraft,استوديو PDF بدون انترنت لدمج وتقسي�
 • محلي بالكامل: يعمل دون الحاجة لشبكة الانترنت.
 • سريع وخفيف: محرك مدمج عالي الكفاءة.
 • تصميم متجاوب: متوافق مع الهواتف والاجهزة اللوحية وتلفاز Android TV."
-hi,Hindi,PDFCraft,"पीडीएफ मर्ज, स्प्लिट, कंप्रेस और व्यू करने के लिए ऑन-डिवाइस प्राइवेट पीडीएफ टूल","PDFCraft सीधे आपके डिवाइस पर दस्तावेज़ों को प्रोसेस और मैनेज करने के लिए एक संपूर्ण ऑफ़लाइन पीडीएफ स्टूडियो है। सभी कार्य बिना किसी क्लाउड अपलोड के स्थानीय रूप से चलते हैं, जिससे आपकी गोपनीय जानकारी पूरी तरह सुरक्षित रहती है।
+hi,Hindi,PDFCraft: PDF रीडर और टूल्स,"नाइट मोड, ऑफ़लाइन वॉइस रीड अलाउड, मर्ज, कंप्रेस और साइन के साथ प्राइवेट PDF रीडर","PDFCraft सीधे आपके डिवाइस पर दस्तावेज़ों को प्रोसेस और मैनेज करने के लिए एक संपूर्ण ऑफ़लाइन पीडीएफ स्टूडियो है। सभी कार्य बिना किसी क्लाउड अपलोड के स्थानीय रूप से चलते हैं, जिससे आपकी गोपनीय जानकारी पूरी तरह सुरक्षित रहती है।
 
 प्रमुख विशेषताएं
 
@@ -287,7 +291,7 @@ hi,Hindi,PDFCraft,"पीडीएफ मर्ज, स्प्लिट, क�
 • 100% स्थानीय: इंटरनेट कनेक्शन की कोई आवश्यकता नहीं है।
 • तेज़ और कुशल: एम्बेडेड मूल प्रोसेसिंग इंजन।
 • उत्तरदायी लेआउट: फोन, टैबलेट और एंड्रॉइड टीवी के लिए अनुकूलित।"
-nl,Dutch,PDFCraft,"Privacygerichte offline PDF-studio voor samenvoegen, splitsen en comprimeren","PDFCraft is een complete offline PDF-studio waarmee u documenten direct op uw apparaat kunt bewerken. Alle bewerkingen vinden lokaal plaats zonder bestandsuploads naar de cloud, voor optimale privacy en gegevensbeveiliging.
+nl,Dutch,PDFCraft: PDF-lezer & Tools,"Offline PDF-lezer met nachtmodus, voorlezen, samenvoegen, splitsen & comprimeren","PDFCraft is een complete offline PDF-studio waarmee u documenten direct op uw apparaat kunt bewerken. Alle bewerkingen vinden lokaal plaats zonder bestandsuploads naar de cloud, voor optimale privacy en gegevensbeveiliging.
 
 BELANGRIJKSTE FUNCTIES
 
@@ -311,7 +315,7 @@ PRIVACY EN PRESTATIES
 • 100% Lokaal: Geen internetverbinding vereist.
 • Snel en Lichtgewicht: Krachtige ingebouwde motor.
 • Aanpasbaar Ontwerp: Geoptimaliseerd voor smartphones, tablets en Android TV."
-pl,Polish,PDFCraft,"Prywatne studio PDF offline do laczenia, dzielenia, kompresji i przegladania","PDFCraft to wszechstronne, bezpieczne studio PDF offline do przetwarzania dokumentow bezposrednio na urzadzeniu. Wszystkie operacje sa wykonywane lokalnie bez przesylania danych do chmury, co zapewnia pelne bezpieczenstwo i poufnosc.
+pl,Polish,PDFCraft: Czytnik i Edytor PDF,"Czytnik PDF offline: tryb nocny, czytanie na głos, łączenie, kompresja i podpis","PDFCraft to wszechstronne, bezpieczne studio PDF offline do przetwarzania dokumentow bezposrednio na urzadzeniu. Wszystkie operacje sa wykonywane lokalnie bez przesylania danych do chmury, co zapewnia pelne bezpieczenstwo i poufnosc.
 
 NAJWAZNIEJSZE FUNKCJE
 
@@ -335,7 +339,7 @@ BEZPIECZENSTWO I SZYBKOSC
 • 100% Lokalnie: Brak koniecznosci polaczenia z internetem.
 • Lekki i Wydajny: Natywny silnik przetwarzania danych.
 • Nowoczesny Interfejs: Dostosowany do smartfonow, tabletow i Android TV."
-tr,Turkish,PDFCraft,"Birlestirme, bolme, sikistirma ve goruntuleme icin cihaz ici ozel PDF studyosu","PDFCraft, belgelerinizi dogrudan cihazinizda islemek ve yonetmek icin gelistirilmis kapsamli bir cevrimdisi PDF studyosudur. Tum islemler buluta yukleme yapilmadan yerel olarak calisir ve tam veri gizliligi saglar.
+tr,Turkish,PDFCraft: PDF Okuyucu & Editör,"Gece modu, sesli okuma, birleştirme, sıkıştırma ve imzalama özellikli PDF aracı","PDFCraft, belgelerinizi dogrudan cihazinizda islemek ve yonetmek icin gelistirilmis kapsamli bir cevrimdisi PDF studyosudur. Tum islemler buluta yukleme yapilmadan yerel olarak calisir ve tam veri gizliligi saglar.
 
 TEMEL OZELLIKLER
 
@@ -359,7 +363,7 @@ GIZLILIK VE PERFORMANS
 • 100% Cihaz Uzerinde: Internet baglantisi gerektirmez. Dosyalariniz cihazinizda kalir.
 • Hizli ve Hafif: Entegre yerel isleme motoru.
 • Uyumlu Arayuz: Telefonlar, tabletler ve Android TV icin optimize edilmistir."
-vi,Vietnamese,PDFCraft,"Studio PDF ngoại tuyến bảo mật giúp ghép, tách, nén và xem tài liệu tiện lợi","PDFCraft là bộ công cụ PDF ngoại tuyến toàn diện và bảo mật, giúp xử lý và quản lý tài liệu trực tiếp trên thiết bị của bạn. Mọi thao tác đều thực thi cục bộ, không tải tệp lên đám mây, đảm bảo sự riêng tư tuyệt đối cho dữ liệu.
+vi,Vietnamese,PDFCraft: Đọc & Công cụ PDF,"Trình đọc & công cụ PDF ngoại tuyến: chế độ đêm, đọc to, ghép, nén và ký tên.","PDFCraft là bộ công cụ PDF ngoại tuyến toàn diện và bảo mật, giúp xử lý và quản lý tài liệu trực tiếp trên thiết bị của bạn. Mọi thao tác đều thực thi cục bộ, không tải tệp lên đám mây, đảm bảo sự riêng tư tuyệt đối cho dữ liệu.
 
 TÍNH NĂNG NỔI BẬT
 
@@ -383,7 +387,7 @@ BẢO MẬT VÀ HIỆU NĂNG
 • 100% Cục Bộ: Hoạt động hoàn toàn không cần kết nối mạng.
 • Tốc Độ Cao: Sử dụng bộ xử lý tích hợp tối ưu và nhẹ nhàng.
 • Giao Diện Thích Ứng: Hoạt động mượt mà trên điện thoại, máy tính bảng và Android TV."
-id,Indonesian,PDFCraft,"Studio PDF offline privat untuk menggabungkan, membagi, kompres dan membaca","PDFCraft adalah studio PDF offline lengkap yang dirancang untuk memproses dan mengelola dokumen langsung di perangkat Anda. Semua proses berjalan secara lokal tanpa unggahan cloud, menjamin privasi penuh dokumen Anda.
+id,Indonesian,PDFCraft: Pembaca & Alat PDF,"Pembaca & alat PDF offline: mode malam, baca suara, gabung, kompres & tanda.","PDFCraft adalah studio PDF offline lengkap yang dirancang untuk memproses dan mengelola dokumen langsung di perangkat Anda. Semua proses berjalan secara lokal tanpa unggahan cloud, menjamin privasi penuh dokumen Anda.
 
 FITUR UTAMA
 
@@ -407,7 +411,7 @@ PRIVASI DAN EFISIENSI
 • 100% di Perangkat: Tidak membutuhkan akses internet. Dokumen Anda tetap aman di perangkat.
 • Cepat dan Ringan: Didukung mesin pemrosesan internal yang efisien.
 • Tampilan Responsif: Sempurna untuk smartphone, tablet, dan Android TV."
-th,Thai,PDFCraft,สตูดิโอ PDF ออฟไลน์เพื่อความปลอดภัย ผสาน แยก บีบอัด และอ่านเอกสารในเครื่อง,"PDFCraft เป็นชุดเครื่องมือจัดการไฟล์ PDF แบบออฟไลน์ที่สมบูรณ์แบบ ซึ่งออกแบบมาเพื่อประมวลผลเอกสารบนอุปกรณ์ของคุณโดยตรง การทำงานทั้งหมดเกิดขึ้นภายในเครื่องโดยไม่มีการอัปโหลดขึ้นคลาวด์ เพื่อรักษาความเป็นส่วนตัวสูงสุด
+th,Thai,PDFCraft: อ่านและจัดการ PDF,ตัวอ่านและจัดการ PDF ออฟไลน์: โหมดกลางคืน อ่านออกเสียง รวม บีบอัด และเซ็นชื่อ,"PDFCraft เป็นชุดเครื่องมือจัดการไฟล์ PDF แบบออฟไลน์ที่สมบูรณ์แบบ ซึ่งออกแบบมาเพื่อประมวลผลเอกสารบนอุปกรณ์ของคุณโดยตรง การทำงานทั้งหมดเกิดขึ้นภายในเครื่องโดยไม่มีการอัปโหลดขึ้นคลาวด์ เพื่อรักษาความเป็นส่วนตัวสูงสุด
 
 ฟังก์ชันหลัก
 
@@ -431,7 +435,7 @@ th,Thai,PDFCraft,สตูดิโอ PDF ออฟไลน์เพื่อ�
 • ทำงานในเครื่อง 100%: ไม่ต้องใช้อินเทอร์เน็ต ไฟล์ของคุณปลอดภัยในอุปกรณ์เสมอ
 • รวดเร็วและไม่เปลืองทรัพยากร: ขับเคลื่อนด้วยระบบประมวลผลภายในตัว
 • การออกแบบที่ยืดหยุ่น: รองรับสมาร์ทโฟน แท็บเล็ต และ Android TV อย่างลงตัว"
-sv,Swedish,PDFCraft,"Privat offline PDF-studio foer att sla samman, dela, komprimera och laesa","PDFCraft ar en komplett och privat offline PDF-studio designad foer att hantera och bearbeta dokument direkt pa din enhet. Alla operationer kors lokalt utan molnuppladdningar, vilket garanterar full integritet foer dina filer.
+sv,Swedish,PDFCraft: PDF-läsare & Verktyg,"Offline PDF-läsare med nattläge, uppläsning, slå ihop, dela och komprimera.","PDFCraft ar en komplett och privat offline PDF-studio designad foer att hantera och bearbeta dokument direkt pa din enhet. Alla operationer kors lokalt utan molnuppladdningar, vilket garanterar full integritet foer dina filer.
 
 HUVUDFUNKTIONER
 
@@ -455,7 +459,7 @@ INTEGRITET OCH PRESTANDA
 • 100% Lokalt: Ingen internetanslutning kravs. Dina filer stannar pa enheten.
 • Snabb och Resurssnal: Optimerad intern bearbetningsmotor.
 • Flexibel Design: Anpassad foer mobiler, surfplattor och Android TV."
-no,Norwegian,PDFCraft,"Privat offline PDF-studio for a sla sammen, dele, komprimere og vise filer","PDFCraft er et komplett offline PDF-studio som lar deg behandle dokumenter direkte pa enheten din. Alt kjorer lokalt uten opplasting til nettskyen, noe som sikrer fullt personvern for dine dokumenter.
+no,Norwegian,PDFCraft: PDF-leser & Verktøy,"Offline PDF-leser med nattmodus, opplesning, slå sammen, komprimer og signer.","PDFCraft er et komplett offline PDF-studio som lar deg behandle dokumenter direkte pa enheten din. Alt kjorer lokalt uten opplasting til nettskyen, noe som sikrer fullt personvern for dine dokumenter.
 
 VIKTIGE FUNKSJONER
 
@@ -479,7 +483,7 @@ PERSONVERN OG YTELSE
 • 100% Lokalt: Ingen internettilkobling nodvendig.
 • Rask motor: Kjapp og sikker lokal filbehandling.
 • Responsiv: Fungerer soemlost pa telefon, nettbrett og Android TV."
-da,Danish,PDFCraft,"Privat offline PDF-studie til at flette, opdele, komprimere og vise dokumenter","PDFCraft er et komplet offline PDF-studie udviklet til at behandle dokumenter direkte pa din enhed. Alle handlinger kores lokalt uden upload til skyen, hvilket sikrer fuld databeskyttelse.
+da,Danish,PDFCraft: PDF-læser & Værktøj,"Offline PDF-læser med nattilstand, oplæsning, flet, del, komprimer og underskriv","PDFCraft er et komplet offline PDF-studie udviklet til at behandle dokumenter direkte pa din enhed. Alle handlinger kores lokalt uden upload til skyen, hvilket sikrer fuld databeskyttelse.
 
 HOVEDFUNKTIONER
 
@@ -503,7 +507,7 @@ FORTROLIGHED OG YDELSE
 • 100% pa enheden: Intet internet paakraevet.
 • Hurtig og Effektiv: Indbygget nativ motor.
 • Responsivt Layout: Optimeret til mobiler, tablets og Android TV."
-fi,Finnish,PDFCraft,"Yksityinen offline PDF-tyokalu yhdistamiseen, jakamiseen ja pakkaamiseen","PDFCraft on monipuolinen ja turvallinen offline-PDF-tyokalu, jolla kasittelet dokumentteja suoraan laitteellasi. Kaikki toiminnot suoritetaan paikallisesti ilman pilvipalveluihin lataamista, mika takaa tayden yksityisyyden.
+fi,Finnish,PDFCraft: PDF-lukija & Työkalu,"Offline PDF-lukija: yötila, ääneen luku, yhdistä, jaa, pakkaa ja allekirjoita.","PDFCraft on monipuolinen ja turvallinen offline-PDF-tyokalu, jolla kasittelet dokumentteja suoraan laitteellasi. Kaikki toiminnot suoritetaan paikallisesti ilman pilvipalveluihin lataamista, mika takaa tayden yksityisyyden.
 
 KESKEISET OMINAISUUDET
 
@@ -527,7 +531,7 @@ TIETOSUOJA JA SUORITUSKYKY
 • 100% Paikallinen: Ei vaadi verkkoyhteytta. Tiedostot pysyvat laitteessasi.
 • Nopea ja Kevyt: Tehokas sisainen kasittelymoottori.
 • Sopeutuva Kayttoliittyma: Toimii erinomaisesti puhelimissa, tableteissa ja Android TV:ssa."
-cs,Czech,PDFCraft,"Lokalni offline PDF studio pro slucovani, deleni, kompresi a prohlizeni","PDFCraft je komplexni offline PDF studio urcene ke zpracovani dokumentu primo ve vasem zarizeni. Vsechny operace probihaji lokalne bez nahravani souboru na cloud, coz zajistuje maximalni soukromi a bezpecnost.
+cs,Czech,PDFCraft: Čtečka a Editor PDF,"Offline čtečka a editor PDF: noční režim, předčítání, spojení, komprese a podpis","PDFCraft je komplexni offline PDF studio urcene ke zpracovani dokumentu primo ve vasem zarizeni. Vsechny operace probihaji lokalne bez nahravani souboru na cloud, coz zajistuje maximalni soukromi a bezpecnost.
 
 KLICOVE FUNKCE
 
@@ -551,7 +555,7 @@ SOUKROMI A RYCHLOST
 • 100% v Zarizeni: Funguje zcela bez pripojeni k internetu.
 • Rychly a Usporny: Integrovany nativni engine pro okamzite vysledky.
 • Prehledne Rozhrani: Pri zpusobeno pro telefony, tablety i Android TV."
-hu,Hungarian,PDFCraft,"Biztonsagos offline PDF studio egyesiteshez, bontashoz es tomoriteshez","A PDFCraft egy teljes koru, biztonsagos offline PDF studio, amely lehetove teszi a dokumentumok kozvetlen feldolgozasat a keszuleken. Minden muvelet helyben fut, felhoalapu feltoltes nelkul, igy garantalja a maximalis adatvedelmet.
+hu,Hungarian,PDFCraft: PDF Olvasó és Editor,"Offline PDF-olvasó éjszakai móddal, felolvasással, egyesítéssel és tömörítéssel","A PDFCraft egy teljes koru, biztonsagos offline PDF studio, amely lehetove teszi a dokumentumok kozvetlen feldolgozasat a keszuleken. Minden muvelet helyben fut, felhoalapu feltoltes nelkul, igy garantalja a maximalis adatvedelmet.
 
 FOBB FUNKCIOCSOK
 
@@ -575,7 +579,7 @@ ADATVEDELEM ES TELJESITMENY
 • 100% Helyi: Nem igenyel internetkapcsolatot. Fajljai nem hagyjak el az eszkozt.
 • Gyors es Stabil: Optimalizalt beepitett feldolgozomotor.
 • Reszponziv: Tokeletesen mukodik telefonon, tableten es Android TV-n."
-ro,Romanian,PDFCraft,"Studio PDF privat offline pentru imbinare, impartire, comprimare si citire","PDFCraft este un studio PDF offline complet, creat pentru a procesa si organiza documentele direct pe dispozitivul tau. Toate operatiunile se desfasoara local, fara incarcari in cloud, asigurand confidentialitatea totala a fisierelor tale.
+ro,Romanian,PDFCraft: Cititor & Editor PDF,"Cititor PDF offline cu mod noapte, citire vocală, îmbinare, comprimare & semnare","PDFCraft este un studio PDF offline complet, creat pentru a procesa si organiza documentele direct pe dispozitivul tau. Toate operatiunile se desfasoara local, fara incarcari in cloud, asigurand confidentialitatea totala a fisierelor tale.
 
 CARACTERISTICI PRINCIPALE
 
@@ -599,7 +603,7 @@ CONFIDENTIALITATE SI RAPIDITATE
 • 100% pe Dispozitiv: Nu necesita conexiune la internet. Fisierele raman pe telefonul tau.
 • Rapid si Eficient: Motor nativ integrat pentru procesare fluida.
 • Design Adaptabil: Construit pentru telefoane, tablete si Android TV."
-el,Greek,PDFCraft,"Ιδιωτικό offline εργαλείο PDF για συγχώνευση, διαχωρισμό, συμπίεση και προβολή","Το PDFCraft είναι ένα ολοκληρωμένο, ασφαλές offline εργαλείο PDF για την επεξεργασία και διαχείριση εγγράφων απευθείας στη συσκευή σας. Όλες οι λειτουργίες εκτελούνται τοπικά χωρίς μεταφόρτωση στο cloud, διασφαλίζοντας πλήρη προστασία των προσωπικών σας δεδομένων.
+el,Greek,PDFCraft: Αναγνώστης PDF,"Αναγνώστης PDF offline με νυχτερινή λειτουργία, εκφώνηση, ένωση & συμπίεση.","Το PDFCraft είναι ένα ολοκληρωμένο, ασφαλές offline εργαλείο PDF για την επεξεργασία και διαχείριση εγγράφων απευθείας στη συσκευή σας. Όλες οι λειτουργίες εκτελούνται τοπικά χωρίς μεταφόρτωση στο cloud, διασφαλίζοντας πλήρη προστασία των προσωπικών σας δεδομένων.
 
 ΚΥΡΙΑ ΧΑΡΑΚΤΗΡΙΣΤΙΚΑ
 
@@ -623,7 +627,7 @@ el,Greek,PDFCraft,"Ιδιωτικό offline εργαλείο PDF για συγχ
 • 100% Τοπική Λειτουργία: Δεν απαιτείται σύνδεση στο διαδίκτυο.
 • Γρήγορο & Αξιόπιστο: Ενσωματωμένη μηχανή επεξεργασίας.
 • Προσαρμόσιμο Περιβάλλον: Βελτιστοποιημένο για κινητά, tablet και Android TV."
-he,Hebrew,PDFCraft,"סטודיו PDF לא מקוון ומאובטח למיזוג, פיצול, דחיסה וצפייה במסמכים","PDFCraft הוא סטודיו PDF מקצועי ומאובטח ללא צורך בחיבור לרשת, המאפשר עיבוד וניהול מסמכים ישירות במכשיר שלך. כל הפעולות מתבצעות באופן מקומי ללא העלאת קבצים לענן, דבר המבטיח פרטיות מלאה לנתונים שלך.
+he,Hebrew,PDFCraft: קורא וכלי PDF,"קורא וכלי PDF אופליין: מצב לילה, הקראה קולית, מיזוג, פיצול, דחיסה וחתימה.","PDFCraft הוא סטודיו PDF מקצועי ומאובטח ללא צורך בחיבור לרשת, המאפשר עיבוד וניהול מסמכים ישירות במכשיר שלך. כל הפעולות מתבצעות באופן מקומי ללא העלאת קבצים לענן, דבר המבטיח פרטיות מלאה לנתונים שלך.
 
 תכונות עיקריות
 
@@ -647,7 +651,7 @@ he,Hebrew,PDFCraft,"סטודיו PDF לא מקוון ומאובטח למיזוג
 • 100% במכשיר: אין צורך בחיבור לאינטרנט. הקבצים נשארים אצלך בלבד.
 • מהיר ויציב: מנוע עיבוד מקומי מובנה ויעיל.
 • עיצוב מותאם: תמיכה מושלמת בטלפונים, טאבלטים ו-Android TV."
-uk,Ukrainian,PDFCraft,"Повний офлайн PDF-інструмент для об'єднання, розділення, стиснення та перегляду","PDFCraft — потужна офлайн-студія для локальної обробки та редагування PDF-документів безпосередньо на вашому пристрої. Усі операції виконуються локально без завантаження у хмару, що гарантує цілковиту конфіденційність ваших файлів.
+uk,Ukrainian,PDFCraft: Читалка і PDF-студія,"Офлайн PDF-читалка з нічним режимом, озвученням, об’єднанням і стисненням.","PDFCraft — потужна офлайн-студія для локальної обробки та редагування PDF-документів безпосередньо на вашому пристрої. Усі операції виконуються локально без завантаження у хмару, що гарантує цілковиту конфіденційність ваших файлів.
 
 ОСНОВНІ МОЖЛИВОСТІ
 
@@ -671,7 +675,7 @@ uk,Ukrainian,PDFCraft,"Повний офлайн PDF-інструмент для
 • 100% на пристрої: не потребує підключення до мережі.
 • Швидкий і легкий: оптимізований вбудований движок обробки.
 • Адаптивний інтерфейс: створений для смартфонів, планшетів та Android TV."
-bn,Bengali,PDFCraft,"মার্জ, স্প্লিট, কম্প্রেস ও ভিউ করার জন্য ১০০% অন-ডিভাইস অফলাইন পিডিএফ স্টুডিও","PDFCraft হলো একটি সম্পূর্ণ অফলাইন পিডিএফ স্টুডিও, যা সরাসরি আপনার ডিভাইসে ফাইল প্রক্রিয়াকরণ ও পরিচালনার সুবিধা দেয়। কোনো ক্লাউড আপলোড ছাড়াই সমস্ত কাজ স্থানীয়ভাবে চলে, যা আপনার ব্যক্তিগত ও ব্যবসায়িক তথ্যের পূর্ণ নিরাপত্তা নিশ্চিত করে।
+bn,Bengali,PDFCraft: PDF রিডার ও টুলকিট,"নাইট মোড, ভয়েস রিড अलाउड, মার্জ, কমপ্রেস ও সাইন সহ অফলাইন PDF রিডার ও টুলকিট।","PDFCraft হলো একটি সম্পূর্ণ অফলাইন পিডিএফ স্টুডিও, যা সরাসরি আপনার ডিভাইসে ফাইল প্রক্রিয়াকরণ ও পরিচালনার সুবিধা দেয়। কোনো ক্লাউড আপলোড ছাড়াই সমস্ত কাজ স্থানীয়ভাবে চলে, যা আপনার ব্যক্তিগত ও ব্যবসায়িক তথ্যের পূর্ণ নিরাপত্তা নিশ্চিত করে।
 
 প্রধান বৈশিষ্ট্যসমূহ
 
@@ -695,7 +699,7 @@ bn,Bengali,PDFCraft,"মার্জ, স্প্লিট, কম্প্র�
 • ১০০% ডিভাইসে চালিত: কোনো ইন্টারনেট সংযোগ প্রয়োজন নেই।
 • দ্রুত ও নির্ভরযোগ্য: অভ্যন্তরীণ শক্তিশালী প্রসেসিং ইঞ্জিন।
 • চমৎকার ডিজাইন: স্মার্টফোন, ট্যাবলেট এবং অ্যান্ড্রয়েড টিভিতে ব্যবহারের উপযোগী।"
-tl,Filipino,PDFCraft,"Pribadong offline PDF studio para sa pagsasama, paghahati at pag-compress","Ang PDFCraft ay isang kumpletong offline PDF studio na idinisenyo upang magproseso ng mga dokumento nang direkta sa iyong device. Ang lahat ng operasyon ay lokal na isinasagawa nang walang pag-upload sa cloud, na tinitiyak ang buong privacy.
+tl,Filipino,PDFCraft: PDF Reader at Tools,"Offline PDF reader na may night mode, boses, merge, split, compress at pirma.","Ang PDFCraft ay isang kumpletong offline PDF studio na idinisenyo upang magproseso ng mga dokumento nang direkta sa iyong device. Ang lahat ng operasyon ay lokal na isinasagawa nang walang pag-upload sa cloud, na tinitiyak ang buong privacy.
 
 MGA PANGUNAHING TAMPOK
 
@@ -719,7 +723,7 @@ PRIVACY AT BILIS
 • 100% sa Device: Hindi kailangan ng koneksyon sa internet.
 • Mabilis at Maaasahan: Naka-embed na native engine para sa mabilis na pagproseso.
 • Tumutugong Disenyo: Angkop para sa mga telepono, tablet, at Android TV."
-ms,Malay,PDFCraft,"Studio PDF luar talian peribadi untuk gabung, pisah, mampat dan lihat dokumen","PDFCraft ialah studio PDF luar talian yang lengkap untuk memproses dan mengurus dokumen terus pada peranti anda. Semua operasi dijalankan secara setempat tanpa sebarang muat naik ke awan, menjamin privasi sepenuhnya.
+ms,Malay,PDFCraft: Pembaca & Alat PDF,"Pembaca & alat PDF luar talian: mod malam, baca suara, gabung dan mampat.","PDFCraft ialah studio PDF luar talian yang lengkap untuk memproses dan mengurus dokumen terus pada peranti anda. Semua operasi dijalankan secara setempat tanpa sebarang muat naik ke awan, menjamin privasi sepenuhnya.
 
 CIRI-CIRI UTAMA
 
@@ -743,7 +747,7 @@ PRIVASI DAN PRESTASI
 • 100% Tempatan: Berfungsi sepenuhnya tanpa sambungan internet.
 • Cepat dan Ringan: Enjin pemprosesan terbina dalam yang cekap.
 • Reka Bentuk Responsif: Disokong pada telefon pintar, tablet dan Android TV."
-ta,Tamil,PDFCraft,"இணைக்க, பிரிக்க, சுருக்க மற்றும் பார்க்க உதவும் ஆஃப்லைன் PDF ஸ்டுடியோ","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+ta,Tamil,PDFCraft: PDF ரீடர் & கருவிகள்,"இரவு முறை, குரல் வாசிப்பு, இணைப்பு, சுருக்கம் கொண்ட ஆஃப்லைன் PDF ரீடர் & கருவி","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -767,7 +771,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-te,Telugu,PDFCraft,"PDFలను విలీనం చేయడానికి, విభజించడానికి మరియు కుదించడానికి ఆఫ్‌లైన్ స్టూడియో","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+te,Telugu,PDFCraft: PDF రీడర్ & టూల్స్,"నైట్ మోడ్, వాయిస్ రీడ్, మెర్జ్, కంప్రెస్ & సైన్ గల ఆఫ్‌లైన్ PDF రీడర్ & టూల్స్.","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -791,7 +795,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-mr,Marathi,PDFCraft,"मर्ज, स्प्लिट, कॉम्प्रेस आणि पाहण्यासाठी खाजगी ऑफलाइन PDF स्टुडिओ","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+mr,Marathi,PDFCraft: PDF रीडर आणि टूल्स,"नाईट मोड, व्हॉइस वाचन, मर्ज, कॉम्प्रेस आणि स्वाक्षरीसह ऑफलाइन PDF रीडर व टूल्स.","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -815,7 +819,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-gu,Gujarati,PDFCraft,"મર્જ, સ્પ્લિટ, કોમ્પ્રેસ અને જોવા માટેનું પ્રાઇવેટ ઑફલાઇન PDF સ્ટુડિયો","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+gu,Gujarati,PDFCraft: PDF રીડર અને ટૂલ્સ,"નાઇટ મોડ, વૉઇસ રીડ, મર્જ, કોમ્પ્રેસ અને સાઇન સાથે ઓફલાઇન PDF રીડર અને ટૂલ્સ.","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -839,7 +843,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-kn,Kannada,PDFCraft,"ವಿಲೀನಗೊಳಿಸಲು, ವಿಭಜಿಸಲು ಮತ್ತು ಕುಗ್ಗಿಸಲು ಆಫ್‌ಲೈನ್ PDF ಸ್ಟುಡಿಯೋ","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+kn,Kannada,PDFCraft: PDF ರೀಡರ್ & ಟೂಲ್ಸ್,"ನೈಟ್ ಮೋಡ್, ಧ್ವನಿ ಓದುವಿಕೆ, ವಿಲೀನ, ಕಂಪ್ರೆಸ್ ಮತ್ತು ಸಹಿ ಸಹಿತ ಆಫ್‌ಲೈನ್ PDF ರೀಡರ್.","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -863,7 +867,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-ml,Malayalam,PDFCraft,ലയിപ്പിക്കാനും വിഭജിക്കാനും ചുരുക്കാനും ഉള്ള ഓഫ്‌ലൈൻ PDF സ്റ്റുഡിയോ,"PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+ml,Malayalam,PDFCraft: PDF റീഡറും ടൂളുകളും,"നൈറ്റ് മോഡ്, വോയ്‌സ് റീഡ്, മെർജ്, കംപ്രസ് എന്നിവയുള്ള ഓഫ്‌ലൈൻ PDF റീഡറും ടൂളും.","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -887,7 +891,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-pa,Punjabi,PDFCraft,"ਮਰਜ, ਸਪਲਿਟ, ਕੰਪਰੈੱਸ ਅਤੇ ਦੇਖਣ ਲਈ ਪ੍ਰਾਈਵੇਟ ਆਫ਼ਲਾਈਨ PDF ਸਟੂਡੀਓ","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+pa,Punjabi,PDFCraft: PDF ਰੀਡਰ ਅਤੇ ਟੂਲਸ,"ਨਾਈਟ ਮੋਡ, ਵੌਇਸ ਰੀਡ, ਮਰਜ, ਕੰਪ੍ਰੈਸ ਅਤੇ ਸਾਈਨ ਨਾਲ ਆਫਲਾਈਨ PDF ਰੀਡਰ ਅਤੇ ਟੂਲਸ।","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -911,7 +915,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-sw,Swahili,PDFCraft,"Studio ya PDF ya nje ya mtandao ya kuunganisha, kugawa na kubana mafaili","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+sw,Swahili,PDFCraft: Kisomaji na Zana PDF,"Kisomaji na zana za PDF nje ya mtandao: hali ya usiku, sauti, unganisha na finya","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -935,7 +939,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-af,Afrikaans,PDFCraft,"Privaat vanlyn PDF-ateljee om dokumente saam te voeg, te verdeel en te krimp","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+af,Afrikaans,PDFCraft: PDF-leser & Nutsgoed,"Vanlyn PDF-leser met nagmodus, hardop lees, saamsmelt, verdeel en saampers.","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -959,7 +963,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-bg,Bulgarian,PDFCraft,"Офлайн PDF студио за обединяване, разделяне, компресиране и преглед","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+bg,Bulgarian,PDFCraft: PDF Четец и Редактор,"Офлайн PDF четец с нощен режим, гласово четене, сливане, компресиране и подпис.","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -983,7 +987,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-hr,Croatian,PDFCraft,"Privatni offline PDF studio za spajanje, dijeljenje, sazimanje i pregled","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+hr,Croatian,PDFCraft: PDF Čitač i Alati,"Izvanmrežni PDF čitač s noćnim načinom, čitanjem naglas, spajanjem i sažimanjem","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -1007,7 +1011,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-et,Estonian,PDFCraft,"Privaatne voerguueline PDF-stuudio uhendamiseks, jagamiseks ja tihendamiseks","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+et,Estonian,PDFCraft: PDF-lugeja & Haldur,"Võrguühenduseta PDF-lugeja öörežiimi, ettelugemise, ühendamise ja tihendamisega","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -1031,7 +1035,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-lv,Latvian,PDFCraft,"Privata bezsaistes PDF studija apvienosanai, sadalisanai un saspiesanai","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+lv,Latvian,PDFCraft: PDF Lasītājs un Rīki,"Bezsaistes PDF lasītājs ar nakts režīmu, lasīšanu balsī, apvienošanu un saspieš.","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -1055,7 +1059,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-lt,Lithuanian,PDFCraft,"Privati neprisijungus PDF studija sujungimui, padalijimui ir suspaudimui","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+lt,Lithuanian,PDFCraft: PDF Skaityklė,"Neprisijungusi PDF skaityklė su naktiniu režimu, skaitymu balsu ir glaudinimu.","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -1079,7 +1083,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-sr,Serbian,PDFCraft,"Privatni oflajn PDF studio za spajanje, deljenje, kompresovanje i pregled","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+sr,Serbian,PDFCraft: PDF Читач и Алати,"Офлајн PDF читач са ноћним режимом, читањем наглас, спајањем и компресијом.","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -1103,7 +1107,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-sk,Slovak,PDFCraft,"Sukromne offline PDF studio na spajanie, delenie, kompresiu a prezeranie","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+sk,Slovak,PDFCraft: Čítačka a Editor PDF,"Offline čítačka PDF s nočným režimom, čítaním nahlas, spájaním a kompresiou.","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -1127,7 +1131,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-sl,Slovenian,PDFCraft,"Zasebni offline PDF studio za zdruzevanje, deljenje, stiskanje in ogled","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+sl,Slovenian,PDFCraft: PDF Bralnik & Orodja,"Brezpovezavni PDF bralnik z nočnim načinom, glasnim branjem in stiskanjem.","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -1151,7 +1155,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-ca,Catalan,PDFCraft,"Estudi PDF fora de linia per unir, dividir, comprimir i visualitzar","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+ca,Catalan,PDFCraft: Lector i Eines PDF,"Lector PDF fora de línia amb mode nit, lectura en veu alta, unir i comprimir.","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -1175,7 +1179,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-eu,Basque,PDFCraft,"Lineaz kanpoko PDF estudio pribatua batzeko, banatzeko eta konprimitzeko","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+eu,Basque,PDFCraft: PDF Irakurgailua,"Lineaz kanpoko PDF irakurgailua gaueko modua, ahots bidezko irakurketa eta batu","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -1199,7 +1203,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-gl,Galician,PDFCraft,"Estudo PDF sen conexion privado para unir, dividir, comprimir e visualizar","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+gl,Galician,PDFCraft: Lector e Editor PDF,"Lector PDF sen conexión con modo noite, lectura en voz alta, unir e comprimir.","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -1223,7 +1227,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-fa,Persian,PDFCraft,استودیوی پی‌دی‌اف آفلاین و خصوصی برای ادغام، تفکیک، فشرده‌سازی و مشاهده,"PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+fa,Persian,PDFCraft: خواننده و ابزار PDF,خواننده و ابزار PDF آفلاین با حالت شب، خواندن صوتی، ادغام، فشرده‌سازی و امضا.,"PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -1247,7 +1251,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-ur,Urdu,PDFCraft,ضم، تقسیم، کمپریس اور دیکھنے کے لیے نجی آف لائن PDF اسٹوڈیو,"PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+ur,Urdu,PDFCraft: PDF ریڈر اور ٹولز,نائٹ موڈ، آواز سے پڑھنے، ضم کرنے، کمپریس اور دستخط کے ساتھ آف لائن PDF ریڈر۔,"PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -1271,7 +1275,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-is,Icelandic,PDFCraft,"Einka offline PDF stúdio til að sameina, skipta, þjappa og skoða","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+is,Icelandic,PDFCraft: PDF-lesari & Ritill,"Ónettengdur PDF-lesari með næturstillingu, upplestri, sameiningu og þjöppun.","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -1295,7 +1299,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-sq,Albanian,PDFCraft,"Studio PDF offline private për bashkim, ndarje, ngjeshje dhe shikim","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+sq,Albanian,PDFCraft: Lexues dhe Mjete PDF,"Lexues PDF offline me modalitet nate, lexim me zë, bashkim, ngjeshje dhe firmë.","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -1319,7 +1323,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-mk,Macedonian,PDFCraft,"Приватно офлајн PDF студио за спојување, делење, компресирање и преглед","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+mk,Macedonian,PDFCraft: PDF Читач и Алатки,"Офлајн PDF читач со ноќен режим, гласовно читање, спојување и компресија.","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -1343,7 +1347,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-hy,Armenian,PDFCraft,"Անցանց PDF ստուդիա՝ միավորման, բաժանման, սեղմման և դիտման համար","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+hy,Armenian,PDFCraft: PDF Ընթերցող,"Օֆլայն PDF ընթերցող՝ գիշերային ռեժիմով, ձայնային ընթերցմամբ և գործիքներով։","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -1367,7 +1371,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-ka,Georgian,PDFCraft,"ოფლაინ PDF სტუდია გაერთიანების, გაყოფის, შეკუმშვის და ნახვისთვის","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+ka,Georgian,PDFCraft: PDF წამკითხველი,"ოფლაინ PDF წამკითხველი ღამის რეჟიმით, ხმოვანი კითხვით, გაერთიანებით და შეკუმშვით","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -1391,7 +1395,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-az,Azerbaijani,PDFCraft,"Birləşdirmək, bölmək, sıxmaq və baxmaq üçün offline PDF studiyası","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+az,Azerbaijani,PDFCraft: PDF Oxuyucu və Alət,"Gecə rejimi, səsli oxuma, birləşdirmə və sıxılma ilə oflayn PDF oxuyucu və alət.","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 
@@ -1415,7 +1419,7 @@ PRIVACY & PERFORMANCE
 • 100% On-Device: No internet connection required. Your files never leave your device.
 • Fast & Lightweight: Powered by an embedded native rendering and processing engine.
 • Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
-bs,Bosnian,PDFCraft,"Privatni offline PDF studio za spajanje, dijeljenje, kompresiju i pregled","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+bs,Bosnian,PDFCraft: PDF Čitač i Alati,"Offline PDF čitač s noćnim načinom, čitanjem naglas, spajanjem i kompresijom.","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
 
 KEY FEATURES
 

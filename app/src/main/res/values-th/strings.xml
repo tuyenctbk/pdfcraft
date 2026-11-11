@@ -448,4 +448,21 @@
     <string name="preview_pdf_version_label">เวอร์ชัน PDF: %1$s</string>
     <string name="preview_action_previous">ก่อนหน้า</string>
     <string name="preview_action_next">ถัดไป</string>
+    <string name="hub_open_pdf_reader_title">เปิดและอ่าน PDF</string>
+    <string name="hub_open_pdf_reader_desc">อ่าน ค้นหา อ่านออกเสียง โหมดกลางคืน และพิมพ์</string>
+    <string name="viewer_mode_day">กลางวัน</string>
+    <string name="viewer_mode_night">กลางคืน</string>
+    <string name="viewer_mode_sepia">ซีเปีย</string>
+    <string name="viewer_read_aloud">อ่านออกเสียง</string>
+    <string name="viewer_stop_reading">หยุดเสียง</string>
+    <string name="viewer_print_pdf">พิมพ์</string>
+    <string name="viewer_share_pdf">แชร์</string>
+    <string name="viewer_send_to_sign">เซ็นชื่อ</string>
+    <string name="viewer_send_to_compress">บีบอัด</string>
+    <string name="viewer_send_to_rotate">หมุน</string>
+    <string name="viewer_send_to_text">ดึงข้อความ</string>
+    <string name="viewer_page_of_total">หน้า %1$d จาก %2$d</string>
+    <string name="viewer_match_of_total">พบ %1$d จาก %2$d (หน้า %3$d)</string>
+    <string name="onboarding_title_4">ตัวอ่าน PDF อัจฉริยะและเสียงอ่าน</string>
+    <string name="onboarding_desc_4">อ่าน PDF สบายตาด้วยโหมดกลางคืนและซีเปีย ค้นหาข้อความทันที แถบเลื่อนหน้า และอ่านออกเสียงแบบออฟไลน์</string>
 </resources>

@@ -448,4 +448,21 @@
     <string name="preview_pdf_version_label">PDFバージョン: %1$s</string>
     <string name="preview_action_previous">前へ</string>
     <string name="preview_action_next">次へ</string>
+    <string name="hub_open_pdf_reader_title">PDFを開いて読む</string>
+    <string name="hub_open_pdf_reader_desc">閲覧・検索・音声読み上げ・ナイトモード・印刷</string>
+    <string name="viewer_mode_day">標準</string>
+    <string name="viewer_mode_night">夜間</string>
+    <string name="viewer_mode_sepia">セピア</string>
+    <string name="viewer_read_aloud">音声読み上げ</string>
+    <string name="viewer_stop_reading">停止</string>
+    <string name="viewer_print_pdf">印刷</string>
+    <string name="viewer_share_pdf">共有</string>
+    <string name="viewer_send_to_sign">署名</string>
+    <string name="viewer_send_to_compress">圧縮</string>
+    <string name="viewer_send_to_rotate">回転</string>
+    <string name="viewer_send_to_text">テキスト抽出</string>
+    <string name="viewer_page_of_total">%1$d / %2$d ページ</string>
+    <string name="viewer_match_of_total">一致 %1$d / %2$d (%3$dページ)</string>
+    <string name="onboarding_title_4">スマートPDFリーダー＆音声読み上げ</string>
+    <string name="onboarding_desc_4">目に優しいナイト＆セピアモード、高速テキスト検索、ページスライダー、オフライン音声読み上げで快適にPDFを閲覧。</string>
 </resources>

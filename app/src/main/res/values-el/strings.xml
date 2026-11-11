@@ -448,4 +448,21 @@
     <string name="preview_pdf_version_label">Έκδοση PDF: %1$s</string>
     <string name="preview_action_previous">Προηγούμενο</string>
     <string name="preview_action_next">Επόμενο</string>
+    <string name="hub_open_pdf_reader_title">Άνοιγμα &amp; Ανάγνωση PDF</string>
+    <string name="hub_open_pdf_reader_desc">Ανάγνωση, αναζήτηση, εκφώνηση, νυχτερινή λειτουργία &amp; εκτύπωση</string>
+    <string name="viewer_mode_day">Ημέρα</string>
+    <string name="viewer_mode_night">Νύχτα</string>
+    <string name="viewer_mode_sepia">Σέπια</string>
+    <string name="viewer_read_aloud">Εκφώνηση</string>
+    <string name="viewer_stop_reading">Διακοπή</string>
+    <string name="viewer_print_pdf">Εκτύπωση</string>
+    <string name="viewer_share_pdf">Κοινοποίηση</string>
+    <string name="viewer_send_to_sign">Υπογραφή</string>
+    <string name="viewer_send_to_compress">Συμπίεση</string>
+    <string name="viewer_send_to_rotate">Περιστροφή</string>
+    <string name="viewer_send_to_text">Εξαγωγή κειμένου</string>
+    <string name="viewer_page_of_total">Σελίδα %1$d από %2$d</string>
+    <string name="viewer_match_of_total">Αποτέλεσμα %1$d από %2$d (Σελίδα %3$d)</string>
+    <string name="onboarding_title_4">Έξυπνος Αναγνώστης PDF &amp; Φωνή</string>
+    <string name="onboarding_desc_4">Διαβάστε κάθε PDF με λειτουργία Νύχτας &amp; Σέπια, άμεση αναζήτηση κειμένου και εκφώνηση εκτός σύνδεσης.</string>
 </resources>

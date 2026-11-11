@@ -1468,6 +1468,41 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun openUriInViewer(uri: Uri) {
+        viewModelScope.launch {
+            _isProcessing.value = true
+            try {
+                val localFile = withContext(Dispatchers.IO) {
+                    PdfEngine.getLocalFileFromUri(getApplication(), uri)
+                }
+                if (localFile.exists()) {
+                    openInViewer(localFile.absolutePath)
+                }
+            } catch (e: Exception) {
+                _userMessage.value = "Could not open PDF: ${e.localizedMessage}"
+            } finally {
+                _isProcessing.value = false
+            }
+        }
+    }
+
+    fun sendViewerFileToTool(file: File, tool: PdfOperationType) {
+        if (!file.exists()) return
+        closeViewer()
+        val uri = Uri.fromFile(file)
+        setActiveTool(tool)
+        when (tool) {
+            PdfOperationType.SIGN -> loadPdfForSign(uri)
+            PdfOperationType.COMPRESS -> loadPdfForCompress(uri)
+            PdfOperationType.ROTATE -> loadPdfForRotate(uri)
+            PdfOperationType.PDF_TO_TEXT -> loadPdfForTextExtraction(uri)
+            PdfOperationType.SPLIT -> loadPdfForSplit(uri)
+            PdfOperationType.WATERMARK -> loadPdfForWatermark(uri)
+            PdfOperationType.ENCRYPT -> loadPdfForEncrypt(uri)
+            else -> {}
+        }
+    }
+
     fun closeViewer() {
         _activeViewerFile.value = null
     }

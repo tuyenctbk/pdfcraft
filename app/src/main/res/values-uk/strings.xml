@@ -448,4 +448,21 @@
     <string name="preview_pdf_version_label">Версія PDF: %1$s</string>
     <string name="preview_action_previous">Назад</string>
     <string name="preview_action_next">Далі</string>
+    <string name="hub_open_pdf_reader_title">Відкрити та читати PDF</string>
+    <string name="hub_open_pdf_reader_desc">Читання, пошук, озвучення, нічний режим і друк</string>
+    <string name="viewer_mode_day">День</string>
+    <string name="viewer_mode_night">Ніч</string>
+    <string name="viewer_mode_sepia">Сепія</string>
+    <string name="viewer_read_aloud">Вголос</string>
+    <string name="viewer_stop_reading">Зупинити</string>
+    <string name="viewer_print_pdf">Друк</string>
+    <string name="viewer_share_pdf">Поділитися</string>
+    <string name="viewer_send_to_sign">Підписати</string>
+    <string name="viewer_send_to_compress">Стиснути</string>
+    <string name="viewer_send_to_rotate">Повернути</string>
+    <string name="viewer_send_to_text">Витягти текст</string>
+    <string name="viewer_page_of_total">Стор. %1$d з %2$d</string>
+    <string name="viewer_match_of_total">Збіг %1$d з %2$d (Стор. %3$d)</string>
+    <string name="onboarding_title_4">Розумна PDF-читалка та Голос</string>
+    <string name="onboarding_desc_4">Читайте будь-який PDF у нічному режимі та сепії з миттєвим пошуком тексту, повзунком сторінок та офлайн-озвученням.</string>
 </resources>
