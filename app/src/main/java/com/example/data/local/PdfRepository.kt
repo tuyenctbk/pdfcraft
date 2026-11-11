@@ -116,9 +116,6 @@ class PdfRepository(
         dao.clearAll()
 
     // Engine Operations Wrappers
-    suspend fun generateSamples(context: Context): List<File> =
-        PdfEngine.generateSamplePdfs(context)
-
     suspend fun renderThumbnail(context: Context, file: File, pageIndex: Int, targetWidthDp: Int = 220) =
         PdfEngine.renderPageThumbnail(context, file, pageIndex, targetWidthDp)
 

@@ -302,7 +302,7 @@ fun PdfMetadataDialog(
                                 modifier = Modifier.size(16.dp)
                             )
                             Spacer(modifier = Modifier.width(6.dp))
-                            Text("View PDF", fontSize = 13.sp)
+                            Text(androidx.compose.ui.res.stringResource(com.example.R.string.action_view_pdf), fontSize = 13.sp)
                         }
 
                         Button(
@@ -312,7 +312,7 @@ fun PdfMetadataDialog(
                                 .testTag("metadata_close_button"),
                             shape = RoundedCornerShape(12.dp)
                         ) {
-                            Text("Close", fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                            Text(androidx.compose.ui.res.stringResource(com.example.R.string.action_close), fontSize = 13.sp, fontWeight = FontWeight.Bold)
                         }
                     }
                 }

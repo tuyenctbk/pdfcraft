@@ -52,11 +52,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.example.R
 import com.example.ui.MainViewModel
 import com.example.ui.theme.ThemeMode
 
@@ -67,8 +69,6 @@ fun SettingsDialog(
     modifier: Modifier = Modifier
 ) {
     val themeMode by viewModel.themeMode.collectAsState()
-    val sessionCount by viewModel.sessionCount.collectAsState()
-    val areSamplesVisible by viewModel.areSamplesVisible.collectAsState()
 
     Dialog(
         onDismissRequest = onDismiss,
@@ -108,7 +108,7 @@ fun SettingsDialog(
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Settings,
-                                contentDescription = "Settings Icon",
+                                contentDescription = stringResource(R.string.settings_pref_title),
                                 tint = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier.size(24.dp)
                             )
@@ -116,7 +116,7 @@ fun SettingsDialog(
 
                         Column {
                             Text(
-                                text = "Settings",
+                                text = stringResource(R.string.settings_pref_title),
                                 style = MaterialTheme.typography.titleLarge.copy(
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp,
@@ -124,7 +124,7 @@ fun SettingsDialog(
                                 )
                             )
                             Text(
-                                text = "Customize theme & app options",
+                                text = stringResource(R.string.settings_pref_subtitle),
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -138,7 +138,7 @@ fun SettingsDialog(
                     ) {
                         Icon(
                             imageVector = Icons.Default.Close,
-                            contentDescription = "Close Settings",
+                            contentDescription = stringResource(R.string.action_close),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
@@ -160,7 +160,7 @@ fun SettingsDialog(
                         modifier = Modifier.size(18.dp)
                     )
                     Text(
-                        text = "App Theme",
+                        text = stringResource(R.string.settings_theme_appearance),
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface
@@ -170,9 +170,9 @@ fun SettingsDialog(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 val themeOptions = listOf(
-                    Triple(ThemeMode.SYSTEM, "System Default", Icons.Default.SettingsSuggest),
-                    Triple(ThemeMode.LIGHT, "Light Mode", Icons.Default.LightMode),
-                    Triple(ThemeMode.DARK, "Dark Mode", Icons.Default.DarkMode)
+                    Triple(ThemeMode.SYSTEM, stringResource(R.string.settings_theme_system), Icons.Default.SettingsSuggest),
+                    Triple(ThemeMode.LIGHT, stringResource(R.string.settings_theme_light), Icons.Default.LightMode),
+                    Triple(ThemeMode.DARK, stringResource(R.string.settings_theme_dark), Icons.Default.DarkMode)
                 )
 
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -246,7 +246,7 @@ fun SettingsDialog(
                         modifier = Modifier.size(18.dp)
                     )
                     Text(
-                        text = "Privacy & Processing",
+                        text = stringResource(R.string.settings_security_privacy),
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface
@@ -256,7 +256,7 @@ fun SettingsDialog(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "All PDF operations run 100% locally on your device hardware using Apache PDFBox and native Android rendering pipelines. No documents are ever uploaded to cloud servers.",
+                    text = stringResource(R.string.settings_security_privacy_desc),
                     fontSize = 12.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -277,7 +277,7 @@ fun SettingsDialog(
                             .weight(1f)
                             .testTag("reset_onboarding_button")
                     ) {
-                        Text("Replay Tour", fontSize = 12.sp)
+                        Text(androidx.compose.ui.res.stringResource(com.example.R.string.dialog_replay_tour), fontSize = 12.sp)
                     }
 
                     OutlinedButton(
@@ -289,7 +289,7 @@ fun SettingsDialog(
                             .weight(1f)
                             .testTag("clear_history_button")
                     ) {
-                        Text("Clear History", fontSize = 12.sp)
+                        Text(androidx.compose.ui.res.stringResource(com.example.R.string.hub_clear_recent), fontSize = 12.sp)
                     }
                 }
 
@@ -301,7 +301,7 @@ fun SettingsDialog(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "PDFCraft Studio v1.2.0 • Build 2026",
+                        text = "PDFCraft Studio v${com.example.BuildConfig.VERSION_NAME} • Build 2026",
                         fontSize = 11.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
                     )

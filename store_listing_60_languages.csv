@@ -1,61 +1,1441 @@
 language_code,language_name,app_name,short_description,full_description
-en,English,PDFCraft,100% On-Device & Private PDF Studio,PDFCraft is a powerful, minimalist offline PDF studio designed to let you merge, split, reorder, rotate, compress, and extract images from PDF documents directly on your device. Zero cloud uploads guarantee 100% data privacy and security. Whether you are organizing documents, optimizing file sizes, or extracting pages, PDFCraft operates entirely offline with blazing fast performance. Enjoy a clean Material 3 interface optimized for all screen sizes.
-es,Spanish,PDFCraft,Estudio PDF 100% privado y local,PDFCraft es un potente estudio PDF fuera de línea que te permite unir, dividir, reordenar, rotar, comprimir y extraer imágenes de documentos PDF directamente en tu dispositivo. Cero subidas a la nube garantizan total privacidad y seguridad. Funciona sin internet con un rendimiento ultrarrápido y una interfaz Material 3 adaptable.
-fr,French,PDFCraft,Studio PDF 100% privé et local,PDFCraft est un puissant studio PDF hors ligne qui vous permet de fusionner, diviser, réorganiser, pivoter, compresser et extraire des images de fichiers PDF directement sur votre appareil. Zéro téléchargement cloud garantit une confidentialité totale. Fonctionne entièrement hors ligne avec une vitesse fulgurante et une interface Material 3 élégante.
-de,German,PDFCraft,100% privates Offline-PDF-Studio,PDFCraft ist ein leistungsstarkes, minimalistisches Offline-PDF-Studio zum Zusammenführen, Teilen, Sortieren, Drehen, Komprimieren und Extrahieren von Bildern aus PDFs direkt auf Ihrem Gerät. Keine Cloud-Uploads garantieren absolute Datensicherheit und Privatsphäre. Funktioniert komplett offline mit rasanter Leistung und modernem Material 3-Design.
-zh,Chinese (Simplified),PDFCraft,100%离线私密PDF工具箱,PDFCraft 是一款 powerful 且极简的离线 PDF 工具箱，支持在设备本地合并、拆分、重排、旋转、压缩 PDF 并提取图像。无需云端上传，确保 100% 的数据隐私与安全。完全离线运行，速度极快，采用 Material 3 现代界面。
-ja,Japanese,PDFCraft,100%オンデバイス＆プライベートPDF,PDFCraftは、デバイス上でPDFの結合、分割、並べ替え、回転、圧縮、画像抽出をオフラインで行える強力なミニマリストPDFスタジオです。クラウドへのアップロードなしで100%のプライバシーを保護。高速で安全なMaterial 3デザイン。
-ko,Korean,PDFCraft,100% 온디바이스 및 프라이빗 PDF 스튜디오,PDFCraft는 기기에서 직접 PDF를 병합, 분할, 재정렬, 회전, 압축 및 이미지 추출을 수행할 수 있는 강력한 오프라인 PDF 스튜디오입니다. 클라우드 업로드 없이 100% 데이터 프라이버시를 보장합니다.
-pt,Portuguese,PDFCraft,Estudio PDF 100% privado e local,PDFCraft é um poderoso estúdio PDF offline para unir, dividir, reordenar, rotar, comprimir e extrair imagens de PDFs diretamente no seu dispositivo. Sem uploads em nuvem, garantindo total privacidade. Funciona totalmente offline com alto desempenho e design Material 3.
-ru,Russian,PDFCraft,100% автономный и приватный PDF-инструмент,PDFCraft — мощная офлайн-студия для объединения, разделения, изменения порядка, вращения, сжатия и извлечения изображений из PDF прямо на вашем устройстве. Никаких облачных загрузок, полная конфиденциальность и безопасность данных.
-it,Italian,PDFCraft,Studio PDF offline 100% privato,PDFCraft è un potente studio PDF offline per unire, dividere, riordinare, ruotare, comprimere ed estrarre immagini da PDF direttamente sul tuo dispositivo. Zero caricamenti cloud garantiscono privacy totale. Funziona offline con prestazioni elevate e interfaccia Material 3.
-ar,Arabic,PDFCraft,استوديو PDF محلي وخاص 100%,PDFCraft هو استوديو PDF قوي ومستقل يتيح لك دمج وتقسيم وإعادة ترتيب وتدوير وضغط واستخراج الصور من ملفات PDF مباشرة على جهازك. بدون تحميل سحابي لضمان الخصوصية التامة.
-hi,Hindi,PDFCraft,100% ऑन-डിവाइस और प्राइवेट पीडीएफ स्टूडियो,PDFCraft एक शक्तिशाली और न्यूनतम ऑफ़लाइन पीडीएफ स्टूडियो है जो आपको सीधे आपके डिवाइस पर पीडीएफ दस्तावेज़ों को मर्ज, विभाजित, पुनरव्यवस्थित, घुमा, संकुचित और छवियों को निकालने की अनुमति देता है।
-nl,Dutch,PDFCraft,100% lokaal en privé PDF-studio,PDFCraft is een krachtige offline PDF-studio om PDF's samen te voegen, te splitsen, te roteren en te comprimeren op je apparaat. Geen cloud-uploads voor maximale privacy.
-pl,Polish,PDFCraft,W 100% prywatne studio PDF offline,PDFCraft to potężne, minimalistyczne studio PDF do łączenia, dzielenia, obracania i kompresowania plików PDF bezpośrednio na Twoim urządzeniu. Brak przesyłania do chmury zapewnia pełną prywatność.
-tr,Turkish,PDFCraft,100% Cihaz İçi ve Gizli PDF Stüdyosu,PDFCraft, doğrudan cihazınızda PDF belgelerini birleştirmenize, bölmenize, döndürmenize, sıkıştırmanıza ve görüntü çıkarmanıza olanak tanıyan güçlü bir çevrimdışı PDF stüdyosudur.
-vi,Vietnamese,PDFCraft,Studio PDF ngoại tuyến 100% riêng tư,PDFCraft là ứng dụng PDF ngoại tuyến mạnh mẽ cho phép bạn hợp nhất, tách, sắp xếp lại, xoay, nén và trích xuất hình ảnh từ PDF trực tiếp trên thiết bị của bạn. Không tải lên đám mây, đảm bảo quyền riêng tư tuyệt đối.
-id,Indonesian,PDFCraft,Studio PDF Offline 100% Pribadi,PDFCraft adalah studio PDF offline yang kuat untuk menggabungkan, memecah, merotasi, mengompresi, dan mengekstrak gambar dari PDF langsung di perangkat Anda. Tanpa unggahan cloud untuk privasi total.
-th,Thai,PDFCraft,สตูดิโอ PDF ออฟไลน์และความเป็นส่วนตัว 100%,PDFCraft เป็นสตูดิโอ PDF ออฟไลน์ที่มีประสิทธิภาพสำหรับการรวม แยก หมุน บีบอัด และดึงรูปภาพจาก PDF บนอุปกรณ์ของคุณ โดยไม่ต้องอัปโหลดขึ้นคลาวด์
-sv,Swedish,PDFCraft,100% privat offline PDF-studio,PDFCraft är en kraftfull offline PDF-studio för att slå samman, dela, rotera och komprimera PDF-filer direkt på din enhet. Inga molnuppladdningar garanterar fullständig integritet.
-no,Norwegian,PDFCraft,100% privat offline PDF-studio,PDFCraft er en kraftig offline PDF-studio for å slå sammen, dele, rotere og komprimere PDF-filer direkte på enheten din. Ingen opplastinger i skyen.
-da,Danish,PDFCraft,100% privat offline PDF-studio,PDFCraft er en kraftfuld offline PDF-studio til at flette, opdele, rotere og komprimeere PDF-filer direkte på din enhed. Ingen sky-upload.
-fi,Finnish,PDFCraft,100% yksityinen offline PDF-studio,PDFCraft on tehokas offline PDF-studio PDF-tiedostojen yhdistämiseen, jakamiseen, kiertamiseen ja pakkaamiseen suoraan laitteellasi.
-cs,Czech,PDFCraft,100% soukromé offline PDF studio,PDFCraft je výkonné offline PDF studio pro slučování, dělení, otáčení a kompresi PDF přímo ve vašem zařízení. Žádné nahrávání do cloudu.
-hu,Hungarian,PDFCraft,100% magánjellegű offline PDF stúdió,PDFCraft egy hatékony offline PDF stúdió PDF-ek egyesítéséhez, szétosztásához és tömörítéséhez közvetlenül az eszközön.
-ro,Romanian,PDFCraft,Studio PDF offline 100% privat,PDFCraft este un studio PDF offline puternic pentru a îmbina, împărți, roti și comprima PDF-uri direct pe dispozitivul tău. Fără încărcări în cloud.
-el,Greek,PDFCraft,100% ιδιωτικό offline PDF studio,PDFCraft είναι ένα ισχυρό offline PDF studio για συγχώνευση, διαχωρισμό και συμπίεση PDF στη συσκευή σας.
-he,Hebrew,PDFCraft,סטודיו PDF מקומי ופרטי ב-100%,PDFCraft הוא כלי PDF לא מקוון חזק המאפשר למזג, לפצל ולדחוס קובצי PDF ישירות במכשיר שלך.
-uk,Ukrainian,PDFCraft,100% автономна та приватна PDF-студія,PDFCraft — потужна офлайн-студія для об'єднання, розділення та стиснення PDF безпосередньо на вашому пристрої.
-bn,Bengali,PDFCraft,১০০% অন-ডিভাইস এবং প্রাইভেট পিডিএফ স্টুдио,PDFCraft একটি শক্তিশালী অফলাইন পিডিএফ স্টুডিও যা আপনার ডিভাইসে সরাসরি পিডিএফ ফাইল পরিচালনা করতে সাহায্য করে।
-tl,Filipino,PDFCraft,100% Pribado at Offline na PDF Studio,PDFCraft ay isang makapangyarihang offline PDF studio para sa pagsasama, paghahati, at pag-compress ng mga PDF sa iyong device.
-ms,Malay,PDFCraft,Studio PDF Luar Talian Peribadi 100%,PDFCraft adalah studio PDF luar talian yang berkuasa untuk menggabung dan memampatkan PDF pada peranti anda.
-ta,Tamil,PDFCraft,100% தனிப்பட்ட ஆஃப்லைன் PDF ஸ்டுடியோ,PDFCraft என்பது உங்கள் சாதனத்தில் நேரடியாக PDF-களை இணைக்க உதவும் சக்திவாய்ந்த செயலியாகும்.
-te,Telugu,PDFCraft,100% ప్రైవేట్ ఆఫ్‌లైన్ PDF స్టూడియో,PDFCraft మీ పరికరంలో నేరుగా PDFలను విలీనం చేయడానికి మరియు కుదించడానికి ఒక శక్తివంతమైన స్టూడియో.
-mr,Marathi,PDFCraft,100% खाजगी ऑफलाइन PDF स्टुडिओ,PDFCraft हा तुमच्या डिव्हाइसवर थेट PDF विलीन आणि संकुचित करण्यासाठी एक शक्तिशाली ऑफलाइन स्टुडिओ आहे.
-gu,Gujarati,PDFCraft,100% ખાનગી offlineફલાઇન PDF સ્ટુડિયો,PDFCraft તમારા ઉપકરણ પર સીધા જ PDF ને મર્જ અને કોમ્પ્રેસ કરવા માટેનું શક્તિશાળી સ્ટુડિયો છે.
-kn,Kannada,PDFCraft,100% ಖಾಸಗಿ ಆಫ್‌ಲೈನ್ PDF ಸ್ಟುಡಿಯೋ,PDFCraft ನಿಮ್ಮ ಸಾಧನದಲ್ಲಿ ನೇರವಾಗಿ PDF ಗಳನ್ನು ವಿಲೀನಗೊಳಿಸಲು ಮತ್ತು ಸಂಕುಚಿತಗೊಳಿಸಲು ಪ್ರಬಲ ಸ್ಟುಡಿಯೋ ಆಗಿದೆ.
-ml,Malayalam,PDFCraft,100% സ്വകാര്യ ഓഫ്‌ലൈൻ PDF സ്റ്റുഡിയോ,PDFCraft നിങ്ങളുടെ ഉപകരണത്തിൽ നേരിട്ട് PDF-കൾ ലയിപ്പിക്കുന്നതിനും കംപ്രസ് ചെയ്യുന്നതിനുമുള്ള ശക്തമായ സ്റ്റുഡിയോയാണ്.
-pa,Punjabi,PDFCraft,100% ਨਿੱਜੀ ਆਫ਼ਲਾਇਨ PDF ਸਟুਡੀਓ,PDFCraft ਤੁਹਾਡੀ ਡਿਵਾਈਸ 'ਤੇ ਸਿੱਧੇ PDF ਨੂੰ ਮਰਜ ਅਤੇ ਸੰਕੁਚਿਤ ਕਰਨ ਲਈ ਇੱਕ ਸ਼ਕਤੀਸ਼ਾਲੀ ਸਟੂਡੀਓ ਹੈ।
-sw,Swahili,PDFCraft,Studio ya PDF ya Nje ya Mtandao 100%,PDFCraft ni studio yenye nguvu ya PDF ya nje ya mtandao ili kuunganisha na kubana PDF kwenye kifaa chako.
-af,Afrikaans,PDFCraft,100% Privaat Offline PDF-ateljee,PDFCraft is 'n kragtige offline PDF-ateljee om PDF's op jou toestel te merge en te komprimeer.
-bg,Bulgarian,PDFCraft,100% лична офлайн PDF студия,PDFCraft е мощна офлайн PDF студия за обединяване и компресиране на PDF файлове на вашето устройство.
-hr,Croatian,PDFCraft,100% privatni offline PDF studio,PDFCraft je moćan offline PDF studio za spajanje i sažimanje PDF-ova direktno na vašem uređaju.
-et,Estonian,PDFCraft,100% privaatne offline PDF-stuudio,PDFCraft on võimas offline PDF-stuudio PDF-ide ühendamiseks ja tihendamiseks seadmes.
-lv,Latvian,PDFCraft,100% privāta bezsaistes PDF studija,PDFCraft ir jaudīga bezsaistes PDF studija PDF apvienošanai un saspiešanai ierīcē.
-lt,Lithuanian,PDFCraft,100% privati neprisijungusi PDF studija,PDFCraft yra galinga neprisijungusi PDF studija, skirta sujungti ir suspausti PDF failus jūsų įrenginyje.
-sr,Serbian,PDFCraft,100% privatni offline PDF studio,PDFCraft je moćan offline PDF studio za spajanje i kompresovanje PDF-ova direktno na vašem uređaju.
-sk,Slovak,PDFCraft,100% súkromné offline PDF štúdio,PDFCraft je výkonné offline PDF štúdio na spájanie a kompresiu PDF priamo v zariadení.
-sl,Slovenian,PDFCraft,100% zasebni offline PDF studio,PDFCraft je zmogljiv offline PDF studio za združevanje in stiskanje PDF-jev v vaši napravi.
-ca,Catalan,PDFCraft,Estudi PDF fora de línia 100% privat,PDFCraft és un potent estudi PDF fora de línia per unir i comprimir PDF al vostre dispositiu.
-eu,Basque,PDFCraft,100% pribatu offline PDF estudioa,PDFCraft lineaz kanpoko PDF estudio indartsua da zure gailuan PDFak batzeko eta konprimitzeko.
-gl,Galician,PDFCraft,Estudo PDF sen conexión 100% privado,PDFCraft é un potente estudo PDF sen conexión para unir e comprimir PDF no teu dispositivo.
-fa,Persian,PDFCraft,استودیوی پی‌دی‌اف آفلاین و ۱۰۰٪ خصوصی,PDFCraft یک استودیوی قدرتمند پی‌دی‌اف آفلاین برای ادغام و فشرده‌سازی فایل‌ها در دستگاه شما است.
-ur,Urdu,PDFCraft,100% نجی آف لائن PDF اسٹوڈیو,PDFCraft آپ کے ڈیوائس پر PDF کو ضم اور کمپریس کرنے کے لیے ایک طاقتور آفلاین اسٹوڈیو ہے۔
-is,Icelandic,PDFCraft,100% einka offline PDF stúdíó,PDFCraft er öflugt offline PDF stúdíó til að sameina og þjappa PDF skjölum á tækinu þínu.
-sq,Albanian,PDFCraft,Studio PDF offline 100% private,PDFCraft është një studio e fuqishme PDF offline për të bashkuar dhe ngjeshur PDF në pajisjen tuaj.
-mk,Macedonian,PDFCraft,100% приватно офлајн PDF студио,PDFCraft е моќно офлајн PDF студио за спојување и компресирање на PDF датотеки на вашиот уред.
-hy,Armenian,PDFCraft,100% անձնական անցանց PDF ստודיո,PDFCraft-ը հզոր անցանց PDF ստודיո է՝ ձեր սարքում PDF-ները միավորելու և սեղմելու համար։
-ka,Georgian,PDFCraft,100% პირადული ოფლაინ PDF სტუდია,PDFCraft არის ძლიერი ოფლაინ PDF სტუდია PDF ფაილების შესaseებლად და შესაკუმშად.
-az,Azerbaijani,PDFCraft,100% Şəxsi Offline PDF Studiyası,PDFCraft cihazınızda PDF-ləri birləşdirmək və sıxışdırmaq üçün güclü offline studiyadır.
-bs,Bosnian,PDFCraft,100% privatni offline PDF studio,PDFCraft je moćan offline PDF studio za spajanje i kompresovanje PDF-ova direktno na vašem uređaju.
+en,English,PDFCraft,"100% on-device private PDF studio for merging, splitting, and compressing","PDFCraft is a comprehensive, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+es,Spanish,PDFCraft,"Estudio PDF privado y local para unir, dividir, comprimir y ver documentos","PDFCraft es un completo estudio PDF sin conexion disenado para procesar y gestionar documentos directamente en su dispositivo. Todas las operaciones se ejecutan localmente sin subir archivos a la nube, garantizando absoluta privacidad y seguridad.
+
+CARACTERISTICAS PRINCIPALES
+
+• Unir y Reordenar: Combine multiples archivos PDF, imagenes y notas en un solo documento con orden personalizado.
+• Dividir y Extraer: Extraiga paginas seleccionadas, rangos especificos o separe documentos en archivos individuales.
+• Comprimir PDF: Reduzca el tamano de sus archivos con ajustes preestablecidos de compresion rapida y equilibrada.
+• Visor PDF Interactivo: Visor integrado con zoom tactil (hasta 4.5x), desplazamiento fluido, doble toque y busqueda de texto.
+• Proteger y Cifrar: Proteja documentos confidenciales con contrasenas seguras y permisos de lectura.
+• Firmar Documentos: Agregue firmas digitales y datos de acreditacion directamente en sus paginas.
+• Marcas de Agua: Aplique texto personalizado o logotipos con control de opacidad, angulo y posicion.
+• Rotar Paginas: Corrija la orientacion de paginas individuales o completas en 90, 180 o 270 grados.
+• Numeracion de Paginas: Inserte numeros de pagina y encabezados personalizables.
+• Conversiones Multiples:
+  - Imagen a PDF: Convierta fotografias de la galeria o camara en documentos PDF.
+  - PDF a Imagenes: Exporte paginas como imagenes PNG o JPEG de alta resolucion.
+  - Texto a PDF: Convierta texto plano, notas y Markdown en archivos PDF formateados.
+  - HTML a PDF: Transforme documentos web y codigo HTML en documentos PDF.
+• Editar Metadatos: Modifique titulo, autor, tema y palabras clave.
+
+PRIVACIDAD Y RENDIMIENTO
+• 100% Local: No requiere conexion a internet. Sus documentos nunca salen de su dispositivo.
+• Rapido y Seguro: Motor nativo embebido de alto rendimiento.
+• Diseno Adaptable: Optimizado para telefonos, tabletas y Android TV."
+fr,French,PDFCraft,"Studio PDF prive hors ligne pour fusionner, diviser, compresser et signer","PDFCraft est un studio PDF hors ligne complet conçu pour traiter et gerer vos documents directement sur votre appareil. Toutes les operations s'executent localement sans aucun transfert vers le cloud, garantissant une confidentialite totale.
+
+FONCTIONNALITES PRINCIPALES
+
+• Fusionner et Reorganiser: Combinez plusieurs fichiers PDF, images et textes en un seul document ordonne.
+• Diviser et Extraire: Extrayez des pages specifiques, des intervalles ou scindez vos fichiers multipages.
+• Compresser PDF: Reduisez la taille des fichiers avec des profils d'optimisation equilibres.
+• Lecteur PDF Interactif: Visualiseur integre avec zoom tactile (jusqu'a 4.5x), defilement fluide et recherche textuelle.
+• Proteger et Chiffrer: Securisez vos documents confidentiels a l'aide de mots de passe robustes.
+• Signer des Documents: Apposez vos signatures directement sur vos fichiers PDF.
+• Filigranes: Ajoutez des filigranes textuels ou logos avec controle d'opacite et d'inclinaison.
+• Pivoter les Pages: Orientez vos pages a 90, 180 ou 270 degres.
+• Numerotation: Inserez des numeros de page et en-tetes personnalises.
+• Conversions Multiples:
+  - Image en PDF: Assemblez vos photos en documents PDF nets.
+  - PDF en Images: Exportez les pages en formats PNG ou JPEG.
+  - Texte en PDF: Transformez vos notes brutes ou Markdown en documents PDF.
+  - HTML en PDF: Convertissez du code HTML en pages PDF propres.
+• Metadonnees: Consultez et modifiez titre, auteur, sujet et mots-cles.
+
+CONFIDENTIALITE ET PERFORMANCE
+• 100% Local: Aucune connexion requise. Vos fichiers restent strictement sur votre appareil.
+• Rapide et Efficace: Moteur nativo integre pour une execution instantanee.
+• Interface Moderne: Concue pour smartphones, tablettes et Android TV."
+de,German,PDFCraft,"Lokales Offline-PDF-Studio zum Zusammenfuehren, Teilen und Komprimieren","PDFCraft ist ein vollstaendiges, sicheres Offline-PDF-Studio zur direkten Dokumentenverarbeitung auf Ihrem Geraet. Alle Aktionen laufen lokal ab, ohne Cloud-Uploads, wodurch Ihre Daten absolut privat und geschuetzt bleiben.
+
+HAUPTFUNKTIONEN
+
+• Zusammenfuehren & Sortieren: Kombinieren Sie mehrere PDFs, Bilder und Texte in ein Dokument.
+• Teilen & Extrahieren: Extrahieren Sie ausgewaehlte Seiten oder teilen Sie Dokumente auf.
+• PDF Komprimieren: Verringern Sie Dateigroessen effizient mit Qualitaetsstufen.
+• Interaktiver PDF-Betrachter: Integrierte Ansicht mit stufenlosem Zoom (bis zu 4.5x), Verschieben und Volltextsuche.
+• Schuetzen & Verschluesseln: Sichern Sie vertrauliche Dokumente mit Passwoertern.
+• Dokumente Signieren: Fugen Sie Signaturen direkt in Ihre PDF-Seiten ein.
+• Wasserzeichen: Versehen Sie Dokumente mit Text- oder Bildwasserzeichen inklusive Transparenzsteuerung.
+• Seiten Drehen: Richten Sie Seiten um 90, 180 oder 270 Grad aus.
+• Seitenzahlen: Nummerieren Sie Seiten mit flexiblen Mustern.
+• Konvertierungen:
+  - Bild zu PDF: Verwandeln Sie Fotos in strukturierte Dokumente.
+  - PDF zu Bildern: Exportieren Sie Seiten als hochaufloesende PNG- oder JPEG-Bilder.
+  - Text zu PDF: Erstellen Sie PDFs aus Notizen und Markdown.
+  - HTML zu PDF: Konvertieren Sie Webseiten und HTML-Code in PDF.
+• Metadaten Bearbeiten: Verwalten Sie Titel, Autor, Thema und Suchbegriffe.
+
+DATENSCHUTZ UND LEISTUNG
+• 100% Lokal: Funktioniert vollstaendig ohne Internetverbindung.
+• Schnell & Ressourcenschonend: Optimierte native Verarbeitungs-Engine.
+• Flexibles Design: Perfekt angepasst an Smartphones, Tablets und Android TV."
+zh,Chinese (Simplified),PDFCraft,全本地离线私密PDF工具箱，支持合并、拆分、压缩与多功能查看,"PDFCraft 是一款功能全面的本地离线 PDF 工具箱，专为在设备本地处理和管理文档而设计。所有操作均在本地执行，无需上传到云端，确保个人与工作文档的绝对隐私与安全。
+
+核心功能
+
+• 合并与重排：将多个 PDF、图像和文本文件按自定义顺序合并为一个文件。
+• 拆分与提取：提取指定页面或范围，或将多页文档拆分为独立文件。
+• 压缩 PDF：通过均衡与高效压缩预设，轻松减小文件体积。
+• 交互式阅读器：内置流畅手势缩放（最高 4.5 倍）、平移移动、双击切换和全文搜索。
+• 加密与保护：设置强密码和权限控制，保护敏感文件。
+• 数字签名：直接在 PDF 页面上添加手写签名和签署说明。
+• 添加水印：添加自定义文字或图片水印，支持透明度与角度调整。
+• 旋转页面：将页面按 90度、180度 或 270度 矫正方向。
+• 页码标注：为文档页眉或页脚添加自定义页码格式。
+• 多格式转换：
+  - 图片转 PDF：将照片批量制作为清晰的 PDF 文档。
+  - PDF 转图片：将页面导出为高清 PNG 或 JPEG 图片。
+  - 文本转 PDF：将笔记、代码和 Markdown 转换为排版工整的 PDF。
+  - HTML 转 PDF：将网页标记和 HTML 转换为标准 PDF。
+• 元数据编辑：查看和修改文档标题、作者、主题和关键词。
+
+隐私与性能保障
+• 100% 离线运行：完全无需网络连接，文件始终留存在设备上。
+• 快速高效：内置轻量高效的处理引擎。
+• 自适应布局：完美适配手机、折叠屏、平板电脑与 Android TV。"
+ja,Japanese,PDFCraft,結合・分割・圧縮・閲覧に対応した完全オフライン高機能PDFスタジオ,"PDFCraftは、端末上で直接ドキュメントを処理・編集できる完全オフラインのPDFスタジオです。すべての処理はデバイス内で完結し、クラウドへのアップロードは一切行われないため、重要書類の機密性が完全に保護されます。
+
+主な機能
+
+• 結合と並べ替え: 複数のPDF、画像、テキストを任意の順序で1つのファイルに結合。
+• 分割と抽出: 特定のページや範囲を抽出し、個別ファイルとして保存。
+• PDF圧縮: 圧縮プリセットにより、品質を維持しながらファイルサイズを軽量化。
+• インタラクティブPDFビューア: ピンチズーム（最大4.5倍）、パン移動、ダブルタップ拡大、テキスト内検索を搭載。
+• パスワード暗号化: 強力なパスワード設定により、機密ドキュメントを保護。
+• 署名の追加: ドキュメント上に直接署名と詳細情報を挿入。
+• 透かし（ウォーターマーク）: テキストや画像ロゴの透かしを透明度・角度調整付きで配置。
+• ページの回転: 各ページを90度、180度、270度回転して向きを修正。
+• ページ番号の挿入: ヘッダーやフッターにカスタムページ番号を付与。
+• 多彩なフォーマット変換:
+  - 画像からPDF: カメラ写真やギャラリー画像をPDFに変換。
+  - PDFから画像: ページを高解像度PNGまたはJPEGとして書き出し。
+  - テキストからPDF: メモやMarkdownを整形されたPDFに変換。
+  - HTMLからPDF: HTMLコードをきれいなPDFにレンダリング。
+• メタデータ編集: タイトル、作成者、件名、キーワードの編集。
+
+プライバシーと動作環境
+• 100%オンデバイス: インターネット不要。データが端末外部に送信されることはありません。
+• 高速・軽量: 最適化されたネイティブエンジンを搭載。
+• マルチデバイス対応: スマートフォン、折りたたみ端末、タブレット、Android TVに最適化。"
+ko,Korean,PDFCraft,"병합, 분할, 압축 및 뷰어를 지원하는 100% 온디바이스 오프라인 PDF 스튜디오","PDFCraft는 기기 내에서 직접 문서를 처리하고 관리할 수 있도록 설계된 강력한 오프라인 PDF 스튜디오입니다. 모든 작업이 클라우드 업로드 없이 로컬에서 실행되므로 개인 및 비즈니스 문서의 보안과 프라이버시가 완벽히 보장됩니다.
+
+주요 기능
+
+• 병합 및 재정렬: 여러 PDF, 이미지 및 텍스트 문서를 원하는 순서로 결합합니다.
+• 분할 및 추출: 특정 페이지나 범위를 추출하거나 여러 개의 파일로 분할합니다.
+• PDF 압축: 균형 잡힌 압축 설정을 통해 문서 용량을 효율적으로 줄입니다.
+• 인터랙티브 PDF 뷰어: 최대 4.5배 핀치 줌, 팬 이동, 더블 탭 확대/축소 및 텍스트 검색을 지원하는 고성능 뷰어.
+• 암호화 및 보호: 강력한 비밀번호 설정으로 민감한 문서를 안전하게 보호합니다.
+• 문서 서명: PDF 페이지에 직접 디지털 서명 및 인증 정보를 추가합니다.
+• 워터마크 삽입: 투명도 및 회전 각도를 조절하여 맞춤형 텍스트 및 이미지 워터마크를 삽입합니다.
+• 페이지 회전: 개별 또는 전체 페이지를 90도, 180도, 270도로 회전합니다.
+• 페이지 번호 추가: 머리글 또는 바닥글에 사용자 정의 페이지 번호를 인쇄합니다.
+• 다양한 변환 기능:
+  - 이미지를 PDF로: 갤러리 사진이나 촬영한 이미지를 PDF로 변환합니다.
+  - PDF를 이미지로: 고해상도 PNG 또는 JPEG 이미지로 페이지를 추출합니다.
+  - 텍스트를 PDF로: 일반 텍스트, 메모, 마크다운을 PDF로 생성합니다.
+  - HTML을 PDF로: 웹 마크업 및 HTML 코드를 깨끗한 PDF로 변환합니다.
+• 메타데이터 편집: 문서 제목, 작성자, 주제 및 검색 키워드를 조회하고 수정합니다.
+
+개인정보 보호 및 성능
+• 100% 로컬 실행: 인터넷 연결이 필요 없으며 파일이 외부로 유출되지 않습니다.
+• 신속하고 가벼운 엔진: 내장 네이티브 처리 기술 탑재.
+• 유연한 반응형 UI: 스마트폰, 폴더블, 태블릿 및 Android TV 완벽 지원."
+pt,Portuguese,PDFCraft,"Estudio PDF offline e privado para juntar, dividir, comprimir e visualizar","PDFCraft e um estudio PDF offline completo e seguro para processar e organizar documentos diretamente no seu aparelho. Todas as operacoes ocorrem localmente sem envios para a nuvem, assegurando total privacidade dos seus dados.
+
+RECURSOS PRINCIPAIS
+
+• Juntar e Reordenar: Combine varios PDFs, imagens e textos em um arquivo unico na ordem desejada.
+• Dividir e Extrair: Separe paginas especificas ou divida documentos extensos em partes menores.
+• Comprimir PDF: Reduza o tamanho dos arquivos mantendo boa qualidade visual.
+• Leitor PDF Interativo: Visualizador integrado com zoom por pinça (ate 4.5x), rolagem suave e busca de texto.
+• Proteger com Senha: Bloqueie documentos confidenciais com criptografia forte.
+• Assinar Documentos: Aplique assinaturas e dados de validacao diretamente no documento.
+• Marcas D'agua: Adicione marcas de texto ou imagem com ajuste de transparencia e angulo.
+• Girar Paginas: Ajuste a orientacao de paginas em 90, 180 ou 270 graus.
+• Numeracao de Paginas: Insira numeros de pagina no cabecalho ou rodape.
+• Conversoes Uteis:
+  - Imagem para PDF: Crie documentos a partir de fotos da galeria ou camera.
+  - PDF para Imagens: Salve paginas em formato PNG ou JPEG de alta definicao.
+  - Texto para PDF: Converta anotacoes e Markdown em arquivos PDF estruturados.
+  - HTML para PDF: Renderize paginas e codigos HTML em PDF.
+• Metadados: Edite titulo, autor, assunto e palavras-chave.
+
+PRIVACIDADE E DESEMPENHO
+• 100% no Aparelho: Nao necessita de conexao com a internet.
+• Leve e Agil: Motor de processamento nativo incorporado.
+• Interface Moderna: Adaptada para celulares, tablets e Android TV."
+ru,Russian,PDFCraft,"Полный офлайн PDF-инструмент для объединения, разделения, сжатия и подписи","PDFCraft — надежная офлайн-студия для локальной обработки и редактирования PDF-документов прямо на вашем устройстве. Все процессы выполняются локально без передачи данных на облачные серверы, что гарантирует полную конфиденциальность.
+
+ОСНОВНЫЕ ВОЗМОЖНОСТИ
+
+• Объединение и сортировка: соберите несколько файлов PDF, изображений и заметок в один документ.
+• Разделение и извлечение: извлекайте нужные страницы или разбивайте документы на части.
+• Сжатие PDF: уменьшайте размер документов с помощью готовых профилей сжатия.
+• Интерактивный просмотрщик: встроенный просмотр с плавным масштабированием (до 4.5x), перемещением и поиском текста.
+• Защита паролем: блокируйте доступ к важным документам надежным шифрованием.
+• Подписание файлов: добавляйте подпись и реквизиты прямо на страницы PDF.
+• Водяные знаки: накладывайте текстовые и графические водяные знаки с регулировкой прозрачности.
+• Поворот страниц: корректируйте ориентацию страниц на 90, 180 или 270 градусов.
+• Нумерация страниц: добавляйте номера и колонтитулы в настраиваемом формате.
+• Конвертация форматов:
+  - Изображения в PDF: создание многостраничных документов из фото.
+  - PDF в изображения: экспорт страниц в высоком качестве PNG или JPEG.
+  - Текст в PDF: преобразование заметок, кода и Markdown в аккуратный PDF.
+  - HTML в PDF: конвертация веб-разметки и HTML-страниц в PDF.
+• Редактор метаданных: просмотр и правка названия, автора, темы и ключевых слов.
+
+ПРИВАТНОСТЬ И БЫСТРОДЕЙСТВИЕ
+• 100% на устройстве: подключение к интернету не требуется.
+• Быстрый движок: автономная обработка файлов без задержек.
+• Адаптивный интерфейс: оптимизирован для смартфонов, планшетов и Android TV."
+it,Italian,PDFCraft,"Studio PDF offline e privato per unire, dividere, comprimere e visualizzare","PDFCraft e uno studio PDF offline completo per elaborare e organizzare i tuoi documenti direttamente sul dispositivo. Tutte le operazioni vengono eseguite localmente senza caricare file sul cloud, assicurando massima riservatezza.
+
+FUNZIONALITA PRINCIPALI
+
+• Unisci e Riordina: Combina piu PDF, immagini e testi in un unico file secondo l'ordine desiderato.
+• Dividi ed Estrai: Estrai pagine specifiche o separa documenti multipagina in singoli file.
+• Comprimi PDF: Riduci le dimensioni dei file con impostazioni bilanciate.
+• Visualizzatore PDF Interattivo: Lettore integrato con zoom tattile (fino a 4.5x), scorrimento fluido e ricerca testo.
+• Proteggi con Password: Metti al sicuro documenti sensibili con crittografia affidabile.
+• Firma Documenti: Inserisci firme e dettagli di convalida sulle pagine del PDF.
+• Filigrana: Applica timbri di testo o loghi con regolazione di trasparenza e orientamento.
+• Ruota Pagine: Orienta le pagine a 90, 180 o 270 gradi.
+• Numerazione Pagine: Aggiungi numeri di pagina e intestazioni personalizzate.
+• Conversioni Versatili:
+  - Immagini in PDF: Trasforma foto e scansioni in documenti PDF nitidi.
+  - PDF in Immagini: Esporta le pagine in formato PNG o JPEG ad alta risoluzione.
+  - Testo in PDF: Converti note e file Markdown in PDF impaginati.
+  - HTML in PDF: Trasforma codice HTML e documenti web in PDF.
+• Modifica Metadati: Gestisci titolo, autore, oggetto e parole chiave.
+
+SICUREZZA E PRESTAZIONI
+• 100% in Locale: Nessuna connessione a internet richiesta.
+• Veloce e Snello: Motore di elaborazione nativo incorporato.
+• Layout Adattivo: Ideale per smartphone, tablet e Android TV."
+ar,Arabic,PDFCraft,استوديو PDF بدون انترنت لدمج وتقسيم وضغط وعرض الملفات بخصوصية تامة,"PDFCraft هو استوديو متكامل للتعامل مع ملفات PDF دون الحاجة الى الاتصال بالانترنت. تتم جميع العمليات محليا على جهازك دون رفع اي ملف الى السحابة، مما يوفر اقصى درجات الامان والسرية لمستنداتك الشخصية والرسمية.
+
+الميزات الاساسية
+
+• دمج وترتيب الملفات: دمج عدة ملفات PDF وصور ونصوص في مستند واحد بترتيب مخصص.
+• تقسيم واستخراج الصفحات: استخراج صفحات محددة او تقسيم المستندات الكبيرة الى ملفات منفصلة.
+• ضغط ملفات PDF: تقليل حجم الملفات مع الحفاظ على وضوح المحتوى.
+• عارض PDF تفاعلي: تكبير سلس باصبعين حتى 4.5 ضعف، تحريك حر، نقر مزدوج والبحث في النصوص.
+• حماية وتشفير: تعيين كلمات مرور قوية لحماية المستندات السرية.
+• توقيع المستندات: اضافة توقيعك ومعلومات الاعتماد مباشرة على الصفحات.
+• علامة مائية: اضافة علامات مائية نصية او صور مع التحكم في الشفافية والزاوية.
+• تدوير الصفحات: تعديل اتجاه الصفحات بزاوية 90 او 180 او 270 درجة.
+• ترقيم الصفحات: اضافة ارقام الصفحات والترويسات بصيغ مخصصة.
+• تحويل الصيغ المتعددة:
+  - تحويل الصور الى PDF: تحويل الصور الملتقطة والالبومات الى ملفات PDF.
+  - تحويل PDF الى صور: تصدير الصفحات كصور عالية الدقة PNG او JPEG.
+  - تحويل النصوص الى PDF: تحويل الملاحظات والرموز الى مستندات منسقة.
+  - تحويل HTML الى PDF: تحويل اكواد وصفحات الويب الى مستندات PDF.
+• تعديل البيانات الوصفية: تعديل العنوان والمؤلف والموضوع والكلمات المفتاحية.
+
+الخصوصية والاداء
+• محلي بالكامل: يعمل دون الحاجة لشبكة الانترنت.
+• سريع وخفيف: محرك مدمج عالي الكفاءة.
+• تصميم متجاوب: متوافق مع الهواتف والاجهزة اللوحية وتلفاز Android TV."
+hi,Hindi,PDFCraft,"पीडीएफ मर्ज, स्प्लिट, कंप्रेस और व्यू करने के लिए ऑन-डिवाइस प्राइवेट पीडीएफ टूल","PDFCraft सीधे आपके डिवाइस पर दस्तावेज़ों को प्रोसेस और मैनेज करने के लिए एक संपूर्ण ऑफ़लाइन पीडीएफ स्टूडियो है। सभी कार्य बिना किसी क्लाउड अपलोड के स्थानीय रूप से चलते हैं, जिससे आपकी गोपनीय जानकारी पूरी तरह सुरक्षित रहती है।
+
+प्रमुख विशेषताएं
+
+• पीडीएफ मर्ज और रीऑर्डर: एकाधिक पीडीएफ, छवियों और नोट्स को एक दस्तावेज़ में संयोजित करें।
+• स्प्लिट और एक्सट्रैक्ट: विशिष्ट पृष्ठों या पृष्ठ श्रेणियों को अलग-अलग फ़ाइलों में निकालें।
+• पीडीएफ कंप्रेस: गुणवत्ता बनाए रखते हुए फ़ाइल का आकार आसानी से कम करें।
+• इंटरैक्टिव पीडीएफ व्यूअर: 4.5x पिंच ज़ूम, पैनिंग, डबल-टैप टॉगल और टेक्स्ट खोज के साथ।
+• पासवर्ड सुरक्षा: संवेदनशील दस्तावेज़ों को सुरक्षित पासवर्ड से लॉक करें।
+• डिजिटल हस्ताक्षर: पीडीएफ पृष्ठों पर सीधे अपना हस्ताक्षर जोड़ें।
+• वॉटरमार्क: पारदर्शिता और कोण नियंत्रण के साथ कस्टम टेक्स्ट या इमेज वॉटरमार्क लगाएं।
+• पृष्ठ घुमाएं: पृष्ठों को 90, 180 या 270 डिग्री पर व्यवस्थित करें।
+• पेज नंबर जोड़ें: हेडर और फ़ूटर में अनुकूलित पेज नंबर शामिल करें।
+• कई प्रकार के कन्वर्शन:
+  - इमेज से पीडीएफ: तस्वीरों को उच्च गुणवत्ता वाले पीडीएफ में बदलें।
+  - पीडीएफ से इमेज: पृष्ठों को पीएनजी या जेपीईजी के रूप में सहेजें।
+  - टेक्स्ट से पीडीएफ: नोट्स और कोड को सुव्यवस्थित पीडीएफ में बदलें।
+  - एचटीएमएल से पीडीएफ: वेब कोड को स्पष्ट पीडीएफ में बदलें।
+• मेटाडेटा संपादन: शीर्षक, लेखक, विषय और कीवर्ड अपडेट करें।
+
+सुरक्षा और प्रदर्शन
+• 100% स्थानीय: इंटरनेट कनेक्शन की कोई आवश्यकता नहीं है।
+• तेज़ और कुशल: एम्बेडेड मूल प्रोसेसिंग इंजन।
+• उत्तरदायी लेआउट: फोन, टैबलेट और एंड्रॉइड टीवी के लिए अनुकूलित।"
+nl,Dutch,PDFCraft,"Privacygerichte offline PDF-studio voor samenvoegen, splitsen en comprimeren","PDFCraft is een complete offline PDF-studio waarmee u documenten direct op uw apparaat kunt bewerken. Alle bewerkingen vinden lokaal plaats zonder bestandsuploads naar de cloud, voor optimale privacy en gegevensbeveiliging.
+
+BELANGRIJKSTE FUNCTIES
+
+• Samenvoegen & Ordenen: Combineer meerdere PDF's, afbeeldingen en teksten in één bestand.
+• Splitsen & Extraheren: Haal geselecteerde pagina's eruit of splits bestanden op in delen.
+• PDF Comprimeren: Verklein de bestandsgrootte met handige voorinstellingen.
+• Interactieve PDF-lezer: Ingebouwde viewer met soepele pinch-to-zoom (tot 4.5x), verschuiven en tekstzoekfunctie.
+• Beveiligen met Wachtwoord: Versleutel vertrouwelijke bestanden met sterke wachtwoorden.
+• Documenten Ondertekenen: Plaats handtekeningen rechtstreeks op uw pagina's.
+• Watermerken: Voeg tekst- of logowatermerken toe met instelbare dekking en rotatie.
+• Pagina's Draaien: Roteer pagina's 90, 180 of 270 graden.
+• Paginanummers: Nummer pagina's met flexibele opmaakpatronen.
+• Handige Conversies:
+  - Afbeelding naar PDF: Maak documenten van galerij- of camerafoto's.
+  - PDF naar Afbeeldingen: Exporteer pagina's als PNG of JPEG.
+  - Tekst naar PDF: Converteer notities en Markdown naar PDF.
+  - HTML naar PDF: Zet webcode om in verzorgde PDF-pagina's.
+• Metadata Bewerken: Pas titel, auteur, onderwerp en trefwoorden aan.
+
+PRIVACY EN PRESTATIES
+• 100% Lokaal: Geen internetverbinding vereist.
+• Snel en Lichtgewicht: Krachtige ingebouwde motor.
+• Aanpasbaar Ontwerp: Geoptimaliseerd voor smartphones, tablets en Android TV."
+pl,Polish,PDFCraft,"Prywatne studio PDF offline do laczenia, dzielenia, kompresji i przegladania","PDFCraft to wszechstronne, bezpieczne studio PDF offline do przetwarzania dokumentow bezposrednio na urzadzeniu. Wszystkie operacje sa wykonywane lokalnie bez przesylania danych do chmury, co zapewnia pelne bezpieczenstwo i poufnosc.
+
+NAJWAZNIEJSZE FUNKCJE
+
+• Laczenie i Zmiana Kolejnosci: Scalaj wiele plikow PDF, zdjec i tekstow w jeden uporzadkowany plik.
+• Dzielenie i Wyodrebnianie: Wyodrebniaj wybrane strony lub dziel dokumenty na osobne pliki.
+• Kompresja PDF: Zmniejszaj rozmiar dokumentow przy zachowaniu wysokiej jakosci.
+• Interaktywna Przegladarka: Wbudowany czytnik z plynnym zoomem (do 4.5x), przesuwaniem i wyszukiwaniem tekstu.
+• Ochrona Haslem: Szyfruj poufne pliki za pomoca bezpiecznego hasla.
+• Podpisywanie Dokumentow: Dodawaj wlasnoreczne podpisy bezposrednio na stronach.
+• Znaki Wodne: Umieszczaj tekstowe lub graficzne znaki wodne z kontrola przezroczystosci.
+• Obracanie Stron: Koryguj orientacje stron o 90, 180 lub 270 stopni.
+• Numeracja Stron: Dodawaj numery stron i naglowki w wybranym formacie.
+• Konwersja Formatow:
+  - Zdjecia do PDF: Tworz dokumenty ze zdjec z aparatu i galerii.
+  - PDF do Zdjec: Eksportuj strony do formatu PNG lub JPEG.
+  - Tekst do PDF: Zamieniaj notatki i Markdown na sformatowany PDF.
+  - HTML do PDF: Przeksztalcaj kod HTML w czysty dokument PDF.
+• Edycja Metadanych: Przegladaj i zmieniaj tytul, autora, temat i slowa kluczowe.
+
+BEZPIECZENSTWO I SZYBKOSC
+• 100% Lokalnie: Brak koniecznosci polaczenia z internetem.
+• Lekki i Wydajny: Natywny silnik przetwarzania danych.
+• Nowoczesny Interfejs: Dostosowany do smartfonow, tabletow i Android TV."
+tr,Turkish,PDFCraft,"Birlestirme, bolme, sikistirma ve goruntuleme icin cihaz ici ozel PDF studyosu","PDFCraft, belgelerinizi dogrudan cihazinizda islemek ve yonetmek icin gelistirilmis kapsamli bir cevrimdisi PDF studyosudur. Tum islemler buluta yukleme yapilmadan yerel olarak calisir ve tam veri gizliligi saglar.
+
+TEMEL OZELLIKLER
+
+• Birlestir ve Sirala: Birden fazla PDF, resim ve metin dosyasini istediginiz sirada birlestirin.
+• Bol ve Ayikla: Belirli sayfalari cikarin veya buyuk belgeleri ayri dosyalara bolun.
+• PDF Sikistir: Hazir profillerle dosya boyutunu hizlica kucultun.
+• Etkilesimli PDF Goruntuleyici: Cift parmakla buyutme (4.5x'e kadar), kaydirma ve metin arama ozellikli okuyucu.
+• Sifre ile Koru: Hassas belgelerinizi guclu sifrelerle kilitleyin.
+• Belge Imzala: Sayfalara dogrudan imza ve onay bilgisi ekleyin.
+• Filigran Ekle: Saydamlik ve aci ayariyla ozel metin veya logo filigranlari uygulayin.
+• Sayfalari Dondur: Sayfa yonunu 90, 180 veya 270 derece cevirin.
+• Sayfa Numaralandirma: Ozel sayfa numaralari ve basliklar ekleyin.
+• Donusturme Araclari:
+  - Resimden PDF'e: Fotograflari duzenli PDF belgelerine donusturun.
+  - PDF'ten Resme: Sayfalari yuksek cozunurluklu PNG veya JPEG olarak kaydedin.
+  - Metinden PDF'e: Notlari ve Markdown metinlerini PDF'e cevirin.
+  - HTML'den PDF'e: Web kodlarini net PDF belgelerine donusturun.
+• Meta Veri Duzenleme: Baslik, yazar, konu ve anahtar kelimeleri guncelleyin.
+
+GIZLILIK VE PERFORMANS
+• 100% Cihaz Uzerinde: Internet baglantisi gerektirmez. Dosyalariniz cihazinizda kalir.
+• Hizli ve Hafif: Entegre yerel isleme motoru.
+• Uyumlu Arayuz: Telefonlar, tabletler ve Android TV icin optimize edilmistir."
+vi,Vietnamese,PDFCraft,"Studio PDF ngoại tuyến bảo mật giúp ghép, tách, nén và xem tài liệu tiện lợi","PDFCraft là bộ công cụ PDF ngoại tuyến toàn diện và bảo mật, giúp xử lý và quản lý tài liệu trực tiếp trên thiết bị của bạn. Mọi thao tác đều thực thi cục bộ, không tải tệp lên đám mây, đảm bảo sự riêng tư tuyệt đối cho dữ liệu.
+
+TÍNH NĂNG NỔI BẬT
+
+• Ghép và Sắp Xếp: Hợp nhất nhiều tệp PDF, hình ảnh và văn bản thành một tài liệu duy nhất theo thứ tự mong muốn.
+• Tách và Trích Xuất: Trích xuất các trang cụ thể hoặc chia tài liệu nhiều trang thành các tệp riêng biệt.
+• Nén PDF: Giảm dung lượng tệp hiệu quả với các mức nén linh hoạt giữ nguyên độ rõ nét.
+• Trình Xem PDF Tương Tác: Hỗ trợ phóng to thu nhỏ bằng 2 ngón tay (lên tới 4.5x), kéo rê mượt mà, chạm đúp để zoom và tìm kiếm văn bản.
+• Khóa và Mã Hóa: Bảo vệ tài liệu nhạy cảm bằng mật khẩu bảo mật cao.
+• Ký Tài Liệu: Thêm chữ ký điện tử trực tiếp lên các trang PDF.
+• Đóng Dấu Bản Quyền (Watermark): Chèn chữ hoặc hình ảnh đóng dấu với tùy chỉnh độ mờ và góc xoay.
+• Xoay Trang: Điều chỉnh hướng trang 90, 180 hoặc 270 độ dễ dàng.
+• Đánh Số Trang: Đánh số trang tự động ở đầu hoặc cuối trang theo định dạng riêng.
+• Chuyển Đổi Đa Năng:
+  - Ảnh sang PDF: Chuyển đổi ảnh chụp hoặc bộ sưu tập thành tài liệu PDF sắc nét.
+  - PDF sang Ảnh: Xuất các trang PDF thành ảnh PNG hoặc JPEG chất lượng cao.
+  - Văn bản sang PDF: Biến ghi chú, mã nguồn và Markdown thành tài liệu PDF chuẩn.
+  - HTML sang PDF: Chuyển mã HTML và trang web thành tài liệu PDF tiện lợi.
+• Chỉnh Sửa Metadata: Xem và cập nhật tiêu đề, tác giả, chủ đề và từ khóa tài liệu.
+
+BẢO MẬT VÀ HIỆU NĂNG
+• 100% Cục Bộ: Hoạt động hoàn toàn không cần kết nối mạng.
+• Tốc Độ Cao: Sử dụng bộ xử lý tích hợp tối ưu và nhẹ nhàng.
+• Giao Diện Thích Ứng: Hoạt động mượt mà trên điện thoại, máy tính bảng và Android TV."
+id,Indonesian,PDFCraft,"Studio PDF offline privat untuk menggabungkan, membagi, kompres dan membaca","PDFCraft adalah studio PDF offline lengkap yang dirancang untuk memproses dan mengelola dokumen langsung di perangkat Anda. Semua proses berjalan secara lokal tanpa unggahan cloud, menjamin privasi penuh dokumen Anda.
+
+FITUR UTAMA
+
+• Gabung dan Urutkan: Satukan beberapa file PDF, gambar, dan catatan teks dalam urutan yang rapi.
+• Pisah dan Ekstrak: Ambil halaman tertentu atau pisahkan dokumen besar menjadi file terpisah.
+• Kompres PDF: Perkecil ukuran dokumen dengan pilihan kompresi yang efisien.
+• Penampil PDF Interaktif: Dilengkapi zoom cubit (hingga 4.5x), geser layar, ketuk ganda, dan pencarian teks.
+• Enkripsi dan Sandi: Kunci dokumen penting dengan kata sandi yang kuat.
+• Tanda Tangani Dokumen: Bubuhkan tanda tangan langsung pada halaman dokumen.
+• Watermark: Pasang teks atau logo cap air dengan kontrol transparansi dan rotasi.
+• Putar Halaman: Putar arah halaman sebesar 90, 180, atau 270 derajat.
+• Nomor Halaman: Cantumkan penomoran halaman pada header atau footer dokumen.
+• Konversi Berkas:
+  - Gambar ke PDF: Ubah foto kamera atau galeri menjadi file PDF rapi.
+  - PDF ke Gambar: Simpan halaman sebagai gambar resolusi tinggi PNG atau JPEG.
+  - Teks ke PDF: Konversi catatan atau Markdown menjadi dokumen PDF terstruktur.
+  - HTML ke PDF: Render kode HTML menjadi halaman PDF yang rapi.
+• Edit Metadata: Perbarui judul, penulis, subjek, dan kata kunci dokumen.
+
+PRIVASI DAN EFISIENSI
+• 100% di Perangkat: Tidak membutuhkan akses internet. Dokumen Anda tetap aman di perangkat.
+• Cepat dan Ringan: Didukung mesin pemrosesan internal yang efisien.
+• Tampilan Responsif: Sempurna untuk smartphone, tablet, dan Android TV."
+th,Thai,PDFCraft,สตูดิโอ PDF ออฟไลน์เพื่อความปลอดภัย ผสาน แยก บีบอัด และอ่านเอกสารในเครื่อง,"PDFCraft เป็นชุดเครื่องมือจัดการไฟล์ PDF แบบออฟไลน์ที่สมบูรณ์แบบ ซึ่งออกแบบมาเพื่อประมวลผลเอกสารบนอุปกรณ์ของคุณโดยตรง การทำงานทั้งหมดเกิดขึ้นภายในเครื่องโดยไม่มีการอัปโหลดขึ้นคลาวด์ เพื่อรักษาความเป็นส่วนตัวสูงสุด
+
+ฟังก์ชันหลัก
+
+• รวมและจัดเรียง: รวมไฟล์ PDF รูปภาพ และข้อความหลายไฟล์เข้าด้วยกันตามลำดับที่ต้องการ
+• แยกและดึงหน้า: แยกหน้าที่ต้องการหรือแบ่งเอกสารขนาดยาวออกเป็นไฟล์ย่อย
+• บีบอัด PDF: ลดขนาดไฟล์เอกสารได้อย่างมีประสิทธิภาพพร้อมคงความชัดเจน
+• โปรแกรมอ่าน PDF แบบโต้ตอบ: ซูมขยายอย่างลื่นไหล (สูงสุด 4.5 เท่า) เลื่อนหน้า แตะสองครั้ง และค้นหาข้อความในเอกสาร
+• ป้องกันด้วยรหัสผ่าน: ล็อกเอกสารสำคัญด้วยการเข้ารหัสที่ปลอดภัย
+• เซ็นเอกสาร: เพิ่มลายเซ็นและข้อมูลรับรองลงในเอกสารได้โดยตรง
+• ลายน้ำ: ใส่ลายน้ำข้อความหรือโลโก้รูปภาพ พร้อมปรับความโปร่งใสและมุมหมุน
+• หมุนหน้าเอกสาร: ปรับทิศทางหน้าเอกสาร 90, 180 หรือ 270 องศา
+• ใส่หมายเลขหน้า: เพิ่มเลขหน้าและหัวกระดาษในรูปแบบที่คุณกำหนดเอง
+• การแปลงไฟล์หลากหลาย:
+  - แปลงรูปภาพเป็น PDF: รวมรูปภาพถ่ายหรือภาพจากแกลเลอรีเป็นเอกสาร PDF
+  - แปลง PDF เป็นรูปภาพ: ส่งออกหน้าเอกสารเป็นรูปภาพ PNG หรือ JPEG ความละเอียดสูง
+  - แปลงข้อความเป็น PDF: เปลี่ยนข้อความ บันทึก หรือ Markdown เป็นไฟล์ PDF
+  - แปลง HTML เป็น PDF: แปลงโค้ด HTML เป็นเอกสาร PDF ที่สะอาดตา
+• แก้ไขข้อมูลเมทาดาตา: ปรับเปลี่ยนชื่อเอกสาร ผู้เขียน หัวข้อ และคำค้นหา
+
+ความเป็นส่วนตัวและประสิทธิภาพ
+• ทำงานในเครื่อง 100%: ไม่ต้องใช้อินเทอร์เน็ต ไฟล์ของคุณปลอดภัยในอุปกรณ์เสมอ
+• รวดเร็วและไม่เปลืองทรัพยากร: ขับเคลื่อนด้วยระบบประมวลผลภายในตัว
+• การออกแบบที่ยืดหยุ่น: รองรับสมาร์ทโฟน แท็บเล็ต และ Android TV อย่างลงตัว"
+sv,Swedish,PDFCraft,"Privat offline PDF-studio foer att sla samman, dela, komprimera och laesa","PDFCraft ar en komplett och privat offline PDF-studio designad foer att hantera och bearbeta dokument direkt pa din enhet. Alla operationer kors lokalt utan molnuppladdningar, vilket garanterar full integritet foer dina filer.
+
+HUVUDFUNKTIONER
+
+• Sla samman och Ordna: Kombinera flera PDF-filer, bilder och texter till ett dokument.
+• Dela och Extrahera: Extrahera valda sidor eller dela upp stora dokument i separata filer.
+• Komprimera PDF: Minska filstorleken effektivt med smidiga forval.
+• Interaktiv PDF-visare: Inbyggd laesare med pinch-to-zoom (upp till 4.5x), panorering och textsokning.
+• Loesenordsskydd: Skydda kansliga dokument med stark kryptering.
+• Signera Dokument: Placera signaturer direkt pa dina sidor.
+• Vattenstamplar: Lagg till text- eller bildvattenstamplar med transparensstyrning.
+• Rotera Sidor: Justera sidriktningen med 90, 180 eller 270 grader.
+• Sidnummer: Numrera sidor med anpassningsbara format.
+• Smidiga Konverteringar:
+  - Bild till PDF: Skapa dokument fran foton och galleribilder.
+  - PDF till Bilder: Exportera sidor som PNG eller JPEG i hog upplosning.
+  - Text till PDF: Konvertera anteckningar och Markdown till strukturerad PDF.
+  - HTML till PDF: Rendera webbkod till prydliga PDF-dokument.
+• Redigera Metadata: Hantera titel, forfattare, amne och nyckelord.
+
+INTEGRITET OCH PRESTANDA
+• 100% Lokalt: Ingen internetanslutning kravs. Dina filer stannar pa enheten.
+• Snabb och Resurssnal: Optimerad intern bearbetningsmotor.
+• Flexibel Design: Anpassad foer mobiler, surfplattor och Android TV."
+no,Norwegian,PDFCraft,"Privat offline PDF-studio for a sla sammen, dele, komprimere og vise filer","PDFCraft er et komplett offline PDF-studio som lar deg behandle dokumenter direkte pa enheten din. Alt kjorer lokalt uten opplasting til nettskyen, noe som sikrer fullt personvern for dine dokumenter.
+
+VIKTIGE FUNKSJONER
+
+• Sla sammen og Sorter: Kombiner flere PDF-er, bilder og notater til ett dokument.
+• Del og Hent ut: Trekk ut bestemte sider eller del opp store dokumenter.
+• Komprimer PDF: Reduser filstorrelsen raskt og effektivt.
+• Interaktiv PDF-viser: Integrert leser med zoom (opptil 4.5x), panorering og tekstsok.
+• Passordbeskyttelse: Sikre konfidensielle filer med kryptering.
+• Signer Dokumenter: Legg til signaturer direkte pa sidene.
+• Vannmerker: Pafaer tilpassede tekst- eller bildevannmerker.
+• Roter Sider: Juster retningen pa sider med 90, 180 eller 270 grader.
+• Sidenummerering: Sett inn tilpassede sidenumre og topptekster.
+• Konvertering:
+  - Bilde til PDF: Gjor bilder om til PDF-dokumenter.
+  - PDF til Bilder: Eksporter sider som PNG eller JPEG.
+  - Tekst til PDF: Forvandle tekst og Markdown til PDF.
+  - HTML til PDF: Gjor HTML-kode om til PDF.
+• Rediger Metadata: Administrer tittel, forfatter, emne og soketermer.
+
+PERSONVERN OG YTELSE
+• 100% Lokalt: Ingen internettilkobling nodvendig.
+• Rask motor: Kjapp og sikker lokal filbehandling.
+• Responsiv: Fungerer soemlost pa telefon, nettbrett og Android TV."
+da,Danish,PDFCraft,"Privat offline PDF-studie til at flette, opdele, komprimere og vise dokumenter","PDFCraft er et komplet offline PDF-studie udviklet til at behandle dokumenter direkte pa din enhed. Alle handlinger kores lokalt uden upload til skyen, hvilket sikrer fuld databeskyttelse.
+
+HOVEDFUNKTIONER
+
+• Flet og Organiser: Saml flere PDF-filer, billeder og tekster i et enkelt dokument.
+• Opdel og Udtræk: Udtræk bestemte sider eller opdel dokumenter i mindre filer.
+• Komprimer PDF: Formindsk filstorrelser med optimerede indstillinger.
+• Interaktiv PDF-fremviser: Fremviser med zoom (op til 4.5x), panorering og tekstsogning.
+• Beskyt med Adgangskode: Las folsomme filer med sikker kryptering.
+• Underskriv Dokumenter: Tilfoj underskrifter direkte pa siderne.
+• Vandmaerker: Tilfoj tekst- eller billedvandmaerker med gennemsigtighedskontrol.
+• Roter Sider: Drej sider 90, 180 eller 270 grader.
+• Sidetal: Indsæt sidetal og overskrifter i tilpasset stil.
+• Konverteringer:
+  - Billeder til PDF: Skab dokumenter ud fra fotos.
+  - PDF til Billeder: Gem sider som PNG eller JPEG.
+  - Tekst til PDF: Lav noter og Markdown om til PDF.
+  - HTML til PDF: Omdan HTML-kode til overskuelig PDF.
+• Rediger Metadata: Juster titel, forfatter, emne og nogleord.
+
+FORTROLIGHED OG YDELSE
+• 100% pa enheden: Intet internet paakraevet.
+• Hurtig og Effektiv: Indbygget nativ motor.
+• Responsivt Layout: Optimeret til mobiler, tablets og Android TV."
+fi,Finnish,PDFCraft,"Yksityinen offline PDF-tyokalu yhdistamiseen, jakamiseen ja pakkaamiseen","PDFCraft on monipuolinen ja turvallinen offline-PDF-tyokalu, jolla kasittelet dokumentteja suoraan laitteellasi. Kaikki toiminnot suoritetaan paikallisesti ilman pilvipalveluihin lataamista, mika takaa tayden yksityisyyden.
+
+KESKEISET OMINAISUUDET
+
+• Yhdista ja Jarjesta: Kokoa useita PDF-tiedostoja, kuvia ja teksteja yhdeksi kokonaisuudeksi.
+• Jaa ja Pura: Irrota haluamasi sivut tai pilko suuret tiedostot osiin.
+• Pakkaa PDF: Pienenna tiedostokokoa laadukkailla pakkausasetuksilla.
+• Interaktiivinen PDF-katseluohjelma: Sujuva nipistyszoomaus (jopa 4.5x), vieritys ja tekstihaku.
+• Salasanasuojaus: Lukitse arkaluontoiset asiakirjat luotettavalla salauksella.
+• Asiakirjojen Allekirjoitus: Lisaa allekirjoitus suoraan dokumentin sivuille.
+• Vesileimat: Aseta teksti- tai kuvavesileimat lapinakyvyyden saadoilla.
+• Sivujen Kaanto: Käännä sivuja 90, 180 tai 270 astetta.
+• Sivunumerointi: Lisaa muokattavat sivunumerot ja ylatunnisteet.
+• Monipuoliset Muunnokset:
+  - Kuva PDF-muotoon: Muunna valokuvat selkeiksi PDF-tiedostoiksi.
+  - PDF Kuviksi: Tallenna sivut tarkkoina PNG- tai JPEG-kuvina.
+  - Teksti PDF-muotoon: Muotoile muistiinpanot PDF-asiakirjoiksi.
+  - HTML PDF-muotoon: Muunna verkkokoodi siistiksi PDF-tiedostoksi.
+• Metatietojen Muokkaus: Paivita otsikko, tekija, aihe ja hakusanat.
+
+TIETOSUOJA JA SUORITUSKYKY
+• 100% Paikallinen: Ei vaadi verkkoyhteytta. Tiedostot pysyvat laitteessasi.
+• Nopea ja Kevyt: Tehokas sisainen kasittelymoottori.
+• Sopeutuva Kayttoliittyma: Toimii erinomaisesti puhelimissa, tableteissa ja Android TV:ssa."
+cs,Czech,PDFCraft,"Lokalni offline PDF studio pro slucovani, deleni, kompresi a prohlizeni","PDFCraft je komplexni offline PDF studio urcene ke zpracovani dokumentu primo ve vasem zarizeni. Vsechny operace probihaji lokalne bez nahravani souboru na cloud, coz zajistuje maximalni soukromi a bezpecnost.
+
+KLICOVE FUNKCE
+
+• Slouceni a Usporadani: Spojte nekolik PDF, obrazku a textu do jednoho souboru.
+• Rozdeleni a Extrakce: Vyjmete vybrane stranky nebo rozdelte vicestrankove dokumenty.
+• Komprese PDF: Snizte velikost souboru pomoci efektivnich predvoleb.
+• Interaktivni Prohlizec: Plynule priblizovani gestem (az 4.5x), posun a vyhledavani v textu.
+• Ochrana Heslem: Zabezpecte citlive dokumenty silnym sifrovanim.
+• Podepisovani Dokumentu: Vkladejte podpisy primo na stranky dokumentu.
+• Vodoznaky: Pridejte textove ci obrazove vodoznaky s nastavenim pruhlednosti.
+• Otaceni Stranek: Upravte orientaci stranek o 90, 180 nebo 270 stupnu.
+• Cislovani Stranek: Vlozte vlastni cisla stran a zahlavi.
+• Univerzalni Konverze:
+  - Obrazek do PDF: Prevedte fotografie na cisty PDF dokument.
+  - PDF do Obrazku: Ulozte stranky jako PNG nebo JPEG ve vysokem rozliseni.
+  - Text do PDF: Prevedte poznamky a Markdown na prehledne PDF.
+  - HTML do PDF: Prevedte webovy kod na formatovane PDF.
+• Uprava Metadat: Upravujte nazev, autora, predmet a klicova slova.
+
+SOUKROMI A RYCHLOST
+• 100% v Zarizeni: Funguje zcela bez pripojeni k internetu.
+• Rychly a Usporny: Integrovany nativni engine pro okamzite vysledky.
+• Prehledne Rozhrani: Pri zpusobeno pro telefony, tablety i Android TV."
+hu,Hungarian,PDFCraft,"Biztonsagos offline PDF studio egyesiteshez, bontashoz es tomoriteshez","A PDFCraft egy teljes koru, biztonsagos offline PDF studio, amely lehetove teszi a dokumentumok kozvetlen feldolgozasat a keszuleken. Minden muvelet helyben fut, felhoalapu feltoltes nelkul, igy garantalja a maximalis adatvedelmet.
+
+FOBB FUNKCIOCSOK
+
+• Egyesites es Sorrendezes: Egyesitsen tobb PDF-et, kepet es szoveges fajlt egyetlen dokumentumba.
+• Felosztas es Kiemeles: Vegyen ki egyedi oldalakat vagy bontson szet nagyobb dokumentumokat.
+• PDF Tomorites: Csokkentse a fajlmeretet hatekony tomoritesi beallitasokkal.
+• Interaktiv PDF Megjelenito: Finom ketujjas nagyitas (akark 4.5x), mozgatás es szovegkereses.
+• Jelszavas Vedelem: Zarja le bizalmas dokumentumait eros titkositassal.
+• Dokumentumok Alairasa: Helyezzen el digitalis alairast a dokumentum lapjain.
+• Vizjelek: Alkalmazzon szoveges vagy kepes vizjeleket atlatszosagi beallitasokkal.
+• Oldalak Elforgatasa: Igazitsa az oldalakat 90, 180 vagy 270 fokkal.
+• Oldalszamozas: Szamozza be az oldalakat egyedi formatumban.
+• Sokoldalu Atalakitás:
+  - Kepbol PDF: Keszitsen PDF-et fenykepekbol es galeriabol.
+  - PDF-bol Kepek: Mentse az oldalakat PNG vagy JPEG formatumban.
+  - Szovegbol PDF: Alakitsa at jegyzeteit rendezett PDF-dokumentumma.
+  - HTML-bol PDF: Alakitson at webes kodot tiszta PDF-fe.
+• Metaadatok Szerkesztese: Allitsa be a cimet, szerzot, temat es kulcsszavakat.
+
+ADATVEDELEM ES TELJESITMENY
+• 100% Helyi: Nem igenyel internetkapcsolatot. Fajljai nem hagyjak el az eszkozt.
+• Gyors es Stabil: Optimalizalt beepitett feldolgozomotor.
+• Reszponziv: Tokeletesen mukodik telefonon, tableten es Android TV-n."
+ro,Romanian,PDFCraft,"Studio PDF privat offline pentru imbinare, impartire, comprimare si citire","PDFCraft este un studio PDF offline complet, creat pentru a procesa si organiza documentele direct pe dispozitivul tau. Toate operatiunile se desfasoara local, fara incarcari in cloud, asigurand confidentialitatea totala a fisierelor tale.
+
+CARACTERISTICI PRINCIPALE
+
+• Imbina si Reordoneaza: Combina mai multe PDF-uri, imagini si notite intr-un singur fisier.
+• Imparte si Extrage: Extrage pagini selectate sau separa documentele mari in fisiere distincte.
+• Comprima PDF: Reduce dimensiunea fisierelor pastrand lizibilitatea textului si imaginilor.
+• Vizualizator PDF Interactiv: Zoom tactil precis (pana la 4.5x), navigare rapida, dubla atingere si cautare in text.
+• Protejeaza cu Parola: Securizeaza fisierele confidentiale prin criptare solida.
+• Semneaza Documente: Aplica semnaturi direct pe paginile documentului.
+• Filigran: Adauga text sau logo ca filigran cu reglaj de transparenta si unghi.
+• Roteste Pagini: Ajusteaza orientarea paginilor la 90, 180 sau 270 de grade.
+• Numerotare Pagini: Insereaza numere de pagina personalizate in antet sau subsol.
+• Conversii Utile:
+  - Imagine in PDF: Transforma fotografiile in documente PDF clare.
+  - PDF in Imagini: Exporta paginile in format PNG sau JPEG de inalta rezolutie.
+  - Text in PDF: Converteste notite si Markdown in documente structurate.
+  - HTML in PDF: Transforma codul HTML in pagini PDF bine formatate.
+• Editare Metadate: Modifica titlul, autorul, subiectul si cuvintele cheie.
+
+CONFIDENTIALITATE SI RAPIDITATE
+• 100% pe Dispozitiv: Nu necesita conexiune la internet. Fisierele raman pe telefonul tau.
+• Rapid si Eficient: Motor nativ integrat pentru procesare fluida.
+• Design Adaptabil: Construit pentru telefoane, tablete si Android TV."
+el,Greek,PDFCraft,"Ιδιωτικό offline εργαλείο PDF για συγχώνευση, διαχωρισμό, συμπίεση και προβολή","Το PDFCraft είναι ένα ολοκληρωμένο, ασφαλές offline εργαλείο PDF για την επεξεργασία και διαχείριση εγγράφων απευθείας στη συσκευή σας. Όλες οι λειτουργίες εκτελούνται τοπικά χωρίς μεταφόρτωση στο cloud, διασφαλίζοντας πλήρη προστασία των προσωπικών σας δεδομένων.
+
+ΚΥΡΙΑ ΧΑΡΑΚΤΗΡΙΣΤΙΚΑ
+
+• Συγχώνευση & Ταξινόμηση: Συνδυάστε πολλά αρχεία PDF, εικόνες και κείμενα σε ένα ενιαίο αρχείο.
+• Διαχωρισμός & Εξαγωγή: Εξάγετε επιλεγμένες σελίδες ή χωρίστε μεγάλα έγγραφα σε επιμέρους τμήματα.
+• Συμπίεση PDF: Μειώστε το μέγεθος αρχείου με έξυπνα προφίλ συμπίεσης.
+• Διαδραστική Προβολή PDF: Ενσωματωμένη προβολή με μεγέθυνση αφής (έως 4.5x), ομαλή κύλιση και αναζήτηση κειμένου.
+• Προστασία με Κωδικό: Κλειδώστε ευαίσθητα έγγραφα με ισχυρή κρυπτογράφηση.
+• Ψηφιακή Υπογραφή: Προσθέστε υπογραφές απευθείας στις σελίδες του PDF.
+• Υδατογράφημα: Τοποθετήστε υδατογραφήματα κειμένου ή εικόνας με έλεγχο διαφάνειας.
+• Περιστροφή Σελίδων: Περιστρέψτε σελίδες κατά 90, 180 ή 270 μοίρες.
+• Αρίθμηση Σελίδων: Προσθέστε προσαρμοσμένους αριθμούς σελίδων στην κεφαλίδα ή το υποσέλιδο.
+• Μετατροπές Αρχείων:
+  - Εικόνα σε PDF: Μετατρέψτε φωτογραφίες σε έγγραφα PDF.
+  - PDF σε Εικόνες: Αποθηκεύστε σελίδες ως PNG ή JPEG υψηλής ανάλυσης.
+  - Κείμενο σε PDF: Μετατρέψτε σημειώσεις και Markdown σε μορφοποιημένο PDF.
+  - HTML σε PDF: Μετατρέψτε κώδικα HTML σε αρχείο PDF.
+• Επεξεργασία Μεταδεδομένων: Ενημερώστε τίτλο, συντάκτη, θέμα και λέξεις-κλειδιά.
+
+ΙΔΙΩΤΙΚΟΤΗΤΑ ΚΑΙ ΑΠΟΔΟΣΗ
+• 100% Τοπική Λειτουργία: Δεν απαιτείται σύνδεση στο διαδίκτυο.
+• Γρήγορο & Αξιόπιστο: Ενσωματωμένη μηχανή επεξεργασίας.
+• Προσαρμόσιμο Περιβάλλον: Βελτιστοποιημένο για κινητά, tablet και Android TV."
+he,Hebrew,PDFCraft,"סטודיו PDF לא מקוון ומאובטח למיזוג, פיצול, דחיסה וצפייה במסמכים","PDFCraft הוא סטודיו PDF מקצועי ומאובטח ללא צורך בחיבור לרשת, המאפשר עיבוד וניהול מסמכים ישירות במכשיר שלך. כל הפעולות מתבצעות באופן מקומי ללא העלאת קבצים לענן, דבר המבטיח פרטיות מלאה לנתונים שלך.
+
+תכונות עיקריות
+
+• מיזוג וסידור מחדש: שילוב מספר קובצי PDF, תמונות וטקסטים למסמך אחד מסודר.
+• פיצול וחילוץ: חילוץ עמודים ספציפיים או חלוקת מסמך גדול למספר קבצים נפרדים.
+• דחיסת PDF: הקטנת נפח הקבצים ביעילות תוך שמירה על קריאות ברורה.
+• מציג PDF אינטראקטיבי: תצוגה מובנית עם זום מגע חלק (עד פי 4.5), גרירה, הקשה כפולה וחיפוש טקסט.
+• הגנה באמצעות סיסמה: נעילת קבצים רגישים בהצפנה מתקדמת.
+• חתימה על מסמכים: הוספת חתימה ופרטי אישור ישירות על גבי המסמך.
+• סימן מים: הוספת סימני מים של טקסט או לוגו עם שליטה בשקיפות ובזווית.
+• סיבוב עמודים: שינוי כיוון עמודים ב-90, 180 או 270 מעלות.
+• מספור עמודים: החלת מספרי עמודים מותאמים אישית בכותרת העליונה או התחתונה.
+• המרות קבצים:
+  - מתמונה ל-PDF: המרת צילומים ותמונות למסמך PDF ברור.
+  - מ-PDF לתמונות: ייצוא עמודים לתמונות PNG או JPEG באיכות גבוהה.
+  - מטקסט ל-PDF: המרת פתקים וקובצי Markdown ל-PDF מעוצב.
+  - מ-HTML ל-PDF: המרת קוד ועמודי אינטרנט ל-PDF.
+• עריכת מטא-דאטה: עדכון כותרת, מחבר, נושא ומילות מפתח.
+
+פרטיות וביצועים
+• 100% במכשיר: אין צורך בחיבור לאינטרנט. הקבצים נשארים אצלך בלבד.
+• מהיר ויציב: מנוע עיבוד מקומי מובנה ויעיל.
+• עיצוב מותאם: תמיכה מושלמת בטלפונים, טאבלטים ו-Android TV."
+uk,Ukrainian,PDFCraft,"Повний офлайн PDF-інструмент для об'єднання, розділення, стиснення та перегляду","PDFCraft — потужна офлайн-студія для локальної обробки та редагування PDF-документів безпосередньо на вашому пристрої. Усі операції виконуються локально без завантаження у хмару, що гарантує цілковиту конфіденційність ваших файлів.
+
+ОСНОВНІ МОЖЛИВОСТІ
+
+• Об'єднання та сортування: збирайте кілька PDF, зображень і текстових файлів в один документ.
+• Розділення та вилучення: вилучайте окремі сторінки або розбивайте великі файли на частини.
+• Стиснення PDF: зменшуйте розмір документів за допомогою зручних профілів стиснення.
+• Інтерактивний переглядач: плавне масштабування щипком (до 4.5x), переміщення, подвійний дотик та пошук тексту.
+• Захист паролем: захищайте важливі файли надійним шифруванням.
+• Підписання документів: додавайте підпис безпосередньо на сторінки PDF.
+• Водяні знаки: накладайте текстові чи графічні знаки з налаштуванням прозорості та кута.
+• Обертання сторінок: змінюйте орієнтацію сторінок на 90, 180 або 270 градусів.
+• Нумерація сторінок: додавайте номери сторінок та колонтитули у власному стилі.
+• Конвертація форматів:
+  - Зображення в PDF: створюйте документи зі світлин та сканів.
+  - PDF у зображення: зберігайте сторінки у форматі PNG або JPEG високої чіткості.
+  - Текст у PDF: перетворюйте нотатки та Markdown на впорядкований PDF.
+  - HTML у PDF: трансформуйте веброзмітку в охайний документ PDF.
+• Редагування метаданих: переглядайте та змінюйте назву, автора, тему й ключові слова.
+
+ПРИВАТНІСТЬ І ШВИДКОДІЯ
+• 100% на пристрої: не потребує підключення до мережі.
+• Швидкий і легкий: оптимізований вбудований движок обробки.
+• Адаптивний інтерфейс: створений для смартфонів, планшетів та Android TV."
+bn,Bengali,PDFCraft,"মার্জ, স্প্লিট, কম্প্রেস ও ভিউ করার জন্য ১০০% অন-ডিভাইস অফলাইন পিডিএফ স্টুডিও","PDFCraft হলো একটি সম্পূর্ণ অফলাইন পিডিএফ স্টুডিও, যা সরাসরি আপনার ডিভাইসে ফাইল প্রক্রিয়াকরণ ও পরিচালনার সুবিধা দেয়। কোনো ক্লাউড আপলোড ছাড়াই সমস্ত কাজ স্থানীয়ভাবে চলে, যা আপনার ব্যক্তিগত ও ব্যবসায়িক তথ্যের পূর্ণ নিরাপত্তা নিশ্চিত করে।
+
+প্রধান বৈশিষ্ট্যসমূহ
+
+• মার্জ ও সাজানো: একাধিক পিডিএফ, ছবি ও টেক্সট ফাইল নিজের ইচ্ছেমতো ক্রমানুসারে একটি ডকুমেন্টে যুক্ত করুন।
+• স্প্লিট ও এক্সট্র্যাক্ট: নির্দিষ্ট পৃষ্ঠা বা অংশ আলাদা ফাইলে রূপান্তর করুন।
+• পিডিএফ কম্প্রেস: ফাইলের সাইজ সহজে ও দক্ষতার সাথে হ্রাস করুন।
+• ইন্টারেক্টিভ পিডিএফ ভিউয়ার: ৪.৫ গুণ পর্যন্ত জুম, মসৃণ স্ক্রলিং, ডাবল-ট্যাপ ও টেক্সট অনুসন্ধানের সুবিধা।
+• পাসওয়ার্ড সুরক্ষা: শক্তিশালী পাসওয়ার্ড দিয়ে ফাইল নিরাপদে লক করুন।
+• ডকুমেন্টে স্বাক্ষর: সরাসরি পিডিএফ পেজে ডিজিটাল স্বাক্ষর যুক্ত করুন।
+• ওয়াটারমার্ক: স্বচ্ছতা ও কোণ নিয়ন্ত্রণের মাধ্যমে কাস্টম টেক্সট বা ইমেজ ওয়াটারমার্ক বসান।
+• পৃষ্ঠা ঘোরানো: পৃষ্ঠাগুলোকে ৯০, ১৮০ বা ২৭০ ডিগ্রিতে ঘোরান।
+• পৃষ্ঠা নম্বর যুক্তকরণ: হেডার বা ফুটারে কাস্টম পৃষ্ঠা নম্বর সংযুক্ত করুন।
+• একাধিক রূপান্তর সুবিধা:
+  - ছবি থেকে পিডিএফ: ক্যামেরা ও গ্যালারির ছবি থেকে মানসম্মত পিডিএফ তৈরি করুন।
+  - পিডিএফ থেকে ছবি: উচ্চ রেজুলেশনের পিএনজি বা জেপিইজি ফরম্যাটে পেজ সংরক্ষণ করুন।
+  - টেক্সট থেকে পিডিএফ: নোট ও কোডকে পরিপাটি পিডিএফে রূপান্তর করুন।
+  - এইচটিএমএল থেকে পিডিএফ: ওয়েব কোডকে স্পষ্ট পিডিএফে রূপান্তর করুন।
+• মেটাডেটা সম্পাদনা: ডকুমেন্টের শিরোনাম, লেখক, বিষয় ও কিওয়ার্ড আপডেট করুন।
+
+গোপনীয়তা ও কর্মক্ষমতা
+• ১০০% ডিভাইসে চালিত: কোনো ইন্টারনেট সংযোগ প্রয়োজন নেই।
+• দ্রুত ও নির্ভরযোগ্য: অভ্যন্তরীণ শক্তিশালী প্রসেসিং ইঞ্জিন।
+• চমৎকার ডিজাইন: স্মার্টফোন, ট্যাবলেট এবং অ্যান্ড্রয়েড টিভিতে ব্যবহারের উপযোগী।"
+tl,Filipino,PDFCraft,"Pribadong offline PDF studio para sa pagsasama, paghahati at pag-compress","Ang PDFCraft ay isang kumpletong offline PDF studio na idinisenyo upang magproseso ng mga dokumento nang direkta sa iyong device. Ang lahat ng operasyon ay lokal na isinasagawa nang walang pag-upload sa cloud, na tinitiyak ang buong privacy.
+
+MGA PANGUNAHING TAMPOK
+
+• Pagsamahin at Isaayos: Pagsamahin ang maraming PDF, larawan, at teksto sa isang maayos na file.
+• Hatiin at Kunin: Kumuha ng mga partikular na pahina o hatiin ang mga dokumento sa magkakahiwalay na file.
+• I-compress ang PDF: Bawasan ang laki ng file habang pinapanatili ang kalidad nito.
+• Interactive PDF Viewer: May pinch-to-zoom (hanggang 4.5x), maayos na pag-scroll, at paghahanap ng teksto.
+• Proteksyon ng Password: I-lock ang mga dokumento gamit ang matibay na password.
+• Lagdaan ang Dokumento: Maglagay ng lagda nang direkta sa iyong mga pahina.
+• Watermark: Maglagay ng teksto o logo bilang watermark na may kontrol sa opacity at anggulo.
+• Paikutin ang mga Pahina: Ayusin ang oryentasyon ng pahina sa 90, 180, o 270 degrees.
+• Numero ng Pahina: Maglagay ng numero ng pahina sa header o footer.
+• Mga Kapaki-pakinabang na Konbersyon:
+  - Larawan patungong PDF: Gawing maayos na PDF ang mga larawan mula sa gallery.
+  - PDF patungong Larawan: I-export ang mga pahina bilang PNG o JPEG.
+  - Teksto patungong PDF: I-convert ang mga tala at Markdown sa PDF.
+  - HTML patungong PDF: I-convert ang web code sa malinaw na PDF.
+• I-edit ang Metadata: Baguhin ang pamagat, may-akda, paksa, at mga keyword.
+
+PRIVACY AT BILIS
+• 100% sa Device: Hindi kailangan ng koneksyon sa internet.
+• Mabilis at Maaasahan: Naka-embed na native engine para sa mabilis na pagproseso.
+• Tumutugong Disenyo: Angkop para sa mga telepono, tablet, at Android TV."
+ms,Malay,PDFCraft,"Studio PDF luar talian peribadi untuk gabung, pisah, mampat dan lihat dokumen","PDFCraft ialah studio PDF luar talian yang lengkap untuk memproses dan mengurus dokumen terus pada peranti anda. Semua operasi dijalankan secara setempat tanpa sebarang muat naik ke awan, menjamin privasi sepenuhnya.
+
+CIRI-CIRI UTAMA
+
+• Gabung dan Susun Semula: Gabungkan pelbagai PDF, gambar dan teks menjadi satu dokumen mengikut susunan.
+• Pisah dan Ekstrak: Ekstrak halaman tertentu atau bahagikan dokumen besar kepada beberapa fail.
+• Mampatkan PDF: Kurangkan saiz fail dengan pilihan mampatan yang cekap.
+• Pelihat PDF Interaktif: Dilengkapi zum picit (sehingga 4.5x), kawalan seret lancar dan carian teks.
+• Kunci Kata Laluan: Lindungi dokumen sulit dengan penyulitan kata laluan yang kukuh.
+• Tandatangan Dokumen: Letakkan tandatangan rasmi terus pada halaman PDF anda.
+• Tanda Air (Watermark): Tambah teks atau logo tanda air dengan tetapan ketelusan dan sudut.
+• Putar Halaman: Betulkan orientasi halaman pada 90, 180 atau 270 darjah.
+• Nombor Halaman: Masukkan nombor halaman pada pengepala atau pengaki dokumen.
+• Pelbagai Penukaran:
+  - Imej ke PDF: Tukar foto kamera dan galeri menjadi dokumen PDF berkualiti.
+  - PDF ke Imej: Eksport halaman sebagai imej PNG atau JPEG beresolusi tinggi.
+  - Teks ke PDF: Tukar nota ringkas dan Markdown kepada PDF berformat.
+  - HTML ke PDF: Render kod HTML menjadi dokumen PDF yang kemas.
+• Edit Metadata: Kemas kini tajuk, pengarang, subjek dan kata kunci dokumen.
+
+PRIVASI DAN PRESTASI
+• 100% Tempatan: Berfungsi sepenuhnya tanpa sambungan internet.
+• Cepat dan Ringan: Enjin pemprosesan terbina dalam yang cekap.
+• Reka Bentuk Responsif: Disokong pada telefon pintar, tablet dan Android TV."
+ta,Tamil,PDFCraft,"இணைக்க, பிரிக்க, சுருக்க மற்றும் பார்க்க உதவும் ஆஃப்லைன் PDF ஸ்டுடியோ","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+te,Telugu,PDFCraft,"PDFలను విలీనం చేయడానికి, విభజించడానికి మరియు కుదించడానికి ఆఫ్‌లైన్ స్టూడియో","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+mr,Marathi,PDFCraft,"मर्ज, स्प्लिट, कॉम्प्रेस आणि पाहण्यासाठी खाजगी ऑफलाइन PDF स्टुडिओ","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+gu,Gujarati,PDFCraft,"મર્જ, સ્પ્લિટ, કોમ્પ્રેસ અને જોવા માટેનું પ્રાઇવેટ ઑફલાઇન PDF સ્ટુડિયો","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+kn,Kannada,PDFCraft,"ವಿಲೀನಗೊಳಿಸಲು, ವಿಭಜಿಸಲು ಮತ್ತು ಕುಗ್ಗಿಸಲು ಆಫ್‌ಲೈನ್ PDF ಸ್ಟುಡಿಯೋ","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+ml,Malayalam,PDFCraft,ലയിപ്പിക്കാനും വിഭജിക്കാനും ചുരുക്കാനും ഉള്ള ഓഫ്‌ലൈൻ PDF സ്റ്റുഡിയോ,"PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+pa,Punjabi,PDFCraft,"ਮਰਜ, ਸਪਲਿਟ, ਕੰਪਰੈੱਸ ਅਤੇ ਦੇਖਣ ਲਈ ਪ੍ਰਾਈਵੇਟ ਆਫ਼ਲਾਈਨ PDF ਸਟੂਡੀਓ","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+sw,Swahili,PDFCraft,"Studio ya PDF ya nje ya mtandao ya kuunganisha, kugawa na kubana mafaili","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+af,Afrikaans,PDFCraft,"Privaat vanlyn PDF-ateljee om dokumente saam te voeg, te verdeel en te krimp","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+bg,Bulgarian,PDFCraft,"Офлайн PDF студио за обединяване, разделяне, компресиране и преглед","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+hr,Croatian,PDFCraft,"Privatni offline PDF studio za spajanje, dijeljenje, sazimanje i pregled","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+et,Estonian,PDFCraft,"Privaatne voerguueline PDF-stuudio uhendamiseks, jagamiseks ja tihendamiseks","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+lv,Latvian,PDFCraft,"Privata bezsaistes PDF studija apvienosanai, sadalisanai un saspiesanai","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+lt,Lithuanian,PDFCraft,"Privati neprisijungus PDF studija sujungimui, padalijimui ir suspaudimui","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+sr,Serbian,PDFCraft,"Privatni oflajn PDF studio za spajanje, deljenje, kompresovanje i pregled","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+sk,Slovak,PDFCraft,"Sukromne offline PDF studio na spajanie, delenie, kompresiu a prezeranie","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+sl,Slovenian,PDFCraft,"Zasebni offline PDF studio za zdruzevanje, deljenje, stiskanje in ogled","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+ca,Catalan,PDFCraft,"Estudi PDF fora de linia per unir, dividir, comprimir i visualitzar","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+eu,Basque,PDFCraft,"Lineaz kanpoko PDF estudio pribatua batzeko, banatzeko eta konprimitzeko","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+gl,Galician,PDFCraft,"Estudo PDF sen conexion privado para unir, dividir, comprimir e visualizar","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+fa,Persian,PDFCraft,استودیوی پی‌دی‌اف آفلاین و خصوصی برای ادغام، تفکیک، فشرده‌سازی و مشاهده,"PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+ur,Urdu,PDFCraft,ضم، تقسیم، کمپریس اور دیکھنے کے لیے نجی آف لائن PDF اسٹوڈیو,"PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+is,Icelandic,PDFCraft,"Einka offline PDF stúdio til að sameina, skipta, þjappa og skoða","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+sq,Albanian,PDFCraft,"Studio PDF offline private për bashkim, ndarje, ngjeshje dhe shikim","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+mk,Macedonian,PDFCraft,"Приватно офлајн PDF студио за спојување, делење, компресирање и преглед","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+hy,Armenian,PDFCraft,"Անցանց PDF ստուդիա՝ միավորման, բաժանման, սեղմման և դիտման համար","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+ka,Georgian,PDFCraft,"ოფლაინ PDF სტუდია გაერთიანების, გაყოფის, შეკუმშვის და ნახვისთვის","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+az,Azerbaijani,PDFCraft,"Birləşdirmək, bölmək, sıxmaq və baxmaq üçün offline PDF studiyası","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."
+bs,Bosnian,PDFCraft,"Privatni offline PDF studio za spajanje, dijeljenje, kompresiju i pregled","PDFCraft is a complete, private offline PDF studio designed to process and manage documents directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, business, and financial documents.
+
+KEY FEATURES
+
+• Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom ordering.
+• Split & Extract: Extract specific pages, ranges, or separate multi-page documents into individual files.
+• Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
+• Interactive PDF Viewer: Built-in page viewer with smooth pinch-to-zoom (up to 4.5x), panning, double-tap zoom toggle, and in-document text search.
+• Protect & Encrypt: Secure sensitive documents with strong password encryption and permission controls.
+• Sign Documents: Add signatures and formal signing details directly to your PDF files.
+• Watermark: Protect documents with custom text or image stamps, adjustable opacity, rotation, and alignment.
+• Rotate Pages: Orient individual or all pages by 90, 180, or 270 degrees.
+• Page Numbers: Stamp customizable page number patterns and headers onto document pages.
+• Convert Formats:
+  - Image to PDF: Convert camera shots and gallery photos into multi-page PDFs.
+  - PDF to Images: Export document pages as high-resolution PNG or JPEG images.
+  - Text to PDF: Transform notes, code, and Markdown text into structured PDFs.
+  - HTML to PDF: Convert web markup and HTML documents into clean PDFs.
+• Edit Metadata: Inspect and update document title, author, subject, and search keywords.
+
+PRIVACY & PERFORMANCE
+• 100% On-Device: No internet connection required. Your files never leave your device.
+• Fast & Lightweight: Powered by an embedded native rendering and processing engine.
+• Adaptive Design: Optimized for smartphones, foldables, tablets, and Android TV."

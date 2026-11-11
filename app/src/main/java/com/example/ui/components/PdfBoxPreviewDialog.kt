@@ -38,6 +38,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.ui.res.stringResource
+import com.example.R
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -225,15 +227,15 @@ fun PdfBoxPreviewDialog(
                                     modifier = Modifier.fillMaxWidth(),
                                     horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
-                                    Text("Total Pages: ${meta.totalPages}", fontSize = 12.sp, color = TextPrimary)
-                                    Text("File Size: ${meta.fileSizeFormatted}", fontSize = 12.sp, color = TextPrimary)
+                                    Text(stringResource(R.string.preview_total_pages_label, meta.totalPages), fontSize = 12.sp, color = TextPrimary)
+                                    Text(stringResource(R.string.preview_file_size_label, meta.fileSizeFormatted), fontSize = 12.sp, color = TextPrimary)
                                 }
                                 Spacer(modifier = Modifier.height(4.dp))
                                 Row(
                                     modifier = Modifier.fillMaxWidth(),
                                     horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
-                                    Text("PDF Version: ${meta.version}", fontSize = 12.sp, color = TextMuted)
+                                    Text(stringResource(R.string.preview_pdf_version_label, meta.version), fontSize = 12.sp, color = TextMuted)
                                     Text(
                                         if (meta.isEncrypted) "Protected / Encrypted" else "Standard Unencrypted",
                                         fontSize = 12.sp,
@@ -257,7 +259,7 @@ fun PdfBoxPreviewDialog(
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             CircularProgressIndicator(color = EmeraldPrimary)
                             Spacer(modifier = Modifier.height(12.dp))
-                            Text("Rendering page with PDFBox...", color = TextMuted, fontSize = 13.sp)
+                            Text(stringResource(R.string.preview_rendering_pdfbox), color = TextMuted, fontSize = 13.sp)
                         }
                     } else if (currentBitmap != null) {
                         Card(
@@ -292,12 +294,12 @@ fun PdfBoxPreviewDialog(
                                         modifier = Modifier.size(14.dp)
                                     )
                                     Spacer(modifier = Modifier.width(8.dp))
-                                    Text("Updating...", color = Color.White, fontSize = 11.sp)
+                                    Text(stringResource(R.string.preview_updating), color = Color.White, fontSize = 11.sp)
                                 }
                             }
                         }
                     } else {
-                        Text("Unable to render page preview.", color = TextMuted)
+                        Text(stringResource(R.string.preview_unable_render), color = TextMuted)
                     }
                 }
 

@@ -675,7 +675,7 @@ fun LibraryScreen(
             icon = { Icon(Icons.Default.Delete, contentDescription = null, tint = MaterialTheme.colorScheme.error) },
             title = { Text(stringResource(R.string.library_delete_dialog_title)) },
             text = {
-                Text("Are you sure you want to permanently delete '${project.title}' from storage? This action cannot be undone.")
+                Text(stringResource(R.string.library_delete_confirm_prompt, project.title))
             },
             confirmButton = {
                 Button(
@@ -690,7 +690,7 @@ fun LibraryScreen(
             },
             dismissButton = {
                 TextButton(onClick = { projectToDelete = null }) {
-                    Text("Cancel")
+                    Text(stringResource(R.string.action_cancel))
                 }
             }
         )
@@ -734,7 +734,7 @@ fun LibraryScreen(
             },
             dismissButton = {
                 TextButton(onClick = { projectToRename = null }) {
-                    Text("Cancel")
+                    Text(stringResource(R.string.action_cancel))
                 }
             }
         )
@@ -844,7 +844,7 @@ fun LibraryScreen(
             confirmButton = {},
             dismissButton = {
                 TextButton(onClick = { projectContextMenu = null }) {
-                    Text("Close")
+                    Text(stringResource(R.string.action_close))
                 }
             }
         )
@@ -896,7 +896,7 @@ fun LibraryScreen(
             },
             dismissButton = {
                 TextButton(onClick = { showBulkRenameDialog = false }) {
-                    Text("Cancel")
+                    Text(stringResource(R.string.action_cancel))
                 }
             }
         )

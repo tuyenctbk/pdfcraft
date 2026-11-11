@@ -397,11 +397,13 @@ fun ToolsScreen(
                     items(filteredTools, key = { it.operationType.name }) { tool ->
                         Card(
                             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.8f)),
                             shape = RoundedCornerShape(16.dp),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp, pressedElevation = 6.dp),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .defaultMinSize(minHeight = 168.dp)
+                                .clip(RoundedCornerShape(16.dp))
                                 .clickable { viewModel.setActiveTool(tool.operationType) }
                                 .testTag("tool_card_${tool.operationType.name}")
                         ) {

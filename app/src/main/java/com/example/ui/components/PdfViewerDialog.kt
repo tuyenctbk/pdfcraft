@@ -6,6 +6,8 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,6 +28,9 @@ import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.RestartAlt
+import androidx.compose.material.icons.filled.ZoomIn
+import androidx.compose.material.icons.filled.ZoomOut
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -37,6 +42,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,8 +50,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.stringResource
+import com.example.R
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
@@ -82,6 +93,11 @@ fun PdfViewerDialog(
     var currentBitmap by remember { mutableStateOf<Bitmap?>(null) }
     var isLoading by remember { mutableStateOf(true) }
 
+    // Zoom & Pan state
+    var zoomScale by remember { mutableFloatStateOf(1f) }
+    var panOffsetX by remember { mutableFloatStateOf(0f) }
+    var panOffsetY by remember { mutableFloatStateOf(0f) }
+
     // Search state
     var isSearchActive by remember { mutableStateOf(false) }
     var searchQuery by remember { mutableStateOf("") }
@@ -91,6 +107,9 @@ fun PdfViewerDialog(
 
     LaunchedEffect(file, currentPageIndex) {
         isLoading = true
+        zoomScale = 1f
+        panOffsetX = 0f
+        panOffsetY = 0f
         withContext(Dispatchers.IO) {
             try {
                 val pfd = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
@@ -200,7 +219,7 @@ fun PdfViewerDialog(
                                 OutlinedTextField(
                                     value = searchQuery,
                                     onValueChange = { searchQuery = it },
-                                    placeholder = { Text("Search text in PDF...", fontSize = 12.sp, color = TextMuted) },
+                                    placeholder = { Text(stringResource(R.string.preview_search_text_hint), fontSize = 12.sp, color = TextMuted) },
                                     leadingIcon = { Icon(Icons.Default.Search, contentDescription = null, tint = EmeraldPrimary, modifier = Modifier.size(18.dp)) },
                                     trailingIcon = if (searchQuery.isNotEmpty()) {
                                         {
@@ -223,7 +242,7 @@ fun PdfViewerDialog(
                                 )
 
                                 if (isSearching) {
-                                    Text("Searching PDF text...", fontSize = 11.sp, color = EmeraldPrimary, modifier = Modifier.padding(top = 4.dp))
+                                    Text(stringResource(R.string.preview_searching), fontSize = 11.sp, color = EmeraldPrimary, modifier = Modifier.padding(top = 4.dp))
                                 } else if (searchQuery.isNotBlank()) {
                                     Row(
                                         modifier = Modifier.fillMaxWidth().padding(top = 6.dp),
@@ -231,7 +250,7 @@ fun PdfViewerDialog(
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
                                         if (searchResults.isEmpty()) {
-                                            Text("No matches found for '$searchQuery'", fontSize = 11.sp, color = TextMuted)
+                                            Text(stringResource(R.string.preview_no_matches, searchQuery), fontSize = 11.sp, color = TextMuted)
                                         } else {
                                             val currentMatch = searchResults.getOrNull(currentMatchIndex)
                                             Text(
@@ -287,71 +306,231 @@ fun PdfViewerDialog(
                     }
                 }
 
-                // Page View Canvas
+                // Page View Canvas with Gestures (Pinch to Zoom, Pan, Double-Tap)
                 Box(
-                    modifier = Modifier.weight(1f).fillMaxWidth().padding(16.dp),
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+                        .clipToBounds()
+                        .padding(12.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     if (isLoading) {
                         CircularProgressIndicator(color = EmeraldPrimary)
                     } else if (currentBitmap != null) {
-                        Card(
-                            colors = CardDefaults.cardColors(containerColor = Color.White),
-                            shape = RoundedCornerShape(12.dp),
-                            border = androidx.compose.foundation.BorderStroke(1.dp, CharcoalCardBorder)
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .clipToBounds()
+                                .pointerInput(Unit) {
+                                    detectTransformGestures { _, pan, zoom, _ ->
+                                        val newScale = (zoomScale * zoom).coerceIn(1f, 4.5f)
+                                        zoomScale = newScale
+                                        if (newScale > 1.01f) {
+                                            val maxPan = 600f * (newScale - 1f)
+                                            panOffsetX = (panOffsetX + pan.x).coerceIn(-maxPan, maxPan)
+                                            panOffsetY = (panOffsetY + pan.y).coerceIn(-maxPan, maxPan)
+                                        } else {
+                                            panOffsetX = 0f
+                                            panOffsetY = 0f
+                                        }
+                                    }
+                                }
+                                .pointerInput(Unit) {
+                                    detectTapGestures(
+                                        onDoubleTap = {
+                                            if (zoomScale > 1.2f) {
+                                                zoomScale = 1f
+                                                panOffsetX = 0f
+                                                panOffsetY = 0f
+                                            } else {
+                                                zoomScale = 2.5f
+                                            }
+                                        }
+                                    )
+                                },
+                            contentAlignment = Alignment.Center
                         ) {
-                            Image(
-                                bitmap = currentBitmap!!.asImageBitmap(),
-                                contentDescription = "Page ${currentPageIndex + 1}",
-                                contentScale = ContentScale.Fit,
-                                modifier = Modifier.fillMaxSize().padding(8.dp)
-                            )
+                            Card(
+                                colors = CardDefaults.cardColors(containerColor = Color.White),
+                                shape = RoundedCornerShape(12.dp),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, CharcoalCardBorder),
+                                modifier = Modifier
+                                    .graphicsLayer {
+                                        scaleX = zoomScale
+                                        scaleY = zoomScale
+                                        translationX = panOffsetX
+                                        translationY = panOffsetY
+                                    }
+                            ) {
+                                Image(
+                                    bitmap = currentBitmap!!.asImageBitmap(),
+                                    contentDescription = "Page ${currentPageIndex + 1}",
+                                    contentScale = ContentScale.Fit,
+                                    modifier = Modifier.padding(8.dp)
+                                )
+                            }
+                        }
+
+                        // Floating Zoom Indicator Badge (shown when zoomed)
+                        if (zoomScale > 1.05f) {
+                            Surface(
+                                color = Color.Black.copy(alpha = 0.75f),
+                                shape = RoundedCornerShape(16.dp),
+                                modifier = Modifier
+                                    .align(Alignment.TopCenter)
+                                    .padding(top = 8.dp)
+                            ) {
+                                Row(
+                                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = stringResource(R.string.preview_double_tap_to_reset, (zoomScale * 100).toInt()),
+                                        color = Color.White,
+                                        fontSize = 11.sp,
+                                        fontWeight = FontWeight.Medium
+                                    )
+                                }
+                            }
                         }
                     } else {
-                        Text("Could not render page", color = TextMuted)
+                        Text(stringResource(R.string.preview_could_not_render), color = TextMuted)
                     }
                 }
 
-                // Page Switcher Navigation Bar
+                // Page Switcher & Zoom Navigation Bar
                 Surface(
                     color = CharcoalCard,
                     border = androidx.compose.foundation.BorderStroke(1.dp, CharcoalCardBorder),
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Row(
-                        modifier = Modifier.padding(14.dp).fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 14.dp, vertical = 8.dp)
                     ) {
-                        IconButton(
-                            onClick = { if (currentPageIndex > 0) currentPageIndex-- },
-                            enabled = currentPageIndex > 0,
-                            modifier = Modifier.testTag("viewer_prev_page")
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Icon(
-                                imageVector = Icons.Default.ChevronLeft,
-                                contentDescription = "Previous Page",
-                                tint = if (currentPageIndex > 0) EmeraldPrimary else TextMuted.copy(alpha = 0.3f)
+                            IconButton(
+                                onClick = { if (currentPageIndex > 0) currentPageIndex-- },
+                                enabled = currentPageIndex > 0,
+                                modifier = Modifier.testTag("viewer_prev_page")
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.ChevronLeft,
+                                    contentDescription = "Previous Page",
+                                    tint = if (currentPageIndex > 0) EmeraldPrimary else TextMuted.copy(alpha = 0.3f)
+                                )
+                            }
+
+                            Text(
+                                text = "Page ${currentPageIndex + 1} of $totalPages",
+                                fontWeight = FontWeight.Bold,
+                                color = TextPrimary,
+                                fontSize = 14.sp
                             )
+
+                            IconButton(
+                                onClick = { if (currentPageIndex < totalPages - 1) currentPageIndex++ },
+                                enabled = currentPageIndex < totalPages - 1,
+                                modifier = Modifier.testTag("viewer_next_page")
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.ChevronRight,
+                                    contentDescription = "Next Page",
+                                    tint = if (currentPageIndex < totalPages - 1) EmeraldPrimary else TextMuted.copy(alpha = 0.3f)
+                                )
+                            }
                         }
 
-                        Text(
-                            text = "Page ${currentPageIndex + 1} of $totalPages",
-                            fontWeight = FontWeight.Bold,
-                            color = TextPrimary,
-                            fontSize = 14.sp
-                        )
-
-                        IconButton(
-                            onClick = { if (currentPageIndex < totalPages - 1) currentPageIndex++ },
-                            enabled = currentPageIndex < totalPages - 1,
-                            modifier = Modifier.testTag("viewer_next_page")
+                        // Zoom Controls Toolbar
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 2.dp),
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Icon(
-                                imageVector = Icons.Default.ChevronRight,
-                                contentDescription = "Next Page",
-                                tint = if (currentPageIndex < totalPages - 1) EmeraldPrimary else TextMuted.copy(alpha = 0.3f)
-                            )
+                            IconButton(
+                                onClick = {
+                                    zoomScale = (zoomScale - 0.35f).coerceAtLeast(1f)
+                                    if (zoomScale <= 1f) {
+                                        panOffsetX = 0f
+                                        panOffsetY = 0f
+                                    }
+                                },
+                                enabled = zoomScale > 1f,
+                                modifier = Modifier.size(36.dp).testTag("viewer_zoom_out")
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.ZoomOut,
+                                    contentDescription = stringResource(R.string.preview_zoom_out),
+                                    tint = if (zoomScale > 1f) EmeraldPrimary else TextMuted.copy(alpha = 0.3f),
+                                    modifier = Modifier.size(18.dp)
+                                )
+                            }
+
+                            Spacer(modifier = Modifier.width(8.dp))
+
+                            Surface(
+                                shape = RoundedCornerShape(12.dp),
+                                color = CharcoalHighlight,
+                                border = androidx.compose.foundation.BorderStroke(1.dp, CharcoalCardBorder),
+                                onClick = {
+                                    zoomScale = 1f
+                                    panOffsetX = 0f
+                                    panOffsetY = 0f
+                                },
+                                modifier = Modifier.testTag("viewer_reset_zoom")
+                            ) {
+                                Text(
+                                    text = "${(zoomScale * 100).toInt()}%",
+                                    color = if (zoomScale > 1.05f) EmeraldPrimary else TextMuted,
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
+                                )
+                            }
+
+                            Spacer(modifier = Modifier.width(8.dp))
+
+                            IconButton(
+                                onClick = {
+                                    zoomScale = (zoomScale + 0.5f).coerceAtMost(4.5f)
+                                },
+                                enabled = zoomScale < 4.5f,
+                                modifier = Modifier.size(36.dp).testTag("viewer_zoom_in")
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.ZoomIn,
+                                    contentDescription = stringResource(R.string.preview_zoom_in),
+                                    tint = if (zoomScale < 4.5f) EmeraldPrimary else TextMuted.copy(alpha = 0.3f),
+                                    modifier = Modifier.size(18.dp)
+                                )
+                            }
+
+                            if (zoomScale > 1.05f || panOffsetX != 0f || panOffsetY != 0f) {
+                                Spacer(modifier = Modifier.width(10.dp))
+                                IconButton(
+                                    onClick = {
+                                        zoomScale = 1f
+                                        panOffsetX = 0f
+                                        panOffsetY = 0f
+                                    },
+                                    modifier = Modifier.size(36.dp).testTag("viewer_reset_all")
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.RestartAlt,
+                                        contentDescription = stringResource(R.string.preview_reset_zoom),
+                                        tint = EmeraldPrimary,
+                                        modifier = Modifier.size(18.dp)
+                                    )
+                                }
+                            }
                         }
                     }
                 }

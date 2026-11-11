@@ -37,6 +37,8 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
+import com.example.R
 import com.example.data.pdf.PdfBoxPreviewService
 import com.example.data.pdf.PdfEngine
 import kotlinx.coroutines.Dispatchers
@@ -478,7 +480,7 @@ fun PdfDocumentPreviewCard(
                     ) {
                         Icon(imageVector = Icons.Default.ChevronLeft, contentDescription = null, modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(4.dp))
-                        Text("Previous", fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                        Text(stringResource(R.string.preview_action_previous), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
                     }
 
                     Text(
@@ -498,7 +500,7 @@ fun PdfDocumentPreviewCard(
                         shape = RoundedCornerShape(10.dp),
                         modifier = Modifier.testTag("preview_next_page_button")
                     ) {
-                        Text("Next", fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                        Text(stringResource(R.string.preview_action_next), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
                         Spacer(modifier = Modifier.width(4.dp))
                         Icon(imageVector = Icons.Default.ChevronRight, contentDescription = null, modifier = Modifier.size(18.dp))
                     }
@@ -605,18 +607,18 @@ fun PdfDocumentPreviewCard(
         AlertDialog(
             onDismissRequest = { showDetailsDialog = false },
             icon = { Icon(Icons.Default.Info, contentDescription = null, tint = MaterialTheme.colorScheme.primary) },
-            title = { Text("Document Properties") },
+            title = { Text(stringResource(R.string.preview_doc_properties)) },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text("File Name: ${activeFile?.name}", fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
-                    Text("Total Pages: $totalPages", fontSize = 13.sp)
-                    Text("File Size: ${PdfEngine.formatFileSize(activeFile?.length() ?: 0L)}", fontSize = 13.sp)
+                    Text(stringResource(R.string.preview_file_name_label, activeFile?.name ?: ""), fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                    Text(stringResource(R.string.preview_total_pages_label, totalPages), fontSize = 13.sp)
+                    Text(stringResource(R.string.preview_file_size_label, PdfEngine.formatFileSize(activeFile?.length() ?: 0L)), fontSize = 13.sp)
                     Text("File Path: ${activeFile?.absolutePath}", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             },
             confirmButton = {
                 TextButton(onClick = { showDetailsDialog = false }) {
-                    Text("Close")
+                    Text(stringResource(R.string.action_close))
                 }
             }
         )

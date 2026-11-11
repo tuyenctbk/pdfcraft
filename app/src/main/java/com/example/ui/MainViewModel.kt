@@ -67,12 +67,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         _themeMode.value = mode
     }
 
-    // Session Counter & Samples Auto-Disappear State
+    // Session Counter
     private val _sessionCount = MutableStateFlow(0)
     val sessionCount: StateFlow<Int> = _sessionCount.asStateFlow()
-
-    private val _areSamplesVisible = MutableStateFlow(true)
-    val areSamplesVisible: StateFlow<Boolean> = _areSamplesVisible.asStateFlow()
 
     // Onboarding State
     private val _isOnboardingCompleted = MutableStateFlow(
@@ -453,10 +450,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         context.startActivity(chooser)
     }
 
-    // Sample PDFs State
-    private val _samplePdfs = MutableStateFlow<List<File>>(emptyList())
-    val samplePdfs: StateFlow<List<File>> = _samplePdfs.asStateFlow()
-
     init {
         android.util.Log.d("PDFCraft_Logcat", "MainViewModel init block starting")
 
@@ -471,26 +464,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             android.util.Log.e("PDFCraft_Logcat", "FirebaseConfigManager init error: ${t.localizedMessage}", t)
         }
 
-        checkAndLoadSamples(newCount)
         updateTempFilesSize()
         android.util.Log.d("PDFCraft_Logcat", "MainViewModel init complete")
-    }
-
-    private fun checkAndLoadSamples(currentSessionCount: Int) {
-        _areSamplesVisible.value = false
-        _samplePdfs.value = emptyList()
-    }
-
-    fun toggleHideSamples(hide: Boolean) {
-        // Sample documents permanently removed
-        _areSamplesVisible.value = false
-        _samplePdfs.value = emptyList()
-    }
-
-    fun restoreSamples() {
-        // Sample documents permanently removed
-        _areSamplesVisible.value = false
-        _samplePdfs.value = emptyList()
     }
 
     val historyState: StateFlow<List<PdfProjectEntity>> = repository.allProjects
@@ -767,17 +742,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         _userMessage.value = message
     }
 
-    private fun loadSamplePdfs() {
-        viewModelScope.launch {
-            try {
-                val samples = repository.generateSamples(getApplication())
-                _samplePdfs.value = samples
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-    }
-
     // --- MERGE TAB STATE ---
     private val _mergePages = MutableStateFlow<List<PdfPageSourceItem>>(emptyList())
     val mergePages: StateFlow<List<PdfPageSourceItem>> = _mergePages.asStateFlow()
@@ -864,10 +828,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 _isProcessing.value = false
             }
         }
-    }
-
-    fun addSampleToMerge(file: File) {
-        addPdfsToMerge(listOf(Uri.fromFile(file)))
     }
 
     fun moveMergePage(fromIndex: Int, toIndex: Int) {
@@ -1010,38 +970,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 _userMessage.value = "Error reading files: ${e.localizedMessage}"
             } finally {
                 _isProcessing.value = false
-            }
-        }
-    }
-
-    fun addSamplePdfDocumentsForPdfBoxMerge(files: List<File>) {
-        addPdfDocumentsForPdfBoxMerge(files.map { Uri.fromFile(it) })
-    }
-
-    fun loadSampleDocumentForActiveTool() {
-        viewModelScope.launch {
-            try {
-                val samples = repository.generateSamples(getApplication())
-                if (samples.isNotEmpty()) {
-                    val sample = samples.first()
-                    val uri = Uri.fromFile(sample)
-                    when (_activeTool.value) {
-                        PdfOperationType.COMPRESS -> loadPdfForCompress(uri)
-                        PdfOperationType.ENCRYPT -> loadPdfForEncrypt(uri)
-                        PdfOperationType.WATERMARK -> loadPdfForWatermark(uri)
-                        PdfOperationType.SPLIT -> loadPdfForSplit(uri)
-                        PdfOperationType.SIGN -> loadPdfForSign(uri)
-                        PdfOperationType.ROTATE -> loadPdfForRotate(uri)
-                        PdfOperationType.PAGE_NUMBER -> loadPdfForPageNumber(uri)
-                        PdfOperationType.METADATA -> loadPdfForMetadata(uri)
-                        PdfOperationType.PDF_TO_TEXT -> loadPdfForTextExtraction(uri)
-                        PdfOperationType.PDF_TO_IMAGES -> loadPdfForImageExport(uri)
-                        PdfOperationType.MERGE -> addSamplePdfDocumentsForPdfBoxMerge(samples)
-                        else -> {}
-                    }
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
         }
     }
@@ -2463,10 +2391,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     // --- HTML TO PDF STATE & FUNCTIONS ---
-    private val _htmlContent = MutableStateFlow("<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody { font-family: sans-serif; padding: 20px; }\nh1 { color: #0284c7; }\np { line-height: 1.6; color: #333; }\n</style>\n</head>\n<body>\n<h1>My Web Document</h1>\n<p>This is a rendered HTML document converted directly into a clean, vector PDF document using PDFCraft.</p>\n</body>\n</html>")
+    private val _htmlContent = MutableStateFlow("")
     val htmlContent: StateFlow<String> = _htmlContent.asStateFlow()
 
-    private val _htmlDocTitle = MutableStateFlow("Web Report")
+    private val _htmlDocTitle = MutableStateFlow("")
     val htmlDocTitle: StateFlow<String> = _htmlDocTitle.asStateFlow()
 
     private val _htmlOutputName = MutableStateFlow("WebDocument.pdf")

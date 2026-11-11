@@ -541,23 +541,6 @@ fun CompressScreen(
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(stringResource(R.string.action_open_pdf_file), fontWeight = FontWeight.Bold)
                         }
-
-                        Spacer(modifier = Modifier.height(10.dp))
-
-                        OutlinedButton(
-                            onClick = { viewModel.loadSampleDocumentForActiveTool() },
-                            shape = RoundedCornerShape(12.dp),
-                            modifier = Modifier.fillMaxWidth().height(46.dp).testTag("compress_sample_button")
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Description,
-                                contentDescription = null,
-                                modifier = Modifier.size(16.dp),
-                                tint = MaterialTheme.colorScheme.primary
-                            )
-                            Spacer(modifier = Modifier.width(6.dp))
-                            Text(stringResource(R.string.tool_try_sample_document), fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
-                        }
                     }
                 }
             }
@@ -669,7 +652,7 @@ fun CompressScreen(
                                     horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
                                     Column {
-                                        Text("Original File", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                        Text(stringResource(R.string.compress_original_file), fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                         Text(
                                             text = sourceFile?.let { PdfEngine.formatFileSize(it.length()) } ?: "0 B",
                                             fontSize = 16.sp,
@@ -681,7 +664,7 @@ fun CompressScreen(
                                     Icon(imageVector = Icons.Default.Compress, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
 
                                     Column {
-                                        Text("Est. Compressed", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                        Text(stringResource(R.string.compress_est_compressed), fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                         val origBytes = sourceFile?.length() ?: 0L
                                         val estFactor = when (selectedPreset.title) {
                                             "Max Quality" -> 0.75
@@ -718,7 +701,7 @@ fun CompressScreen(
                         ) {
                             Icon(imageVector = Icons.Default.Compress, contentDescription = null)
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text("Execute Local Compression", fontWeight = FontWeight.Bold)
+                            Text(stringResource(R.string.compress_execute_button), fontWeight = FontWeight.Bold)
                         }
                     }
                 }
@@ -772,8 +755,8 @@ fun CompressScreen(
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                 Icon(imageVector = Icons.Default.PhotoLibrary, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(48.dp))
                                 Spacer(modifier = Modifier.height(10.dp))
-                                Text("No Images Extracted Yet", style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.Bold))
-                                Text("Scan for embedded image objects or render pages as $selectedImageFormat files", style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant))
+                                Text(stringResource(R.string.compress_no_images_title), style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.Bold))
+                                Text(stringResource(R.string.compress_no_images_desc, selectedImageFormat), style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant))
                             }
                         }
                     } else {
@@ -830,7 +813,7 @@ fun CompressScreen(
                                         ) {
                                             Icon(imageVector = Icons.Default.PhotoLibrary, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(12.dp))
                                             Spacer(modifier = Modifier.width(4.dp))
-                                            Text("Save to Gallery", fontSize = 9.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
+                                            Text(stringResource(R.string.compress_save_to_gallery), fontSize = 9.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
                                         }
                                     }
                                 }
@@ -858,7 +841,7 @@ fun CompressScreen(
                                 ) {
                                     Icon(imageVector = Icons.Default.Image, contentDescription = null, modifier = Modifier.size(16.dp))
                                     Spacer(modifier = Modifier.width(4.dp))
-                                    Text("Scan Embedded Images", fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                                    Text(stringResource(R.string.compress_scan_embedded), fontSize = 11.sp, fontWeight = FontWeight.Bold)
                                 }
 
                                 Button(
@@ -870,7 +853,7 @@ fun CompressScreen(
                                 ) {
                                     Icon(imageVector = Icons.Default.Image, contentDescription = null, modifier = Modifier.size(16.dp))
                                     Spacer(modifier = Modifier.width(4.dp))
-                                    Text("Render $selectedImageFormat Pages", fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                                    Text(stringResource(R.string.compress_render_pages, selectedImageFormat), fontSize = 11.sp, fontWeight = FontWeight.Bold)
                                 }
                             }
                         }

@@ -95,6 +95,14 @@ class MainActivity : ComponentActivity() {
         private const val TAG = "PDFCraft_Logcat"
     }
 
+    private val incomingUriState = mutableStateOf<android.net.Uri?>(null)
+
+    override fun onNewIntent(intent: android.content.Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        incomingUriState.value = intent.data
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         splashScreen.setOnExitAnimationListener { splashScreenViewProvider ->
@@ -121,11 +129,12 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
 
-        val incomingUri = intent?.data
+        incomingUriState.value = intent?.data
 
         setContent {
             val viewModel: MainViewModel = viewModel()
             val themeMode by viewModel.themeMode.collectAsState()
+            val incomingUri by remember { incomingUriState }
 
             LaunchedEffect(incomingUri) {
                 incomingUri?.let { uri ->

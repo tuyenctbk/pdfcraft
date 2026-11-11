@@ -214,23 +214,6 @@ fun WatermarkScreen(
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(stringResource(R.string.action_open_document_file), fontWeight = FontWeight.Bold)
                         }
-
-                        Spacer(modifier = Modifier.height(10.dp))
-
-                        OutlinedButton(
-                            onClick = { viewModel.loadSampleDocumentForActiveTool() },
-                            shape = RoundedCornerShape(12.dp),
-                            modifier = Modifier.fillMaxWidth().height(46.dp).testTag("watermark_sample_button")
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Description,
-                                contentDescription = null,
-                                modifier = Modifier.size(16.dp),
-                                tint = MaterialTheme.colorScheme.primary
-                            )
-                            Spacer(modifier = Modifier.width(6.dp))
-                            Text(stringResource(R.string.tool_try_sample_document), fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
-                        }
                     }
                 }
             }
@@ -632,7 +615,7 @@ fun WatermarkScreen(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Column(modifier = Modifier.padding(16.dp)) {
-                            Text("Export Configuration", style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold))
+                            Text(stringResource(R.string.metadata_export_config), style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold))
                             Spacer(modifier = Modifier.height(12.dp))
 
                             OutlinedTextField(

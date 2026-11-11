@@ -35,7 +35,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.Dialog
+import com.example.R
 import com.example.ui.theme.CharcoalCard
 import com.example.ui.theme.CharcoalCardBorder
 import com.example.ui.theme.EmeraldContainer
@@ -72,19 +74,19 @@ fun InfoPrivacyDialog(
                             Icon(imageVector = Icons.Default.Security, contentDescription = null, tint = EmeraldPrimary, modifier = Modifier.size(20.dp))
                         }
                         Spacer(modifier = Modifier.width(10.dp))
-                        Text("PDFCraft Architecture", style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold, color = TextPrimary))
+                        Text(stringResource(R.string.dialog_info_arch), style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold, color = TextPrimary))
                     }
 
                     IconButton(onClick = onDismiss) {
-                        Icon(imageVector = Icons.Default.Close, contentDescription = "Close", tint = TextMuted)
+                        Icon(imageVector = Icons.Default.Close, contentDescription = stringResource(R.string.action_close), tint = TextMuted)
                     }
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    FeaturePoint("100% On-Device Processing", "All PDF merges, page rotations, splitting, compression and image extractions execute locally on device CPU/GPU.")
-                    FeaturePoint("Zero Cloud Uploads", "Your confidential tax forms, invoices, contracts, and personal documents never touch third-party servers.")
+                    FeaturePoint(stringResource(R.string.dialog_feature_processing_title), stringResource(R.string.dialog_feature_processing_desc))
+                    FeaturePoint(stringResource(R.string.dialog_feature_privacy_title), stringResource(R.string.dialog_feature_privacy_desc))
                 }
 
                 Spacer(modifier = Modifier.height(20.dp))
@@ -99,7 +101,7 @@ fun InfoPrivacyDialog(
                         border = androidx.compose.foundation.BorderStroke(1.dp, EmeraldPrimary.copy(alpha = 0.5f)),
                         modifier = Modifier.fillMaxWidth().height(44.dp)
                     ) {
-                        Text("Replay Welcome Tour", color = EmeraldPrimary, fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
+                        Text(stringResource(R.string.dialog_replay_tour), color = EmeraldPrimary, fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                 }
@@ -110,7 +112,7 @@ fun InfoPrivacyDialog(
                     shape = RoundedCornerShape(12.dp),
                     modifier = Modifier.fillMaxWidth().height(48.dp)
                 ) {
-                    Text("Got It", fontWeight = FontWeight.Bold)
+                    Text(stringResource(R.string.dialog_got_it), fontWeight = FontWeight.Bold)
                 }
             }
         }

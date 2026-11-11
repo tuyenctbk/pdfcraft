@@ -384,23 +384,6 @@ fun MergeScreen(
                                     Spacer(modifier = Modifier.width(8.dp))
                                     Text(stringResource(R.string.merge_select_files_prompt), fontWeight = FontWeight.Bold)
                                 }
-
-                                Spacer(modifier = Modifier.height(10.dp))
-
-                                OutlinedButton(
-                                    onClick = { viewModel.loadSampleDocumentForActiveTool() },
-                                    shape = RoundedCornerShape(12.dp),
-                                    modifier = Modifier.fillMaxWidth().height(46.dp).testTag("merge_sample_button")
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.Description,
-                                        contentDescription = null,
-                                        modifier = Modifier.size(16.dp),
-                                        tint = MaterialTheme.colorScheme.primary
-                                    )
-                                    Spacer(modifier = Modifier.width(6.dp))
-                                    Text(stringResource(R.string.tool_try_sample_document), fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
-                                }
                             }
                         }
                     }
@@ -628,7 +611,7 @@ fun MergeScreen(
                                 ) {
                                     Icon(imageVector = Icons.Default.Merge, contentDescription = null)
                                     Spacer(modifier = Modifier.width(6.dp))
-                                    Text("PDFBox Merge", fontWeight = FontWeight.Bold)
+                                    Text(stringResource(R.string.merge_pdfbox_tab), fontWeight = FontWeight.Bold)
                                 }
                             }
                         }
@@ -714,7 +697,7 @@ fun MergeScreen(
                                         contentDescription = null
                                     )
                                     Spacer(modifier = Modifier.width(8.dp))
-                                    Text("Import PDF, Images, or Text", fontWeight = FontWeight.Bold)
+                                    Text(stringResource(R.string.merge_import_prompt), fontWeight = FontWeight.Bold)
                                 }
                             }
                         }
@@ -904,7 +887,7 @@ fun MergeScreen(
                                 ) {
                                     Icon(imageVector = Icons.Default.Merge, contentDescription = null)
                                     Spacer(modifier = Modifier.width(6.dp))
-                                    Text("Export Grid", fontWeight = FontWeight.Bold)
+                                    Text(stringResource(R.string.merge_export_grid), fontWeight = FontWeight.Bold)
                                 }
                             }
                         }

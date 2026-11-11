@@ -156,59 +156,20 @@ fun TextToPdfScreen(
                         horizontalArrangement = Arrangement.SpaceAround,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        StatItem(label = "Words", value = "$wordCount")
-                        StatItem(label = "Characters", value = "$charCount")
-                        StatItem(label = "Lines", value = "$lineCount")
-                        StatItem(label = "Paper", value = options.pageSize.name)
+                        StatItem(label = stringResource(R.string.pdf_to_text_words), value = "$wordCount")
+                        StatItem(label = stringResource(R.string.pdf_to_text_characters), value = "$charCount")
+                        StatItem(label = stringResource(R.string.pdf_to_text_lines), value = "$lineCount")
+                        StatItem(label = options.pageSize.name, value = "${options.fontSize.toInt()}pt")
                     }
                 }
             }
 
-            // Quick Samples Bar
-            item {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    AssistChip(
-                        onClick = {
-                            viewModel.setTextToPdfContent(
-                                """# Project Architecture Overview
-## 1. Introduction
-PDFCraft is an offline-first, private mobile document manipulation tool built with Jetpack Compose and modern PDFBox rendering.
-
-## 2. Key Modules
-- **Converter Engine**: Native Android StaticLayout and PrintDocumentAdapter
-- **Security**: AES-128 cryptographic password locks & metadata editors
-- **Local Persistence**: Zero-cloud Room database for instant history access
-
-## 3. Performance Metrics
-- Memory footprint: < 50MB
-- Execution speed: Instantaneous page rendering""".trimIndent()
-                            )
-                            viewModel.setTextToPdfOutputName("Project_Overview.pdf")
-                        },
-                        label = { Text(stringResource(R.string.text_to_pdf_sample_notes)) },
-                        leadingIcon = { Icon(Icons.Default.Edit, null, modifier = Modifier.size(16.dp)) }
-                    )
-                    AssistChip(
-                        onClick = {
-                            viewModel.setTextToPdfContent(
-                                """Date,Product,Quantity,Unit Price,Total
-2026-09-01,Cloud License,5,$240.00,$1200.00
-2026-09-02,Support Plan,1,$500.00,$500.00
-2026-09-03,Hardware Dongle,12,$35.00,$420.00
-2026-09-04,SSL Certificate,2,$99.00,$198.00
-
-TOTAL REVENUE: $2,318.00""".trimIndent()
-                            )
-                            viewModel.setTextToPdfOutputName("Invoice_Report.pdf")
-                            viewModel.updateTextToPdfOptions(fontFamily = TextFontFamily.MONOSPACE)
-                        },
-                        label = { Text(stringResource(R.string.text_to_pdf_sample_csv)) },
-                        leadingIcon = { Icon(Icons.Default.Info, null, modifier = Modifier.size(16.dp)) }
-                    )
-                    if (textContent.isNotEmpty()) {
+            if (textContent.isNotEmpty()) {
+                item {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.End
+                    ) {
                         AssistChip(
                             onClick = { viewModel.setTextToPdfContent("") },
                             label = { Text(stringResource(R.string.action_clear)) },
@@ -228,7 +189,7 @@ TOTAL REVENUE: $2,318.00""".trimIndent()
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text(
-                            text = "Document Header & File Name",
+                            text = stringResource(R.string.output_file_name_label),
                             style = MaterialTheme.typography.titleSmall,
                             fontWeight = FontWeight.Bold
                         )
