@@ -145,9 +145,10 @@ class PdfRepository(
         sourceUri: Uri,
         selectedIndices: List<Int>,
         outputName: String,
-        originalSizeBytes: Long
+        originalSizeBytes: Long,
+        pageRotations: Map<Int, Int> = emptyMap()
     ): File {
-        val outputFile = PdfEngine.splitPdf(context, sourceUri, selectedIndices, outputName)
+        val outputFile = PdfEngine.splitPdf(context, sourceUri, selectedIndices, outputName, pageRotations)
         saveProjectRecord(
             PdfProjectEntity(
                 title = outputFile.name,
@@ -167,9 +168,10 @@ class PdfRepository(
         sourceUri: Uri,
         selectedIndices: List<Int>,
         baseOutputName: String,
-        originalSizeBytes: Long
+        originalSizeBytes: Long,
+        pageRotations: Map<Int, Int> = emptyMap()
     ): List<File> {
-        val outputFiles = PdfEngine.splitPdfToIndividualPages(context, sourceUri, selectedIndices, baseOutputName)
+        val outputFiles = PdfEngine.splitPdfToIndividualPages(context, sourceUri, selectedIndices, baseOutputName, pageRotations)
         outputFiles.forEach { outputFile ->
             saveProjectRecord(
                 PdfProjectEntity(
@@ -372,19 +374,29 @@ class PdfRepository(
         pageRotations: Map<Int, Int>,
         outputName: String,
         originalSizeBytes: Long,
-        pageCount: Int
+        pageCount: Int,
+        deletedPages: Set<Int> = emptySet()
     ): File {
-        val outputFile = PdfEngine.rotatePdfPages(context, sourceUri, pageRotations, outputName)
+        val outputFile = PdfEngine.rotatePdfPages(context, sourceUri, pageRotations, outputName, deletedPages)
         val rotatedCount = pageRotations.filterValues { it % 360 != 0 }.size
+        val remainingPages = (pageCount - deletedPages.size).coerceAtLeast(1)
+        val details = buildString {
+            if (rotatedCount > 0) append("Rotated $rotatedCount pages")
+            if (deletedPages.isNotEmpty()) {
+                if (isNotEmpty()) append(" • ")
+                append("Removed ${deletedPages.size} pages")
+            }
+            append(" in ${outputFile.name}")
+        }
         saveProjectRecord(
             PdfProjectEntity(
                 title = outputFile.name,
                 operationType = PdfOperationType.ROTATE,
-                pageCount = pageCount,
+                pageCount = remainingPages,
                 originalSizeBytes = originalSizeBytes,
                 resultSizeBytes = outputFile.length(),
                 outputFilePath = outputFile.absolutePath,
-                summaryDetails = "Rotated $rotatedCount pages in ${outputFile.name}"
+                summaryDetails = details
             )
         )
         return outputFile

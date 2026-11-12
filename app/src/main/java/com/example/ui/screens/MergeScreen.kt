@@ -899,9 +899,12 @@ fun MergeScreen(
 }
 
     if (previewUri != null) {
-        PdfBoxPreviewDialog(
-            pdfUri = previewUri!!,
+        PdfPreviewScreenDialog(
+            uri = previewUri,
             documentTitle = previewTitle,
+            operationMode = PdfPreviewOperationMode.GENERAL,
+            initialPageIndex = 0,
+            initialGridMode = true,
             onDismissRequest = { previewUri = null }
         )
     }

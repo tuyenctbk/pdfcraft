@@ -103,6 +103,11 @@ class MainActivity : ComponentActivity() {
         incomingUriState.value = intent.data
     }
 
+    override fun onResume() {
+        super.onResume()
+        com.example.ui.billing.BillingRepository.getInstance(applicationContext).registerActivity(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         splashScreen.setOnExitAnimationListener { splashScreenViewProvider ->
@@ -128,6 +133,7 @@ class MainActivity : ComponentActivity() {
         }
 
         enableEdgeToEdge()
+        com.example.ui.billing.BillingRepository.getInstance(applicationContext).registerActivity(this)
 
         incomingUriState.value = intent?.data
 

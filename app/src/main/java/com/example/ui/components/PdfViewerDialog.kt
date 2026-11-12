@@ -44,6 +44,7 @@ import androidx.compose.material.icons.filled.Compress
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Draw
+import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material.icons.filled.Print
@@ -101,6 +102,8 @@ import androidx.core.content.FileProvider
 import com.example.R
 import com.example.data.local.PdfOperationType
 import com.example.data.pdf.PdfEngine
+import com.example.ui.screens.PdfPreviewOperationMode
+import com.example.ui.screens.PdfPreviewScreenDialog
 import com.example.ui.theme.CharcoalBackground
 import com.example.ui.theme.CharcoalCard
 import com.example.ui.theme.CharcoalCardBorder
@@ -156,6 +159,8 @@ fun PdfViewerDialog(
     var ttsEngine by remember { mutableStateOf<TextToSpeech?>(null) }
     var isTtsReady by remember { mutableStateOf(false) }
     var isSpeaking by remember { mutableStateOf(false) }
+    var showThumbnailGridDialog by remember { mutableStateOf(false) }
+    var activeFile by remember(file) { mutableStateOf(file) }
 
     DisposableEffect(context) {
         var engine: TextToSpeech? = null
@@ -297,6 +302,17 @@ fun PdfViewerDialog(
                             }
 
                             Row(verticalAlignment = Alignment.CenterVertically) {
+                                IconButton(
+                                    onClick = { showThumbnailGridDialog = true },
+                                    modifier = Modifier.testTag("viewer_thumbnail_grid_button")
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.GridView,
+                                        contentDescription = stringResource(R.string.action_preview),
+                                        tint = EmeraldPrimary
+                                    )
+                                }
+
                                 IconButton(
                                     onClick = { isSearchActive = !isSearchActive },
                                     modifier = Modifier.testTag("toggle_viewer_search")
@@ -829,6 +845,25 @@ fun PdfViewerDialog(
                 }
             }
         }
+    }
+
+    if (showThumbnailGridDialog) {
+        PdfPreviewScreenDialog(
+            file = activeFile,
+            documentTitle = activeFile.name,
+            operationMode = PdfPreviewOperationMode.GENERAL,
+            initialPageIndex = currentPageIndex,
+            initialGridMode = true,
+            onPageSelected = { selectedPage ->
+                currentPageIndex = selectedPage
+            },
+            onModifiedPdfSaved = { savedFile ->
+                activeFile = savedFile
+                currentPageIndex = 0
+                showThumbnailGridDialog = false
+            },
+            onDismissRequest = { showThumbnailGridDialog = false }
+        )
     }
 }
 

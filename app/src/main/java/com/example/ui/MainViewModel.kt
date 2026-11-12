@@ -100,6 +100,23 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val showHomeDonationBanner: StateFlow<Boolean> = satisfactionManager.showHomeDonationBanner
     val isSupporter: StateFlow<Boolean> = satisfactionManager.isSupporter
 
+    // Application-scoped Google Play Billing Repository wrapper
+    val billingRepository = com.example.ui.billing.BillingRepository.getInstance(application)
+    val availableTips: StateFlow<List<com.example.ui.billing.TipProduct>> = billingRepository.availableTips
+    val billingStatus: StateFlow<com.example.ui.billing.BillingStatus> = billingRepository.billingStatus
+
+    fun purchaseTip(
+        tip: com.example.ui.billing.TipProduct,
+        activity: android.app.Activity? = null
+    ) {
+        billingRepository.launchTipPurchase(
+            explicitActivity = activity,
+            tip = tip
+        ) { _, msg ->
+            _userMessage.value = msg
+        }
+    }
+
     private val _showDonationDialog = MutableStateFlow(false)
     val showDonationDialog: StateFlow<Boolean> = _showDonationDialog.asStateFlow()
 
@@ -1036,6 +1053,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _splitSelectedPages = MutableStateFlow<Set<Int>>(emptySet())
     val splitSelectedPages: StateFlow<Set<Int>> = _splitSelectedPages.asStateFlow()
 
+    private val _splitPageRotations = MutableStateFlow<Map<Int, Int>>(emptyMap())
+    val splitPageRotations: StateFlow<Map<Int, Int>> = _splitPageRotations.asStateFlow()
+
+    private val _splitDeletedPages = MutableStateFlow<Set<Int>>(emptySet())
+    val splitDeletedPages: StateFlow<Set<Int>> = _splitDeletedPages.asStateFlow()
+
     private val _splitThumbnails = MutableStateFlow<List<Bitmap?>>(emptyList())
     val splitThumbnails: StateFlow<List<Bitmap?>> = _splitThumbnails.asStateFlow()
 
@@ -1055,23 +1078,49 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 _splitSourceUri.value = uri
                 _splitSourceFile.value = file
 
-                val pfd = android.os.ParcelFileDescriptor.open(file, android.os.ParcelFileDescriptor.MODE_READ_ONLY)
-                val renderer = android.graphics.pdf.PdfRenderer(pfd)
-                val count = renderer.pageCount
-                renderer.close()
-                pfd.close()
+                val thumbnails = mutableListOf<Bitmap?>()
+                var count = 0
+                val context = getApplication<android.app.Application>()
+                val density = context.resources.displayMetrics.density
+                val targetWidthPx = (180 * density).toInt().coerceAtLeast(100)
+
+                withContext(Dispatchers.IO) {
+                    var pfd: android.os.ParcelFileDescriptor? = null
+                    var renderer: android.graphics.pdf.PdfRenderer? = null
+                    try {
+                        pfd = android.os.ParcelFileDescriptor.open(file, android.os.ParcelFileDescriptor.MODE_READ_ONLY)
+                        renderer = android.graphics.pdf.PdfRenderer(pfd)
+                        count = renderer.pageCount
+                        for (i in 0 until count) {
+                            var page: android.graphics.pdf.PdfRenderer.Page? = null
+                            try {
+                                page = renderer.openPage(i)
+                                val pw = page.width.coerceAtLeast(1)
+                                val ph = page.height.coerceAtLeast(1)
+                                val targetHeightPx = (targetWidthPx * (ph.toFloat() / pw.toFloat())).toInt().coerceAtLeast(100)
+                                val bmp = Bitmap.createBitmap(targetWidthPx, targetHeightPx, Bitmap.Config.ARGB_8888)
+                                val canvas = android.graphics.Canvas(bmp)
+                                canvas.drawColor(android.graphics.Color.WHITE)
+                                page.render(bmp, null, null, android.graphics.pdf.PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+                                thumbnails.add(bmp)
+                            } catch (_: Throwable) {
+                                thumbnails.add(null)
+                            } finally {
+                                try { page?.close() } catch (_: Throwable) {}
+                            }
+                        }
+                    } finally {
+                        try { renderer?.close() } catch (_: Throwable) {}
+                        try { pfd?.close() } catch (_: Throwable) {}
+                    }
+                }
 
                 _splitTotalPages.value = count
                 _splitSelectedPages.value = (0 until count).toSet() // Select all by default
-                recordRecentFileAccess(file, count)
-
-                // Render page thumbnails
-                val thumbnails = mutableListOf<Bitmap?>()
-                for (i in 0 until count) {
-                    val bmp = repository.renderThumbnail(getApplication(), file, i, targetWidthDp = 180)
-                    thumbnails.add(bmp)
-                }
+                _splitPageRotations.value = emptyMap()
+                _splitDeletedPages.value = emptySet()
                 _splitThumbnails.value = thumbnails
+                recordRecentFileAccess(file, count)
             } catch (e: Exception) {
                 _userMessage.value = "Could not load PDF: ${e.localizedMessage}"
             } finally {
@@ -1081,6 +1130,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun toggleSplitPageSelection(pageIdx: Int) {
+        if (_splitDeletedPages.value.contains(pageIdx)) return
         val current = _splitSelectedPages.value.toMutableSet()
         if (current.contains(pageIdx)) {
             current.remove(pageIdx)
@@ -1091,7 +1141,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun selectAllSplitPages() {
-        _splitSelectedPages.value = (0 until _splitTotalPages.value).toSet()
+        _splitSelectedPages.value = (0 until _splitTotalPages.value).filterNot { _splitDeletedPages.value.contains(it) }.toSet()
     }
 
     fun clearSplitPageSelection() {
@@ -1099,11 +1149,64 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun selectOddSplitPages() {
-        _splitSelectedPages.value = (0 until _splitTotalPages.value).filter { it % 2 == 0 }.toSet() // 0-indexed odd pages (1, 3, 5...)
+        _splitSelectedPages.value = (0 until _splitTotalPages.value)
+            .filter { it % 2 == 0 && !_splitDeletedPages.value.contains(it) }
+            .toSet()
     }
 
     fun selectEvenSplitPages() {
-        _splitSelectedPages.value = (0 until _splitTotalPages.value).filter { it % 2 != 0 }.toSet() // 0-indexed even pages (2, 4, 6...)
+        _splitSelectedPages.value = (0 until _splitTotalPages.value)
+            .filter { it % 2 != 0 && !_splitDeletedPages.value.contains(it) }
+            .toSet()
+    }
+
+    fun rotateSingleSplitPage(pageIndex: Int, degrees: Int) {
+        val currentRotations = _splitPageRotations.value.toMutableMap()
+        val oldDeg = currentRotations[pageIndex] ?: 0
+        val newDeg = (oldDeg + degrees) % 360
+        currentRotations[pageIndex] = if (newDeg < 0) newDeg + 360 else newDeg
+        _splitPageRotations.value = currentRotations
+    }
+
+    fun rotateSelectedSplitPages(degrees: Int) {
+        val currentRotations = _splitPageRotations.value.toMutableMap()
+        for (pageIdx in _splitSelectedPages.value) {
+            val oldDeg = currentRotations[pageIdx] ?: 0
+            val newDeg = (oldDeg + degrees) % 360
+            currentRotations[pageIdx] = if (newDeg < 0) newDeg + 360 else newDeg
+        }
+        _splitPageRotations.value = currentRotations
+    }
+
+    fun resetSplitPageRotations() {
+        _splitPageRotations.value = emptyMap()
+    }
+
+    fun toggleDeleteSplitPage(pageIndex: Int) {
+        val deleted = _splitDeletedPages.value.toMutableSet()
+        val selected = _splitSelectedPages.value.toMutableSet()
+        if (deleted.contains(pageIndex)) {
+            deleted.remove(pageIndex)
+            selected.add(pageIndex)
+        } else {
+            deleted.add(pageIndex)
+            selected.remove(pageIndex)
+        }
+        _splitDeletedPages.value = deleted
+        _splitSelectedPages.value = selected
+    }
+
+    fun deleteSelectedSplitPages() {
+        val toDelete = _splitSelectedPages.value
+        if (toDelete.isEmpty()) return
+        _splitDeletedPages.value = _splitDeletedPages.value + toDelete
+        _splitSelectedPages.value = _splitSelectedPages.value - toDelete
+    }
+
+    fun restoreAllDeletedSplitPages() {
+        val restored = _splitDeletedPages.value
+        _splitDeletedPages.value = emptySet()
+        _splitSelectedPages.value = _splitSelectedPages.value + restored
     }
 
     fun selectPageRange(rangeStr: String) {
@@ -1122,7 +1225,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     if (start != null && end != null && start <= end) {
                         for (p in start..end) {
                             val idx = p - 1
-                            if (idx in 0 until total) {
+                            if (idx in 0 until total && !_splitDeletedPages.value.contains(idx)) {
                                 selected.add(idx)
                             }
                         }
@@ -1132,7 +1235,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 val p = trimmed.toIntOrNull()
                 if (p != null) {
                     val idx = p - 1
-                    if (idx in 0 until total) {
+                    if (idx in 0 until total && !_splitDeletedPages.value.contains(idx)) {
                         selected.add(idx)
                     }
                 }
@@ -1147,7 +1250,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             return
         }
         val file = _splitSourceFile.value ?: return
-        val selected = _splitSelectedPages.value.toList().sorted()
+        val selected = _splitSelectedPages.value
+            .filterNot { _splitDeletedPages.value.contains(it) }
+            .sorted()
 
         if (selected.isEmpty()) {
             _userMessage.value = "Select at least one page to split"
@@ -1158,6 +1263,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _isProcessing.value = true
             _processingMessage.value = "Splitting selected ${selected.size} pages..."
             try {
+                val rotations = _splitPageRotations.value
                 if (_splitMode.value == SplitMode.COMBINE_SELECTED) {
                     val outputName = "Split_${file.nameWithoutExtension}_Pages_${selected.size}.pdf"
                     val outputFile = repository.splitPdf(
@@ -1165,7 +1271,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         sourceUri = uri,
                         selectedIndices = selected,
                         outputName = outputName,
-                        originalSizeBytes = file.length()
+                        originalSizeBytes = file.length(),
+                        pageRotations = rotations
                     )
                     _userMessage.value = "Created ${outputFile.name} (${PdfEngine.formatFileSize(outputFile.length())})!"
                 } else {
@@ -1175,7 +1282,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         sourceUri = uri,
                         selectedIndices = selected,
                         baseOutputName = baseOutputName,
-                        originalSizeBytes = file.length()
+                        originalSizeBytes = file.length(),
+                        pageRotations = rotations
                     )
                     _userMessage.value = "Created ${outputFiles.size} separate PDF files in exports folder!"
                 }
@@ -2001,6 +2109,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _rotatePageRotations = MutableStateFlow<Map<Int, Int>>(emptyMap())
     val rotatePageRotations: StateFlow<Map<Int, Int>> = _rotatePageRotations.asStateFlow()
 
+    private val _rotateDeletedPages = MutableStateFlow<Set<Int>>(emptySet())
+    val rotateDeletedPages: StateFlow<Set<Int>> = _rotateDeletedPages.asStateFlow()
+
     private val _rotateOutputName = MutableStateFlow("PDFCraft_Rotated.pdf")
     val rotateOutputName: StateFlow<String> = _rotateOutputName.asStateFlow()
 
@@ -2018,6 +2129,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 _rotatePageCount.value = info.pageCount
                 _rotateSelectedPages.value = (0 until info.pageCount).toSet() // select all by default
                 _rotatePageRotations.value = emptyMap()
+                _rotateDeletedPages.value = emptySet()
                 _rotateOutputName.value = "Rotated_${file.name}"
 
                 recordRecentFileAccess(file, info.pageCount)
@@ -2040,7 +2152,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun selectAllRotatePages() {
-        _rotateSelectedPages.value = (0 until _rotatePageCount.value).toSet()
+        _rotateSelectedPages.value = (0 until _rotatePageCount.value)
+            .filterNot { _rotateDeletedPages.value.contains(it) }
+            .toSet()
     }
 
     fun clearRotatePageSelection() {
@@ -2069,19 +2183,60 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         _rotatePageRotations.value = emptyMap()
     }
 
+    fun toggleDeleteRotatePage(pageIndex: Int) {
+        val total = _rotatePageCount.value
+        val currentDeleted = _rotateDeletedPages.value.toMutableSet()
+        val currentSelected = _rotateSelectedPages.value.toMutableSet()
+        if (currentDeleted.contains(pageIndex)) {
+            currentDeleted.remove(pageIndex)
+        } else {
+            if (currentDeleted.size >= total - 1) {
+                _userMessage.value = "At least 1 page must remain in the PDF document."
+                return
+            }
+            currentDeleted.add(pageIndex)
+            currentSelected.remove(pageIndex)
+        }
+        _rotateDeletedPages.value = currentDeleted
+        _rotateSelectedPages.value = currentSelected
+    }
+
+    fun deleteSelectedRotatePages() {
+        val total = _rotatePageCount.value
+        val selected = _rotateSelectedPages.value
+        if (selected.isEmpty()) return
+        val combined = (_rotateDeletedPages.value + selected)
+        if (combined.size >= total) {
+            // Keep at least the first non-deleted page
+            val keepPage = (0 until total).firstOrNull { ! _rotateDeletedPages.value.contains(it) } ?: 0
+            _rotateDeletedPages.value = combined - keepPage
+            _rotateSelectedPages.value = setOf(keepPage)
+            _userMessage.value = "Kept 1 page so the PDF remains valid."
+        } else {
+            _rotateDeletedPages.value = combined
+            _rotateSelectedPages.value = emptySet()
+        }
+    }
+
+    fun restoreAllDeletedRotatePages() {
+        _rotateDeletedPages.value = emptySet()
+    }
+
     fun executePdfRotate() {
         val uri = _rotateSourceUri.value ?: return
         val file = _rotateSourceFile.value ?: return
         val rotations = _rotatePageRotations.value
+        val deleted = _rotateDeletedPages.value
+        val hasRotation = rotations.any { it.value % 360 != 0 }
 
-        if (rotations.isEmpty() || rotations.all { it.value % 360 == 0 }) {
-            _userMessage.value = "No page rotation changes specified. Please rotate pages before exporting."
+        if (!hasRotation && deleted.isEmpty()) {
+            _userMessage.value = "No page rotation or deletion changes specified."
             return
         }
 
         viewModelScope.launch {
             _isProcessing.value = true
-            _processingMessage.value = "Rotating document pages and saving file..."
+            _processingMessage.value = "Applying page rotations & deletions and saving file..."
             try {
                 val outputFile = repository.rotatePdfPages(
                     context = getApplication(),
@@ -2089,12 +2244,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     pageRotations = rotations,
                     outputName = _rotateOutputName.value,
                     originalSizeBytes = file.length(),
-                    pageCount = _rotatePageCount.value
+                    pageCount = _rotatePageCount.value,
+                    deletedPages = deleted
                 )
-                _userMessage.value = "Successfully saved rotated PDF to ${outputFile.name}!"
+                _userMessage.value = "Successfully saved modified PDF to ${outputFile.name}!"
                 onPdfOperationCompleted("rotate")
             } catch (e: Exception) {
-                _userMessage.value = "Page rotation failed: ${e.localizedMessage}"
+                _userMessage.value = "Page modification failed: ${e.localizedMessage}"
             } finally {
                 _isProcessing.value = false
             }

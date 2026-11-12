@@ -317,7 +317,7 @@ fun SuggestShareDialog(
  */
 @Composable
 fun SuggestUpdateDialog(
-    versionName: String = "1.7.0",
+    versionName: String = "1.7.6",
     releaseNotes: String? = null,
     onUpdateNow: (context: Context) -> Unit,
     onLater: () -> Unit = {},

@@ -59,6 +59,7 @@ fun RotateScreen(
     val pageCount by viewModel.rotatePageCount.collectAsState()
     val selectedPages by viewModel.rotateSelectedPages.collectAsState()
     val pageRotations by viewModel.rotatePageRotations.collectAsState()
+    val deletedPages by viewModel.rotateDeletedPages.collectAsState()
     val outputName by viewModel.rotateOutputName.collectAsState()
     val isProcessing by viewModel.isProcessing.collectAsState()
     val processingMessage by viewModel.processingMessage.collectAsState()
@@ -71,22 +72,50 @@ fun RotateScreen(
         }
     }
 
-    // Cache thumbnails for page grid display
+    var showPreview by remember { mutableStateOf(false) }
+    var previewInitialPage by remember { mutableIntStateOf(0) }
+    var previewStartInGrid by remember { mutableStateOf(true) }
+
+    // Cache thumbnails for page grid display using a single PdfRenderer session
     var pageThumbnails by remember(rotateSourceFile, pageCount) {
         mutableStateOf<Map<Int, Bitmap>>(emptyMap())
     }
 
     LaunchedEffect(rotateSourceFile, pageCount) {
         val pdfFile = rotateSourceFile ?: return@LaunchedEffect
-        if (pageCount <= 0) return@LaunchedEffect
+        if (pageCount <= 0 || !pdfFile.exists()) return@LaunchedEffect
 
         withContext(Dispatchers.IO) {
             val map = mutableMapOf<Int, Bitmap>()
-            for (i in 0 until pageCount) {
-                val bmp = PdfEngine.renderPageThumbnail(context, pdfFile, i, targetWidthDp = 120)
-                if (bmp != null) {
-                    map[i] = bmp
+            var pfd: android.os.ParcelFileDescriptor? = null
+            var renderer: android.graphics.pdf.PdfRenderer? = null
+            try {
+                pfd = android.os.ParcelFileDescriptor.open(pdfFile, android.os.ParcelFileDescriptor.MODE_READ_ONLY)
+                renderer = android.graphics.pdf.PdfRenderer(pfd)
+                val density = context.resources.displayMetrics.density
+                val targetWidthPx = (140 * density).toInt().coerceAtLeast(100)
+                val total = renderer.pageCount.coerceAtMost(pageCount)
+                for (i in 0 until total) {
+                    var page: android.graphics.pdf.PdfRenderer.Page? = null
+                    try {
+                        page = renderer.openPage(i)
+                        val pw = page.width.coerceAtLeast(1)
+                        val ph = page.height.coerceAtLeast(1)
+                        val targetHeightPx = (targetWidthPx * (ph.toFloat() / pw.toFloat())).toInt().coerceAtLeast(100)
+                        val bmp = Bitmap.createBitmap(targetWidthPx, targetHeightPx, Bitmap.Config.ARGB_8888)
+                        val canvas = android.graphics.Canvas(bmp)
+                        canvas.drawColor(android.graphics.Color.WHITE)
+                        page.render(bmp, null, null, android.graphics.pdf.PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+                        map[i] = bmp
+                    } catch (_: Throwable) {
+                    } finally {
+                        try { page?.close() } catch (_: Throwable) {}
+                    }
                 }
+            } catch (_: Throwable) {
+            } finally {
+                try { renderer?.close() } catch (_: Throwable) {}
+                try { pfd?.close() } catch (_: Throwable) {}
             }
             withContext(Dispatchers.Main) {
                 pageThumbnails = map
@@ -108,7 +137,51 @@ fun RotateScreen(
                         onClick = onNavigateBack,
                         modifier = Modifier.testTag("rotate_screen_back_button")
                     ) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.action_cancel))
+                    }
+                },
+                actions = {
+                    if (rotateSourceFile != null || rotateSourceUri != null) {
+                        OutlinedButton(
+                            onClick = { filePickerLauncher.launch(arrayOf("application/pdf")) },
+                            shape = RoundedCornerShape(10.dp),
+                            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
+                            modifier = Modifier
+                                .padding(end = 6.dp)
+                                .height(36.dp)
+                                .testTag("change_rotate_pdf_button")
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.FolderOpen,
+                                contentDescription = stringResource(R.string.action_change),
+                                modifier = Modifier.size(15.dp)
+                            )
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text(
+                                text = stringResource(R.string.action_change),
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        }
+
+                        FilledTonalIconButton(
+                            onClick = {
+                                previewInitialPage = 0
+                                previewStartInGrid = true
+                                showPreview = true
+                            },
+                            modifier = Modifier
+                                .padding(end = 8.dp)
+                                .size(36.dp)
+                                .testTag("preview_rotate_source_button")
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.GridView,
+                                contentDescription = stringResource(R.string.action_view_pdf),
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(18.dp)
+                            )
+                        }
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surface)
@@ -120,15 +193,13 @@ fun RotateScreen(
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            val isWide = maxWidth > 600.dp
-
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .widthIn(max = 840.dp)
                     .align(Alignment.TopCenter)
-                    .padding(horizontal = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(14.dp)
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 if (rotateSourceFile == null) {
                     PdfDocumentPickerCard(
@@ -143,14 +214,83 @@ fun RotateScreen(
                         modifier = Modifier.padding(top = 16.dp)
                     )
                 } else {
-                    // Active document loaded state
-                    PdfDocumentPreviewCard(
-                        file = rotateSourceFile,
-                        uri = rotateSourceUri,
-                        title = "Document Live Preview"
-                    )
+                    // Compact Interactive PdfRenderer Inspector Banner
+                    Surface(
+                        color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.35f),
+                        shape = RoundedCornerShape(12.dp),
+                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.35f)),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                previewInitialPage = 0
+                                previewStartInGrid = true
+                                showPreview = true
+                            }
+                            .testTag("builtin_pdf_preview_card")
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 12.dp, vertical = 8.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.GridView,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Column {
+                                    Text(
+                                        text = rotateSourceFile?.name ?: stringResource(R.string.preview_document_live),
+                                        style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold),
+                                        color = MaterialTheme.colorScheme.onSurface,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                    Text(
+                                        text = "$pageCount pages • ${PdfEngine.formatFileSize(rotateSourceFile?.length() ?: 0L)}",
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                }
+                            }
+                            FilledTonalButton(
+                                onClick = {
+                                    previewInitialPage = 0
+                                    previewStartInGrid = true
+                                    showPreview = true
+                                },
+                                shape = RoundedCornerShape(8.dp),
+                                contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
+                                modifier = Modifier
+                                    .height(32.dp)
+                                    .testTag("fullscreen_preview_button")
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.GridView,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(15.dp)
+                                )
+                                Spacer(modifier = Modifier.width(4.dp))
+                                Text(
+                                    text = stringResource(R.string.action_preview),
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+                    }
 
-                    // Quick Batch Rotation Action Bar
+                    // Quick Batch Rotation & Deletion Action Bar
                     Card(
                         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)),
                         shape = RoundedCornerShape(16.dp),
@@ -209,10 +349,10 @@ fun RotateScreen(
                                 }
                             }
 
-                            // 90, 180, 270 degree rotation buttons
+                            // 90, 180, 270 degree rotation + delete buttons
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                horizontalArrangement = Arrangement.spacedBy(6.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Button(
@@ -225,9 +365,9 @@ fun RotateScreen(
                                     shape = RoundedCornerShape(10.dp),
                                     contentPadding = PaddingValues(horizontal = 4.dp, vertical = 8.dp)
                                 ) {
-                                    Icon(Icons.Default.RotateRight, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(16.dp))
-                                    Spacer(modifier = Modifier.width(4.dp))
-                                    Text("+90°", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary, maxLines = 1, softWrap = false)
+                                    Icon(Icons.Default.RotateRight, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(15.dp))
+                                    Spacer(modifier = Modifier.width(3.dp))
+                                    Text("+90°", fontSize = 11.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary, maxLines = 1, softWrap = false)
                                 }
 
                                 Button(
@@ -240,9 +380,9 @@ fun RotateScreen(
                                     shape = RoundedCornerShape(10.dp),
                                     contentPadding = PaddingValues(horizontal = 4.dp, vertical = 8.dp)
                                 ) {
-                                    Icon(Icons.Default.ScreenRotation, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(16.dp))
-                                    Spacer(modifier = Modifier.width(4.dp))
-                                    Text("+180°", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary, maxLines = 1, softWrap = false)
+                                    Icon(Icons.Default.ScreenRotation, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(15.dp))
+                                    Spacer(modifier = Modifier.width(3.dp))
+                                    Text("+180°", fontSize = 11.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary, maxLines = 1, softWrap = false)
                                 }
 
                                 Button(
@@ -255,26 +395,54 @@ fun RotateScreen(
                                     shape = RoundedCornerShape(10.dp),
                                     contentPadding = PaddingValues(horizontal = 4.dp, vertical = 8.dp)
                                 ) {
-                                    Icon(Icons.Default.RotateLeft, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(16.dp))
-                                    Spacer(modifier = Modifier.width(4.dp))
-                                    Text("-90° ↺", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary, maxLines = 1, softWrap = false)
+                                    Icon(Icons.Default.RotateLeft, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(15.dp))
+                                    Spacer(modifier = Modifier.width(3.dp))
+                                    Text("-90°", fontSize = 11.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary, maxLines = 1, softWrap = false)
+                                }
+
+                                Button(
+                                    onClick = { viewModel.deleteSelectedRotatePages() },
+                                    enabled = selectedPages.isNotEmpty(),
+                                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.errorContainer),
+                                    modifier = Modifier
+                                        .testTag("rotate_delete_selected_button"),
+                                    shape = RoundedCornerShape(10.dp),
+                                    contentPadding = PaddingValues(horizontal = 10.dp, vertical = 8.dp)
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.DeleteOutline,
+                                        contentDescription = stringResource(R.string.action_delete),
+                                        tint = MaterialTheme.colorScheme.error,
+                                        modifier = Modifier.size(16.dp)
+                                    )
                                 }
 
                                 if (pageRotations.isNotEmpty() && pageRotations.any { it.value % 360 != 0 }) {
                                     IconButton(
                                         onClick = { viewModel.resetRotatePageRotations() },
                                         modifier = Modifier
-                                            .size(36.dp)
+                                            .size(34.dp)
                                             .testTag("reset_rotations_button")
                                     ) {
                                         Icon(Icons.Default.RestartAlt, contentDescription = stringResource(R.string.rotate_reset_rotations), tint = MaterialTheme.colorScheme.error)
+                                    }
+                                }
+
+                                if (deletedPages.isNotEmpty()) {
+                                    IconButton(
+                                        onClick = { viewModel.restoreAllDeletedRotatePages() },
+                                        modifier = Modifier
+                                            .size(34.dp)
+                                            .testTag("restore_deleted_rotate_pages_button")
+                                    ) {
+                                        Icon(Icons.Default.RestoreFromTrash, contentDescription = null, tint = MaterialTheme.colorScheme.error)
                                     }
                                 }
                             }
                         }
                     }
 
-                    // Page Thumbnails Grid with orientation indicators
+                    // Page Thumbnails Grid with orientation & deletion indicators
                     LazyVerticalGrid(
                         columns = GridCells.Adaptive(minSize = 110.dp),
                         horizontalArrangement = Arrangement.spacedBy(10.dp),
@@ -283,144 +451,216 @@ fun RotateScreen(
                             .weight(1f)
                             .fillMaxWidth()
                     ) {
-                    itemsIndexed(List(pageCount) { it }) { pageIdx, _ ->
-                        val isSelected = selectedPages.contains(pageIdx)
-                        val angle = pageRotations[pageIdx] ?: 0
-                        val bmp = pageThumbnails[pageIdx]
+                        itemsIndexed(List(pageCount) { it }) { pageIdx, _ ->
+                            val isSelected = selectedPages.contains(pageIdx)
+                            val isDeleted = deletedPages.contains(pageIdx)
+                            val angle = pageRotations[pageIdx] ?: 0
+                            val bmp = pageThumbnails[pageIdx]
 
-                        Card(
-                            colors = CardDefaults.cardColors(
-                                containerColor = if (isSelected) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f) else MaterialTheme.colorScheme.surface
-                            ),
-                            border = BorderStroke(
-                                if (isSelected) 2.dp else 1.dp,
-                                if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant
-                            ),
-                            shape = RoundedCornerShape(12.dp),
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(140.dp)
-                                .clickable { viewModel.toggleSelectRotatePage(pageIdx) }
-                                .testTag("page_rotate_item_$pageIdx")
-                        ) {
-                            Box(modifier = Modifier.fillMaxSize()) {
-                                // Thumbnail Image rotated according to angle
-                                if (bmp != null) {
-                                    Image(
-                                        bitmap = bmp.asImageBitmap(),
-                                        contentDescription = "Page ${pageIdx + 1}",
-                                        contentScale = ContentScale.Fit,
+                            Card(
+                                colors = CardDefaults.cardColors(
+                                    containerColor = when {
+                                        isDeleted -> MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.25f)
+                                        isSelected -> MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
+                                        else -> MaterialTheme.colorScheme.surface
+                                    }
+                                ),
+                                border = BorderStroke(
+                                    if (isSelected || isDeleted) 2.dp else 1.dp,
+                                    when {
+                                        isDeleted -> MaterialTheme.colorScheme.error
+                                        isSelected -> MaterialTheme.colorScheme.primary
+                                        else -> MaterialTheme.colorScheme.outlineVariant
+                                    }
+                                ),
+                                shape = RoundedCornerShape(12.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(145.dp)
+                                    .clickable { viewModel.toggleSelectRotatePage(pageIdx) }
+                                    .testTag("page_rotate_item_$pageIdx")
+                            ) {
+                                Box(modifier = Modifier.fillMaxSize()) {
+                                    // Thumbnail Image rotated according to angle
+                                    if (bmp != null) {
+                                        Image(
+                                            bitmap = bmp.asImageBitmap(),
+                                            contentDescription = "Page ${pageIdx + 1}",
+                                            contentScale = ContentScale.Fit,
+                                            alpha = if (isDeleted) 0.35f else 1f,
+                                            modifier = Modifier
+                                                .fillMaxSize()
+                                                .padding(12.dp)
+                                                .rotate(angle.toFloat())
+                                        )
+                                    } else {
+                                        Box(
+                                            modifier = Modifier.fillMaxSize(),
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            Text(
+                                                text = "Page ${pageIdx + 1}",
+                                                fontWeight = FontWeight.Bold,
+                                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                            )
+                                        }
+                                    }
+
+                                    // Checkbox selection badge
+                                    Checkbox(
+                                        checked = isSelected,
+                                        onCheckedChange = { viewModel.toggleSelectRotatePage(pageIdx) },
                                         modifier = Modifier
-                                            .fillMaxSize()
-                                            .padding(12.dp)
-                                            .rotate(angle.toFloat())
+                                            .align(Alignment.TopStart)
+                                            .padding(2.dp)
                                     )
-                                } else {
-                                    Box(
-                                        modifier = Modifier.fillMaxSize(),
-                                        contentAlignment = Alignment.Center
+
+                                    // Angle degree badge
+                                    Surface(
+                                        color = if (angle % 360 != 0) MaterialTheme.colorScheme.primary else Color.Black.copy(alpha = 0.6f),
+                                        shape = RoundedCornerShape(6.dp),
+                                        modifier = Modifier
+                                            .align(Alignment.TopEnd)
+                                            .padding(6.dp)
                                     ) {
                                         Text(
-                                            text = "Page ${pageIdx + 1}",
+                                            text = "${angle % 360}°",
+                                            color = Color.White,
+                                            fontSize = 10.sp,
                                             fontWeight = FontWeight.Bold,
-                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
                                         )
                                     }
-                                }
 
-                                // Checkbox selection badge
-                                Checkbox(
-                                    checked = isSelected,
-                                    onCheckedChange = { viewModel.toggleSelectRotatePage(pageIdx) },
-                                    modifier = Modifier
-                                        .align(Alignment.TopStart)
-                                        .padding(2.dp)
-                                )
+                                    if (isDeleted) {
+                                        Surface(
+                                            color = MaterialTheme.colorScheme.error.copy(alpha = 0.9f),
+                                            shape = RoundedCornerShape(6.dp),
+                                            modifier = Modifier.align(Alignment.Center)
+                                        ) {
+                                            Text(
+                                                text = stringResource(R.string.action_delete).uppercase(),
+                                                color = MaterialTheme.colorScheme.onError,
+                                                fontSize = 10.sp,
+                                                fontWeight = FontWeight.Bold,
+                                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
+                                            )
+                                        }
+                                    }
 
-                                // Angle degree badge
-                                Surface(
-                                    color = if (angle % 360 != 0) MaterialTheme.colorScheme.primary else Color.Black.copy(alpha = 0.6f),
-                                    shape = RoundedCornerShape(6.dp),
-                                    modifier = Modifier
-                                        .align(Alignment.TopEnd)
-                                        .padding(6.dp)
-                                ) {
-                                    Text(
-                                        text = "${angle % 360}°",
-                                        color = Color.White,
-                                        fontSize = 10.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
-                                    )
-                                }
-
-                                // Individual page rotate button on bottom right
-                                Surface(
-                                    color = MaterialTheme.colorScheme.surfaceVariant,
-                                    shape = CircleShape,
-                                    modifier = Modifier
-                                        .align(Alignment.BottomEnd)
-                                        .padding(6.dp)
-                                        .clickable { viewModel.rotateSinglePage(pageIdx, 90) }
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.RotateRight,
-                                        contentDescription = "Rotate page ${pageIdx + 1}",
-                                        tint = MaterialTheme.colorScheme.primary,
+                                    // Bottom action row: Inspect, Delete/Restore, Rotate
+                                    Row(
                                         modifier = Modifier
-                                            .padding(6.dp)
-                                            .size(16.dp)
-                                    )
+                                            .align(Alignment.BottomCenter)
+                                            .fillMaxWidth()
+                                            .padding(horizontal = 6.dp, vertical = 6.dp),
+                                        horizontalArrangement = Arrangement.SpaceBetween,
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Surface(
+                                            color = MaterialTheme.colorScheme.secondaryContainer,
+                                            shape = CircleShape,
+                                            modifier = Modifier
+                                                .clickable {
+                                                    previewInitialPage = pageIdx
+                                                    previewStartInGrid = false
+                                                    showPreview = true
+                                                }
+                                                .testTag("inspect_rotate_page_$pageIdx")
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.Default.ZoomIn,
+                                                contentDescription = stringResource(R.string.action_preview),
+                                                tint = MaterialTheme.colorScheme.primary,
+                                                modifier = Modifier
+                                                    .padding(5.dp)
+                                                    .size(15.dp)
+                                            )
+                                        }
+
+                                        Surface(
+                                            color = if (isDeleted) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.surfaceVariant,
+                                            shape = CircleShape,
+                                            modifier = Modifier
+                                                .clickable { viewModel.toggleDeleteRotatePage(pageIdx) }
+                                                .testTag("delete_rotate_page_$pageIdx")
+                                        ) {
+                                            Icon(
+                                                imageVector = if (isDeleted) Icons.Default.RestoreFromTrash else Icons.Default.DeleteOutline,
+                                                contentDescription = stringResource(R.string.action_delete),
+                                                tint = if (isDeleted) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,
+                                                modifier = Modifier
+                                                    .padding(5.dp)
+                                                    .size(15.dp)
+                                            )
+                                        }
+
+                                        Surface(
+                                            color = MaterialTheme.colorScheme.surfaceVariant,
+                                            shape = CircleShape,
+                                            modifier = Modifier
+                                                .clickable { viewModel.rotateSinglePage(pageIdx, 90) }
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.Default.RotateRight,
+                                                contentDescription = "Rotate page ${pageIdx + 1}",
+                                                tint = MaterialTheme.colorScheme.primary,
+                                                modifier = Modifier
+                                                    .padding(5.dp)
+                                                    .size(15.dp)
+                                            )
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
-                }
 
-                // Output File Settings & Save Action
-                Card(
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                    shape = RoundedCornerShape(16.dp),
-                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Column(
-                        modifier = Modifier.padding(12.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    // Output File Settings & Save Action
+                    Card(
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                        shape = RoundedCornerShape(16.dp),
+                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+                        modifier = Modifier.fillMaxWidth()
                     ) {
-                        OutlinedTextField(
-                            value = outputName,
-                            onValueChange = { viewModel.setRotateOutputName(it) },
-                            label = { Text(stringResource(R.string.rotate_output_name_label)) },
-                            leadingIcon = { Icon(Icons.Default.Save, contentDescription = null) },
-                            singleLine = true,
-                            shape = RoundedCornerShape(10.dp),
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .testTag("rotate_output_name_field")
-                        )
-
-                        Button(
-                            onClick = { viewModel.executePdfRotate() },
-                            enabled = !isProcessing,
-                            shape = RoundedCornerShape(12.dp),
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(48.dp)
-                                .testTag("save_rotated_pdf_button")
+                        Column(
+                            modifier = Modifier.padding(12.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
-                            if (isProcessing) {
-                                CircularProgressIndicator(
-                                    color = MaterialTheme.colorScheme.onPrimary,
-                                    strokeWidth = 2.dp,
-                                    modifier = Modifier.size(20.dp)
-                                )
-                                Spacer(modifier = Modifier.width(8.dp))
-                                Text(processingMessage.ifEmpty { "Processing..." }, fontWeight = FontWeight.Bold)
-                            } else {
-                                Icon(Icons.Default.CheckCircle, contentDescription = null, modifier = Modifier.size(18.dp))
-                                Spacer(modifier = Modifier.width(8.dp))
-                                Text(stringResource(R.string.rotate_save_button), fontWeight = FontWeight.Bold)
+                            OutlinedTextField(
+                                value = outputName,
+                                onValueChange = { viewModel.setRotateOutputName(it) },
+                                label = { Text(stringResource(R.string.rotate_output_name_label)) },
+                                leadingIcon = { Icon(Icons.Default.Save, contentDescription = null) },
+                                singleLine = true,
+                                shape = RoundedCornerShape(10.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .testTag("rotate_output_name_field")
+                            )
+
+                            Button(
+                                onClick = { viewModel.executePdfRotate() },
+                                enabled = !isProcessing,
+                                shape = RoundedCornerShape(12.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(48.dp)
+                                    .testTag("save_rotated_pdf_button")
+                            ) {
+                                if (isProcessing) {
+                                    CircularProgressIndicator(
+                                        color = MaterialTheme.colorScheme.onPrimary,
+                                        strokeWidth = 2.dp,
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Text(processingMessage.ifEmpty { stringResource(R.string.action_processing) }, fontWeight = FontWeight.Bold)
+                                } else {
+                                    Icon(Icons.Default.CheckCircle, contentDescription = null, modifier = Modifier.size(18.dp))
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Text(stringResource(R.string.rotate_save_button), fontWeight = FontWeight.Bold)
+                                }
                             }
                         }
                     }
@@ -428,5 +668,29 @@ fun RotateScreen(
             }
         }
     }
-}
+
+    if (showPreview && (rotateSourceFile != null || rotateSourceUri != null)) {
+        PdfPreviewScreenDialog(
+            file = rotateSourceFile,
+            uri = rotateSourceUri,
+            documentTitle = rotateSourceFile?.name ?: stringResource(R.string.rotate_screen_title),
+            operationMode = PdfPreviewOperationMode.ROTATE,
+            initialPageIndex = previewInitialPage,
+            initialGridMode = previewStartInGrid,
+            selectedPages = selectedPages,
+            onTogglePageSelection = { viewModel.toggleSelectRotatePage(it) },
+            onSelectAllPages = { viewModel.selectAllRotatePages() },
+            onClearPageSelection = { viewModel.clearRotatePageSelection() },
+            pageRotations = pageRotations,
+            onRotateSinglePage = { pageIdx, deg -> viewModel.rotateSinglePage(pageIdx, deg) },
+            onRotateSelectedPages = { deg -> viewModel.rotateSelectedPagesBy(deg) },
+            onResetRotations = { viewModel.resetRotatePageRotations() },
+            deletedPages = deletedPages,
+            onToggleDeletePage = { viewModel.toggleDeleteRotatePage(it) },
+            onDeleteSelectedPages = { viewModel.deleteSelectedRotatePages() },
+            onRestoreAllDeletedPages = { viewModel.restoreAllDeletedRotatePages() },
+            onExecutePrimaryAction = { viewModel.executePdfRotate() },
+            onDismissRequest = { showPreview = false }
+        )
+    }
 }

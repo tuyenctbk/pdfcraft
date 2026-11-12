@@ -39,10 +39,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.stringResource
 import com.example.R
-import com.example.data.pdf.PdfBoxPreviewService
 import com.example.data.pdf.PdfEngine
+import com.example.ui.screens.PdfPreviewOperationMode
+import com.example.ui.screens.PdfPreviewScreenDialog
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 
@@ -57,7 +57,7 @@ fun PdfDocumentPreviewCard(
     title: String = "Document Preview",
     modifier: Modifier = Modifier,
     initialPageIndex: Int = 0,
-    showThumbnailsStrip: Boolean = true,
+    showThumbnailsStrip: Boolean = false,
     showInfoBar: Boolean = true,
     onFullScreenRequested: (() -> Unit)? = null
 ) {
@@ -82,6 +82,7 @@ fun PdfDocumentPreviewCard(
 
     var showDetailsDialog by remember { mutableStateOf(false) }
     var showThumbnailDrawer by remember { mutableStateOf(showThumbnailsStrip) }
+    var isExpanded by remember { mutableStateOf(true) }
     var thumbnailBitmaps by remember { mutableStateOf<Map<Int, Bitmap>>(emptyMap()) }
 
     var fullScreenDialogVisible by remember { mutableStateOf(false) }
@@ -142,19 +143,42 @@ fun PdfDocumentPreviewCard(
         }
     }
 
-    // Pre-cache page thumbnails for horizontal drawer
+    // Pre-cache page thumbnails for horizontal drawer using a single PdfRenderer session
     LaunchedEffect(activeFile, totalPages, showThumbnailDrawer) {
         val pdfFile = activeFile ?: return@LaunchedEffect
-        if (!showThumbnailDrawer) return@LaunchedEffect
+        if (!showThumbnailDrawer || !pdfFile.exists()) return@LaunchedEffect
 
         withContext(Dispatchers.IO) {
             val map = mutableMapOf<Int, Bitmap>()
-            val maxThumbnails = totalPages.coerceAtMost(15)
-            for (i in 0 until maxThumbnails) {
-                val bmp = PdfEngine.renderPageThumbnail(context, pdfFile, i, targetWidthDp = 70)
-                if (bmp != null) {
-                    map[i] = bmp
+            var pfd: ParcelFileDescriptor? = null
+            var renderer: android.graphics.pdf.PdfRenderer? = null
+            try {
+                pfd = ParcelFileDescriptor.open(pdfFile, ParcelFileDescriptor.MODE_READ_ONLY)
+                renderer = android.graphics.pdf.PdfRenderer(pfd)
+                val maxThumbnails = renderer.pageCount.coerceAtMost(30)
+                val density = context.resources.displayMetrics.density
+                val targetWidthPx = (75 * density).toInt().coerceAtLeast(60)
+                for (i in 0 until maxThumbnails) {
+                    var page: android.graphics.pdf.PdfRenderer.Page? = null
+                    try {
+                        page = renderer.openPage(i)
+                        val pw = page.width.coerceAtLeast(1)
+                        val ph = page.height.coerceAtLeast(1)
+                        val targetHeightPx = (targetWidthPx * (ph.toFloat() / pw.toFloat())).toInt().coerceAtLeast(60)
+                        val bmp = Bitmap.createBitmap(targetWidthPx, targetHeightPx, Bitmap.Config.ARGB_8888)
+                        val canvas = android.graphics.Canvas(bmp)
+                        canvas.drawColor(android.graphics.Color.WHITE)
+                        page.render(bmp, null, null, android.graphics.pdf.PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+                        map[i] = bmp
+                    } catch (_: Throwable) {
+                    } finally {
+                        try { page?.close() } catch (_: Throwable) {}
+                    }
                 }
+            } catch (_: Throwable) {
+            } finally {
+                try { renderer?.close() } catch (_: Throwable) {}
+                try { pfd?.close() } catch (_: Throwable) {}
             }
             withContext(Dispatchers.Main) {
                 thumbnailBitmaps = map
@@ -314,19 +338,34 @@ fun PdfDocumentPreviewCard(
                                 modifier = Modifier.size(20.dp)
                             )
                         }
+
+                        // Expand / Collapse Preview Canvas
+                        IconButton(
+                            onClick = { isExpanded = !isExpanded },
+                            modifier = Modifier.size(36.dp).testTag("collapse_preview_button")
+                        ) {
+                            Icon(
+                                imageVector = if (isExpanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
+                                contentDescription = if (isExpanded) "Collapse Preview" else "Expand Preview",
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
                     }
                 }
             }
 
-            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+            AnimatedVisibility(visible = isExpanded) {
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
 
-            // --- CANVAS PAGE DISPLAY AREA ---
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(340.dp)
-                    .background(Color(0xFF1E1E1E))
-                    .pointerInput(Unit) {
+                    // --- CANVAS PAGE DISPLAY AREA ---
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(220.dp)
+                            .background(Color(0xFF1E1E1E))
+                            .pointerInput(Unit) {
                         detectTransformGestures { _, pan, zoom, _ ->
                             scaleFactor = (scaleFactor * zoom).coerceIn(0.8f, 3.5f)
                             panOffsetX += pan.x
@@ -590,14 +629,20 @@ fun PdfDocumentPreviewCard(
                     }
                 }
             }
+                }
+            }
         }
     }
 
-    // Full Screen Preview Dialog fallback if requested
+    // Full Screen PdfRenderer Preview Screen Dialog
     if (fullScreenDialogVisible && activeFile != null) {
-        PdfBoxPreviewDialog(
-            pdfUri = Uri.fromFile(activeFile!!),
+        PdfPreviewScreenDialog(
+            file = activeFile,
+            uri = uri ?: Uri.fromFile(activeFile!!),
             documentTitle = activeFile?.name ?: title,
+            operationMode = PdfPreviewOperationMode.GENERAL,
+            initialPageIndex = currentPageIndex,
+            initialGridMode = true,
             onDismissRequest = { fullScreenDialogVisible = false }
         )
     }

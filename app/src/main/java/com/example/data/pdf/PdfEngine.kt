@@ -324,13 +324,14 @@ object PdfEngine {
     }
 
     /**
-     * Splits a PDF file by selecting specific page indices.
+     * Splits a PDF file by selecting specific page indices (with optional per-page rotations).
      */
     suspend fun splitPdf(
         context: Context,
         sourceUri: Uri,
         selectedPageIndices: List<Int>,
-        outputFileName: String
+        outputFileName: String,
+        pageRotations: Map<Int, Int> = emptyMap()
     ): File = withContext(Dispatchers.IO) {
         val localFile = getLocalFileFromUri(context, sourceUri)
         val pageItems = selectedPageIndices.mapIndexed { index, pageIdx ->
@@ -339,21 +340,22 @@ object PdfEngine {
                 sourceTitle = localFile.name,
                 sourceUri = sourceUri,
                 originalPageIndex = pageIdx,
-                rotationDegrees = 0
+                rotationDegrees = pageRotations[pageIdx] ?: 0
             )
         }
         mergeAndReorderPages(context, pageItems, outputFileName)
     }
 
     /**
-     * Splits a PDF file into individual page PDF files.
+     * Splits a PDF file into individual page PDF files (with optional per-page rotations).
      * Returns a list of generated individual page files.
      */
     suspend fun splitPdfToIndividualPages(
         context: Context,
         sourceUri: Uri,
         selectedPageIndices: List<Int>,
-        baseOutputName: String
+        baseOutputName: String,
+        pageRotations: Map<Int, Int> = emptyMap()
     ): List<File> = withContext(Dispatchers.IO) {
         val localFile = getLocalFileFromUri(context, sourceUri)
         val generatedFiles = mutableListOf<File>()
@@ -364,7 +366,7 @@ object PdfEngine {
                 sourceTitle = localFile.name,
                 sourceUri = sourceUri,
                 originalPageIndex = pageIdx,
-                rotationDegrees = 0
+                rotationDegrees = pageRotations[pageIdx] ?: 0
             )
             val cleanBaseName = baseOutputName.removeSuffix(".pdf")
             val outputFileName = "${cleanBaseName}_Page_${pageIdx + 1}.pdf"
@@ -1278,21 +1280,49 @@ object PdfEngine {
         context: Context,
         sourceUri: Uri,
         pageRotations: Map<Int, Int>,
-        outputName: String = "PDFCraft_Rotated.pdf"
+        outputName: String = "PDFCraft_Rotated.pdf",
+        deletedPages: Set<Int> = emptySet()
     ): File = withContext(Dispatchers.IO) {
         val file = getLocalFileFromUri(context, sourceUri)
+        applyPageRotationsAndDeletions(
+            context = context,
+            sourceFile = file,
+            pageRotations = pageRotations,
+            deletedPages = deletedPages,
+            outputName = outputName
+        )
+    }
+
+    /**
+     * Applies per-page rotations and removes any deleted pages from a PDF document losslessly via PDFBox.
+     */
+    suspend fun applyPageRotationsAndDeletions(
+        context: Context,
+        sourceFile: File,
+        pageRotations: Map<Int, Int>,
+        deletedPages: Set<Int>,
+        outputName: String = "Modified_${sourceFile.name}"
+    ): File = withContext(Dispatchers.IO) {
         val outputDir = File(context.filesDir, "exports").apply { mkdirs() }
         val outputFile = File(outputDir, if (outputName.endsWith(".pdf", ignoreCase = true)) outputName else "$outputName.pdf")
 
-        com.tom_roush.pdfbox.pdmodel.PDDocument.load(file).use { doc ->
+        com.tom_roush.pdfbox.pdmodel.PDDocument.load(sourceFile).use { doc ->
             val pageCount = doc.numberOfPages
             for (i in 0 until pageCount) {
                 val additionalDegrees = pageRotations[i] ?: 0
-                if (additionalDegrees != 0) {
+                if (additionalDegrees % 360 != 0) {
                     val page = doc.getPage(i)
                     val currentRotation = page.rotation
                     val newRotation = (currentRotation + additionalDegrees) % 360
                     page.rotation = if (newRotation < 0) newRotation + 360 else newRotation
+                }
+            }
+            if (deletedPages.isNotEmpty()) {
+                val sortedToDelete = deletedPages.filter { it in 0 until pageCount }.sortedDescending()
+                for (delIdx in sortedToDelete) {
+                    if (doc.numberOfPages > 1) {
+                        doc.removePage(delIdx)
+                    }
                 }
             }
             doc.save(outputFile)

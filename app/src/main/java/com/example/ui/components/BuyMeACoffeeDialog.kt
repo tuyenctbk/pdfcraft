@@ -23,6 +23,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.CurrencyBitcoin
@@ -30,6 +31,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.LocalCafe
 import androidx.compose.material.icons.filled.QrCode2
+import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.ShoppingBag
 import androidx.compose.material.icons.filled.Star
@@ -95,12 +97,13 @@ fun BuyMeACoffeeCard(
     onOpenDialog: (() -> Unit)? = null,
     onShowMessage: ((String) -> Unit)? = null
 ) {
-    val context = LocalContext.current
     var showFullDialog by remember { mutableStateOf(false) }
+    var dialogInitialTab by remember { mutableIntStateOf(0) }
 
     if (showFullDialog && onOpenDialog == null) {
         BuyMeACoffeeDialog(
             onDismiss = { showFullDialog = false },
+            initialTab = dialogInitialTab,
             onShowMessage = onShowMessage
         )
     }
@@ -195,6 +198,7 @@ fun BuyMeACoffeeCard(
             ) {
                 Button(
                     onClick = {
+                        dialogInitialTab = 0
                         if (onOpenDialog != null) onOpenDialog() else showFullDialog = true
                     },
                     colors = ButtonDefaults.buttonColors(
@@ -219,6 +223,7 @@ fun BuyMeACoffeeCard(
 
                 OutlinedButton(
                     onClick = {
+                        dialogInitialTab = 1
                         if (onOpenDialog != null) onOpenDialog() else showFullDialog = true
                     },
                     border = BorderStroke(1.dp, CoffeeAmber.copy(alpha = 0.6f)),
@@ -246,127 +251,377 @@ fun BuyMeACoffeeCard(
 }
 
 /**
+ * Unwraps ContextWrapper instances (such as Dialog or ContextThemeWrapper contexts)
+ * to retrieve the underlying Android Activity.
+ */
+fun Context.findActivity(): Activity? {
+    var currentContext = this
+    while (currentContext is android.content.ContextWrapper) {
+        if (currentContext is Activity) return currentContext
+        currentContext = currentContext.baseContext
+    }
+    return null
+}
+
+/**
  * Tab 0: Google Play In-App Purchase 1-Tap Tips.
  */
 @Composable
 fun GooglePlayTipView(
+    activity: Activity? = null,
     onShowMessage: ((String) -> Unit)? = null
 ) {
     val context = LocalContext.current
-    val activity = context as? Activity
-    val billingManager = remember { BillingManager.getInstance(context) }
-    val availableTips by billingManager.availableTips.collectAsState()
-    val billingStatus by billingManager.billingStatus.collectAsState()
+    val billingRepository = remember { com.example.ui.billing.BillingRepository.getInstance(context) }
+    val resolvedActivity = activity ?: remember(context) { context.findActivity() } ?: billingRepository.resolveActiveActivity()
+    val availableTips by billingRepository.availableTips.collectAsState()
+    val billingStatus by billingRepository.billingStatus.collectAsState()
     val satisfactionManager = remember { SatisfactionManager.getInstance(context) }
     val isSupporter by satisfactionManager.isSupporter.collectAsState()
+    var lastPurchasedTip by remember { mutableStateOf<TipProduct?>(null) }
+
+    val confirmingTip = (billingStatus as? BillingStatus.ConfirmingCheckout)?.tip
+    val successStatus = billingStatus as? BillingStatus.Success
+
+    LaunchedEffect(successStatus) {
+        if (successStatus != null) {
+            val matched = availableTips.firstOrNull { it.id == successStatus.productId }
+            if (matched != null) {
+                lastPurchasedTip = matched
+            }
+        }
+    }
 
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        // Active Supporter Recognition Banner with Tier Badge
         if (isSupporter) {
             Surface(
-                color = Color(0xFF10B981).copy(alpha = 0.12f),
-                border = BorderStroke(1.dp, Color(0xFF10B981).copy(alpha = 0.4f)),
-                shape = RoundedCornerShape(12.dp),
+                color = Color(0xFF10B981).copy(alpha = 0.16f),
+                border = BorderStroke(1.dp, Color(0xFF34D399).copy(alpha = 0.6f)),
+                shape = RoundedCornerShape(14.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 12.dp)
+                    .padding(bottom = 14.dp)
             ) {
                 Row(
-                    modifier = Modifier.padding(12.dp),
+                    modifier = Modifier.padding(14.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.Star,
-                        contentDescription = null,
-                        tint = Color(0xFF10B981),
-                        modifier = Modifier.size(20.dp)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Column {
-                        Text(
-                            text = stringResource(R.string.support_status_active),
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 13.sp,
-                            color = Color(0xFF065F46)
+                    Box(
+                        modifier = Modifier
+                            .size(38.dp)
+                            .clip(CircleShape)
+                            .background(Color(0xFF10B981).copy(alpha = 0.25f)),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Star,
+                            contentDescription = null,
+                            tint = Color(0xFF34D399),
+                            modifier = Modifier.size(22.dp)
                         )
+                    }
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Column(modifier = Modifier.weight(1f)) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text(
+                                text = stringResource(R.string.support_status_active),
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 13.5.sp,
+                                color = Color(0xFF34D399)
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Surface(
+                                color = Color(0xFF10B981),
+                                shape = RoundedCornerShape(6.dp)
+                            ) {
+                                Text(
+                                    text = "UNLOCKED",
+                                    fontSize = 9.sp,
+                                    fontWeight = FontWeight.ExtraBold,
+                                    color = Color.White,
+                                    modifier = Modifier.padding(horizontal = 5.dp, vertical = 1.dp)
+                                )
+                            }
+                        }
+                        if (lastPurchasedTip != null) {
+                            Spacer(modifier = Modifier.height(2.dp))
+                            Text(
+                                text = "${lastPurchasedTip!!.emoji} ${lastPurchasedTip!!.title} (${lastPurchasedTip!!.defaultPriceFormatted})" +
+                                    (successStatus?.orderId?.let { " • #$it" } ?: ""),
+                                fontWeight = FontWeight.SemiBold,
+                                fontSize = 11.5.sp,
+                                color = Color(0xFF6EE7B7),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(2.dp))
                         Text(
                             text = stringResource(R.string.support_thank_you_desc),
                             fontSize = 11.sp,
-                            color = Color(0xFF047857)
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.85f),
+                            lineHeight = 15.sp
                         )
                     }
                 }
             }
         }
 
-        Text(
-            text = stringResource(R.string.support_iap_title),
-            style = MaterialTheme.typography.titleSmall.copy(
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurface
-            ),
-            textAlign = TextAlign.Center
-        )
-        Spacer(modifier = Modifier.height(2.dp))
-        Text(
-            text = stringResource(R.string.support_iap_desc),
-            style = MaterialTheme.typography.bodySmall.copy(
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                fontSize = 11.sp
-            ),
-            textAlign = TextAlign.Center
-        )
+        // Direct, Clear Value Proposition Header
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 4.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Default.ShoppingBag,
+                    contentDescription = null,
+                    tint = CoffeeAmber,
+                    modifier = Modifier.size(18.dp)
+                )
+                Spacer(modifier = Modifier.width(6.dp))
+                Text(
+                    text = stringResource(R.string.support_iap_title),
+                    style = MaterialTheme.typography.titleMedium.copy(
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                )
+            }
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = "100% optional one-time tip via Google Play Balance, Google Pay, or Card. No recurring charges or subscriptions.",
+                style = MaterialTheme.typography.bodySmall.copy(
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    fontSize = 11.5.sp,
+                    lineHeight = 16.sp
+                ),
+                textAlign = TextAlign.Center
+            )
+        }
 
         Spacer(modifier = Modifier.height(14.dp))
 
-        // Product Tiers Grid / Column
+        // Interactive Google Play 1-Tap Checkout Sheet when a tier is pending confirmation
+        AnimatedVisibility(visible = confirmingTip != null) {
+            confirmingTip?.let { pendingTip ->
+                Surface(
+                    color = MaterialTheme.colorScheme.surfaceVariant,
+                    border = BorderStroke(1.5.dp, CoffeeAmber),
+                    shape = RoundedCornerShape(16.dp),
+                    tonalElevation = 6.dp,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 14.dp)
+                        .testTag("google_play_checkout_sheet")
+                ) {
+                    Column(modifier = Modifier.padding(14.dp)) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(
+                                    imageVector = Icons.Default.ShoppingBag,
+                                    contentDescription = null,
+                                    tint = CoffeeAmber,
+                                    modifier = Modifier.size(16.dp)
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(
+                                    text = "Confirm 1-Tap Support",
+                                    fontSize = 11.5.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = CoffeeAmber
+                                )
+                            }
+                            Surface(
+                                color = CoffeeAmber.copy(alpha = 0.15f),
+                                shape = RoundedCornerShape(6.dp)
+                            ) {
+                                Text(
+                                    text = "One-Time",
+                                    fontSize = 10.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = CoffeeAmber,
+                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text(text = pendingTip.emoji, fontSize = 28.sp)
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    text = pendingTip.title,
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 14.sp,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                                Text(
+                                    text = pendingTip.description,
+                                    fontSize = 11.5.sp,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                            Text(
+                                text = pendingTip.defaultPriceFormatted,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.ExtraBold,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(14.dp))
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            OutlinedButton(
+                                onClick = { billingRepository.resetStatus() },
+                                shape = RoundedCornerShape(10.dp),
+                                modifier = Modifier.weight(1f).height(42.dp),
+                                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+                            ) {
+                                Text(
+                                    text = stringResource(R.string.action_cancel),
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                            }
+
+                            Button(
+                                onClick = {
+                                    billingRepository.confirmCheckoutPurchase(pendingTip) { _, msg ->
+                                        lastPurchasedTip = pendingTip
+                                        onShowMessage?.invoke(msg)
+                                    }
+                                },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = Color(0xFF10B981),
+                                    contentColor = Color.White
+                                ),
+                                shape = RoundedCornerShape(10.dp),
+                                modifier = Modifier
+                                    .weight(1.4f)
+                                    .height(42.dp)
+                                    .testTag("google_play_confirm_buy_button"),
+                                contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp)
+                            ) {
+                                Icon(Icons.Default.Check, contentDescription = null, modifier = Modifier.size(16.dp))
+                                Spacer(modifier = Modifier.width(4.dp))
+                                Text(
+                                    text = "Send ${pendingTip.defaultPriceFormatted}",
+                                    fontSize = 12.5.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    maxLines = 1
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Product Tiers: Clean, scannable cards with emoji, title, clear one-time badge & price button
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             availableTips.forEach { tip ->
+                val isPurchasedTier = lastPurchasedTip?.id == tip.id
+                val isConfirmingThisTier = confirmingTip?.id == tip.id
                 Surface(
                     onClick = {
-                        if (activity != null) {
-                            billingManager.launchTipPurchase(activity, tip) { success, msg ->
-                                onShowMessage?.invoke(msg)
-                            }
-                        } else {
-                            onShowMessage?.invoke("Billing requires an active activity session.")
+                        billingRepository.launchTipPurchase(resolvedActivity, tip) { _, msg ->
+                            lastPurchasedTip = tip
+                            onShowMessage?.invoke(msg)
                         }
                     },
-                    shape = RoundedCornerShape(12.dp),
-                    color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.35f),
-                    border = BorderStroke(1.dp, CoffeeAmber.copy(alpha = 0.3f)),
+                    shape = RoundedCornerShape(14.dp),
+                    color = when {
+                        isConfirmingThisTier -> CoffeeAmber.copy(alpha = 0.22f)
+                        isPurchasedTier -> Color(0xFF10B981).copy(alpha = 0.14f)
+                        else -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.45f)
+                    },
+                    border = BorderStroke(
+                        width = if (isConfirmingThisTier || isPurchasedTier) 1.5.dp else 1.dp,
+                        color = when {
+                            isConfirmingThisTier -> CoffeeAmber
+                            isPurchasedTier -> Color(0xFF34D399)
+                            else -> MaterialTheme.colorScheme.outlineVariant
+                        }
+                    ),
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Row(
                         modifier = Modifier
-                            .padding(12.dp)
+                            .padding(horizontal = 14.dp, vertical = 12.dp)
                             .fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f).padding(end = 10.dp)
                         ) {
-                            Text(
-                                text = tip.emoji,
-                                fontSize = 24.sp
-                            )
-                            Spacer(modifier = Modifier.width(10.dp))
-                            Column {
+                            Box(
+                                modifier = Modifier
+                                    .size(42.dp)
+                                    .clip(CircleShape)
+                                    .background(
+                                        if (isPurchasedTier) Color(0xFF10B981).copy(alpha = 0.2f)
+                                        else CoffeeAmber.copy(alpha = 0.12f)
+                                    ),
+                                contentAlignment = Alignment.Center
+                            ) {
                                 Text(
-                                    text = tip.title,
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 13.sp,
-                                    color = MaterialTheme.colorScheme.onSurface,
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis
+                                    text = tip.emoji,
+                                    fontSize = 22.sp
                                 )
+                            }
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Column {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Text(
+                                        text = tip.title,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 13.5.sp,
+                                        color = MaterialTheme.colorScheme.onSurface,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                    if (isPurchasedTier) {
+                                        Spacer(modifier = Modifier.width(6.dp))
+                                        Surface(
+                                            color = Color(0xFF10B981),
+                                            shape = RoundedCornerShape(4.dp)
+                                        ) {
+                                            Text(
+                                                text = "ACTIVE",
+                                                color = Color.White,
+                                                fontSize = 8.5.sp,
+                                                fontWeight = FontWeight.ExtraBold,
+                                                modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp)
+                                            )
+                                        }
+                                    }
+                                }
+                                Spacer(modifier = Modifier.height(2.dp))
                                 Text(
                                     text = tip.description,
                                     fontSize = 11.sp,
@@ -379,28 +634,50 @@ fun GooglePlayTipView(
 
                         Button(
                             onClick = {
-                                if (activity != null) {
-                                    billingManager.launchTipPurchase(activity, tip) { success, msg ->
-                                        onShowMessage?.invoke(msg)
-                                    }
+                                billingRepository.launchTipPurchase(resolvedActivity, tip) { _, msg ->
+                                    lastPurchasedTip = tip
+                                    onShowMessage?.invoke(msg)
                                 }
                             },
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = CoffeeAmber,
+                                containerColor = if (isPurchasedTier) Color(0xFF10B981) else CoffeeAmber,
                                 contentColor = Color.White
                             ),
-                            shape = RoundedCornerShape(8.dp),
-                            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp)
+                            shape = RoundedCornerShape(10.dp),
+                            contentPadding = PaddingValues(horizontal = 14.dp, vertical = 8.dp)
                         ) {
                             Text(
-                                text = tip.defaultPriceFormatted,
+                                text = if (isPurchasedTier) "✓ ${tip.defaultPriceFormatted}" else tip.defaultPriceFormatted,
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 12.sp
+                                fontSize = 13.sp
                             )
                         }
                     }
                 }
             }
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        // Trust badge: 100% offline & safe Google Play processing guarantee
+        Row(
+            modifier = Modifier.padding(top = 4.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                imageVector = Icons.Default.Security,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                modifier = Modifier.size(13.dp)
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+            Text(
+                text = "Processed securely by Google Play. Instant offline unlock.",
+                fontSize = 10.5.sp,
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                textAlign = TextAlign.Center
+            )
         }
     }
 }
@@ -746,7 +1023,10 @@ fun BuyMeACoffeeDialog(
     initialTab: Int = 0,
     onShowMessage: ((String) -> Unit)? = null
 ) {
+    val outerContext = LocalContext.current
+    val hostActivity = remember(outerContext) { outerContext.findActivity() }
     var selectedTab by remember { mutableIntStateOf(initialTab) }
+    var dialogNotice by remember { mutableStateOf<String?>(null) }
     val scrollState = rememberScrollState()
 
     Dialog(
@@ -921,6 +1201,25 @@ fun BuyMeACoffeeDialog(
                     }
                 }
 
+                AnimatedVisibility(visible = !dialogNotice.isNullOrBlank()) {
+                    Surface(
+                        color = Color(0xFF10B981).copy(alpha = 0.16f),
+                        border = BorderStroke(1.dp, Color(0xFF34D399).copy(alpha = 0.6f)),
+                        shape = RoundedCornerShape(10.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 10.dp)
+                    ) {
+                        Text(
+                            text = dialogNotice ?: "",
+                            fontSize = 11.5.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = Color(0xFF34D399),
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
+                        )
+                    }
+                }
+
                 Spacer(modifier = Modifier.height(14.dp))
 
                 // Smooth animated transition between the 3 modes
@@ -930,9 +1229,16 @@ fun BuyMeACoffeeDialog(
                     label = "coffee_mode_switch"
                 ) { tab ->
                     when (tab) {
-                        0 -> GooglePlayTipView(onShowMessage = onShowMessage)
-                        1 -> BuyMeACoffeeQrView(onShowMessage = onShowMessage)
-                        else -> WebTipView(onShowMessage = onShowMessage)
+                        0 -> GooglePlayTipView(
+                            activity = hostActivity,
+                            onShowMessage = { msg -> dialogNotice = msg }
+                        )
+                        1 -> BuyMeACoffeeQrView(
+                            onShowMessage = { msg -> dialogNotice = msg }
+                        )
+                        else -> WebTipView(
+                            onShowMessage = { msg -> dialogNotice = msg }
+                        )
                     }
                 }
             }
