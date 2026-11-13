@@ -26,8 +26,8 @@ android {
     applicationId = "com.soloprono.pdfcraft"
     minSdk = 24
     targetSdk = 36
-    versionCode = 29
-    versionName = "1.7.6"
+    versionCode = 30
+    versionName = "1.7.7"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
@@ -54,7 +54,8 @@ android {
   buildTypes {
     release {
       isCrunchPngs = false
-      isMinifyEnabled = false
+      isMinifyEnabled = true
+      isShrinkResources = true
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
       signingConfig = signingConfigs.getByName("release")
     }

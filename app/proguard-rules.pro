@@ -1,21 +1,38 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+# ProGuard / R8 Rules for PDFCraft Release Obfuscation and Optimization
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# Retain line numbers and source file attributes for Play Console crash deobfuscation
+-keepattributes SourceFile,LineNumberTable
+-renamesourcefileattribute SourceFile
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# Preserve annotations and generic signatures
+-keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# Room Database and Entities
+-keep class * extends androidx.room.RoomDatabase
+-keep @androidx.room.Entity class * { *; }
+-dontwarn androidx.room.paging.**
+
+# PDFBox Android (Apache PDFBox ported for Android)
+-keep class com.tom_roush.pdfbox.** { *; }
+-keep class com.tom_roush.fontbox.** { *; }
+-dontwarn com.tom_roush.pdfbox.**
+-dontwarn com.tom_roush.fontbox.**
+-dontwarn javax.xml.stream.**
+-dontwarn org.bouncycastle.**
+
+# ZXing Core
+-keep class com.google.zxing.** { *; }
+-dontwarn com.google.zxing.**
+
+# Google Play In-App Billing
+-keep class com.android.billingclient.api.** { *; }
+
+# Coil Image Loader
+-dontwarn io.coilkt.**
+
+# Coroutines
+-dontwarn kotlinx.coroutines.**
+
+# Firebase
+-dontwarn com.google.firebase.**
+
