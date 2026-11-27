@@ -301,7 +301,11 @@ fun SettingsDialog(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "PDFCraft Studio v${com.example.BuildConfig.VERSION_NAME} • Build 2026",
+                        text = stringResource(
+                            R.string.settings_footer_version,
+                            com.example.BuildConfig.VERSION_NAME,
+                            com.example.BuildConfig.VERSION_CODE
+                        ),
                         fontSize = 11.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
                     )

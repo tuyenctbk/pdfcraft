@@ -241,7 +241,7 @@ fun TextToPdfScreen(
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
-                                    text = "Formatting & Page Settings",
+                                    text = stringResource(R.string.text_to_pdf_formatting_title),
                                     style = MaterialTheme.typography.titleSmall,
                                     fontWeight = FontWeight.Bold
                                 )
@@ -256,7 +256,7 @@ fun TextToPdfScreen(
                             Column(modifier = Modifier.padding(top = 16.dp)) {
                                 // Font Size Slider
                                 Text(
-                                    text = "Font Size: ${options.fontSize.toInt()} pt",
+                                    text = stringResource(R.string.text_to_pdf_font_size, options.fontSize.toInt()),
                                     style = MaterialTheme.typography.bodyMedium,
                                     fontWeight = FontWeight.Medium
                                 )
@@ -271,7 +271,7 @@ fun TextToPdfScreen(
 
                                 // Font Family Selection
                                 Text(
-                                    text = "Typeface",
+                                    text = stringResource(R.string.text_to_pdf_typeface),
                                     style = MaterialTheme.typography.bodyMedium,
                                     fontWeight = FontWeight.Medium
                                 )
@@ -294,7 +294,7 @@ fun TextToPdfScreen(
 
                                 // Paper Size
                                 Text(
-                                    text = "Page Format",
+                                    text = stringResource(R.string.text_to_pdf_page_format),
                                     style = MaterialTheme.typography.bodyMedium,
                                     fontWeight = FontWeight.Medium
                                 )
@@ -359,12 +359,12 @@ fun TextToPdfScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Text / Code Editor",
+                                text = stringResource(R.string.text_to_pdf_editor_title),
                                 style = MaterialTheme.typography.titleSmall,
                                 fontWeight = FontWeight.Bold
                             )
                             Text(
-                                text = "Supports raw text, Markdown & CSV",
+                                text = stringResource(R.string.text_to_pdf_editor_subtitle),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )

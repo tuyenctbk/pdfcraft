@@ -28,22 +28,29 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
+import androidx.compose.material.icons.filled.AddPhotoAlternate
+import androidx.compose.material.icons.filled.BrandingWatermark
+import androidx.compose.material.icons.filled.Code
 import androidx.compose.material.icons.filled.Compress
 import androidx.compose.material.icons.filled.ContentCut
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.FolderSpecial
+import androidx.compose.material.icons.filled.FormatListNumbered
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Merge
+import androidx.compose.material.icons.filled.PhotoLibrary
 import androidx.compose.material.icons.filled.TextFields
+import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material.icons.filled.Draw
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material.icons.outlined.StarBorder
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -101,10 +108,10 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material.icons.filled.DriveFileRenameOutline
 
-enum class LibrarySortOption(val title: String) {
-    DATE_CREATED("Date Created"),
-    FILE_SIZE("File Size"),
-    ALPHABETICAL("Alphabetical")
+enum class LibrarySortOption(@androidx.annotation.StringRes val titleRes: Int) {
+    DATE_CREATED(R.string.library_sort_date_created),
+    FILE_SIZE(R.string.library_sort_file_size),
+    ALPHABETICAL(R.string.library_sort_alphabetical)
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -114,9 +121,9 @@ fun LibraryScreen(
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
-    val historyList by viewModel.historyState.collectAsState()
-    val selectedProjectIds by viewModel.selectedLibraryProjectIds.collectAsState()
-    val isMultiSelectMode by viewModel.isLibraryMultiSelectMode.collectAsState()
+    val historyList by viewModel.historyState.collectAsStateWithLifecycle()
+    val selectedProjectIds by viewModel.selectedLibraryProjectIds.collectAsStateWithLifecycle()
+    val isMultiSelectMode by viewModel.isLibraryMultiSelectMode.collectAsStateWithLifecycle()
 
     var filterType by remember { mutableStateOf<PdfOperationType?>(null) }
     var showOnlyFavorites by remember { mutableStateOf(false) }
@@ -134,15 +141,17 @@ fun LibraryScreen(
     var showBulkRenameDialog by remember { mutableStateOf(false) }
     var bulkRenamePatternInput by remember { mutableStateOf("Document_{N}") }
 
-    val filteredList = historyList.filter { project ->
-        val matchesSearch = searchQuery.isBlank() ||
-                project.title.contains(searchQuery, ignoreCase = true) ||
-                project.outputFilePath.contains(searchQuery, ignoreCase = true) ||
-                project.summaryDetails.contains(searchQuery, ignoreCase = true)
-        val matchesType = (filterType == null || project.operationType == filterType)
-        val matchesFav = (!showOnlyFavorites || project.isFavorite)
+    val filteredList = remember(historyList, searchQuery, filterType, showOnlyFavorites) {
+        historyList.filter { project ->
+            val matchesSearch = searchQuery.isBlank() ||
+                    project.title.contains(searchQuery, ignoreCase = true) ||
+                    project.outputFilePath.contains(searchQuery, ignoreCase = true) ||
+                    project.summaryDetails.contains(searchQuery, ignoreCase = true)
+            val matchesType = (filterType == null || project.operationType == filterType)
+            val matchesFav = (!showOnlyFavorites || project.isFavorite)
 
-        matchesSearch && matchesType && matchesFav
+            matchesSearch && matchesType && matchesFav
+        }
     }
 
     val sortedList = remember(filteredList, sortOption, isAscending) {
@@ -153,7 +162,9 @@ fun LibraryScreen(
         }
     }
 
-    val totalSavedBytes = historyList.sumOf { (it.originalSizeBytes - it.resultSizeBytes).coerceAtLeast(0) }
+    val totalSavedBytes = remember(historyList) {
+        historyList.sumOf { (it.originalSizeBytes - it.resultSizeBytes).coerceAtLeast(0) }
+    }
 
     BoxWithConstraints(
         modifier = modifier
@@ -176,7 +187,7 @@ fun LibraryScreen(
             ) {
                 Column(modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp)) {
                     Text(
-                        text = "Project Library & Activity Log",
+                        text = stringResource(R.string.library_header_title),
                         style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                     )
 
@@ -187,11 +198,11 @@ fun LibraryScreen(
                         value = searchQuery,
                         onValueChange = { searchQuery = it },
                         placeholder = { Text(stringResource(R.string.library_search_by_title), fontSize = 13.sp) },
-                        leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Search", modifier = Modifier.size(20.dp)) },
+                        leadingIcon = { Icon(Icons.Default.Search, contentDescription = stringResource(R.string.action_search), modifier = Modifier.size(20.dp)) },
                         trailingIcon = {
                             if (searchQuery.isNotEmpty()) {
                                 IconButton(onClick = { searchQuery = "" }) {
-                                    Icon(Icons.Default.Clear, contentDescription = "Clear search", modifier = Modifier.size(20.dp))
+                                    Icon(Icons.Default.Clear, contentDescription = stringResource(R.string.action_clear_search), modifier = Modifier.size(20.dp))
                                 }
                             }
                         },
@@ -229,7 +240,7 @@ fun LibraryScreen(
                             ) {
                                 Column {
                                     Text(stringResource(R.string.library_total_processed), fontSize = 10.sp, color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold)
-                                    Text("${historyList.size} Files", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
+                                    Text(stringResource(R.string.hub_files_count, historyList.size), fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                                 }
                             }
 
@@ -284,14 +295,14 @@ fun LibraryScreen(
                                     ) {
                                         Icon(
                                             imageVector = Icons.Default.DriveFileRenameOutline,
-                                            contentDescription = "Multi-Select",
+                                            contentDescription = stringResource(R.string.library_multi_select),
                                             tint = MaterialTheme.colorScheme.primary,
                                             modifier = Modifier.size(18.dp)
                                         )
                                     }
                                     Spacer(modifier = Modifier.width(6.dp))
                                     Text(
-                                        text = if (isMultiSelectMode) "${selectedProjectIds.size} Selected" else "Bulk Rename Mode",
+                                        text = if (isMultiSelectMode) stringResource(R.string.library_selected_count, selectedProjectIds.size) else stringResource(R.string.library_bulk_rename_mode),
                                         fontSize = 12.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = if (isMultiSelectMode) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
@@ -329,7 +340,7 @@ fun LibraryScreen(
                                             onClick = { viewModel.clearLibraryProjectSelection() },
                                             modifier = Modifier.size(28.dp)
                                         ) {
-                                            Icon(Icons.Default.Clear, contentDescription = "Cancel", tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(16.dp))
+                                            Icon(Icons.Default.Clear, contentDescription = stringResource(R.string.action_cancel), tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(16.dp))
                                         }
                                     } else {
                                         TextButton(
@@ -351,7 +362,7 @@ fun LibraryScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Filters & Sorting",
+                                text = stringResource(R.string.library_filters_sorting),
                                 style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                             )
 
@@ -370,13 +381,13 @@ fun LibraryScreen(
                                     ) {
                                         Icon(
                                             imageVector = Icons.Default.Sort,
-                                            contentDescription = "Sort Options",
+                                            contentDescription = stringResource(R.string.library_sort_options),
                                             tint = MaterialTheme.colorScheme.primary,
                                             modifier = Modifier.size(16.dp)
                                         )
                                         Spacer(modifier = Modifier.width(4.dp))
                                         Text(
-                                            text = "${sortOption.title}${if (isAscending) " ↑" else " ↓"}",
+                                            text = "${stringResource(sortOption.titleRes)}${if (isAscending) " ↑" else " ↓"}",
                                             fontSize = 11.sp,
                                             fontWeight = FontWeight.Bold,
                                             color = MaterialTheme.colorScheme.primary
@@ -391,8 +402,9 @@ fun LibraryScreen(
                                     LibrarySortOption.entries.forEach { option ->
                                         DropdownMenuItem(
                                             text = {
+                                                val dirLabel = if (isAscending) stringResource(R.string.library_sort_asc) else stringResource(R.string.library_sort_desc)
                                                 Text(
-                                                    text = option.title + if (sortOption == option) (if (isAscending) " (Ascending)" else " (Descending)") else "",
+                                                    text = stringResource(option.titleRes) + if (sortOption == option) " ($dirLabel)" else "",
                                                     fontWeight = if (sortOption == option) FontWeight.Bold else FontWeight.Normal,
                                                     color = if (sortOption == option) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
                                                 )
@@ -431,7 +443,7 @@ fun LibraryScreen(
                                         .testTag("filter_all"),
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    Text("All", fontSize = 11.sp, color = if (filterType == null && !showOnlyFavorites) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Bold)
+                                    Text(stringResource(R.string.library_filter_all), fontSize = 11.sp, color = if (filterType == null && !showOnlyFavorites) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Bold)
                                 }
                             }
 
@@ -445,7 +457,7 @@ fun LibraryScreen(
                                         .testTag("filter_favorites"),
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    Text("Favorites", fontSize = 11.sp, color = if (showOnlyFavorites) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Bold)
+                                    Text(stringResource(R.string.library_favorites), fontSize = 11.sp, color = if (showOnlyFavorites) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Bold)
                                 }
                             }
 
@@ -500,14 +512,14 @@ fun LibraryScreen(
                                 Spacer(modifier = Modifier.height(16.dp))
 
                                 Text(
-                                    text = if (searchQuery.isNotBlank()) "No Matching Documents" else "No Projects Recorded",
+                                    text = if (searchQuery.isNotBlank()) stringResource(R.string.library_empty_no_match) else stringResource(R.string.library_empty_no_projects),
                                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                                 )
 
                                 Spacer(modifier = Modifier.height(4.dp))
 
                                 Text(
-                                    text = if (searchQuery.isNotBlank()) "No PDF documents found matching '$searchQuery'. Try clearing your search query." else "Your processed documents, merges, splits, and extractions will be securely stored here on local Room DB.",
+                                    text = if (searchQuery.isNotBlank()) stringResource(R.string.library_empty_no_match_desc, searchQuery) else stringResource(R.string.library_empty_no_projects_desc),
                                     style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
                                 )
                             }
@@ -561,16 +573,18 @@ fun LibraryScreen(
                                 PdfOperationType.COMPRESS -> Icons.Default.Compress
                                 PdfOperationType.EXTRACT -> Icons.Default.Image
                                 PdfOperationType.ENCRYPT -> Icons.Default.Lock
-                                PdfOperationType.WATERMARK -> Icons.Default.TextFields
+                                PdfOperationType.WATERMARK -> Icons.Default.BrandingWatermark
                                 PdfOperationType.SIGN -> Icons.Default.Draw
-                                PdfOperationType.METADATA -> Icons.Default.Edit
+                                PdfOperationType.METADATA -> Icons.Default.Tune
                                 PdfOperationType.ROTATE -> Icons.Default.Refresh
-                                PdfOperationType.IMAGE_TO_PDF -> Icons.Default.Image
-                                PdfOperationType.PAGE_NUMBER -> Icons.Default.TextFields
+                                PdfOperationType.IMAGE_TO_PDF -> Icons.Default.AddPhotoAlternate
+                                PdfOperationType.PAGE_NUMBER -> Icons.Default.FormatListNumbered
                                 PdfOperationType.TEXT_TO_PDF -> Icons.Default.TextFields
-                                PdfOperationType.PDF_TO_TEXT -> Icons.Default.TextFields
-                                PdfOperationType.PDF_TO_IMAGES -> Icons.Default.Image
-                                PdfOperationType.HTML_TO_PDF -> Icons.Default.Edit
+                                PdfOperationType.PDF_TO_TEXT -> Icons.Default.Description
+                                PdfOperationType.PDF_TO_IMAGES -> Icons.Default.PhotoLibrary
+                                PdfOperationType.HTML_TO_PDF -> Icons.Default.Code
+                                PdfOperationType.DOCUMENT_INFO -> Icons.Default.Info
+                                else -> Icons.Default.Description
                             }
                             Box(
                                 modifier = Modifier
@@ -593,14 +607,16 @@ fun LibraryScreen(
                                 )
                                 Spacer(modifier = Modifier.height(2.dp))
                                 Text(
-                                    text = item.summaryDetails.ifEmpty { "${item.pageCount} pages • ${PdfEngine.formatFileSize(item.resultSizeBytes)}" },
+                                    text = item.summaryDetails.ifEmpty {
+                                        stringResource(R.string.common_pages_and_size, item.pageCount, PdfEngine.formatFileSize(item.resultSizeBytes))
+                                    },
                                     fontSize = 11.sp,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     maxLines = 1,
                                     overflow = TextOverflow.Ellipsis
                                 )
                                 Text(
-                                    text = SimpleDateFormat("MMM dd, yyyy • HH:mm", Locale.US).format(Date(item.timestamp)),
+                                    text = SimpleDateFormat("MMM dd, yyyy • HH:mm", Locale.getDefault()).format(Date(item.timestamp)),
                                     fontSize = 10.sp,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
                                 )
@@ -613,7 +629,7 @@ fun LibraryScreen(
                                 ) {
                                     Icon(
                                         imageVector = if (item.isFavorite) Icons.Filled.Star else Icons.Outlined.StarBorder,
-                                        contentDescription = "Favorite",
+                                        contentDescription = stringResource(R.string.action_favorite),
                                         tint = if (item.isFavorite) Color(0xFFF59E0B) else MaterialTheme.colorScheme.onSurfaceVariant
                                     )
                                 }
@@ -622,7 +638,7 @@ fun LibraryScreen(
                                     onClick = { viewModel.openInViewer(item.outputFilePath) },
                                     modifier = Modifier.testTag("open_viewer_${item.id}")
                                 ) {
-                                    Icon(imageVector = Icons.AutoMirrored.Filled.OpenInNew, contentDescription = "View PDF", tint = MaterialTheme.colorScheme.primary)
+                                    Icon(imageVector = Icons.AutoMirrored.Filled.OpenInNew, contentDescription = stringResource(R.string.action_view_pdf), tint = MaterialTheme.colorScheme.primary)
                                 }
 
                                 IconButton(
@@ -640,7 +656,7 @@ fun LibraryScreen(
                                                     putExtra(Intent.EXTRA_STREAM, uri)
                                                     addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                                                 }
-                                                context.startActivity(Intent.createChooser(shareIntent, "Share ${file.name}"))
+                                                context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.common_share_file, file.name)))
                                             } catch (e: Exception) {
                                                 e.printStackTrace()
                                             }
@@ -648,14 +664,14 @@ fun LibraryScreen(
                                     },
                                     modifier = Modifier.testTag("share_${item.id}")
                                 ) {
-                                    Icon(imageVector = Icons.Default.Share, contentDescription = "Share", tint = MaterialTheme.colorScheme.onSurfaceVariant)
+                                    Icon(imageVector = Icons.Default.Share, contentDescription = stringResource(R.string.action_share), tint = MaterialTheme.colorScheme.onSurfaceVariant)
                                 }
 
                                 IconButton(
                                     onClick = { projectToDelete = item },
                                     modifier = Modifier.testTag("delete_item_${item.id}")
                                 ) {
-                                    Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete", tint = MaterialTheme.colorScheme.error)
+                                    Icon(imageVector = Icons.Default.Delete, contentDescription = stringResource(R.string.action_delete), tint = MaterialTheme.colorScheme.error)
                                 }
                             }
                         }
@@ -702,7 +718,7 @@ fun LibraryScreen(
             text = {
                 Column {
                     Text(
-                        text = "Enter a new filename for this processed PDF document:",
+                        text = stringResource(R.string.library_rename_prompt),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -779,7 +795,7 @@ fun LibraryScreen(
                         onClick = {
                             val p = project
                             projectContextMenu = null
-                            viewModel.inspectFileMetadata(p.outputFilePath)
+                            viewModel.openDocumentInfoScreen(p.outputFilePath)
                         },
                         modifier = Modifier.fillMaxWidth()
                     ) {
@@ -807,7 +823,7 @@ fun LibraryScreen(
                                         putExtra(Intent.EXTRA_STREAM, uri)
                                         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                                     }
-                                    context.startActivity(Intent.createChooser(shareIntent, "Share ${file.name}"))
+                                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.common_share_file, file.name)))
                                 } catch (e: Exception) {
                                     e.printStackTrace()
                                 }
@@ -855,8 +871,9 @@ fun LibraryScreen(
             title = { Text(stringResource(R.string.library_bulk_rename_title, selectedProjectIds.size)) },
             text = {
                 Column {
+                    val todayDateStr = remember { SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(Date()) }
                     Text(
-                        "Enter pattern or prefix for selected files. Use {N} for sequential numbers (1, 2, 3...) or {DATE} for current date.",
+                        text = stringResource(R.string.library_bulk_rename_hint),
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -871,7 +888,10 @@ fun LibraryScreen(
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "Preview: ${bulkRenamePatternInput.replace("{N}", "1").replace("{DATE}", "20260824")}.pdf",
+                        text = stringResource(
+                            R.string.library_bulk_rename_preview,
+                            bulkRenamePatternInput.replace("{N}", "1").replace("{DATE}", todayDateStr)
+                        ),
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary

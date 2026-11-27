@@ -89,133 +89,136 @@ object PdfTextAndMediaService {
         val outputFile = File(outputDir, cleanName)
 
         val pdfDocument = PdfDocument()
-        val pageWidth = options.pageSize.widthPt
-        val pageHeight = options.pageSize.heightPt
-        val margin = options.marginPt
-        val contentWidth = (pageWidth - (margin * 2)).toInt().coerceAtLeast(100)
+        try {
+            val pageWidth = options.pageSize.widthPt
+            val pageHeight = options.pageSize.heightPt
+            val margin = options.marginPt
+            val contentWidth = (pageWidth - (margin * 2)).toInt().coerceAtLeast(100)
 
-        val typeface = when (options.fontFamily) {
-            TextFontFamily.SANS_SERIF -> Typeface.SANS_SERIF
-            TextFontFamily.SERIF -> Typeface.SERIF
-            TextFontFamily.MONOSPACE -> Typeface.MONOSPACE
-        }
-
-        val textPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
-            this.typeface = typeface
-            this.textSize = options.fontSize
-            this.color = Color.BLACK
-        }
-
-        val headerPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            this.typeface = Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD)
-            this.textSize = 10f
-            this.color = Color.DKGRAY
-        }
-
-        val footerPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            this.typeface = Typeface.SANS_SERIF
-            this.textSize = 9f
-            this.color = Color.GRAY
-            this.textAlign = Paint.Align.CENTER
-        }
-
-        val lineDividerPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            this.color = Color.LTGRAY
-            this.strokeWidth = 0.75f
-        }
-
-        val headerHeight = if (options.title.isNotBlank() || options.includeHeaderDate) 32f else 10f
-        val footerHeight = if (options.includePageNumbers) 28f else 10f
-        val availableContentHeight = (pageHeight - (margin * 2) - headerHeight - footerHeight).toInt().coerceAtLeast(100)
-
-        val textToLayout = if (rawText.isEmpty()) " " else rawText
-        val layout = StaticLayout.Builder.obtain(
-            textToLayout,
-            0,
-            textToLayout.length,
-            textPaint,
-            contentWidth
-        )
-            .setAlignment(Layout.Alignment.ALIGN_NORMAL)
-            .setLineSpacing(0f, options.lineSpacingMultiplier)
-            .setIncludePad(false)
-            .build()
-
-        // Paginate line by line based on layout line heights
-        val lineCount = layout.lineCount
-        val pageRanges = mutableListOf<Pair<Int, Int>>() // Pair(startLine, endLine) inclusive
-        var currentStartLine = 0
-
-        while (currentStartLine < lineCount) {
-            val startTop = layout.getLineTop(currentStartLine)
-            var currentEndLine = currentStartLine
-
-            while (currentEndLine + 1 < lineCount &&
-                (layout.getLineBottom(currentEndLine + 1) - startTop) <= availableContentHeight
-            ) {
-                currentEndLine++
+            val typeface = when (options.fontFamily) {
+                TextFontFamily.SANS_SERIF -> Typeface.SANS_SERIF
+                TextFontFamily.SERIF -> Typeface.SERIF
+                TextFontFamily.MONOSPACE -> Typeface.MONOSPACE
             }
 
-            pageRanges.add(currentStartLine to currentEndLine)
-            currentStartLine = currentEndLine + 1
-        }
+            val textPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
+                this.typeface = typeface
+                this.textSize = options.fontSize
+                this.color = Color.BLACK
+            }
 
-        if (pageRanges.isEmpty()) {
-            pageRanges.add(0 to 0)
-        }
+            val headerPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                this.typeface = Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD)
+                this.textSize = 10f
+                this.color = Color.DKGRAY
+            }
 
-        val totalPages = pageRanges.size
-        val dateString = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date())
+            val footerPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                this.typeface = Typeface.SANS_SERIF
+                this.textSize = 9f
+                this.color = Color.GRAY
+                this.textAlign = Paint.Align.CENTER
+            }
 
-        for (pageIndex in 0 until totalPages) {
-            val pageInfo = PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageIndex + 1).create()
-            val page = pdfDocument.startPage(pageInfo)
-            val canvas: Canvas = page.canvas
+            val lineDividerPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                this.color = Color.LTGRAY
+                this.strokeWidth = 0.75f
+            }
 
-            // Background
-            canvas.drawColor(Color.WHITE)
+            val headerHeight = if (options.title.isNotBlank() || options.includeHeaderDate) 32f else 10f
+            val footerHeight = if (options.includePageNumbers) 28f else 10f
+            val availableContentHeight = (pageHeight - (margin * 2) - headerHeight - footerHeight).toInt().coerceAtLeast(100)
 
-            // Header
-            var topY = margin
-            if (options.title.isNotBlank() || options.includeHeaderDate) {
-                if (options.title.isNotBlank()) {
-                    canvas.drawText(options.title, margin, topY + 12f, headerPaint)
+            val textToLayout = if (rawText.isEmpty()) " " else rawText
+            val layout = StaticLayout.Builder.obtain(
+                textToLayout,
+                0,
+                textToLayout.length,
+                textPaint,
+                contentWidth
+            )
+                .setAlignment(Layout.Alignment.ALIGN_NORMAL)
+                .setLineSpacing(0f, options.lineSpacingMultiplier)
+                .setIncludePad(false)
+                .build()
+
+            // Paginate line by line based on layout line heights
+            val lineCount = layout.lineCount
+            val pageRanges = mutableListOf<Pair<Int, Int>>() // Pair(startLine, endLine) inclusive
+            var currentStartLine = 0
+
+            while (currentStartLine < lineCount) {
+                val startTop = layout.getLineTop(currentStartLine)
+                var currentEndLine = currentStartLine
+
+                while (currentEndLine + 1 < lineCount &&
+                    (layout.getLineBottom(currentEndLine + 1) - startTop) <= availableContentHeight
+                ) {
+                    currentEndLine++
                 }
-                if (options.includeHeaderDate) {
-                    val datePaint = Paint(headerPaint).apply { textAlign = Paint.Align.RIGHT }
-                    canvas.drawText(dateString, pageWidth - margin, topY + 12f, datePaint)
+
+                pageRanges.add(currentStartLine to currentEndLine)
+                currentStartLine = currentEndLine + 1
+            }
+
+            if (pageRanges.isEmpty()) {
+                pageRanges.add(0 to 0)
+            }
+
+            val totalPages = pageRanges.size
+            val dateString = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date())
+
+            for (pageIndex in 0 until totalPages) {
+                val pageInfo = PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageIndex + 1).create()
+                val page = pdfDocument.startPage(pageInfo)
+                val canvas: Canvas = page.canvas
+
+                // Background
+                canvas.drawColor(Color.WHITE)
+
+                // Header
+                var topY = margin
+                if (options.title.isNotBlank() || options.includeHeaderDate) {
+                    if (options.title.isNotBlank()) {
+                        canvas.drawText(options.title, margin, topY + 12f, headerPaint)
+                    }
+                    if (options.includeHeaderDate) {
+                        val datePaint = Paint(headerPaint).apply { textAlign = Paint.Align.RIGHT }
+                        canvas.drawText(dateString, pageWidth - margin, topY + 12f, datePaint)
+                    }
+                    topY += 18f
+                    canvas.drawLine(margin, topY, pageWidth - margin, topY, lineDividerPaint)
+                    topY += 14f
                 }
-                topY += 18f
-                canvas.drawLine(margin, topY, pageWidth - margin, topY, lineDividerPaint)
-                topY += 14f
+
+                // Body Content
+                val (startLine, endLine) = pageRanges[pageIndex]
+                val startTop = layout.getLineTop(startLine)
+                val endBottom = layout.getLineBottom(endLine)
+                val blockHeight = endBottom - startTop
+
+                canvas.save()
+                canvas.clipRect(margin, topY, margin + contentWidth, topY + blockHeight.toFloat())
+                canvas.translate(margin, topY - startTop)
+                layout.draw(canvas)
+                canvas.restore()
+
+                // Footer
+                if (options.includePageNumbers) {
+                    val footerY = pageHeight - margin + 10f
+                    canvas.drawLine(margin, pageHeight - margin - 6f, pageWidth - margin, pageHeight - margin - 6f, lineDividerPaint)
+                    canvas.drawText("Page ${pageIndex + 1} of $totalPages", pageWidth / 2f, footerY, footerPaint)
+                }
+
+                pdfDocument.finishPage(page)
             }
 
-            // Body Content
-            val (startLine, endLine) = pageRanges[pageIndex]
-            val startTop = layout.getLineTop(startLine)
-            val endBottom = layout.getLineBottom(endLine)
-            val blockHeight = endBottom - startTop
-
-            canvas.save()
-            canvas.clipRect(margin, topY, margin + contentWidth, topY + blockHeight.toFloat())
-            canvas.translate(margin, topY - startTop)
-            layout.draw(canvas)
-            canvas.restore()
-
-            // Footer
-            if (options.includePageNumbers) {
-                val footerY = pageHeight - margin + 10f
-                canvas.drawLine(margin, pageHeight - margin - 6f, pageWidth - margin, pageHeight - margin - 6f, lineDividerPaint)
-                canvas.drawText("Page ${pageIndex + 1} of $totalPages", pageWidth / 2f, footerY, footerPaint)
+            FileOutputStream(outputFile).use { out ->
+                pdfDocument.writeTo(out)
             }
-
-            pdfDocument.finishPage(page)
+        } finally {
+            pdfDocument.close()
         }
-
-        FileOutputStream(outputFile).use { out ->
-            pdfDocument.writeTo(out)
-        }
-        pdfDocument.close()
 
         outputFile
     }
@@ -270,31 +273,41 @@ object PdfTextAndMediaService {
                     }
 
                     val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-                    val canvas = Canvas(bitmap)
-                    canvas.drawColor(Color.WHITE)
-                    page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-                    page.close()
+                    try {
+                        val canvas = Canvas(bitmap)
+                        canvas.drawColor(Color.WHITE)
+                        page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+                    } finally {
+                        page.close()
+                    }
 
                     val ext = if (isJpeg) "jpg" else "png"
                     val format = if (isJpeg) Bitmap.CompressFormat.JPEG else Bitmap.CompressFormat.PNG
                     val quality = if (isJpeg) 90 else 100
-                    val imageFile = File(outputDir, "${baseName}_page_${pageIndex + 1}_${System.currentTimeMillis()}.$ext")
+                    val fileName = "${baseName}_page_${pageIndex + 1}_${System.currentTimeMillis()}.$ext"
+                    val imageFile = File(outputDir, fileName)
 
-                    FileOutputStream(imageFile).use { out ->
-                        bitmap.compress(format, quality, out)
-                    }
-                    bitmap.recycle()
-
-                    // Scan file so it's registered in system media library
                     try {
-                        MediaScannerConnection.scanFile(
-                            context,
-                            arrayOf(imageFile.absolutePath),
-                            arrayOf(if (isJpeg) "image/jpeg" else "image/png"),
-                            null
-                        )
+                        FileOutputStream(imageFile).use { out ->
+                            bitmap.compress(format, quality, out)
+                        }
+                    } finally {
+                        bitmap.recycle()
+                    }
+
+                    // Mirror to public Pictures/PDFCraft gallery via MediaStore so user sees it in Photos/Gallery
+                    try {
+                        PdfEngine.saveImageToGallery(context, imageFile)
                     } catch (e: Exception) {
-                        Log.e(TAG, "MediaScanner error", e)
+                        Log.e(TAG, "Gallery export error", e)
+                        try {
+                            MediaScannerConnection.scanFile(
+                                context,
+                                arrayOf(imageFile.absolutePath),
+                                arrayOf(if (isJpeg) "image/jpeg" else "image/png"),
+                                null
+                            )
+                        } catch (_: Exception) {}
                     }
 
                     outputFiles.add(imageFile)

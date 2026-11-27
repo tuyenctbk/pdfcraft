@@ -435,7 +435,7 @@ fun PdfPreviewScreen(
                 localDeletedPages = localDeletedPages + pageIdx
                 localSelectedPages = localSelectedPages - pageIdx
             } else {
-                statusBannerMessage = "At least 1 page must remain in the document."
+                statusBannerMessage = context.getString(R.string.preview_min_one_page)
             }
         }
     }
@@ -449,11 +449,11 @@ fun PdfPreviewScreen(
                 val keepFirst = (0 until totalPages).firstOrNull { !localDeletedPages.contains(it) } ?: 0
                 localDeletedPages = combined - keepFirst
                 localSelectedPages = emptySet()
-                statusBannerMessage = "Removed ${localDeletedPages.size} pages (kept Page ${keepFirst + 1})."
+                statusBannerMessage = context.getString(R.string.preview_removed_pages_kept, localDeletedPages.size, keepFirst + 1)
             } else {
                 localDeletedPages = combined
                 localSelectedPages = emptySet()
-                statusBannerMessage = "Marked ${activeSelectedPages.size} page(s) for deletion."
+                statusBannerMessage = context.getString(R.string.preview_marked_for_deletion, activeSelectedPages.size)
             }
         }
     }
@@ -606,7 +606,7 @@ fun PdfPreviewScreen(
                                 )
                                 Spacer(modifier = Modifier.width(4.dp))
                                 Text(
-                                    text = if (gridColumnCount == 0) "Auto" else "${gridColumnCount}×",
+                                    text = if (gridColumnCount == 0) stringResource(R.string.preview_auto) else "${gridColumnCount}×",
                                     fontSize = 11.sp,
                                     fontWeight = FontWeight.Bold
                                 )
@@ -660,8 +660,8 @@ fun PdfPreviewScreen(
                                         color = MaterialTheme.colorScheme.onSurface
                                     )
                                     val subInfo = buildList {
-                                        if (rotatedPageCount > 0) add("$rotatedPageCount rotated")
-                                        if (deletedPageCount > 0) add("$deletedPageCount deleted")
+                                        if (rotatedPageCount > 0) add(stringResource(R.string.preview_rotated_count, rotatedPageCount))
+                                        if (deletedPageCount > 0) add(stringResource(R.string.preview_deleted_count, deletedPageCount))
                                         if (isEmpty()) add(stringResource(R.string.tool_split_desc))
                                     }.joinToString(" • ")
                                     Text(
@@ -679,8 +679,8 @@ fun PdfPreviewScreen(
                                         color = MaterialTheme.colorScheme.onSurface
                                     )
                                     val subInfo = buildList {
-                                        if (rotatedPageCount > 0) add("$rotatedPageCount rotated")
-                                        if (deletedPageCount > 0) add("$deletedPageCount deleted")
+                                        if (rotatedPageCount > 0) add(stringResource(R.string.preview_rotated_count, rotatedPageCount))
+                                        if (deletedPageCount > 0) add(stringResource(R.string.preview_deleted_count, deletedPageCount))
                                         if (isEmpty()) add(stringResource(R.string.rotate_screen_subtitle))
                                     }.joinToString(" • ")
                                     Text(
@@ -703,8 +703,8 @@ fun PdfPreviewScreen(
                                         color = MaterialTheme.colorScheme.onSurface
                                     )
                                     val subInfo = buildList {
-                                        if (rotatedPageCount > 0) add("$rotatedPageCount rotated")
-                                        if (deletedPageCount > 0) add("$deletedPageCount removed")
+                                        if (rotatedPageCount > 0) add(stringResource(R.string.preview_rotated_count, rotatedPageCount))
+                                        if (deletedPageCount > 0) add(stringResource(R.string.preview_removed_count, deletedPageCount))
                                         if (isEmpty()) add(resolvedFile?.name ?: "")
                                     }.joinToString(" • ")
                                     Text(
@@ -792,7 +792,7 @@ fun PdfPreviewScreen(
                                                     localRotations = emptyMap()
                                                     localDeletedPages = emptySet()
                                                     localSelectedPages = emptySet()
-                                                    statusBannerMessage = "Saved ${savedFile.name} (${PdfEngine.formatFileSize(savedFile.length())})"
+                                                    statusBannerMessage = context.getString(R.string.preview_saved_file, savedFile.name, PdfEngine.formatFileSize(savedFile.length()))
                                                     onModifiedPdfSaved?.invoke(savedFile)
                                                 } catch (e: Exception) {
                                                     statusBannerMessage = e.localizedMessage

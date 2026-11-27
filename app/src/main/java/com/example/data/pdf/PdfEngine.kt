@@ -32,8 +32,11 @@ data class PdfPageSourceItem(
 )
 
 data class CompressionPreset(
+    val id: String,
     val title: String,
     val description: String,
+    @androidx.annotation.StringRes val titleRes: Int,
+    @androidx.annotation.StringRes val descRes: Int,
     val targetDpi: Int,
     val jpegQuality: Int,
     val estimatedSavings: String
@@ -53,7 +56,13 @@ data class PdfMetadata(
     val pageCount: Int,
     val creationDateFormatted: String?,
     val modDateFormatted: String?,
-    val isEncrypted: Boolean
+    val isEncrypted: Boolean,
+    val pdfVersion: String? = "1.7",
+    val pageSizeFormat: String? = null,
+    val pageDimensions: String? = null,
+    val canPrint: Boolean = true,
+    val canCopyContent: Boolean = true,
+    val canModify: Boolean = true
 )
 
 object PdfEngine {
@@ -62,22 +71,31 @@ object PdfEngine {
 
     val COMPRESSION_PRESETS = listOf(
         CompressionPreset(
+            id = "max_quality",
             title = "Max Quality",
             description = "High resolution for printing (300 DPI)",
+            titleRes = com.example.R.string.compress_quality_max,
+            descRes = com.example.R.string.compress_preset_max_desc,
             targetDpi = 240,
             jpegQuality = 90,
             estimatedSavings = "~15-30%"
         ),
         CompressionPreset(
+            id = "balanced",
             title = "Balanced",
             description = "Ideal for sharing and email (150 DPI)",
+            titleRes = com.example.R.string.compress_quality_balanced,
+            descRes = com.example.R.string.compress_preset_balanced_desc,
             targetDpi = 140,
             jpegQuality = 70,
             estimatedSavings = "~50-65%"
         ),
         CompressionPreset(
+            id = "compact",
             title = "Compact / Web",
             description = "Maximum size reduction (100 DPI)",
+            titleRes = com.example.R.string.compress_quality_compact,
+            descRes = com.example.R.string.compress_preset_compact_desc,
             targetDpi = 96,
             jpegQuality = 45,
             estimatedSavings = "~75-85%"
@@ -106,14 +124,17 @@ object PdfEngine {
             Log.e(TAG, "Error resolving display name for URI", e)
         }
 
-        val fileName = if (!resolvedName.isNullOrBlank()) {
-            resolvedName!!
-        } else {
-            "doc_${System.currentTimeMillis()}_${(1000..9999).random()}"
-        }
+        val sanitizedName = resolvedName
+            ?.let { File(it).name }
+            ?.replace(Regex("[^a-zA-Z0-9._\\- ()]"), "_")
+            ?.trim()
+            ?.takeIf { it.isNotBlank() && it != "." && it != ".." }
+            ?: "doc_${System.currentTimeMillis()}_${(1000..9999).random()}.pdf"
 
-        val tempFile = File(cacheDir, fileName)
-        context.contentResolver.openInputStream(uri)?.use { input ->
+        val tempFile = File(cacheDir, sanitizedName)
+        val inputStream = context.contentResolver.openInputStream(uri)
+            ?: throw java.io.IOException("Unable to open input stream for URI: $uri")
+        inputStream.use { input ->
             FileOutputStream(tempFile).use { output ->
                 input.copyTo(output)
             }
@@ -256,12 +277,16 @@ object PdfEngine {
                                 bitmap
                             }
 
-                            if (finalBitmap.width > 0 && finalBitmap.height > 0) {
-                                // Create PDF page with image dimensions
-                                val pageInfo = PdfDocument.PageInfo.Builder(finalBitmap.width, finalBitmap.height, newIndex + 1).create()
-                                val pdfPage = pdfDocument.startPage(pageInfo)
-                                pdfPage.canvas.drawBitmap(finalBitmap, 0f, 0f, null)
-                                pdfDocument.finishPage(pdfPage)
+                            try {
+                                if (finalBitmap.width > 0 && finalBitmap.height > 0) {
+                                    val pageInfo = PdfDocument.PageInfo.Builder(finalBitmap.width, finalBitmap.height, newIndex + 1).create()
+                                    val pdfPage = pdfDocument.startPage(pageInfo)
+                                    pdfPage.canvas.drawBitmap(finalBitmap, 0f, 0f, null)
+                                    pdfDocument.finishPage(pdfPage)
+                                }
+                            } finally {
+                                if (finalBitmap !== bitmap && !finalBitmap.isRecycled) finalBitmap.recycle()
+                                if (!bitmap.isRecycled) bitmap.recycle()
                             }
                         }
                     } catch (e: Exception) {
@@ -281,16 +306,19 @@ object PdfEngine {
                     val renderer = pair.second
                     if (item.originalPageIndex >= 0 && item.originalPageIndex < renderer.pageCount) {
                         val page = renderer.openPage(item.originalPageIndex)
-
-                        val pageWidth = page.width
-                        val pageHeight = page.height
-
-                        // Render source page into bitmap
-                        val bitmap = Bitmap.createBitmap(pageWidth, pageHeight, Bitmap.Config.ARGB_8888)
-                        val canvas = Canvas(bitmap)
-                        canvas.drawColor(Color.WHITE)
-                        page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-                        page.close()
+                        val pageWidth: Int
+                        val pageHeight: Int
+                        val bitmap: Bitmap
+                        try {
+                            pageWidth = page.width.coerceAtLeast(1)
+                            pageHeight = page.height.coerceAtLeast(1)
+                            bitmap = Bitmap.createBitmap(pageWidth, pageHeight, Bitmap.Config.ARGB_8888)
+                            val canvas = Canvas(bitmap)
+                            canvas.drawColor(Color.WHITE)
+                            page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+                        } finally {
+                            page.close()
+                        }
 
                         // Apply rotation if requested
                         val finalBitmap = if (item.rotationDegrees % 360 != 0) {
@@ -300,11 +328,15 @@ object PdfEngine {
                             bitmap
                         }
 
-                        // Create PdfDocument page
-                        val pageInfo = PdfDocument.PageInfo.Builder(finalBitmap.width, finalBitmap.height, newIndex + 1).create()
-                        val pdfPage = pdfDocument.startPage(pageInfo)
-                        pdfPage.canvas.drawBitmap(finalBitmap, 0f, 0f, null)
-                        pdfDocument.finishPage(pdfPage)
+                        try {
+                            val pageInfo = PdfDocument.PageInfo.Builder(finalBitmap.width, finalBitmap.height, newIndex + 1).create()
+                            val pdfPage = pdfDocument.startPage(pageInfo)
+                            pdfPage.canvas.drawBitmap(finalBitmap, 0f, 0f, null)
+                            pdfDocument.finishPage(pdfPage)
+                        } finally {
+                            if (finalBitmap !== bitmap && !finalBitmap.isRecycled) finalBitmap.recycle()
+                            if (!bitmap.isRecycled) bitmap.recycle()
+                        }
                     }
                 }
             }
@@ -398,14 +430,22 @@ object PdfEngine {
             val scaleFactor = preset.targetDpi.toFloat() / 200f
             for (i in 0 until renderer.pageCount) {
                 val page = renderer.openPage(i)
-                val targetW = (page.width * scaleFactor).toInt().coerceAtLeast(100)
-                val targetH = (page.height * scaleFactor).toInt().coerceAtLeast(100)
+                val pageW: Int
+                val pageH: Int
+                val bitmap: Bitmap
+                try {
+                    pageW = page.width.coerceAtLeast(1)
+                    pageH = page.height.coerceAtLeast(1)
+                    val targetW = (pageW * scaleFactor).toInt().coerceAtLeast(100)
+                    val targetH = (pageH * scaleFactor).toInt().coerceAtLeast(100)
 
-                val bitmap = Bitmap.createBitmap(targetW, targetH, Bitmap.Config.ARGB_8888)
-                val canvas = Canvas(bitmap)
-                canvas.drawColor(Color.WHITE)
-                page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-                page.close()
+                    bitmap = Bitmap.createBitmap(targetW, targetH, Bitmap.Config.ARGB_8888)
+                    val canvas = Canvas(bitmap)
+                    canvas.drawColor(Color.WHITE)
+                    page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+                } finally {
+                    page.close()
+                }
 
                 // Re-encode via compressed JPEG stream to strip vector bloated streams
                 val compressedStream = java.io.ByteArrayOutputStream()
@@ -413,12 +453,19 @@ object PdfEngine {
                 val compressedBytes = compressedStream.toByteArray()
                 val compressedBitmap = android.graphics.BitmapFactory.decodeByteArray(compressedBytes, 0, compressedBytes.size)
 
-                val pageInfo = PdfDocument.PageInfo.Builder(page.width, page.height, i + 1).create()
-                val pdfPage = pdfDocument.startPage(pageInfo)
-                val destRect = Rect(0, 0, page.width, page.height)
-                val bitmapToDraw = compressedBitmap ?: bitmap
-                pdfPage.canvas.drawBitmap(bitmapToDraw, null, destRect, null)
-                pdfDocument.finishPage(pdfPage)
+                try {
+                    val pageInfo = PdfDocument.PageInfo.Builder(pageW, pageH, i + 1).create()
+                    val pdfPage = pdfDocument.startPage(pageInfo)
+                    val destRect = Rect(0, 0, pageW, pageH)
+                    val bitmapToDraw = compressedBitmap ?: bitmap
+                    pdfPage.canvas.drawBitmap(bitmapToDraw, null, destRect, null)
+                    pdfDocument.finishPage(pdfPage)
+                } finally {
+                    if (compressedBitmap != null && compressedBitmap !== bitmap && !compressedBitmap.isRecycled) {
+                        compressedBitmap.recycle()
+                    }
+                    if (!bitmap.isRecycled) bitmap.recycle()
+                }
             }
 
             FileOutputStream(outputFile).use { out ->
@@ -447,61 +494,83 @@ object PdfEngine {
         val renderer = PdfRenderer(pfd)
 
         val outputDir = File(context.filesDir, "extracted_images").apply { mkdirs() }
-        val galleryDir = File(
-            android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_PICTURES),
-            "PDFCraft"
-        ).apply { mkdirs() }
         val extractedFiles = mutableListOf<File>()
 
         val ext = if (format.equals("JPEG", ignoreCase = true)) "jpg" else "png"
+        val mimeType = if (ext == "jpg") "image/jpeg" else "image/png"
         val compressFormat = if (format.equals("JPEG", ignoreCase = true)) Bitmap.CompressFormat.JPEG else Bitmap.CompressFormat.PNG
 
         try {
             selectedPageIndices.forEach { pageIdx ->
                 if (pageIdx in 0 until renderer.pageCount) {
                     val page = renderer.openPage(pageIdx)
-                    // High resolution render for extraction (300 DPI quality: 2x scale)
-                    val width = page.width * 2
-                    val height = page.height * 2
-                    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-                    val canvas = Canvas(bitmap)
-                    canvas.drawColor(Color.WHITE)
-                    page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-                    page.close()
-
-                    val imageFileName = "${localFile.nameWithoutExtension}_page_${pageIdx + 1}_${System.currentTimeMillis()}.$ext"
-                    val imageFile = File(outputDir, imageFileName)
-                    FileOutputStream(imageFile).use { out ->
-                        bitmap.compress(compressFormat, 95, out)
-                    }
-                    extractedFiles.add(imageFile)
-
-                    // Also save copy to public Pictures/PDFCraft gallery
+                    val bitmap: Bitmap
                     try {
-                        val galleryFile = File(galleryDir, imageFileName)
-                        FileOutputStream(galleryFile).use { out ->
+                        val width = (page.width * 2).coerceIn(100, 3200)
+                        val height = (page.height * 2).coerceIn(100, 4400)
+                        bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+                        val canvas = Canvas(bitmap)
+                        canvas.drawColor(Color.WHITE)
+                        page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+                    } finally {
+                        page.close()
+                    }
+
+                    try {
+                        val imageFileName = "${localFile.nameWithoutExtension}_page_${pageIdx + 1}_${System.currentTimeMillis()}.$ext"
+                        val imageFile = File(outputDir, imageFileName)
+                        FileOutputStream(imageFile).use { out ->
                             bitmap.compress(compressFormat, 95, out)
                         }
-                    } catch (e: Exception) {
-                        Log.e(TAG, "Error saving image to Gallery folder", e)
+                        extractedFiles.add(imageFile)
+
+                        // Save copy to public Pictures/PDFCraft via Scoped Storage MediaStore on API 29+
+                        try {
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+                                val values = android.content.ContentValues().apply {
+                                    put(android.provider.MediaStore.Images.Media.DISPLAY_NAME, imageFileName)
+                                    put(android.provider.MediaStore.Images.Media.MIME_TYPE, mimeType)
+                                    put(android.provider.MediaStore.Images.Media.RELATIVE_PATH, "${android.os.Environment.DIRECTORY_PICTURES}/PDFCraft")
+                                    put(android.provider.MediaStore.Images.Media.IS_PENDING, 1)
+                                }
+                                val resolver = context.contentResolver
+                                val uri = resolver.insert(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+                                if (uri != null) {
+                                    resolver.openOutputStream(uri)?.use { out ->
+                                        bitmap.compress(compressFormat, 95, out)
+                                    }
+                                    values.clear()
+                                    values.put(android.provider.MediaStore.Images.Media.IS_PENDING, 0)
+                                    resolver.update(uri, values, null, null)
+                                }
+                            } else {
+                                @Suppress("DEPRECATION")
+                                val galleryDir = File(
+                                    android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_PICTURES),
+                                    "PDFCraft"
+                                ).apply { mkdirs() }
+                                val galleryFile = File(galleryDir, imageFileName)
+                                FileOutputStream(galleryFile).use { out ->
+                                    bitmap.compress(compressFormat, 95, out)
+                                }
+                                android.media.MediaScannerConnection.scanFile(
+                                    context,
+                                    arrayOf(galleryFile.absolutePath),
+                                    arrayOf(mimeType),
+                                    null
+                                )
+                            }
+                        } catch (e: Exception) {
+                            Log.e(TAG, "Error saving image to Gallery folder", e)
+                        }
+                    } finally {
+                        if (!bitmap.isRecycled) bitmap.recycle()
                     }
                 }
             }
-
-            // Register saved files with MediaScanner so they immediately show in Android Gallery
-            if (extractedFiles.isNotEmpty()) {
-                val pathsToScan = galleryDir.listFiles()?.map { it.absolutePath }?.toTypedArray()
-                    ?: extractedFiles.map { it.absolutePath }.toTypedArray()
-                android.media.MediaScannerConnection.scanFile(
-                    context,
-                    pathsToScan,
-                    arrayOf(if (ext == "jpg") "image/jpeg" else "image/png"),
-                    null
-                )
-            }
         } finally {
-            renderer.close()
-            pfd.close()
+            try { renderer.close() } catch (_: Throwable) {}
+            try { pfd.close() } catch (_: Throwable) {}
         }
 
         extractedFiles
@@ -620,6 +689,56 @@ object PdfEngine {
     }
 
     /**
+     * Saves a generated PDF file to the device's public Downloads folder (Downloads/PDFCraft)
+     * so users can immediately access their files in the system Files / Downloads app.
+     */
+    suspend fun savePdfToDownloads(context: Context, pdfFile: File): Uri? = withContext(Dispatchers.IO) {
+        if (!pdfFile.exists()) return@withContext null
+        try {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+                val resolver = context.contentResolver
+                val displayName = if (pdfFile.name.endsWith(".pdf", true)) pdfFile.name else "${pdfFile.name}.pdf"
+                val contentValues = android.content.ContentValues().apply {
+                    put(android.provider.MediaStore.MediaColumns.DISPLAY_NAME, displayName)
+                    put(android.provider.MediaStore.MediaColumns.MIME_TYPE, "application/pdf")
+                    put(
+                        android.provider.MediaStore.MediaColumns.RELATIVE_PATH,
+                        android.os.Environment.DIRECTORY_DOWNLOADS + "/PDFCraft"
+                    )
+                    put(android.provider.MediaStore.MediaColumns.IS_PENDING, 1)
+                }
+                val collection = android.provider.MediaStore.Downloads.getContentUri(
+                    android.provider.MediaStore.VOLUME_EXTERNAL_PRIMARY
+                )
+                val uri = resolver.insert(collection, contentValues)
+                if (uri != null) {
+                    resolver.openOutputStream(uri)?.use { output ->
+                        pdfFile.inputStream().use { input ->
+                            input.copyTo(output)
+                        }
+                    }
+                    contentValues.clear()
+                    contentValues.put(android.provider.MediaStore.MediaColumns.IS_PENDING, 0)
+                    resolver.update(uri, contentValues, null, null)
+                    return@withContext uri
+                }
+            } else {
+                val downloadsDir = File(
+                    android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS),
+                    "PDFCraft"
+                ).apply { mkdirs() }
+                val destFile = File(downloadsDir, pdfFile.name)
+                pdfFile.copyTo(destFile, overwrite = true)
+                return@withContext Uri.fromFile(destFile)
+            }
+            null
+        } catch (e: Exception) {
+            Log.e(TAG, "Error saving PDF to public Downloads", e)
+            null
+        }
+    }
+
+    /**
      * Extracts document metadata (Title, Author, Subject, Keywords, Creator, Producer, Page Count, Dates)
      * using PDFBox with fallback to android.graphics.pdf.PdfRenderer.
      */
@@ -657,11 +776,44 @@ object PdfEngine {
         var creationDateStr: String? = null
         var modDateStr: String? = null
         var encrypted = false
+        var pdfVersionStr: String? = null
+        var pageSizeFormatStr: String? = null
+        var pageDimensionsStr: String? = null
+        var canPrintPerm = true
+        var canCopyPerm = true
+        var canModifyPerm = true
 
         try {
             com.tom_roush.pdfbox.pdmodel.PDDocument.load(file).use { doc ->
                 encrypted = doc.isEncrypted
                 pageCount = doc.numberOfPages
+                pdfVersionStr = doc.version.toString()
+
+                val ap = doc.currentAccessPermission
+                if (ap != null) {
+                    canPrintPerm = ap.canPrint()
+                    canCopyPerm = ap.canExtractContent()
+                    canModifyPerm = ap.canModify()
+                }
+
+                if (pageCount > 0) {
+                    try {
+                        val firstPage = doc.getPage(0)
+                        val mediaBox = firstPage.mediaBox
+                        if (mediaBox != null) {
+                            val w = mediaBox.width.toInt()
+                            val h = mediaBox.height.toInt()
+                            pageDimensionsStr = "$w × $h pt"
+                            pageSizeFormatStr = when {
+                                (w in 590..600 && h in 838..848) || (h in 590..600 && w in 838..848) -> "A4 (${if (w > h) "Landscape" else "Portrait"})"
+                                (w in 608..616 && h in 788..796) || (h in 608..616 && w in 788..796) -> "US Letter (${if (w > h) "Landscape" else "Portrait"})"
+                                (w in 608..616 && h in 1004..1012) || (h in 608..616 && w in 1004..1012) -> "US Legal"
+                                else -> "Custom ($w × $h pt)"
+                            }
+                        }
+                    } catch (_: Exception) {}
+                }
+
                 val info = doc.documentInformation
                 if (info != null) {
                     docTitle = info.title?.takeIf { it.isNotBlank() }
@@ -681,14 +833,25 @@ object PdfEngine {
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error extracting PDFBox metadata: ${e.localizedMessage}")
+            var fallbackPfd: ParcelFileDescriptor? = null
+            var fallbackRenderer: PdfRenderer? = null
             try {
-                val pfd = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
-                val renderer = PdfRenderer(pfd)
-                pageCount = renderer.pageCount
-                renderer.close()
-                pfd.close()
+                fallbackPfd = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
+                fallbackRenderer = PdfRenderer(fallbackPfd)
+                pageCount = fallbackRenderer.pageCount
+                if (pageCount > 0) {
+                    val p = fallbackRenderer.openPage(0)
+                    try {
+                        pageDimensionsStr = "${p.width} × ${p.height} pt"
+                    } finally {
+                        p.close()
+                    }
+                }
             } catch (t: Throwable) {
                 Log.e(TAG, "Fallback PdfRenderer error: ${t.localizedMessage}")
+            } finally {
+                try { fallbackRenderer?.close() } catch (_: Throwable) {}
+                try { fallbackPfd?.close() } catch (_: Throwable) {}
             }
         }
 
@@ -710,7 +873,13 @@ object PdfEngine {
             pageCount = pageCount,
             creationDateFormatted = creationDateStr,
             modDateFormatted = modDateStr,
-            isEncrypted = encrypted
+            isEncrypted = encrypted,
+            pdfVersion = pdfVersionStr ?: "1.7",
+            pageSizeFormat = pageSizeFormatStr,
+            pageDimensions = pageDimensionsStr,
+            canPrint = canPrintPerm,
+            canCopyContent = canCopyPerm,
+            canModify = canModifyPerm
         )
     }
 
@@ -821,10 +990,13 @@ object PdfEngine {
         options: WatermarkOptions,
         widthPx: Int = 400
     ): Bitmap? = withContext(Dispatchers.IO) {
+        var tempWatermarkedFile: File? = null
+        var pfd: android.os.ParcelFileDescriptor? = null
+        var renderer: android.graphics.pdf.PdfRenderer? = null
         try {
             val localFile = getLocalFileFromUri(context, sourceUri)
             val tempDir = File(context.cacheDir, "preview_watermark").apply { mkdirs() }
-            val tempWatermarkedFile = File(tempDir, "preview_temp_${System.currentTimeMillis()}.pdf")
+            tempWatermarkedFile = File(tempDir, "preview_temp_${System.currentTimeMillis()}.pdf")
 
             com.tom_roush.pdfbox.pdmodel.PDDocument.load(localFile).use { doc ->
                 if (doc.numberOfPages == 0) return@withContext null
@@ -835,28 +1007,30 @@ object PdfEngine {
                 doc.save(tempWatermarkedFile)
             }
 
-            val pfd = android.os.ParcelFileDescriptor.open(tempWatermarkedFile, android.os.ParcelFileDescriptor.MODE_READ_ONLY)
-            val renderer = android.graphics.pdf.PdfRenderer(pfd)
-            if (renderer.pageCount == 0) {
-                renderer.close()
-                pfd.close()
-                tempWatermarkedFile.delete()
-                return@withContext null
-            }
+            pfd = android.os.ParcelFileDescriptor.open(tempWatermarkedFile, android.os.ParcelFileDescriptor.MODE_READ_ONLY)
+            renderer = android.graphics.pdf.PdfRenderer(pfd)
+            if (renderer.pageCount == 0) return@withContext null
+
             val page = renderer.openPage(0)
-            val targetHeight = (widthPx * (page.height.toFloat() / page.width.toFloat())).toInt()
-            val bitmap = Bitmap.createBitmap(widthPx, targetHeight, Bitmap.Config.ARGB_8888)
-            val canvas = android.graphics.Canvas(bitmap)
-            canvas.drawColor(android.graphics.Color.WHITE)
-            page.render(bitmap, null, null, android.graphics.pdf.PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-            page.close()
-            renderer.close()
-            pfd.close()
-            tempWatermarkedFile.delete()
-            bitmap
+            try {
+                val pw = page.width.coerceAtLeast(1)
+                val ph = page.height.coerceAtLeast(1)
+                val targetHeight = (widthPx * (ph.toFloat() / pw.toFloat())).toInt().coerceIn(80, 1200)
+                val bitmap = Bitmap.createBitmap(widthPx, targetHeight, Bitmap.Config.ARGB_8888)
+                val canvas = android.graphics.Canvas(bitmap)
+                canvas.drawColor(android.graphics.Color.WHITE)
+                page.render(bitmap, null, null, android.graphics.pdf.PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+                bitmap
+            } finally {
+                page.close()
+            }
         } catch (e: Exception) {
             Log.e(TAG, "Error generating watermarked preview", e)
             null
+        } finally {
+            try { renderer?.close() } catch (_: Throwable) {}
+            try { pfd?.close() } catch (_: Throwable) {}
+            try { tempWatermarkedFile?.delete() } catch (_: Throwable) {}
         }
     }
 
@@ -898,99 +1072,98 @@ object PdfEngine {
             val width = mediaBox.width
             val height = mediaBox.height
 
-            val contentStream = com.tom_roush.pdfbox.pdmodel.PDPageContentStream(
+            com.tom_roush.pdfbox.pdmodel.PDPageContentStream(
                 doc,
                 page,
                 com.tom_roush.pdfbox.pdmodel.PDPageContentStream.AppendMode.APPEND,
                 true,
                 true
-            )
-
-            val gState = com.tom_roush.pdfbox.pdmodel.graphics.state.PDExtendedGraphicsState().apply {
-                nonStrokingAlphaConstant = options.opacity.coerceIn(0.05f, 1.0f)
-                strokingAlphaConstant = options.opacity.coerceIn(0.05f, 1.0f)
-            }
-            contentStream.setGraphicsStateParameters(gState)
-
-            if (options.type == WatermarkType.TEXT) {
-                val textToDraw = options.text.ifBlank { "CONFIDENTIAL" }
-                contentStream.setNonStrokingColor(
-                    options.textColorRgb[0].coerceIn(0, 255),
-                    options.textColorRgb[1].coerceIn(0, 255),
-                    options.textColorRgb[2].coerceIn(0, 255)
-                )
-                contentStream.setFont(font, options.textSize)
-
-                val textWidth = (font.getStringWidth(textToDraw) / 1000f) * options.textSize
-                val textHeight = (font.fontDescriptor.capHeight / 1000f) * options.textSize
-
-                if (options.position == WatermarkPosition.TILE) {
-                    val xStep = maxOf(textWidth * 1.4f, 160f)
-                    val yStep = maxOf(textHeight * 3.5f, 120f)
-                    var y = 40f
-                    while (y < height) {
-                        var x = 30f
-                        while (x < width) {
-                            contentStream.beginText()
-                            val matrix = com.tom_roush.pdfbox.util.Matrix.getRotateInstance(
-                                Math.toRadians(options.rotationAngle.toDouble()),
-                                x,
-                                y
-                            )
-                            contentStream.setTextMatrix(matrix)
-                            contentStream.showText(textToDraw)
-                            contentStream.endText()
-                            x += xStep
-                        }
-                        y += yStep
-                    }
-                } else {
-                    val (baseX, baseY) = calculateTextCoordinates(options.position, width, height, textWidth, textHeight)
-                    contentStream.beginText()
-                    val matrix = com.tom_roush.pdfbox.util.Matrix.getRotateInstance(
-                        Math.toRadians(options.rotationAngle.toDouble()),
-                        baseX,
-                        baseY
-                    )
-                    contentStream.setTextMatrix(matrix)
-                    contentStream.showText(textToDraw)
-                    contentStream.endText()
+            ).use { contentStream ->
+                val gState = com.tom_roush.pdfbox.pdmodel.graphics.state.PDExtendedGraphicsState().apply {
+                    nonStrokingAlphaConstant = options.opacity.coerceIn(0.05f, 1.0f)
+                    strokingAlphaConstant = options.opacity.coerceIn(0.05f, 1.0f)
                 }
-            } else if (options.type == WatermarkType.IMAGE && pdImage != null && rawBitmap != null) {
-                val imgWidth = rawBitmap.width * options.imageScale
-                val imgHeight = rawBitmap.height * options.imageScale
+                contentStream.setGraphicsStateParameters(gState)
 
-                if (options.position == WatermarkPosition.TILE) {
-                    val xStep = maxOf(imgWidth * 1.5f, 120f)
-                    val yStep = maxOf(imgHeight * 1.5f, 120f)
-                    var y = 40f
-                    while (y < height) {
-                        var x = 40f
-                        while (x < width) {
-                            val matrix = com.tom_roush.pdfbox.util.Matrix.getRotateInstance(
-                                Math.toRadians(options.rotationAngle.toDouble()),
-                                x,
-                                y
-                            )
-                            matrix.scale(imgWidth, imgHeight)
-                            contentStream.drawImage(pdImage, matrix)
-                            x += xStep
-                        }
-                        y += yStep
-                    }
-                } else {
-                    val (baseX, baseY) = calculateImageCoordinates(options.position, width, height, imgWidth, imgHeight)
-                    val matrix = com.tom_roush.pdfbox.util.Matrix.getRotateInstance(
-                        Math.toRadians(options.rotationAngle.toDouble()),
-                        baseX,
-                        baseY
+                if (options.type == WatermarkType.TEXT) {
+                    val rawText = options.text.ifBlank { "CONFIDENTIAL" }
+                    val textToDraw = toWinAnsiSafeText(rawText, font).ifBlank { "CONFIDENTIAL" }
+                    contentStream.setNonStrokingColor(
+                        options.textColorRgb[0].coerceIn(0, 255),
+                        options.textColorRgb[1].coerceIn(0, 255),
+                        options.textColorRgb[2].coerceIn(0, 255)
                     )
-                    matrix.scale(imgWidth, imgHeight)
-                    contentStream.drawImage(pdImage, matrix)
+                    contentStream.setFont(font, options.textSize)
+
+                    val textWidth = (font.getStringWidth(textToDraw) / 1000f) * options.textSize
+                    val textHeight = (font.fontDescriptor.capHeight / 1000f) * options.textSize
+
+                    if (options.position == WatermarkPosition.TILE) {
+                        val xStep = maxOf(textWidth * 1.4f, 160f)
+                        val yStep = maxOf(textHeight * 3.5f, 120f)
+                        var y = 40f
+                        while (y < height) {
+                            var x = 30f
+                            while (x < width) {
+                                contentStream.beginText()
+                                val matrix = com.tom_roush.pdfbox.util.Matrix.getRotateInstance(
+                                    Math.toRadians(options.rotationAngle.toDouble()),
+                                    x,
+                                    y
+                                )
+                                contentStream.setTextMatrix(matrix)
+                                contentStream.showText(textToDraw)
+                                contentStream.endText()
+                                x += xStep
+                            }
+                            y += yStep
+                        }
+                    } else {
+                        val (baseX, baseY) = calculateTextCoordinates(options.position, width, height, textWidth, textHeight)
+                        contentStream.beginText()
+                        val matrix = com.tom_roush.pdfbox.util.Matrix.getRotateInstance(
+                            Math.toRadians(options.rotationAngle.toDouble()),
+                            baseX,
+                            baseY
+                        )
+                        contentStream.setTextMatrix(matrix)
+                        contentStream.showText(textToDraw)
+                        contentStream.endText()
+                    }
+                } else if (options.type == WatermarkType.IMAGE && pdImage != null && rawBitmap != null) {
+                    val imgWidth = rawBitmap.width * options.imageScale
+                    val imgHeight = rawBitmap.height * options.imageScale
+
+                    if (options.position == WatermarkPosition.TILE) {
+                        val xStep = maxOf(imgWidth * 1.5f, 120f)
+                        val yStep = maxOf(imgHeight * 1.5f, 120f)
+                        var y = 40f
+                        while (y < height) {
+                            var x = 40f
+                            while (x < width) {
+                                val matrix = com.tom_roush.pdfbox.util.Matrix.getRotateInstance(
+                                    Math.toRadians(options.rotationAngle.toDouble()),
+                                    x,
+                                    y
+                                )
+                                matrix.scale(imgWidth, imgHeight)
+                                contentStream.drawImage(pdImage, matrix)
+                                x += xStep
+                            }
+                            y += yStep
+                        }
+                    } else {
+                        val (baseX, baseY) = calculateImageCoordinates(options.position, width, height, imgWidth, imgHeight)
+                        val matrix = com.tom_roush.pdfbox.util.Matrix.getRotateInstance(
+                            Math.toRadians(options.rotationAngle.toDouble()),
+                            baseX,
+                            baseY
+                        )
+                        matrix.scale(imgWidth, imgHeight)
+                        contentStream.drawImage(pdImage, matrix)
+                    }
                 }
             }
-
-            contentStream.close()
         }
 
         rawBitmap?.let {
@@ -1047,31 +1220,57 @@ object PdfEngine {
         val outputFile = File(outputDir, if (outputFileName.endsWith(".pdf")) outputFileName else "$outputFileName.pdf")
 
         com.tom_roush.pdfbox.pdmodel.PDDocument.load(localFile).use { doc ->
+            require(doc.numberOfPages > 0) { "PDF has no pages to sign." }
             val lastPage = doc.getPage(doc.numberOfPages - 1)
-            val mediaBox = lastPage.mediaBox
+            val fontBold = com.tom_roush.pdfbox.pdmodel.font.PDType1Font.HELVETICA_BOLD
+            val fontRegular = com.tom_roush.pdfbox.pdmodel.font.PDType1Font.HELVETICA
 
-            val contentStream = com.tom_roush.pdfbox.pdmodel.PDPageContentStream(
+            val safeSigner = toWinAnsiSafeText(signerName.ifBlank { "Authorized Signer" }, fontBold)
+            val safeReason = toWinAnsiSafeText(reason.ifBlank { "Approved" }, fontRegular)
+            val dateLine = toWinAnsiSafeText(
+                "Date: ${java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.US).format(java.util.Date())}",
+                fontRegular
+            )
+
+            val boxX = 42f
+            val boxY = 36f
+            val boxW = 260f
+            val boxH = 56f
+
+            com.tom_roush.pdfbox.pdmodel.PDPageContentStream(
                 doc,
                 lastPage,
                 com.tom_roush.pdfbox.pdmodel.PDPageContentStream.AppendMode.APPEND,
                 true,
                 true
-            )
-            contentStream.beginText()
-            val font = com.tom_roush.pdfbox.pdmodel.font.PDType1Font.HELVETICA
-            contentStream.setFont(font, 10f)
-            contentStream.setNonStrokingColor(30, 30, 30)
+            ).use { contentStream ->
+                // Clean signature stamp frame
+                contentStream.setNonStrokingColor(246, 252, 249)
+                contentStream.addRect(boxX, boxY, boxW, boxH)
+                contentStream.fill()
 
-            val x = 50f
-            val y = 50f
-            contentStream.newLineAtOffset(x, y)
-            contentStream.showText("Digitally Signed by: $signerName")
-            contentStream.newLineAtOffset(0f, -12f)
-            contentStream.showText("Reason: $reason")
-            contentStream.newLineAtOffset(0f, -12f)
-            contentStream.showText("Date: ${java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.getDefault()).format(java.util.Date())}")
-            contentStream.endText()
-            contentStream.close()
+                contentStream.setNonStrokingColor(16, 185, 129)
+                contentStream.addRect(boxX, boxY, 4f, boxH)
+                contentStream.fill()
+
+                contentStream.setStrokingColor(16, 185, 129)
+                contentStream.setLineWidth(0.8f)
+                contentStream.addRect(boxX, boxY, boxW, boxH)
+                contentStream.stroke()
+
+                contentStream.beginText()
+                contentStream.setFont(fontBold, 9.5f)
+                contentStream.setNonStrokingColor(15, 23, 42)
+                contentStream.newLineAtOffset(boxX + 12f, boxY + 40f)
+                contentStream.showText("Digitally Signed by: $safeSigner")
+                contentStream.setFont(fontRegular, 8.5f)
+                contentStream.setNonStrokingColor(51, 65, 85)
+                contentStream.newLineAtOffset(0f, -13f)
+                contentStream.showText("Reason: $safeReason")
+                contentStream.newLineAtOffset(0f, -12f)
+                contentStream.showText(dateLine)
+                contentStream.endText()
+            }
 
             doc.save(outputFile)
         }
@@ -1342,18 +1541,23 @@ object PdfEngine {
         val outputFile = File(outputDir, if (outputName.endsWith(".pdf", ignoreCase = true)) outputName else "$outputName.pdf")
 
         com.tom_roush.pdfbox.pdmodel.PDDocument().use { pdDoc ->
+            var addedCount = 0
             for (uri in imageUris) {
+                var bitmap: Bitmap? = null
                 try {
                     val localFile = getLocalFileFromUri(context, uri)
-                    val bitmap = android.graphics.BitmapFactory.decodeFile(localFile.absolutePath)
-                        ?: context.contentResolver.openInputStream(uri)?.use { android.graphics.BitmapFactory.decodeStream(it) }
+                    bitmap = decodeScaledOrientedBitmap(localFile, maxDimension = 2400)
+                        ?: context.contentResolver.openInputStream(uri)?.use {
+                            android.graphics.BitmapFactory.decodeStream(it)
+                        }
 
-                    if (bitmap != null) {
-                        val pdImage = com.tom_roush.pdfbox.pdmodel.graphics.image.LosslessFactory.createFromImage(pdDoc, bitmap)
+                    val bmp = bitmap
+                    if (bmp != null && bmp.width > 0 && bmp.height > 0) {
+                        val pdImage = com.tom_roush.pdfbox.pdmodel.graphics.image.JPEGFactory.createFromImage(pdDoc, bmp, 0.88f)
                         val page = com.tom_roush.pdfbox.pdmodel.PDPage(
                             com.tom_roush.pdfbox.pdmodel.common.PDRectangle(
-                                bitmap.width.toFloat(),
-                                bitmap.height.toFloat()
+                                bmp.width.toFloat(),
+                                bmp.height.toFloat()
                             )
                         )
                         pdDoc.addPage(page)
@@ -1364,16 +1568,86 @@ object PdfEngine {
                             true,
                             true
                         ).use { content ->
-                            content.drawImage(pdImage, 0f, 0f, bitmap.width.toFloat(), bitmap.height.toFloat())
+                            content.drawImage(pdImage, 0f, 0f, bmp.width.toFloat(), bmp.height.toFloat())
                         }
+                        addedCount++
                     }
                 } catch (e: Exception) {
                     Log.e(TAG, "Error adding image to PDF: $uri", e)
+                } finally {
+                    try {
+                        bitmap?.recycle()
+                    } catch (_: Exception) {}
                 }
             }
+            require(addedCount > 0) { "No valid images could be converted to PDF." }
             pdDoc.save(outputFile)
         }
         outputFile
+    }
+
+    /**
+     * Decodes a local image file safely within maxDimension and applies EXIF orientation to prevent OOM and rotated photos.
+     */
+    private fun decodeScaledOrientedBitmap(file: File, maxDimension: Int): Bitmap? {
+        val boundsOpts = android.graphics.BitmapFactory.Options().apply { inJustDecodeBounds = true }
+        android.graphics.BitmapFactory.decodeFile(file.absolutePath, boundsOpts)
+        if (boundsOpts.outWidth <= 0 || boundsOpts.outHeight <= 0) return null
+
+        var sampleSize = 1
+        while ((boundsOpts.outWidth / sampleSize) > maxDimension || (boundsOpts.outHeight / sampleSize) > maxDimension) {
+            sampleSize *= 2
+        }
+
+        val decodeOpts = android.graphics.BitmapFactory.Options().apply {
+            inSampleSize = sampleSize
+            inPreferredConfig = Bitmap.Config.RGB_565
+        }
+        val decoded = android.graphics.BitmapFactory.decodeFile(file.absolutePath, decodeOpts) ?: return null
+
+        val rotationDegrees = try {
+            val exif = android.media.ExifInterface(file.absolutePath)
+            when (exif.getAttributeInt(android.media.ExifInterface.TAG_ORIENTATION, android.media.ExifInterface.ORIENTATION_NORMAL)) {
+                android.media.ExifInterface.ORIENTATION_ROTATE_90 -> 90f
+                android.media.ExifInterface.ORIENTATION_ROTATE_180 -> 180f
+                android.media.ExifInterface.ORIENTATION_ROTATE_270 -> 270f
+                else -> 0f
+            }
+        } catch (_: Exception) {
+            0f
+        }
+
+        if (rotationDegrees == 0f) return decoded
+        val matrix = android.graphics.Matrix().apply { postRotate(rotationDegrees) }
+        val rotated = Bitmap.createBitmap(decoded, 0, 0, decoded.width, decoded.height, matrix, true)
+        if (rotated !== decoded) {
+            decoded.recycle()
+        }
+        return rotated
+    }
+
+    /**
+     * Sanitizes text so standard PDF Type1 WinAnsi fonts never throw IllegalArgumentException on unsupported Unicode glyphs.
+     */
+    private fun toWinAnsiSafeText(input: String, font: com.tom_roush.pdfbox.pdmodel.font.PDFont): String {
+        val normalized = java.text.Normalizer.normalize(input, java.text.Normalizer.Form.NFKD)
+            .replace(Regex("\\p{InCombiningDiacriticalMarks}+"), "")
+        val sb = StringBuilder(normalized.length)
+        for (ch in normalized) {
+            if (ch == '\n' || ch == '\r' || ch == '\t') {
+                sb.append(' ')
+                continue
+            }
+            val s = ch.toString()
+            try {
+                font.encode(s)
+                sb.append(ch)
+            } catch (_: Exception) {
+                // Skip or replace unsupported glyph cleanly
+                if (ch.code > 127) sb.append('?')
+            }
+        }
+        return sb.toString().trim()
     }
 
     /**
@@ -1395,9 +1669,10 @@ object PdfEngine {
 
             for (i in 0 until totalPages) {
                 val pageNum = i + options.startPageNumber
-                val pageText = options.formatPattern
+                val rawPageText = options.formatPattern
                     .replace("{P}", pageNum.toString())
                     .replace("{N}", totalPages.toString())
+                val pageText = toWinAnsiSafeText(rawPageText, font).ifBlank { "$pageNum" }
 
                 val page = pdDoc.getPage(i)
                 val mediaBox = page.mediaBox

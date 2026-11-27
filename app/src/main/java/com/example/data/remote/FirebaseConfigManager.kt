@@ -20,10 +20,10 @@ object FirebaseConfigManager {
     private val _isAdMobEnabled = MutableStateFlow(false)
     val isAdMobEnabled: StateFlow<Boolean> = _isAdMobEnabled.asStateFlow()
 
-    private val _bannerAdUnitId = MutableStateFlow("ca-app-pub-3940256099942544/6300978111")
+    private val _bannerAdUnitId = MutableStateFlow("")
     val bannerAdUnitId: StateFlow<String> = _bannerAdUnitId.asStateFlow()
 
-    private val _interstitialAdUnitId = MutableStateFlow("ca-app-pub-3940256099942544/1033173712")
+    private val _interstitialAdUnitId = MutableStateFlow("")
     val interstitialAdUnitId: StateFlow<String> = _interstitialAdUnitId.asStateFlow()
 
     private val _ratePromptThreshold = MutableStateFlow(3)
@@ -32,16 +32,18 @@ object FirebaseConfigManager {
     private val _sharePromptThreshold = MutableStateFlow(6)
     val sharePromptThreshold: StateFlow<Int> = _sharePromptThreshold.asStateFlow()
 
-    private val _appShareUrl = MutableStateFlow("https://play.google.com/store/apps/details?id=com.soloprono.pdfcraft")
+    private val _appShareUrl = MutableStateFlow(
+        "https://play.google.com/store/apps/details?id=${com.example.BuildConfig.APPLICATION_ID}"
+    )
     val appShareUrl: StateFlow<String> = _appShareUrl.asStateFlow()
 
-    private val _latestVersionCode = MutableStateFlow(19)
+    private val _latestVersionCode = MutableStateFlow(com.example.BuildConfig.VERSION_CODE)
     val latestVersionCode: StateFlow<Int> = _latestVersionCode.asStateFlow()
 
-    private val _latestVersionName = MutableStateFlow("1.6.6")
+    private val _latestVersionName = MutableStateFlow(com.example.BuildConfig.VERSION_NAME)
     val latestVersionName: StateFlow<String> = _latestVersionName.asStateFlow()
 
-    private val _updateReleaseNotes = MutableStateFlow("Performance optimizations, bug fixes, and improved offline rendering.")
+    private val _updateReleaseNotes = MutableStateFlow("")
     val updateReleaseNotes: StateFlow<String> = _updateReleaseNotes.asStateFlow()
 
     private var firebaseAnalytics: FirebaseAnalytics? = null
@@ -73,12 +75,12 @@ object FirebaseConfigManager {
                     "is_admob_enabled" to false,
                     "rate_prompt_operation_threshold" to 3,
                     "share_prompt_operation_threshold" to 6,
-                    "app_share_url" to "https://play.google.com/store/apps/details?id=com.soloprono.pdfcraft",
-                    "banner_ad_unit_id" to "ca-app-pub-3940256099942544/6300978111",
-                    "interstitial_ad_unit_id" to "ca-app-pub-3940256099942544/1033173712",
-                    "latest_version_code" to 19,
-                    "latest_version_name" to "1.6.6",
-                    "update_release_notes" to "Performance optimizations, bug fixes, and improved offline rendering."
+                    "app_share_url" to "https://play.google.com/store/apps/details?id=${com.example.BuildConfig.APPLICATION_ID}",
+                    "banner_ad_unit_id" to "",
+                    "interstitial_ad_unit_id" to "",
+                    "latest_version_code" to com.example.BuildConfig.VERSION_CODE,
+                    "latest_version_name" to com.example.BuildConfig.VERSION_NAME,
+                    "update_release_notes" to ""
                 )
                 remoteConfig.setDefaultsAsync(defaults)
 

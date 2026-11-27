@@ -174,7 +174,7 @@ fun PdfToTextScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Extracted Document Content",
+                                text = stringResource(R.string.pdf_to_text_extracted_title),
                                 style = MaterialTheme.typography.titleSmall,
                                 fontWeight = FontWeight.Bold
                             )

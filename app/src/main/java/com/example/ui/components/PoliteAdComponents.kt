@@ -3,8 +3,8 @@ package com.example.ui.components
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -28,9 +27,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -43,16 +41,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.R
 import com.example.data.remote.FirebaseConfigManager
-import com.example.ui.theme.CharcoalCard
-import com.example.ui.theme.CharcoalCardBorder
-import com.example.ui.theme.CharcoalSurface
-import com.example.ui.theme.EmeraldContainer
-import com.example.ui.theme.EmeraldPrimary
-import com.example.ui.theme.TextMuted
-import com.example.ui.theme.TextPrimary
-import com.example.ui.theme.TextSecondary
 
 /**
  * Polite AdMob Banner component.
@@ -62,7 +53,7 @@ import com.example.ui.theme.TextSecondary
 fun PoliteAdBanner(
     modifier: Modifier = Modifier
 ) {
-    val isAdMobEnabled by FirebaseConfigManager.isAdMobEnabled.collectAsState()
+    val isAdMobEnabled by FirebaseConfigManager.isAdMobEnabled.collectAsStateWithLifecycle()
     var isDismissedByUser by remember { mutableStateOf(false) }
 
     AnimatedVisibility(
@@ -73,9 +64,10 @@ fun PoliteAdBanner(
         Card(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 6.dp)
-                .border(1.dp, CharcoalCardBorder, RoundedCornerShape(12.dp)),
-            colors = CardDefaults.cardColors(containerColor = CharcoalCard)
+                .padding(horizontal = 16.dp, vertical = 6.dp),
+            shape = RoundedCornerShape(12.dp),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
         ) {
             Row(
                 modifier = Modifier
@@ -91,13 +83,13 @@ fun PoliteAdBanner(
                     Box(
                         modifier = Modifier
                             .clip(RoundedCornerShape(4.dp))
-                            .background(EmeraldContainer)
+                            .background(MaterialTheme.colorScheme.primaryContainer)
                             .padding(horizontal = 6.dp, vertical = 2.dp)
                     ) {
                         Text(
                             text = stringResource(R.string.ad_sponsor),
                             style = MaterialTheme.typography.labelSmall.copy(
-                                color = EmeraldPrimary,
+                                color = MaterialTheme.colorScheme.primary,
                                 fontSize = 10.sp,
                                 fontWeight = FontWeight.Bold
                             )
@@ -107,7 +99,7 @@ fun PoliteAdBanner(
                     Text(
                         text = stringResource(R.string.ad_polite_notice),
                         style = MaterialTheme.typography.bodySmall.copy(
-                            color = TextSecondary,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 11.sp
                         ),
                         maxLines = 1
@@ -115,12 +107,12 @@ fun PoliteAdBanner(
                 }
                 IconButton(
                     onClick = { isDismissedByUser = true },
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(32.dp)
                 ) {
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = stringResource(R.string.ad_close),
-                        tint = TextMuted,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.size(16.dp)
                     )
                 }
@@ -137,20 +129,24 @@ fun PoliteAdBanner(
 fun PoliteAdDialog(
     onDismiss: () -> Unit
 ) {
-    val isAdMobEnabled by FirebaseConfigManager.isAdMobEnabled.collectAsState()
+    val isAdMobEnabled by FirebaseConfigManager.isAdMobEnabled.collectAsStateWithLifecycle()
 
-    if (!isAdMobEnabled) {
-        onDismiss()
-        return
+    LaunchedEffect(isAdMobEnabled) {
+        if (!isAdMobEnabled) {
+            onDismiss()
+        }
     }
+
+    if (!isAdMobEnabled) return
 
     Dialog(onDismissRequest = onDismiss) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
-                .border(1.dp, CharcoalCardBorder, RoundedCornerShape(20.dp)),
-            colors = CardDefaults.cardColors(containerColor = CharcoalSurface)
+                .padding(16.dp),
+            shape = RoundedCornerShape(20.dp),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
         ) {
             Column(
                 modifier = Modifier.padding(20.dp),
@@ -160,13 +156,13 @@ fun PoliteAdDialog(
                     modifier = Modifier
                         .size(48.dp)
                         .clip(RoundedCornerShape(12.dp))
-                        .background(EmeraldContainer),
+                        .background(MaterialTheme.colorScheme.primaryContainer),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         imageVector = Icons.Default.Star,
                         contentDescription = null,
-                        tint = EmeraldPrimary,
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(28.dp)
                     )
                 }
@@ -176,7 +172,7 @@ fun PoliteAdDialog(
                 Text(
                     text = stringResource(R.string.app_name),
                     style = MaterialTheme.typography.titleMedium.copy(
-                        color = TextPrimary,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Bold
                     )
                 )
@@ -186,7 +182,7 @@ fun PoliteAdDialog(
                 Text(
                     text = stringResource(R.string.ad_polite_notice),
                     style = MaterialTheme.typography.bodyMedium.copy(
-                        color = TextSecondary,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 13.sp
                     )
                 )
@@ -196,11 +192,13 @@ fun PoliteAdDialog(
                 Button(
                     onClick = onDismiss,
                     modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(containerColor = EmeraldPrimary)
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary
+                    )
                 ) {
                     Text(
                         text = stringResource(R.string.ad_close),
-                        color = CharcoalSurface,
                         fontWeight = FontWeight.Bold
                     )
                 }

@@ -255,7 +255,7 @@ fun RotateScreen(
                                         overflow = TextOverflow.Ellipsis
                                     )
                                     Text(
-                                        text = "$pageCount pages • ${PdfEngine.formatFileSize(rotateSourceFile?.length() ?: 0L)}",
+                                        text = stringResource(R.string.common_pages_and_size, pageCount, PdfEngine.formatFileSize(rotateSourceFile?.length() ?: 0L)),
                                         style = MaterialTheme.typography.labelSmall,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                                         maxLines = 1,
@@ -485,7 +485,7 @@ fun RotateScreen(
                                     if (bmp != null) {
                                         Image(
                                             bitmap = bmp.asImageBitmap(),
-                                            contentDescription = "Page ${pageIdx + 1}",
+                                            contentDescription = stringResource(R.string.common_page_number, pageIdx + 1),
                                             contentScale = ContentScale.Fit,
                                             alpha = if (isDeleted) 0.35f else 1f,
                                             modifier = Modifier
@@ -499,7 +499,7 @@ fun RotateScreen(
                                             contentAlignment = Alignment.Center
                                         ) {
                                             Text(
-                                                text = "Page ${pageIdx + 1}",
+                                                text = stringResource(R.string.common_page_number, pageIdx + 1),
                                                 fontWeight = FontWeight.Bold,
                                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                                             )
@@ -603,7 +603,7 @@ fun RotateScreen(
                                         ) {
                                             Icon(
                                                 imageVector = Icons.Default.RotateRight,
-                                                contentDescription = "Rotate page ${pageIdx + 1}",
+                                                contentDescription = stringResource(R.string.rotate_page_cd, pageIdx + 1),
                                                 tint = MaterialTheme.colorScheme.primary,
                                                 modifier = Modifier
                                                     .padding(5.dp)

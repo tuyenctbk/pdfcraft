@@ -18,7 +18,8 @@ enum class PdfOperationType {
     TEXT_TO_PDF,
     PDF_TO_TEXT,
     PDF_TO_IMAGES,
-    HTML_TO_PDF
+    HTML_TO_PDF,
+    DOCUMENT_INFO
 }
 
 @Entity(tableName = "pdf_projects")

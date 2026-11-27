@@ -21,8 +21,8 @@ sealed class BillingStatus {
     object Idle : BillingStatus()
     object Connecting : BillingStatus()
     object Ready : BillingStatus()
-    data class ConfirmingCheckout(val tip: TipProduct) : BillingStatus()
     data class Purchasing(val productId: String) : BillingStatus()
+    object Pending : BillingStatus()
     data class Success(val orderId: String?, val productId: String) : BillingStatus()
     data class Error(val message: String) : BillingStatus()
 }
@@ -74,13 +74,6 @@ class BillingManager private constructor(appContext: Context) {
             tip = tip,
             onResult = onResult
         )
-    }
-
-    fun confirmCheckoutPurchase(
-        tip: TipProduct,
-        onResult: (Boolean, String) -> Unit = { _, _ -> }
-    ) {
-        repository.confirmCheckoutPurchase(tip, onResult)
     }
 
     fun resetStatus() {

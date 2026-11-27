@@ -34,6 +34,9 @@ import androidx.compose.ui.unit.sp
 import com.example.R
 import com.example.data.local.PdfOperationType
 import com.example.ui.MainViewModel
+import com.example.ui.components.bounceClickable
+import com.example.ui.theme.JetBrainsMonoFamily
+import com.example.ui.theme.LocalIsDarkTheme
 
 enum class ToolCategory(val titleRes: Int) {
     ALL(R.string.tools_category_all),
@@ -81,7 +84,7 @@ val ALL_PDF_TOOLS = listOf(
     ToolItemData(
         titleRes = R.string.tool_image_to_pdf_title,
         descRes = R.string.tool_image_to_pdf_desc,
-        icon = Icons.Default.Image,
+        icon = Icons.Default.AddPhotoAlternate,
         operationType = PdfOperationType.IMAGE_TO_PDF,
         category = ToolCategory.CONVERT,
         isNew = true,
@@ -92,7 +95,7 @@ val ALL_PDF_TOOLS = listOf(
     ToolItemData(
         titleRes = R.string.tool_page_number_title,
         descRes = R.string.tool_page_number_desc,
-        icon = Icons.Default.TextFields,
+        icon = Icons.Default.FormatListNumbered,
         operationType = PdfOperationType.PAGE_NUMBER,
         category = ToolCategory.PAGES,
         isNew = true,
@@ -124,7 +127,7 @@ val ALL_PDF_TOOLS = listOf(
     ToolItemData(
         titleRes = R.string.tool_watermark_title,
         descRes = R.string.tool_watermark_desc,
-        icon = Icons.Default.TextFields,
+        icon = Icons.Default.BrandingWatermark,
         operationType = PdfOperationType.WATERMARK,
         category = ToolCategory.SECURITY,
         iconTint = Color(0xFFF472B6),
@@ -152,9 +155,20 @@ val ALL_PDF_TOOLS = listOf(
         keywords = "encrypt password lock protection protect secure security pin code"
     ),
     ToolItemData(
+        titleRes = R.string.tool_doc_info_title,
+        descRes = R.string.tool_doc_info_desc,
+        icon = Icons.Default.Info,
+        operationType = PdfOperationType.DOCUMENT_INFO,
+        category = ToolCategory.OPTIMIZE,
+        isPopular = true,
+        iconTint = Color(0xFF06B6D4),
+        containerColor = Color(0xFF164E63),
+        keywords = "info document metadata author created date pages properties inspector details size encryption"
+    ),
+    ToolItemData(
         titleRes = R.string.tool_metadata_title,
         descRes = R.string.tool_metadata_desc,
-        icon = Icons.Default.Edit,
+        icon = Icons.Default.Tune,
         operationType = PdfOperationType.METADATA,
         category = ToolCategory.OPTIMIZE,
         iconTint = Color(0xFF2DD4BF),
@@ -186,7 +200,7 @@ val ALL_PDF_TOOLS = listOf(
     ToolItemData(
         titleRes = R.string.tool_pdf_to_images_title,
         descRes = R.string.tool_pdf_to_images_desc,
-        icon = Icons.Default.Image,
+        icon = Icons.Default.PhotoLibrary,
         operationType = PdfOperationType.PDF_TO_IMAGES,
         category = ToolCategory.CONVERT,
         isNew = true,
@@ -197,7 +211,7 @@ val ALL_PDF_TOOLS = listOf(
     ToolItemData(
         titleRes = R.string.tool_html_to_pdf_title,
         descRes = R.string.tool_html_to_pdf_desc,
-        icon = Icons.Default.Edit,
+        icon = Icons.Default.Code,
         operationType = PdfOperationType.HTML_TO_PDF,
         category = ToolCategory.CONVERT,
         isNew = true,
@@ -308,7 +322,8 @@ fun ToolsScreen(
                 shape = RoundedCornerShape(14.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { openPdfLauncher.launch(arrayOf("application/pdf")) }
+                    .clip(RoundedCornerShape(14.dp))
+                    .bounceClickable { openPdfLauncher.launch(arrayOf("application/pdf")) }
                     .testTag("tools_open_pdf_reader_card")
             ) {
                 Row(
@@ -364,7 +379,7 @@ fun ToolsScreen(
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Outlined.Search,
-                        contentDescription = "Search",
+                        contentDescription = stringResource(R.string.action_search),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.size(20.dp)
                     )
@@ -372,7 +387,7 @@ fun ToolsScreen(
                 trailingIcon = {
                     if (searchQuery.isNotEmpty()) {
                         IconButton(onClick = { searchQuery = "" }) {
-                            Icon(Icons.Default.Clear, contentDescription = "Clear", modifier = Modifier.size(18.dp))
+                            Icon(Icons.Default.Clear, contentDescription = stringResource(R.string.action_clear), modifier = Modifier.size(18.dp))
                         }
                     }
                 },
@@ -389,6 +404,8 @@ fun ToolsScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
+            val isDark = LocalIsDarkTheme.current
+
             // Category Filter Chips
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -404,7 +421,8 @@ fun ToolsScreen(
                             color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant
                         ),
                         modifier = Modifier
-                            .clickable { selectedCategory = category }
+                            .clip(RoundedCornerShape(10.dp))
+                            .bounceClickable { selectedCategory = category }
                             .testTag("tool_category_${category.name}")
                     ) {
                         Text(
@@ -412,7 +430,7 @@ fun ToolsScreen(
                             fontSize = 12.sp,
                             fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
                             color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
-                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 7.dp)
+                            modifier = Modifier.padding(horizontal = 13.dp, vertical = 8.dp)
                         )
                     }
                 }
@@ -452,19 +470,21 @@ fun ToolsScreen(
                     columns = GridCells.Adaptive(minSize = 160.dp),
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp),
+                    contentPadding = PaddingValues(bottom = 24.dp),
                     modifier = Modifier.fillMaxSize()
                 ) {
                     items(filteredTools, key = { it.operationType.name }) { tool ->
                         Card(
                             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.8f)),
-                            shape = RoundedCornerShape(16.dp),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp, pressedElevation = 6.dp),
+                            border = BorderStroke(1.dp, tool.iconTint.copy(alpha = if (isDark) 0.28f else 0.24f)),
+                            shape = RoundedCornerShape(18.dp),
+                            elevation = CardDefaults.cardElevation(defaultElevation = if (isDark) 2.dp else 1.dp),
                             modifier = Modifier
+                                .animateItem()
                                 .fillMaxWidth()
-                                .defaultMinSize(minHeight = 168.dp)
-                                .clip(RoundedCornerShape(16.dp))
-                                .clickable { viewModel.setActiveTool(tool.operationType) }
+                                .defaultMinSize(minHeight = 164.dp)
+                                .clip(RoundedCornerShape(18.dp))
+                                .bounceClickable { viewModel.setActiveTool(tool.operationType) }
                                 .testTag("tool_card_${tool.operationType.name}")
                         ) {
                             Column(
@@ -479,15 +499,16 @@ fun ToolsScreen(
                                     verticalAlignment = Alignment.Top
                                 ) {
                                     Surface(
-                                        color = MaterialTheme.colorScheme.primaryContainer,
-                                        shape = RoundedCornerShape(12.dp),
-                                        modifier = Modifier.size(44.dp)
+                                        color = tool.iconTint.copy(alpha = if (isDark) 0.16f else 0.13f),
+                                        border = BorderStroke(0.5.dp, tool.iconTint.copy(alpha = 0.35f)),
+                                        shape = RoundedCornerShape(13.dp),
+                                        modifier = Modifier.size(46.dp)
                                     ) {
                                         Box(contentAlignment = Alignment.Center) {
                                             Icon(
                                                 imageVector = tool.icon,
                                                 contentDescription = null,
-                                                tint = MaterialTheme.colorScheme.primary,
+                                                tint = tool.iconTint,
                                                 modifier = Modifier.size(24.dp)
                                             )
                                         }
@@ -495,15 +516,16 @@ fun ToolsScreen(
 
                                     if (tool.isNew) {
                                         Surface(
-                                            color = MaterialTheme.colorScheme.tertiaryContainer,
+                                            color = tool.iconTint.copy(alpha = if (isDark) 0.18f else 0.14f),
                                             shape = RoundedCornerShape(6.dp)
                                         ) {
                                             Text(
-                                                text = "NEW",
-                                                color = MaterialTheme.colorScheme.tertiary,
-                                                fontSize = 9.sp,
-                                                fontWeight = FontWeight.ExtraBold,
-                                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                                                text = stringResource(R.string.hub_badge_new),
+                                                fontFamily = JetBrainsMonoFamily,
+                                                color = tool.iconTint,
+                                                fontSize = 8.5.sp,
+                                                fontWeight = FontWeight.Bold,
+                                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.5.dp)
                                             )
                                         }
                                     } else if (tool.isPopular) {
@@ -512,15 +534,18 @@ fun ToolsScreen(
                                             shape = RoundedCornerShape(6.dp)
                                         ) {
                                             Text(
-                                                text = "POPULAR",
+                                                text = stringResource(R.string.hub_badge_popular),
+                                                fontFamily = JetBrainsMonoFamily,
                                                 color = MaterialTheme.colorScheme.primary,
-                                                fontSize = 9.sp,
-                                                fontWeight = FontWeight.ExtraBold,
-                                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                                                fontSize = 8.5.sp,
+                                                fontWeight = FontWeight.Bold,
+                                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.5.dp)
                                             )
                                         }
                                     }
                                 }
+
+                                Spacer(modifier = Modifier.height(12.dp))
 
                                 Column {
                                     Text(

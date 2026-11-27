@@ -3,6 +3,6 @@
     <item
         android:width="66dp"
         android:height="66dp"
-        android:drawable="@drawable/ic_app_icon_1794394663771"
+        android:drawable="@drawable/ic_pdfcraft_emblem_1795782138112"
         android:gravity="center" />
 </layer-list>

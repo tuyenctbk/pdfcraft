@@ -43,10 +43,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.R
 import com.example.data.pdf.PdfPageSourceItem
 import com.example.ui.theme.RedDelete
 
@@ -163,7 +165,7 @@ fun PageThumbnailCard(
                 if (thumbnail != null) {
                     Image(
                         bitmap = thumbnail.asImageBitmap(),
-                        contentDescription = "Page ${pagePosition + 1} thumbnail",
+                        contentDescription = stringResource(R.string.common_page_number, pagePosition + 1),
                         contentScale = ContentScale.Fit,
                         modifier = Modifier
                             .fillMaxSize()
@@ -182,7 +184,7 @@ fun PageThumbnailCard(
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = if (item.originalPageIndex == -1) "Image" else "Page ${item.originalPageIndex + 1}",
+                            text = if (item.originalPageIndex == -1) stringResource(R.string.thumb_image_label) else stringResource(R.string.common_page_number, item.originalPageIndex + 1),
                             color = Color.DarkGray,
                             fontSize = 12.sp
                         )
@@ -210,7 +212,7 @@ fun PageThumbnailCard(
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Move earlier",
+                            contentDescription = stringResource(R.string.thumb_move_earlier),
                             tint = if (pagePosition > 0) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f),
                             modifier = Modifier.size(16.dp)
                         )
@@ -227,7 +229,7 @@ fun PageThumbnailCard(
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                            contentDescription = "Move later",
+                            contentDescription = stringResource(R.string.thumb_move_later),
                             tint = if (pagePosition < totalCount - 1) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f),
                             modifier = Modifier.size(16.dp)
                         )
@@ -244,7 +246,7 @@ fun PageThumbnailCard(
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.RotateRight,
-                            contentDescription = "Rotate 90 degrees",
+                            contentDescription = stringResource(R.string.thumb_rotate_90),
                             tint = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.size(18.dp)
                         )
@@ -262,7 +264,7 @@ fun PageThumbnailCard(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Delete,
-                        contentDescription = "Remove page",
+                        contentDescription = stringResource(R.string.thumb_remove_page),
                         tint = RedDelete,
                         modifier = Modifier.size(18.dp)
                     )

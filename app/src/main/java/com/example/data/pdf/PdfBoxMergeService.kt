@@ -59,25 +59,37 @@ object PdfBoxMergeService {
 
         // Fallback approach: Direct PDDocument appending
         val destinationDoc = PDDocument()
+        val openedSources = mutableListOf<PDDocument>()
+        val tempFilesToClean = mutableListOf<File>()
         try {
             for (uri in pdfUris) {
                 val file = PdfEngine.convertAnyFileToPdf(context, uri)
-                FileInputStream(file).use { inputStream ->
-                    PDDocument.load(inputStream).use { sourceDoc ->
-                        for (i in 0 until sourceDoc.numberOfPages) {
-                            destinationDoc.addPage(sourceDoc.getPage(i))
-                        }
-                    }
-                }
                 if (file.parentFile?.name == "pdf_temp_sources") {
-                    file.delete()
+                    tempFilesToClean.add(file)
+                }
+                val sourceDoc = PDDocument.load(file)
+                openedSources.add(sourceDoc)
+                for (i in 0 until sourceDoc.numberOfPages) {
+                    destinationDoc.addPage(sourceDoc.getPage(i))
                 }
             }
             FileOutputStream(outputFile).use { outStream ->
                 destinationDoc.save(outStream)
             }
         } finally {
-            destinationDoc.close()
+            try {
+                destinationDoc.close()
+            } catch (_: Exception) {}
+            for (src in openedSources) {
+                try {
+                    src.close()
+                } catch (_: Exception) {}
+            }
+            for (temp in tempFilesToClean) {
+                try {
+                    temp.delete()
+                } catch (_: Exception) {}
+            }
         }
 
         outputFile

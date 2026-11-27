@@ -98,7 +98,7 @@ fun PdfToImagesScreen(
                                     strokeWidth = 2.dp
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
-                                Text(processingMessage ?: "Rendering...")
+                                Text(processingMessage.ifEmpty { stringResource(R.string.action_rendering) })
                             } else {
                                 Icon(Icons.Default.Image, contentDescription = null)
                                 Spacer(modifier = Modifier.width(8.dp))
@@ -144,7 +144,7 @@ fun PdfToImagesScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Export Format:",
+                        text = stringResource(R.string.pdf_to_images_export_format),
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Medium
                     )
@@ -173,7 +173,7 @@ fun PdfToImagesScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Exported Images (${exportedImages.size} Pages)",
+                        text = stringResource(R.string.pdf_to_images_exported_count, exportedImages.size),
                         style = MaterialTheme.typography.titleSmall,
                         fontWeight = FontWeight.Bold
                     )
@@ -217,7 +217,7 @@ fun PdfToImagesScreen(
                                         setDataAndType(uri, "image/*")
                                         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                                     }
-                                    context.startActivity(Intent.createChooser(viewIntent, "View Page ${index + 1}"))
+                                    context.startActivity(Intent.createChooser(viewIntent, context.getString(R.string.pdf_to_images_view_page, index + 1)))
                                 }
                         ) {
                             Column(modifier = Modifier.padding(6.dp)) {
@@ -230,14 +230,14 @@ fun PdfToImagesScreen(
                                 ) {
                                     AsyncImage(
                                         model = file,
-                                        contentDescription = "Page ${index + 1}",
+                                        contentDescription = stringResource(R.string.common_page_number, index + 1),
                                         contentScale = ContentScale.Fit,
                                         modifier = Modifier.fillMaxSize()
                                     )
                                 }
                                 Spacer(modifier = Modifier.height(4.dp))
                                 Text(
-                                    text = "Page ${index + 1}",
+                                    text = stringResource(R.string.common_page_number, index + 1),
                                     fontSize = 12.sp,
                                     fontWeight = FontWeight.Bold,
                                     modifier = Modifier.align(Alignment.CenterHorizontally)

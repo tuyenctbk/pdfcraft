@@ -150,22 +150,23 @@ fun CompressScreen(
                         ) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Back",
+                                contentDescription = stringResource(R.string.action_back),
                                 tint = MaterialTheme.colorScheme.onSurface
                             )
                         }
                         Spacer(modifier = Modifier.width(8.dp))
                         Column {
                             Text(
-                                text = "Compress & Extract Studio",
+                                text = stringResource(R.string.compress_studio_title),
                                 style = MaterialTheme.typography.titleMedium.copy(
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                             )
                             Text(
-                                text = sourceFile?.let { "${it.name} (${pageCount} pages • ${PdfEngine.formatFileSize(it.length())})" }
-                                    ?: "Downsample PDF or extract high-res images offline",
+                                text = sourceFile?.let {
+                                    stringResource(R.string.common_file_pages_size, it.name, pageCount, PdfEngine.formatFileSize(it.length()))
+                                } ?: stringResource(R.string.compress_studio_subtitle),
                                 style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
                             )
                         }
@@ -183,7 +184,7 @@ fun CompressScreen(
                     ) {
                         Icon(imageVector = Icons.Default.FileUpload, contentDescription = null, modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(6.dp))
-                        Text(if (sourceFile == null) "Select PDF" else "Change", fontWeight = FontWeight.Bold)
+                        Text(if (sourceFile == null) stringResource(R.string.action_select_pdf) else stringResource(R.string.action_change), fontWeight = FontWeight.Bold)
                     }
                 }
             }
@@ -231,7 +232,7 @@ fun CompressScreen(
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = "Single PDF",
+                        text = stringResource(R.string.compress_tab_single),
                         color = if (activeSubTab == "COMPRESS") MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                         fontWeight = FontWeight.Bold,
                         fontSize = 12.sp
@@ -258,7 +259,7 @@ fun CompressScreen(
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = "Batch (${batchCompressList.size})",
+                        text = stringResource(R.string.compress_tab_batch, batchCompressList.size),
                         color = if (activeSubTab == "BATCH") MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurfaceVariant,
                         fontWeight = FontWeight.Bold,
                         fontSize = 12.sp
@@ -285,7 +286,7 @@ fun CompressScreen(
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = "Extractor",
+                        text = stringResource(R.string.compress_tab_extractor),
                         color = if (activeSubTab == "EXTRACT") MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                         fontWeight = FontWeight.Bold,
                         fontSize = 12.sp
@@ -315,11 +316,11 @@ fun CompressScreen(
                             ) {
                                 Column(modifier = Modifier.weight(1f)) {
                                     Text(
-                                        text = "Batch PDF Optimizer",
+                                        text = stringResource(R.string.compress_batch_title),
                                         style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                                     )
                                     Text(
-                                        text = "Select multiple PDFs and compress them all at once.",
+                                        text = stringResource(R.string.compress_batch_subtitle),
                                         style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
                                     )
                                 }
@@ -358,12 +359,12 @@ fun CompressScreen(
                                 )
                                 Spacer(modifier = Modifier.height(12.dp))
                                 Text(
-                                    text = "No Files Selected for Batch",
+                                    text = stringResource(R.string.compress_batch_empty_title),
                                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                                 )
                                 Spacer(modifier = Modifier.height(4.dp))
                                 Text(
-                                    text = "Tap 'Add PDFs' to pick multiple PDF documents and compress them in one bulk action.",
+                                    text = stringResource(R.string.compress_batch_empty_desc),
                                     style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
                                 )
                             }
@@ -372,7 +373,7 @@ fun CompressScreen(
                 } else {
                     item {
                         Text(
-                            text = "Selected Files (${batchCompressList.size})",
+                            text = stringResource(R.string.compress_selected_files, batchCompressList.size),
                             style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         )
                     }
@@ -406,7 +407,11 @@ fun CompressScreen(
                                         maxLines = 1
                                     )
                                     Text(
-                                        text = "${PdfEngine.formatFileSize(item.originalSize)} • ${if (item.pageCount > 0) "${item.pageCount} pages" else "PDF Document"}",
+                                        text = if (item.pageCount > 0) {
+                                            "${PdfEngine.formatFileSize(item.originalSize)} • ${stringResource(R.string.common_pages_count, item.pageCount)}"
+                                        } else {
+                                            "${PdfEngine.formatFileSize(item.originalSize)} • PDF"
+                                        },
                                         style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 11.sp)
                                     )
                                 }
@@ -414,7 +419,7 @@ fun CompressScreen(
                                     onClick = { viewModel.removeBatchCompressItem(index) },
                                     modifier = Modifier.testTag("remove_batch_item_$index")
                                 ) {
-                                    Icon(imageVector = Icons.Default.Delete, contentDescription = "Remove", tint = MaterialTheme.colorScheme.error, modifier = Modifier.size(20.dp))
+                                    Icon(imageVector = Icons.Default.Delete, contentDescription = stringResource(R.string.action_remove), tint = MaterialTheme.colorScheme.error, modifier = Modifier.size(20.dp))
                                 }
                             }
                         }
@@ -423,7 +428,7 @@ fun CompressScreen(
                     item {
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "Batch Compression Preset",
+                            text = stringResource(R.string.compress_batch_preset),
                             style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         )
                     }
@@ -450,8 +455,8 @@ fun CompressScreen(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Column(modifier = Modifier.weight(1f)) {
-                                    Text(text = preset.title, style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold, color = if (isSelected) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurface))
-                                    Text(text = preset.description, style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 11.sp))
+                                    Text(text = stringResource(preset.titleRes), style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold, color = if (isSelected) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurface))
+                                    Text(text = stringResource(preset.descRes), style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 11.sp))
                                 }
                                 if (isSelected) {
                                     Icon(imageVector = Icons.Default.Check, contentDescription = null, tint = MaterialTheme.colorScheme.tertiary)
@@ -518,14 +523,14 @@ fun CompressScreen(
                         Spacer(modifier = Modifier.height(18.dp))
 
                         Text(
-                            text = "Optimize & Extract",
+                            text = stringResource(R.string.compress_empty_title),
                             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                         )
 
                         Spacer(modifier = Modifier.height(6.dp))
 
                         Text(
-                            text = "Reduce file size up to 80% without cloud server uploads, or extract all high-res page images directly to your device storage.",
+                            text = stringResource(R.string.compress_empty_desc),
                             style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
                         )
 
@@ -555,13 +560,13 @@ fun CompressScreen(
                         PdfDocumentPreviewCard(
                             file = sourceFile,
                             uri = sourceUri,
-                            title = "Input Document Preview"
+                            title = stringResource(R.string.compress_input_preview)
                         )
                     }
 
                     item {
                         Text(
-                            text = "Choose Compression Level",
+                            text = stringResource(R.string.compress_choose_level),
                             style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         )
                     }
@@ -580,7 +585,7 @@ fun CompressScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable { viewModel.selectCompressPreset(preset) }
-                                .testTag("preset_${preset.title.replace(" ", "_")}")
+                                .testTag("preset_${preset.id}")
                         ) {
                             Row(
                                 modifier = Modifier.padding(16.dp).fillMaxWidth(),
@@ -590,7 +595,7 @@ fun CompressScreen(
                                 Column(modifier = Modifier.weight(1f)) {
                                     Row(verticalAlignment = Alignment.CenterVertically) {
                                         Text(
-                                            text = preset.title,
+                                            text = stringResource(preset.titleRes),
                                             style = MaterialTheme.typography.titleMedium.copy(
                                                 fontWeight = FontWeight.Bold,
                                                 color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
@@ -613,7 +618,7 @@ fun CompressScreen(
                                     }
                                     Spacer(modifier = Modifier.height(4.dp))
                                     Text(
-                                        text = preset.description,
+                                        text = stringResource(preset.descRes),
                                         style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
                                     )
                                 }
@@ -643,7 +648,7 @@ fun CompressScreen(
                         ) {
                             Column(modifier = Modifier.padding(16.dp)) {
                                 Text(
-                                    text = "Estimated File Size Impact",
+                                    text = stringResource(R.string.compress_est_impact),
                                     style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                                 )
                                 Spacer(modifier = Modifier.height(12.dp))
@@ -666,9 +671,9 @@ fun CompressScreen(
                                     Column {
                                         Text(stringResource(R.string.compress_est_compressed), fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                         val origBytes = sourceFile?.length() ?: 0L
-                                        val estFactor = when (selectedPreset.title) {
-                                            "Max Quality" -> 0.75
-                                            "Balanced" -> 0.40
+                                        val estFactor = when (selectedPreset.id) {
+                                            "max_quality" -> 0.75
+                                            "balanced" -> 0.40
                                             else -> 0.20
                                         }
                                         val estBytes = (origBytes * estFactor).toLong()
@@ -714,7 +719,7 @@ fun CompressScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Export Image Format",
+                            text = stringResource(R.string.compress_export_format),
                             style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         )
 
@@ -728,7 +733,7 @@ fun CompressScreen(
                                     .testTag("format_png"),
                                 contentAlignment = Alignment.Center
                             ) {
-                                Text("PNG (Lossless)", color = if (selectedImageFormat == "PNG") MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                                Text(stringResource(R.string.pdf_to_images_png), color = if (selectedImageFormat == "PNG") MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             }
 
                             Box(
@@ -740,7 +745,7 @@ fun CompressScreen(
                                     .testTag("format_jpeg"),
                                 contentAlignment = Alignment.Center
                             ) {
-                                Text("JPEG (Small)", color = if (selectedImageFormat == "JPEG") MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                                Text(stringResource(R.string.compress_jpeg_small), color = if (selectedImageFormat == "JPEG") MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             }
                         }
                     }
@@ -767,7 +772,7 @@ fun CompressScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Extracted ${extractedImages.size} Image Assets",
+                                text = stringResource(R.string.compress_extracted_assets, extractedImages.size),
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.primary

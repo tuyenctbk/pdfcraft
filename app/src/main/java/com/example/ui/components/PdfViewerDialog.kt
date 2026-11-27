@@ -1,5 +1,6 @@
 package com.example.ui.components
 
+import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -45,6 +46,7 @@ import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Draw
 import androidx.compose.material.icons.filled.GridView
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material.icons.filled.Print
@@ -104,13 +106,6 @@ import com.example.data.local.PdfOperationType
 import com.example.data.pdf.PdfEngine
 import com.example.ui.screens.PdfPreviewOperationMode
 import com.example.ui.screens.PdfPreviewScreenDialog
-import com.example.ui.theme.CharcoalBackground
-import com.example.ui.theme.CharcoalCard
-import com.example.ui.theme.CharcoalCardBorder
-import com.example.ui.theme.CharcoalHighlight
-import com.example.ui.theme.EmeraldPrimary
-import com.example.ui.theme.TextMuted
-import com.example.ui.theme.TextPrimary
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import com.tom_roush.pdfbox.text.PDFTextStripper
 import java.io.File
@@ -179,7 +174,7 @@ fun PdfViewerDialog(
         }
     }
 
-    LaunchedEffect(file, currentPageIndex) {
+    LaunchedEffect(activeFile, currentPageIndex) {
         isLoading = true
         zoomScale = 1f
         panOffsetX = 0f
@@ -189,45 +184,53 @@ fun PdfViewerDialog(
             isSpeaking = false
         }
         withContext(Dispatchers.IO) {
+            var pfd: ParcelFileDescriptor? = null
+            var renderer: android.graphics.pdf.PdfRenderer? = null
             try {
-                val pfd = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
-                val renderer = android.graphics.pdf.PdfRenderer(pfd)
+                pfd = ParcelFileDescriptor.open(activeFile, ParcelFileDescriptor.MODE_READ_ONLY)
+                renderer = android.graphics.pdf.PdfRenderer(pfd)
                 totalPages = renderer.pageCount
 
-                if (currentPageIndex in 0 until totalPages) {
-                    val page = renderer.openPage(currentPageIndex)
-                    val density = context.resources.displayMetrics.density
-                    val width = (360 * density).toInt().coerceAtLeast(100)
-                    val pw = if (page.width > 0) page.width else 100
-                    val ph = if (page.height > 0) page.height else 100
-                    val pageAspect = (ph.toFloat() / pw.toFloat()).takeIf { !it.isNaN() && !it.isInfinite() } ?: 1.414f
-                    val height = (width * pageAspect).toInt().coerceIn(100, 2400)
+                val safeIndex = currentPageIndex.coerceIn(0, (totalPages - 1).coerceAtLeast(0))
+                if (totalPages > 0 && safeIndex in 0 until totalPages) {
+                    val page = renderer.openPage(safeIndex)
+                    try {
+                        val density = context.resources.displayMetrics.density
+                        val width = (360 * density).toInt().coerceAtLeast(100)
+                        val pw = if (page.width > 0) page.width else 100
+                        val ph = if (page.height > 0) page.height else 100
+                        val pageAspect = (ph.toFloat() / pw.toFloat()).takeIf { !it.isNaN() && !it.isInfinite() } ?: 1.414f
+                        val height = (width * pageAspect).toInt().coerceIn(100, 2400)
 
-                    val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-                    val canvas = android.graphics.Canvas(bmp)
-                    canvas.drawColor(android.graphics.Color.WHITE)
-                    page.render(bmp, null, null, android.graphics.pdf.PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-                    page.close()
-                    currentBitmap = bmp
+                        val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+                        val canvas = android.graphics.Canvas(bmp)
+                        canvas.drawColor(android.graphics.Color.WHITE)
+                        page.render(bmp, null, null, android.graphics.pdf.PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+                        currentBitmap = bmp
+                    } finally {
+                        try { page.close() } catch (_: Throwable) {}
+                    }
+                } else {
+                    currentBitmap = null
                 }
-                renderer.close()
-                pfd.close()
             } catch (t: Throwable) {
                 android.util.Log.e("PdfViewerDialog", "Error rendering page $currentPageIndex: ${t.localizedMessage}")
             } finally {
+                try { renderer?.close() } catch (_: Throwable) {}
+                try { pfd?.close() } catch (_: Throwable) {}
                 isLoading = false
             }
         }
     }
 
-    LaunchedEffect(searchQuery) {
+    LaunchedEffect(activeFile, searchQuery) {
         if (searchQuery.isBlank()) {
             searchResults = emptyList()
             currentMatchIndex = 0
             isSearching = false
         } else {
             isSearching = true
-            val results = PdfEngine.searchTextInPdf(file, searchQuery)
+            val results = PdfEngine.searchTextInPdf(activeFile, searchQuery)
             searchResults = results
             currentMatchIndex = 0
             isSearching = false
@@ -267,15 +270,16 @@ fun PdfViewerDialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
+        val colorScheme = MaterialTheme.colorScheme
         Surface(
-            color = CharcoalBackground,
+            color = colorScheme.background,
             modifier = Modifier.fillMaxSize().testTag("pdf_viewer_dialog")
         ) {
             Column(modifier = Modifier.fillMaxSize()) {
                 // Header
                 Surface(
-                    color = CharcoalCard,
-                    border = BorderStroke(1.dp, CharcoalCardBorder),
+                    color = colorScheme.surface,
+                    border = BorderStroke(1.dp, colorScheme.outlineVariant),
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Column(modifier = Modifier.padding(14.dp).fillMaxWidth()) {
@@ -286,18 +290,18 @@ fun PdfViewerDialog(
                         ) {
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(
-                                    text = file.name,
+                                    text = activeFile.name,
                                     style = MaterialTheme.typography.titleMedium.copy(
                                         fontWeight = FontWeight.Bold,
-                                        color = TextPrimary
+                                        color = colorScheme.onSurface
                                     ),
                                     maxLines = 1,
                                     overflow = TextOverflow.Ellipsis
                                 )
                                 Text(
-                                    text = "${PdfEngine.formatFileSize(file.length())} • ${stringResource(R.string.viewer_page_of_total, currentPageIndex + 1, totalPages.coerceAtLeast(1))}",
+                                    text = "${PdfEngine.formatFileSize(activeFile.length())} • ${stringResource(R.string.viewer_page_of_total, currentPageIndex + 1, totalPages.coerceAtLeast(1))}",
                                     fontSize = 11.sp,
-                                    color = TextMuted
+                                    color = colorScheme.onSurfaceVariant
                                 )
                             }
 
@@ -309,7 +313,7 @@ fun PdfViewerDialog(
                                     Icon(
                                         imageVector = Icons.Default.GridView,
                                         contentDescription = stringResource(R.string.action_preview),
-                                        tint = EmeraldPrimary
+                                        tint = colorScheme.primary
                                     )
                                 }
 
@@ -320,29 +324,40 @@ fun PdfViewerDialog(
                                     Icon(
                                         imageVector = Icons.Default.Search,
                                         contentDescription = stringResource(R.string.preview_search_text_hint),
-                                        tint = if (isSearchActive) EmeraldPrimary else TextPrimary
+                                        tint = if (isSearchActive) colorScheme.primary else colorScheme.onSurface
                                     )
                                 }
 
                                 IconButton(
-                                    onClick = { printPdfFile(context, file) },
+                                    onClick = { printPdfFile(context, activeFile) },
                                     modifier = Modifier.testTag("viewer_print_button")
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.Print,
                                         contentDescription = stringResource(R.string.viewer_print_pdf),
-                                        tint = TextPrimary
+                                        tint = colorScheme.onSurface
                                     )
                                 }
 
                                 IconButton(
-                                    onClick = { sharePdfFile(context, file) },
+                                    onClick = { sharePdfFile(context, activeFile) },
                                     modifier = Modifier.testTag("viewer_share_button")
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.Share,
                                         contentDescription = stringResource(R.string.viewer_share_pdf),
-                                        tint = TextPrimary
+                                        tint = colorScheme.onSurface
+                                    )
+                                }
+
+                                IconButton(
+                                    onClick = { onSendToTool?.invoke(PdfOperationType.DOCUMENT_INFO) },
+                                    modifier = Modifier.testTag("viewer_info_button")
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Info,
+                                        contentDescription = stringResource(R.string.tool_doc_info_title),
+                                        tint = colorScheme.onSurface
                                     )
                                 }
 
@@ -353,7 +368,7 @@ fun PdfViewerDialog(
                                     Icon(
                                         imageVector = Icons.Default.Close,
                                         contentDescription = stringResource(R.string.action_close),
-                                        tint = TextPrimary
+                                        tint = colorScheme.onSurface
                                     )
                                 }
                             }
@@ -376,8 +391,9 @@ fun PdfViewerDialog(
                                     Icon(Icons.Default.LightMode, contentDescription = null, modifier = Modifier.size(14.dp))
                                 },
                                 colors = FilterChipDefaults.filterChipColors(
-                                    selectedContainerColor = EmeraldPrimary.copy(alpha = 0.2f),
-                                    selectedLabelColor = EmeraldPrimary
+                                    selectedContainerColor = colorScheme.primary.copy(alpha = 0.18f),
+                                    selectedLabelColor = colorScheme.primary,
+                                    selectedLeadingIconColor = colorScheme.primary
                                 )
                             )
                             FilterChip(
@@ -388,8 +404,9 @@ fun PdfViewerDialog(
                                     Icon(Icons.Default.DarkMode, contentDescription = null, modifier = Modifier.size(14.dp))
                                 },
                                 colors = FilterChipDefaults.filterChipColors(
-                                    selectedContainerColor = EmeraldPrimary.copy(alpha = 0.2f),
-                                    selectedLabelColor = EmeraldPrimary
+                                    selectedContainerColor = colorScheme.primary.copy(alpha = 0.18f),
+                                    selectedLabelColor = colorScheme.primary,
+                                    selectedLeadingIconColor = colorScheme.primary
                                 )
                             )
                             FilterChip(
@@ -400,8 +417,9 @@ fun PdfViewerDialog(
                                     Icon(Icons.Default.Palette, contentDescription = null, modifier = Modifier.size(14.dp))
                                 },
                                 colors = FilterChipDefaults.filterChipColors(
-                                    selectedContainerColor = EmeraldPrimary.copy(alpha = 0.2f),
-                                    selectedLabelColor = EmeraldPrimary
+                                    selectedContainerColor = colorScheme.primary.copy(alpha = 0.18f),
+                                    selectedLabelColor = colorScheme.primary,
+                                    selectedLeadingIconColor = colorScheme.primary
                                 )
                             )
 
@@ -414,7 +432,7 @@ fun PdfViewerDialog(
                                             isSpeaking = false
                                         } else {
                                             coroutineScope.launch {
-                                                val pageText = extractSinglePageText(file, currentPageIndex + 1)
+                                                val pageText = extractSinglePageText(activeFile, currentPageIndex + 1)
                                                 if (pageText.isNotBlank()) {
                                                     isSpeaking = true
                                                     ttsEngine?.speak(
@@ -443,8 +461,9 @@ fun PdfViewerDialog(
                                         )
                                     },
                                     colors = FilterChipDefaults.filterChipColors(
-                                        selectedContainerColor = EmeraldPrimary.copy(alpha = 0.25f),
-                                        selectedLabelColor = EmeraldPrimary
+                                        selectedContainerColor = colorScheme.primary.copy(alpha = 0.22f),
+                                        selectedLabelColor = colorScheme.primary,
+                                        selectedLeadingIconColor = colorScheme.primary
                                     )
                                 )
                             }
@@ -456,30 +475,30 @@ fun PdfViewerDialog(
                                 OutlinedTextField(
                                     value = searchQuery,
                                     onValueChange = { searchQuery = it },
-                                    placeholder = { Text(stringResource(R.string.preview_search_text_hint), fontSize = 12.sp, color = TextMuted) },
-                                    leadingIcon = { Icon(Icons.Default.Search, contentDescription = null, tint = EmeraldPrimary, modifier = Modifier.size(18.dp)) },
+                                    placeholder = { Text(stringResource(R.string.preview_search_text_hint), fontSize = 12.sp, color = colorScheme.onSurfaceVariant) },
+                                    leadingIcon = { Icon(Icons.Default.Search, contentDescription = null, tint = colorScheme.primary, modifier = Modifier.size(18.dp)) },
                                     trailingIcon = if (searchQuery.isNotEmpty()) {
                                         {
                                             IconButton(onClick = { searchQuery = "" }, modifier = Modifier.size(20.dp)) {
-                                                Icon(Icons.Default.Close, contentDescription = stringResource(R.string.action_clear), tint = TextMuted, modifier = Modifier.size(14.dp))
+                                                Icon(Icons.Default.Close, contentDescription = stringResource(R.string.action_clear), tint = colorScheme.onSurfaceVariant, modifier = Modifier.size(14.dp))
                                             }
                                         }
                                     } else null,
                                     singleLine = true,
                                     shape = RoundedCornerShape(10.dp),
                                     colors = OutlinedTextFieldDefaults.colors(
-                                        focusedBorderColor = EmeraldPrimary,
-                                        unfocusedBorderColor = CharcoalCardBorder,
-                                        focusedContainerColor = CharcoalBackground,
-                                        unfocusedContainerColor = CharcoalBackground,
-                                        focusedTextColor = TextPrimary,
-                                        unfocusedTextColor = TextPrimary
+                                        focusedBorderColor = colorScheme.primary,
+                                        unfocusedBorderColor = colorScheme.outlineVariant,
+                                        focusedContainerColor = colorScheme.background,
+                                        unfocusedContainerColor = colorScheme.background,
+                                        focusedTextColor = colorScheme.onSurface,
+                                        unfocusedTextColor = colorScheme.onSurface
                                     ),
                                     modifier = Modifier.fillMaxWidth().height(48.dp).testTag("pdf_search_input")
                                 )
 
                                 if (isSearching) {
-                                    Text(stringResource(R.string.preview_searching), fontSize = 11.sp, color = EmeraldPrimary, modifier = Modifier.padding(top = 4.dp))
+                                    Text(stringResource(R.string.preview_searching), fontSize = 11.sp, color = colorScheme.primary, modifier = Modifier.padding(top = 4.dp))
                                 } else if (searchQuery.isNotBlank()) {
                                     Row(
                                         modifier = Modifier.fillMaxWidth().padding(top = 6.dp),
@@ -487,7 +506,7 @@ fun PdfViewerDialog(
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
                                         if (searchResults.isEmpty()) {
-                                            Text(stringResource(R.string.preview_no_matches, searchQuery), fontSize = 11.sp, color = TextMuted)
+                                            Text(stringResource(R.string.preview_no_matches, searchQuery), fontSize = 11.sp, color = colorScheme.onSurfaceVariant)
                                         } else {
                                             val currentMatch = searchResults.getOrNull(currentMatchIndex)
                                             Text(
@@ -499,7 +518,7 @@ fun PdfViewerDialog(
                                                 ),
                                                 fontSize = 11.sp,
                                                 fontWeight = FontWeight.Bold,
-                                                color = EmeraldPrimary
+                                                color = colorScheme.primary
                                             )
 
                                             Row {
@@ -513,7 +532,7 @@ fun PdfViewerDialog(
                                                     enabled = currentMatchIndex > 0,
                                                     modifier = Modifier.size(28.dp).testTag("prev_search_match")
                                                 ) {
-                                                    Icon(Icons.Default.ChevronLeft, contentDescription = stringResource(R.string.preview_action_previous), tint = if (currentMatchIndex > 0) EmeraldPrimary else TextMuted.copy(alpha = 0.3f))
+                                                    Icon(Icons.Default.ChevronLeft, contentDescription = stringResource(R.string.preview_action_previous), tint = if (currentMatchIndex > 0) colorScheme.primary else colorScheme.onSurfaceVariant.copy(alpha = 0.35f))
                                                 }
 
                                                 IconButton(
@@ -526,7 +545,7 @@ fun PdfViewerDialog(
                                                     enabled = currentMatchIndex < searchResults.size - 1,
                                                     modifier = Modifier.size(28.dp).testTag("next_search_match")
                                                 ) {
-                                                    Icon(Icons.Default.ChevronRight, contentDescription = stringResource(R.string.preview_action_next), tint = if (currentMatchIndex < searchResults.size - 1) EmeraldPrimary else TextMuted.copy(alpha = 0.3f))
+                                                    Icon(Icons.Default.ChevronRight, contentDescription = stringResource(R.string.preview_action_next), tint = if (currentMatchIndex < searchResults.size - 1) colorScheme.primary else colorScheme.onSurfaceVariant.copy(alpha = 0.35f))
                                                 }
                                             }
                                         }
@@ -537,7 +556,7 @@ fun PdfViewerDialog(
                                         Text(
                                             text = currentSnippet,
                                             fontSize = 10.sp,
-                                            color = TextMuted,
+                                            color = colorScheme.onSurfaceVariant,
                                             maxLines = 2,
                                             modifier = Modifier.padding(top = 2.dp)
                                         )
@@ -558,7 +577,7 @@ fun PdfViewerDialog(
                     contentAlignment = Alignment.Center
                 ) {
                     if (isLoading) {
-                        CircularProgressIndicator(color = EmeraldPrimary)
+                        CircularProgressIndicator(color = colorScheme.primary)
                     } else if (currentBitmap != null) {
                         Box(
                             modifier = Modifier
@@ -602,7 +621,7 @@ fun PdfViewerDialog(
                                     }
                                 ),
                                 shape = RoundedCornerShape(12.dp),
-                                border = BorderStroke(1.dp, CharcoalCardBorder),
+                                border = BorderStroke(1.dp, colorScheme.outlineVariant),
                                 modifier = Modifier
                                     .graphicsLayer {
                                         scaleX = zoomScale
@@ -644,14 +663,14 @@ fun PdfViewerDialog(
                             }
                         }
                     } else {
-                        Text(stringResource(R.string.preview_could_not_render), color = TextMuted)
+                        Text(stringResource(R.string.preview_could_not_render), color = colorScheme.onSurfaceVariant)
                     }
                 }
 
                 // Bottom Controls: Page Scrubber, Page Switcher, Zoom Bar, and Send-to-Tool Shortcuts
                 Surface(
-                    color = CharcoalCard,
-                    border = BorderStroke(1.dp, CharcoalCardBorder),
+                    color = colorScheme.surface,
+                    border = BorderStroke(1.dp, colorScheme.outlineVariant),
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Column(
@@ -671,9 +690,9 @@ fun PdfViewerDialog(
                                 },
                                 valueRange = 0f..(totalPages - 1).coerceAtLeast(1).toFloat(),
                                 colors = SliderDefaults.colors(
-                                    thumbColor = EmeraldPrimary,
-                                    activeTrackColor = EmeraldPrimary,
-                                    inactiveTrackColor = CharcoalCardBorder
+                                    thumbColor = colorScheme.primary,
+                                    activeTrackColor = colorScheme.primary,
+                                    inactiveTrackColor = colorScheme.outlineVariant
                                 ),
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -695,14 +714,14 @@ fun PdfViewerDialog(
                                 Icon(
                                     imageVector = Icons.Default.ChevronLeft,
                                     contentDescription = stringResource(R.string.preview_action_previous),
-                                    tint = if (currentPageIndex > 0) EmeraldPrimary else TextMuted.copy(alpha = 0.3f)
+                                    tint = if (currentPageIndex > 0) colorScheme.primary else colorScheme.onSurfaceVariant.copy(alpha = 0.35f)
                                 )
                             }
 
                             Text(
                                 text = stringResource(R.string.viewer_page_of_total, currentPageIndex + 1, totalPages.coerceAtLeast(1)),
                                 fontWeight = FontWeight.Bold,
-                                color = TextPrimary,
+                                color = colorScheme.onSurface,
                                 fontSize = 14.sp
                             )
 
@@ -714,7 +733,7 @@ fun PdfViewerDialog(
                                 Icon(
                                     imageVector = Icons.Default.ChevronRight,
                                     contentDescription = stringResource(R.string.preview_action_next),
-                                    tint = if (currentPageIndex < totalPages - 1) EmeraldPrimary else TextMuted.copy(alpha = 0.3f)
+                                    tint = if (currentPageIndex < totalPages - 1) colorScheme.primary else colorScheme.onSurfaceVariant.copy(alpha = 0.35f)
                                 )
                             }
                         }
@@ -741,7 +760,7 @@ fun PdfViewerDialog(
                                 Icon(
                                     imageVector = Icons.Default.ZoomOut,
                                     contentDescription = stringResource(R.string.preview_zoom_out),
-                                    tint = if (zoomScale > 1f) EmeraldPrimary else TextMuted.copy(alpha = 0.3f),
+                                    tint = if (zoomScale > 1f) colorScheme.primary else colorScheme.onSurfaceVariant.copy(alpha = 0.35f),
                                     modifier = Modifier.size(18.dp)
                                 )
                             }
@@ -750,8 +769,8 @@ fun PdfViewerDialog(
 
                             Surface(
                                 shape = RoundedCornerShape(12.dp),
-                                color = CharcoalHighlight,
-                                border = BorderStroke(1.dp, CharcoalCardBorder),
+                                color = colorScheme.surfaceVariant,
+                                border = BorderStroke(1.dp, colorScheme.outlineVariant),
                                 onClick = {
                                     zoomScale = 1f
                                     panOffsetX = 0f
@@ -761,7 +780,7 @@ fun PdfViewerDialog(
                             ) {
                                 Text(
                                     text = "${(zoomScale * 100).toInt()}%",
-                                    color = if (zoomScale > 1.05f) EmeraldPrimary else TextMuted,
+                                    color = if (zoomScale > 1.05f) colorScheme.primary else colorScheme.onSurfaceVariant,
                                     fontSize = 12.sp,
                                     fontWeight = FontWeight.SemiBold,
                                     modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
@@ -780,7 +799,7 @@ fun PdfViewerDialog(
                                 Icon(
                                     imageVector = Icons.Default.ZoomIn,
                                     contentDescription = stringResource(R.string.preview_zoom_in),
-                                    tint = if (zoomScale < 4.5f) EmeraldPrimary else TextMuted.copy(alpha = 0.3f),
+                                    tint = if (zoomScale < 4.5f) colorScheme.primary else colorScheme.onSurfaceVariant.copy(alpha = 0.35f),
                                     modifier = Modifier.size(18.dp)
                                 )
                             }
@@ -798,7 +817,7 @@ fun PdfViewerDialog(
                                     Icon(
                                         imageVector = Icons.Default.RestartAlt,
                                         contentDescription = stringResource(R.string.preview_reset_zoom),
-                                        tint = EmeraldPrimary,
+                                        tint = colorScheme.primary,
                                         modifier = Modifier.size(18.dp)
                                     )
                                 }
@@ -816,28 +835,34 @@ fun PdfViewerDialog(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 AssistChip(
+                                    onClick = { onSendToTool(PdfOperationType.DOCUMENT_INFO) },
+                                    label = { Text(stringResource(R.string.tool_doc_info_title), fontSize = 11.sp, color = colorScheme.onSurface) },
+                                    leadingIcon = { Icon(Icons.Default.Info, contentDescription = null, tint = colorScheme.primary, modifier = Modifier.size(14.dp)) },
+                                    border = AssistChipDefaults.assistChipBorder(enabled = true, borderColor = colorScheme.outlineVariant)
+                                )
+                                AssistChip(
                                     onClick = { onSendToTool(PdfOperationType.SIGN) },
-                                    label = { Text(stringResource(R.string.viewer_send_to_sign), fontSize = 11.sp, color = TextPrimary) },
-                                    leadingIcon = { Icon(Icons.Default.Draw, contentDescription = null, tint = EmeraldPrimary, modifier = Modifier.size(14.dp)) },
-                                    border = AssistChipDefaults.assistChipBorder(enabled = true, borderColor = CharcoalCardBorder)
+                                    label = { Text(stringResource(R.string.viewer_send_to_sign), fontSize = 11.sp, color = colorScheme.onSurface) },
+                                    leadingIcon = { Icon(Icons.Default.Draw, contentDescription = null, tint = colorScheme.primary, modifier = Modifier.size(14.dp)) },
+                                    border = AssistChipDefaults.assistChipBorder(enabled = true, borderColor = colorScheme.outlineVariant)
                                 )
                                 AssistChip(
                                     onClick = { onSendToTool(PdfOperationType.COMPRESS) },
-                                    label = { Text(stringResource(R.string.viewer_send_to_compress), fontSize = 11.sp, color = TextPrimary) },
-                                    leadingIcon = { Icon(Icons.Default.Compress, contentDescription = null, tint = EmeraldPrimary, modifier = Modifier.size(14.dp)) },
-                                    border = AssistChipDefaults.assistChipBorder(enabled = true, borderColor = CharcoalCardBorder)
+                                    label = { Text(stringResource(R.string.viewer_send_to_compress), fontSize = 11.sp, color = colorScheme.onSurface) },
+                                    leadingIcon = { Icon(Icons.Default.Compress, contentDescription = null, tint = colorScheme.primary, modifier = Modifier.size(14.dp)) },
+                                    border = AssistChipDefaults.assistChipBorder(enabled = true, borderColor = colorScheme.outlineVariant)
                                 )
                                 AssistChip(
                                     onClick = { onSendToTool(PdfOperationType.ROTATE) },
-                                    label = { Text(stringResource(R.string.viewer_send_to_rotate), fontSize = 11.sp, color = TextPrimary) },
-                                    leadingIcon = { Icon(Icons.AutoMirrored.Filled.RotateRight, contentDescription = null, tint = EmeraldPrimary, modifier = Modifier.size(14.dp)) },
-                                    border = AssistChipDefaults.assistChipBorder(enabled = true, borderColor = CharcoalCardBorder)
+                                    label = { Text(stringResource(R.string.viewer_send_to_rotate), fontSize = 11.sp, color = colorScheme.onSurface) },
+                                    leadingIcon = { Icon(Icons.AutoMirrored.Filled.RotateRight, contentDescription = null, tint = colorScheme.primary, modifier = Modifier.size(14.dp)) },
+                                    border = AssistChipDefaults.assistChipBorder(enabled = true, borderColor = colorScheme.outlineVariant)
                                 )
                                 AssistChip(
                                     onClick = { onSendToTool(PdfOperationType.PDF_TO_TEXT) },
-                                    label = { Text(stringResource(R.string.viewer_send_to_text), fontSize = 11.sp, color = TextPrimary) },
-                                    leadingIcon = { Icon(Icons.Default.Description, contentDescription = null, tint = EmeraldPrimary, modifier = Modifier.size(14.dp)) },
-                                    border = AssistChipDefaults.assistChipBorder(enabled = true, borderColor = CharcoalCardBorder)
+                                    label = { Text(stringResource(R.string.viewer_send_to_text), fontSize = 11.sp, color = colorScheme.onSurface) },
+                                    leadingIcon = { Icon(Icons.Default.Description, contentDescription = null, tint = colorScheme.primary, modifier = Modifier.size(14.dp)) },
+                                    border = AssistChipDefaults.assistChipBorder(enabled = true, borderColor = colorScheme.outlineVariant)
                                 )
                             }
                         }
@@ -887,6 +912,7 @@ private fun sharePdfFile(context: Context, file: File) {
         val shareIntent = Intent(Intent.ACTION_SEND).apply {
             type = "application/pdf"
             putExtra(Intent.EXTRA_STREAM, uri)
+            clipData = ClipData.newUri(context.contentResolver, file.name, uri)
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
         val chooser = Intent.createChooser(shareIntent, file.name).apply {

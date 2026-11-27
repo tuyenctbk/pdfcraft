@@ -7,10 +7,15 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -18,6 +23,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -26,13 +32,28 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.draw.scale
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.ui.components.BuyMeACoffeeDialog
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -71,6 +92,7 @@ import com.example.ui.screens.TextToPdfScreen
 import com.example.ui.screens.PdfToTextScreen
 import com.example.ui.screens.PdfToImagesScreen
 import com.example.ui.screens.HtmlToPdfScreen
+import com.example.ui.screens.DocumentInfoScreen
 import com.example.ui.theme.PDFCraftTheme
 import com.example.ui.components.SuggestRateDialog
 import com.example.ui.components.SuggestShareDialog
@@ -95,12 +117,12 @@ class MainActivity : ComponentActivity() {
         private const val TAG = "PDFCraft_Logcat"
     }
 
-    private val incomingUriState = mutableStateOf<android.net.Uri?>(null)
+    private val incomingIntentState = mutableStateOf<android.content.Intent?>(null)
 
     override fun onNewIntent(intent: android.content.Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
-        incomingUriState.value = intent.data
+        incomingIntentState.value = intent
     }
 
     override fun onResume() {
@@ -113,14 +135,19 @@ class MainActivity : ComponentActivity() {
         splashScreen.setOnExitAnimationListener { splashScreenViewProvider ->
             val splashScreenView = splashScreenViewProvider.view
             val fadeOut = android.animation.ObjectAnimator.ofFloat(splashScreenView, android.view.View.ALPHA, 1f, 0f)
-            fadeOut.interpolator = android.view.animation.AccelerateInterpolator()
-            fadeOut.duration = 350L
-            fadeOut.addListener(object : android.animation.AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: android.animation.Animator) {
-                    splashScreenViewProvider.remove()
-                }
-            })
-            fadeOut.start()
+            val scaleX = android.animation.ObjectAnimator.ofFloat(splashScreenView, android.view.View.SCALE_X, 1f, 1.04f)
+            val scaleY = android.animation.ObjectAnimator.ofFloat(splashScreenView, android.view.View.SCALE_Y, 1f, 1.04f)
+            android.animation.AnimatorSet().apply {
+                playTogether(fadeOut, scaleX, scaleY)
+                interpolator = android.view.animation.DecelerateInterpolator()
+                duration = 260L
+                addListener(object : android.animation.AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: android.animation.Animator) {
+                        splashScreenViewProvider.remove()
+                    }
+                })
+                start()
+            }
         }
         super.onCreate(savedInstanceState)
         Log.d(TAG, "MainActivity.onCreate() initiated")
@@ -135,34 +162,99 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         com.example.ui.billing.BillingRepository.getInstance(applicationContext).registerActivity(this)
 
-        incomingUriState.value = intent?.data
+        incomingIntentState.value = intent
 
         setContent {
             val viewModel: MainViewModel = viewModel()
-            val themeMode by viewModel.themeMode.collectAsState()
-            val incomingUri by remember { incomingUriState }
+            val themeMode by viewModel.themeMode.collectAsStateWithLifecycle()
+            val incomingIntent by remember { incomingIntentState }
 
-            LaunchedEffect(incomingUri) {
-                incomingUri?.let { uri ->
-                    try {
-                        val localFile = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
-                            com.example.data.pdf.PdfEngine.getLocalFileFromUri(applicationContext, uri)
+            LaunchedEffect(incomingIntent) {
+                val currentIntent = incomingIntent ?: return@LaunchedEffect
+                val action = currentIntent.action
+                val mimeType = currentIntent.type ?: ""
+
+                try {
+                    when (action) {
+                        android.content.Intent.ACTION_VIEW -> {
+                            val uri = currentIntent.data
+                            if (uri != null) {
+                                // Bypass onboarding when a user opens an external PDF directly
+                                viewModel.completeOnboarding()
+                                val localFile = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                                    com.example.data.pdf.PdfEngine.getLocalFileFromUri(applicationContext, uri)
+                                }
+                                if (localFile.exists()) {
+                                    viewModel.openInViewer(localFile.absolutePath)
+                                }
+                            }
                         }
-                        if (localFile.exists()) {
-                            viewModel.openInViewer(localFile.absolutePath)
+                        android.content.Intent.ACTION_SEND -> {
+                            @Suppress("DEPRECATION")
+                            val streamUri = currentIntent.getParcelableExtra<android.net.Uri>(android.content.Intent.EXTRA_STREAM)
+                                ?: currentIntent.data
+                            if (streamUri != null) {
+                                viewModel.completeOnboarding()
+                                if (mimeType.startsWith("image/")) {
+                                    viewModel.clearImagesToPdf()
+                                    viewModel.addImagesToPdf(listOf(streamUri))
+                                    viewModel.setActiveTool(PdfOperationType.IMAGE_TO_PDF)
+                                } else {
+                                    val localFile = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                                        com.example.data.pdf.PdfEngine.getLocalFileFromUri(applicationContext, streamUri)
+                                    }
+                                    if (localFile.exists()) {
+                                        viewModel.openInViewer(localFile.absolutePath)
+                                    }
+                                }
+                            }
                         }
-                    } catch (e: Exception) {
-                        Log.e(TAG, "Error handling incoming URI", e)
+                        android.content.Intent.ACTION_SEND_MULTIPLE -> {
+                            @Suppress("DEPRECATION")
+                            val uris = currentIntent.getParcelableArrayListExtra<android.net.Uri>(android.content.Intent.EXTRA_STREAM)
+                            if (!uris.isNullOrEmpty()) {
+                                viewModel.completeOnboarding()
+                                if (mimeType.startsWith("image/")) {
+                                    viewModel.clearImagesToPdf()
+                                    viewModel.addImagesToPdf(uris)
+                                    viewModel.setActiveTool(PdfOperationType.IMAGE_TO_PDF)
+                                } else {
+                                    viewModel.clearMergeGrid()
+                                    viewModel.addPdfsToMerge(uris)
+                                    viewModel.setActiveTool(PdfOperationType.MERGE)
+                                }
+                            }
+                        }
                     }
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error handling incoming external intent", e)
+                    viewModel.showUserMessage(getString(R.string.picker_error_reading_file))
+                } finally {
+                    incomingIntentState.value = null
                 }
             }
+
+            val isExternalLaunchIntent = remember {
+                val act = intent?.action
+                act == android.content.Intent.ACTION_VIEW ||
+                    act == android.content.Intent.ACTION_SEND ||
+                    act == android.content.Intent.ACTION_SEND_MULTIPLE
+            }
+            var showAnimatedSplash by remember { mutableStateOf(!isExternalLaunchIntent) }
 
             PDFCraftTheme(themeMode = themeMode) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    PDFCraftApp(viewModel = viewModel)
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        PDFCraftApp(viewModel = viewModel)
+                        if (showAnimatedSplash) {
+                            com.example.ui.components.AnimatedSplashOverlay(
+                                onFinished = { showAnimatedSplash = false }
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -173,22 +265,25 @@ class MainActivity : ComponentActivity() {
 fun PDFCraftApp(
     viewModel: MainViewModel = viewModel()
 ) {
-    val isOnboardingCompleted by viewModel.isOnboardingCompleted.collectAsState()
-    val currentTab by viewModel.currentTab.collectAsState()
-    val userMessage by viewModel.userMessage.collectAsState()
-    val activeViewerFile by viewModel.activeViewerFile.collectAsState()
-    val selectedMetadata by viewModel.selectedMetadata.collectAsState()
-    val isLoadingMetadata by viewModel.isLoadingMetadata.collectAsState()
-    val showPoliteAdDialog by viewModel.showPoliteAdDialog.collectAsState()
-    val showRateDialog by viewModel.showRateDialog.collectAsState()
-    val showShareDialog by viewModel.showShareDialog.collectAsState()
-    val showUpdateDialog by viewModel.showUpdateDialog.collectAsState()
-    val themeMode by viewModel.themeMode.collectAsState()
-    val isProcessing by viewModel.isProcessing.collectAsState()
-    val processingMessage by viewModel.processingMessage.collectAsState()
+    val isOnboardingCompleted by viewModel.isOnboardingCompleted.collectAsStateWithLifecycle()
+    val currentTab by viewModel.currentTab.collectAsStateWithLifecycle()
+    val userMessage by viewModel.userMessage.collectAsStateWithLifecycle()
+    val activeViewerFile by viewModel.activeViewerFile.collectAsStateWithLifecycle()
+    val lastCompletedOutputFile by viewModel.lastCompletedOutputFile.collectAsStateWithLifecycle()
+    val lastCompletedOperationSummary by viewModel.lastCompletedOperationSummary.collectAsStateWithLifecycle()
+    val selectedMetadata by viewModel.selectedMetadata.collectAsStateWithLifecycle()
+    val isLoadingMetadata by viewModel.isLoadingMetadata.collectAsStateWithLifecycle()
+    val showPoliteAdDialog by viewModel.showPoliteAdDialog.collectAsStateWithLifecycle()
+    val showDonationDialog by viewModel.showDonationDialog.collectAsStateWithLifecycle()
+    val showRateDialog by viewModel.showRateDialog.collectAsStateWithLifecycle()
+    val showShareDialog by viewModel.showShareDialog.collectAsStateWithLifecycle()
+    val showUpdateDialog by viewModel.showUpdateDialog.collectAsStateWithLifecycle()
+    val themeMode by viewModel.themeMode.collectAsStateWithLifecycle()
+    val isProcessing by viewModel.isProcessing.collectAsStateWithLifecycle()
+    val processingMessage by viewModel.processingMessage.collectAsStateWithLifecycle()
+    val activeTool by viewModel.activeTool.collectAsStateWithLifecycle()
 
     var showInfoDialog by remember { mutableStateOf(false) }
-    var showSettingsDialog by remember { mutableStateOf(false) }
 
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -203,7 +298,7 @@ fun PDFCraftApp(
         }
     }
 
-    if (!isOnboardingCompleted) {
+    if (!isOnboardingCompleted && activeViewerFile == null && activeTool == null) {
         OnboardingScreen(
             onFinishOnboarding = { viewModel.completeOnboarding() }
         )
@@ -212,11 +307,11 @@ fun PDFCraftApp(
 
     val isWideScreen = LocalConfiguration.current.screenWidthDp >= 600
 
-    val activeTool by viewModel.activeTool.collectAsState()
-
     BackHandler(enabled = activeTool != null) {
         viewModel.setActiveTool(null)
     }
+
+    val isDarkTheme = com.example.ui.theme.LocalIsDarkTheme.current
 
     @Composable
     fun MainContentArea(modifier: Modifier = Modifier) {
@@ -226,7 +321,15 @@ fun PDFCraftApp(
             AnimatedContent(
                 targetState = activeTool,
                 transitionSpec = {
-                    fadeIn(animationSpec = tween(220)) togetherWith fadeOut(animationSpec = tween(220))
+                    if (targetState != null) {
+                        (slideInVertically(tween(260, easing = FastOutSlowInEasing)) { it / 14 } +
+                            fadeIn(tween(220)) +
+                            scaleIn(tween(260, easing = FastOutSlowInEasing), initialScale = 0.97f)) togetherWith
+                            fadeOut(tween(150))
+                    } else {
+                        fadeIn(tween(200)) togetherWith
+                            (slideOutVertically(tween(200, easing = FastOutSlowInEasing)) { it / 16 } + fadeOut(tween(160)))
+                    }
                 },
                 label = "activeToolTransition"
             ) { tool ->
@@ -246,13 +349,18 @@ fun PDFCraftApp(
                         PdfOperationType.PDF_TO_TEXT -> PdfToTextScreen(viewModel = viewModel)
                         PdfOperationType.PDF_TO_IMAGES -> PdfToImagesScreen(viewModel = viewModel)
                         PdfOperationType.HTML_TO_PDF -> HtmlToPdfScreen(viewModel = viewModel)
+                        PdfOperationType.DOCUMENT_INFO -> DocumentInfoScreen(viewModel = viewModel, onNavigateBack = { viewModel.setActiveTool(null) })
                         else -> {}
                     }
                 } else {
-                    Crossfade(
+                    AnimatedContent(
                         targetState = currentTab,
-                        animationSpec = tween(200),
-                        label = "tabCrossfade"
+                        transitionSpec = {
+                            val dir = if (targetState > initialState) 1 else -1
+                            (slideInHorizontally(tween(220, easing = FastOutSlowInEasing)) { it / 12 * dir } + fadeIn(tween(200))) togetherWith
+                                (slideOutHorizontally(tween(180, easing = FastOutSlowInEasing)) { -it / 14 * dir } + fadeOut(tween(160)))
+                        },
+                        label = "tabSlideTransition"
                     ) { tab ->
                         when (tab) {
                             0 -> HubScreen(viewModel = viewModel)
@@ -278,10 +386,10 @@ fun PDFCraftApp(
                     if (activeTool == null) {
                         AppTopBar(
                             onOpenInfoDialog = { showInfoDialog = true },
-                            onOpenSettingsDialog = { showSettingsDialog = true },
+                            onOpenSettingsDialog = { viewModel.selectTab(3) },
                             themeMode = themeMode,
                             onToggleTheme = {
-                                val nextMode = if (themeMode == ThemeMode.DARK) ThemeMode.LIGHT else ThemeMode.DARK
+                                val nextMode = if (isDarkTheme) ThemeMode.LIGHT else ThemeMode.DARK
                                 viewModel.setThemeMode(nextMode)
                             }
                         )
@@ -302,10 +410,10 @@ fun PDFCraftApp(
                 if (activeTool == null) {
                     AppTopBar(
                         onOpenInfoDialog = { showInfoDialog = true },
-                        onOpenSettingsDialog = { showSettingsDialog = true },
+                        onOpenSettingsDialog = { viewModel.selectTab(3) },
                         themeMode = themeMode,
                         onToggleTheme = {
-                            val nextMode = if (themeMode == ThemeMode.DARK) ThemeMode.LIGHT else ThemeMode.DARK
+                            val nextMode = if (isDarkTheme) ThemeMode.LIGHT else ThemeMode.DARK
                             viewModel.setThemeMode(nextMode)
                         }
                     )
@@ -329,10 +437,10 @@ fun PDFCraftApp(
     }
 
     // Dialogs
-    if (showSettingsDialog) {
-        SettingsDialog(
-            viewModel = viewModel,
-            onDismiss = { showSettingsDialog = false }
+    if (showDonationDialog) {
+        BuyMeACoffeeDialog(
+            onDismiss = { viewModel.dismissDonationDialog() },
+            onShowMessage = { msg -> viewModel.showUserMessage(msg) }
         )
     }
 
@@ -379,6 +487,166 @@ fun PDFCraftApp(
             onDismiss = { viewModel.closeViewer() },
             onSendToTool = { tool -> viewModel.sendViewerFileToTool(file, tool) }
         )
+    }
+
+    lastCompletedOutputFile?.let { completedFile ->
+        if (activeViewerFile == null) {
+            val context = androidx.compose.ui.platform.LocalContext.current
+            val checkScale = remember(completedFile.absolutePath) { Animatable(0.45f) }
+            LaunchedEffect(completedFile.absolutePath) {
+                checkScale.animateTo(
+                    targetValue = 1f,
+                    animationSpec = spring(
+                        dampingRatio = Spring.DampingRatioMediumBouncy,
+                        stiffness = Spring.StiffnessMedium
+                    )
+                )
+            }
+
+            Dialog(
+                onDismissRequest = { viewModel.dismissCompletedOutputFileDialog() }
+            ) {
+                Surface(
+                    shape = RoundedCornerShape(24.dp),
+                    color = MaterialTheme.colorScheme.surface,
+                    tonalElevation = 8.dp,
+                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.45f)),
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .widthIn(max = 380.dp)
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.padding(22.dp)
+                    ) {
+                        Surface(
+                            shape = CircleShape,
+                            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.14f),
+                            border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.4f)),
+                            modifier = Modifier
+                                .size(60.dp)
+                                .scale(checkScale.value)
+                        ) {
+                            Box(contentAlignment = Alignment.Center) {
+                                Icon(
+                                    imageVector = Icons.Default.Check,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier.size(30.dp)
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(14.dp))
+
+                        Text(
+                            text = completedFile.name,
+                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                            textAlign = TextAlign.Center,
+                            maxLines = 2
+                        )
+
+                        Spacer(modifier = Modifier.height(6.dp))
+
+                        Text(
+                            text = lastCompletedOperationSummary.ifBlank {
+                                stringResource(
+                                    R.string.completed_saved_to_downloads,
+                                    com.example.data.pdf.PdfEngine.formatFileSize(completedFile.length())
+                                )
+                            },
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            ),
+                            textAlign = TextAlign.Center
+                        )
+
+                        Spacer(modifier = Modifier.height(18.dp))
+
+                        Button(
+                            onClick = {
+                                val path = completedFile.absolutePath
+                                viewModel.dismissCompletedOutputFileDialog()
+                                viewModel.openInViewer(path)
+                            },
+                            shape = RoundedCornerShape(12.dp),
+                            modifier = Modifier.fillMaxWidth().height(48.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Visibility,
+                                contentDescription = null,
+                                modifier = Modifier.size(18.dp)
+                            )
+                            Spacer(modifier = Modifier.size(8.dp))
+                            Text(
+                                text = stringResource(R.string.action_preview),
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        Row(
+                            horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(10.dp),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            OutlinedButton(
+                                onClick = {
+                                    viewModel.sharePdfFile(context, completedFile)
+                                },
+                                shape = RoundedCornerShape(12.dp),
+                                modifier = Modifier.weight(1f).height(46.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Share,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(16.dp)
+                                )
+                                Spacer(modifier = Modifier.size(6.dp))
+                                Text(
+                                    text = stringResource(R.string.action_share),
+                                    fontWeight = FontWeight.SemiBold,
+                                    maxLines = 1
+                                )
+                            }
+
+                            OutlinedButton(
+                                onClick = {
+                                    val path = completedFile.absolutePath
+                                    viewModel.dismissCompletedOutputFileDialog()
+                                    viewModel.openDocumentInfoScreen(path)
+                                },
+                                shape = RoundedCornerShape(12.dp),
+                                modifier = Modifier.weight(1f).height(46.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Info,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(16.dp)
+                                )
+                                Spacer(modifier = Modifier.size(6.dp))
+                                Text(
+                                    text = stringResource(R.string.tool_doc_info_title),
+                                    fontWeight = FontWeight.SemiBold,
+                                    maxLines = 1
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(6.dp))
+
+                        TextButton(
+                            onClick = { viewModel.dismissCompletedOutputFileDialog() }
+                        ) {
+                            Text(
+                                text = stringResource(R.string.action_close),
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+                }
+            }
+        }
     }
 
     if (selectedMetadata != null || isLoadingMetadata) {

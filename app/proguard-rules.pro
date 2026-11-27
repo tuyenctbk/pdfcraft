@@ -7,10 +7,17 @@
 # Preserve annotations and generic signatures
 -keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
 
-# Room Database and Entities
--keep class * extends androidx.room.RoomDatabase
+# Room Database, DAOs, and Entities
+-keep class * extends androidx.room.RoomDatabase { *; }
+-keep class * implements androidx.room.RoomDatabase { *; }
 -keep @androidx.room.Entity class * { *; }
+-keep @androidx.room.Dao class * { *; }
+-keep class *_*Impl { *; }
 -dontwarn androidx.room.paging.**
+
+# Kotlin Metadata & Serialization
+-keep class kotlin.Metadata { *; }
+-dontwarn kotlin.**
 
 # PDFBox Android (Apache PDFBox ported for Android)
 -keep class com.tom_roush.pdfbox.** { *; }
@@ -33,6 +40,9 @@
 # Coroutines
 -dontwarn kotlinx.coroutines.**
 
-# Firebase
+# Firebase & Google Play Services
+-keep class com.google.firebase.** { *; }
 -dontwarn com.google.firebase.**
+-dontwarn com.google.android.gms.**
+
 

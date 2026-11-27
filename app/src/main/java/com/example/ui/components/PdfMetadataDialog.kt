@@ -56,6 +56,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.compose.ui.res.stringResource
+import com.example.R
 import com.example.data.pdf.PdfMetadata
 
 @Composable
@@ -112,14 +114,14 @@ fun PdfMetadataDialog(
                         Spacer(modifier = Modifier.width(12.dp))
                         Column {
                             Text(
-                                text = "Document Metadata",
+                                text = stringResource(R.string.metadata_dialog_title),
                                 style = MaterialTheme.typography.titleLarge.copy(
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                             )
                             Text(
-                                text = metadata?.fileName ?: "Extracting properties...",
+                                text = metadata?.fileName ?: stringResource(R.string.metadata_dialog_extracting),
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 ),
@@ -135,7 +137,7 @@ fun PdfMetadataDialog(
                     ) {
                         Icon(
                             imageVector = Icons.Default.Close,
-                            contentDescription = "Close",
+                            contentDescription = stringResource(R.string.action_close),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
@@ -160,7 +162,7 @@ fun PdfMetadataDialog(
                             )
                             Spacer(modifier = Modifier.height(12.dp))
                             Text(
-                                text = "Reading PDF Document Metadata...",
+                                text = stringResource(R.string.metadata_dialog_reading),
                                 style = MaterialTheme.typography.bodyMedium.copy(
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -180,7 +182,7 @@ fun PdfMetadataDialog(
                         ) {
                             MetadataBadge(
                                 icon = Icons.Default.Article,
-                                label = "${metadata.pageCount} Pages",
+                                label = stringResource(R.string.common_pages_count, metadata.pageCount),
                                 modifier = Modifier.weight(1f)
                             )
                             MetadataBadge(
@@ -190,7 +192,7 @@ fun PdfMetadataDialog(
                             )
                             MetadataBadge(
                                 icon = if (metadata.isEncrypted) Icons.Default.Lock else Icons.Default.LockOpen,
-                                label = if (metadata.isEncrypted) "Encrypted" else "Unencrypted",
+                                label = if (metadata.isEncrypted) stringResource(R.string.doc_info_encrypted) else stringResource(R.string.doc_info_unencrypted),
                                 modifier = Modifier.weight(1f)
                             )
                         }
@@ -215,63 +217,63 @@ fun PdfMetadataDialog(
                             ) {
                                 MetadataItemRow(
                                     icon = Icons.Default.Description,
-                                    label = "Document Title",
-                                    value = metadata.title ?: "Not specified in PDF header",
+                                    label = stringResource(R.string.metadata_title_label),
+                                    value = metadata.title ?: stringResource(R.string.metadata_not_in_header),
                                     isSet = metadata.title != null
                                 )
 
                                 MetadataItemRow(
                                     icon = Icons.Default.Person,
-                                    label = "Author",
-                                    value = metadata.author ?: "Unknown Author",
+                                    label = stringResource(R.string.doc_info_label_author),
+                                    value = metadata.author ?: stringResource(R.string.metadata_unknown_author),
                                     isSet = metadata.author != null
                                 )
 
                                 MetadataItemRow(
                                     icon = Icons.Default.Info,
-                                    label = "Subject",
-                                    value = metadata.subject ?: "None",
+                                    label = stringResource(R.string.doc_info_label_subject),
+                                    value = metadata.subject ?: stringResource(R.string.common_none),
                                     isSet = metadata.subject != null
                                 )
 
                                 MetadataItemRow(
                                     icon = Icons.Default.Tag,
-                                    label = "Keywords",
-                                    value = metadata.keywords ?: "None",
+                                    label = stringResource(R.string.doc_info_label_keywords),
+                                    value = metadata.keywords ?: stringResource(R.string.common_none),
                                     isSet = metadata.keywords != null
                                 )
 
                                 MetadataItemRow(
                                     icon = Icons.Default.CalendarToday,
-                                    label = "Created Date",
-                                    value = metadata.creationDateFormatted ?: "Unknown",
+                                    label = stringResource(R.string.metadata_created_date),
+                                    value = metadata.creationDateFormatted ?: stringResource(R.string.common_unknown),
                                     isSet = metadata.creationDateFormatted != null
                                 )
 
                                 MetadataItemRow(
                                     icon = Icons.Default.CalendarToday,
-                                    label = "Last Modified",
-                                    value = metadata.modDateFormatted ?: "Unknown",
+                                    label = stringResource(R.string.metadata_last_modified),
+                                    value = metadata.modDateFormatted ?: stringResource(R.string.common_unknown),
                                     isSet = metadata.modDateFormatted != null
                                 )
 
                                 MetadataItemRow(
                                     icon = Icons.Default.AppRegistration,
-                                    label = "Application / Creator",
-                                    value = metadata.creator ?: "Unknown",
+                                    label = stringResource(R.string.metadata_app_creator),
+                                    value = metadata.creator ?: stringResource(R.string.common_unknown),
                                     isSet = metadata.creator != null
                                 )
 
                                 MetadataItemRow(
                                     icon = Icons.Default.PictureAsPdf,
-                                    label = "PDF Producer",
-                                    value = metadata.producer ?: "Unknown",
+                                    label = stringResource(R.string.doc_info_label_producer),
+                                    value = metadata.producer ?: stringResource(R.string.common_unknown),
                                     isSet = metadata.producer != null
                                 )
 
                                 MetadataItemRow(
                                     icon = Icons.Default.Folder,
-                                    label = "File Path",
+                                    label = stringResource(R.string.metadata_file_path),
                                     value = metadata.filePath,
                                     isSet = true
                                 )

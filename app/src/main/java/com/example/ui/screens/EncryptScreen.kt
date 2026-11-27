@@ -90,22 +90,23 @@ fun EncryptScreen(
                         ) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Back",
+                                contentDescription = stringResource(R.string.action_back),
                                 tint = MaterialTheme.colorScheme.onSurface
                             )
                         }
                         Spacer(modifier = Modifier.width(8.dp))
                         Column {
                             Text(
-                                text = "PDF Security & Encryption",
+                                text = stringResource(R.string.encrypt_title),
                                 style = MaterialTheme.typography.titleMedium.copy(
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                             )
                             Text(
-                                text = sourceFile?.let { "${it.name} (${pageCount} pages • ${PdfEngine.formatFileSize(it.length())})" }
-                                    ?: "Secure PDF documents with 128-bit AES password protection",
+                                text = sourceFile?.let {
+                                    stringResource(R.string.common_file_pages_size, it.name, pageCount, PdfEngine.formatFileSize(it.length()))
+                                } ?: stringResource(R.string.encrypt_subtitle),
                                 style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
                             )
                         }
@@ -123,7 +124,7 @@ fun EncryptScreen(
                     ) {
                         Icon(imageVector = Icons.Default.FileUpload, contentDescription = null, modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(6.dp))
-                        Text(if (sourceFile == null) "Select PDF" else "Change", fontWeight = FontWeight.Bold)
+                        Text(if (sourceFile == null) stringResource(R.string.action_select_pdf) else stringResource(R.string.action_change), fontWeight = FontWeight.Bold)
                     }
                 }
             }
@@ -174,14 +175,14 @@ fun EncryptScreen(
                         Spacer(modifier = Modifier.height(18.dp))
 
                         Text(
-                            text = "Protect Your Documents",
+                            text = stringResource(R.string.encrypt_empty_title),
                             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                         )
 
                         Spacer(modifier = Modifier.height(6.dp))
 
                         Text(
-                            text = "Encrypt confidential PDFs directly on your device with 128-bit AES encryption. Set required passwords to open, print, or edit.",
+                            text = stringResource(R.string.encrypt_empty_desc),
                             style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
                         )
 
@@ -212,7 +213,7 @@ fun EncryptScreen(
                     PdfDocumentPreviewCard(
                         file = sourceFile,
                         uri = sourceUri,
-                        title = "Document Preview"
+                        title = stringResource(R.string.preview_doc_title)
                     )
                 }
 
@@ -228,7 +229,7 @@ fun EncryptScreen(
                                 Icon(imageVector = Icons.Default.Security, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
-                                    text = "Encryption Settings",
+                                    text = stringResource(R.string.encrypt_settings_title),
                                     style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                                 )
                             }
@@ -246,7 +247,7 @@ fun EncryptScreen(
                                     IconButton(onClick = { showUserPassword = !showUserPassword }) {
                                         Icon(
                                             imageVector = if (showUserPassword) Icons.Default.VisibilityOff else Icons.Default.Visibility,
-                                            contentDescription = "Toggle password visibility"
+                                            contentDescription = stringResource(R.string.encrypt_toggle_password)
                                         )
                                     }
                                 },
@@ -267,7 +268,7 @@ fun EncryptScreen(
                                     IconButton(onClick = { showOwnerPassword = !showOwnerPassword }) {
                                         Icon(
                                             imageVector = if (showOwnerPassword) Icons.Default.VisibilityOff else Icons.Default.Visibility,
-                                            contentDescription = "Toggle password visibility"
+                                            contentDescription = stringResource(R.string.encrypt_toggle_password)
                                         )
                                     }
                                 },
@@ -303,12 +304,12 @@ fun EncryptScreen(
                             Spacer(modifier = Modifier.width(12.dp))
                             Column {
                                 Text(
-                                    text = "128-bit AES Offline Security",
+                                    text = stringResource(R.string.encrypt_aes_title),
                                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                                 )
                                 Spacer(modifier = Modifier.height(2.dp))
                                 Text(
-                                    text = "Your document is encrypted locally. Without the open password, the PDF cannot be viewed or printed.",
+                                    text = stringResource(R.string.encrypt_aes_desc),
                                     style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
                                 )
                             }

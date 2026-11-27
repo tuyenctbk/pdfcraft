@@ -155,7 +155,7 @@ fun BuyMeACoffeeCard(
                                 overflow = TextOverflow.Ellipsis
                             )
                             Text(
-                                text = "100% Offline • Private • Indie Dev",
+                                text = stringResource(R.string.support_card_tagline),
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     fontSize = 11.sp
@@ -169,7 +169,7 @@ fun BuyMeACoffeeCard(
                         shape = RoundedCornerShape(8.dp)
                     ) {
                         Text(
-                            text = "❤️ Optional",
+                            text = stringResource(R.string.support_badge_optional),
                             color = CoffeeAmber,
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
@@ -269,7 +269,8 @@ fun Context.findActivity(): Activity? {
 @Composable
 fun GooglePlayTipView(
     activity: Activity? = null,
-    onShowMessage: ((String) -> Unit)? = null
+    onShowMessage: ((String) -> Unit)? = null,
+    onSwitchToAlternativeTab: ((Int) -> Unit)? = null
 ) {
     val context = LocalContext.current
     val billingRepository = remember { com.example.ui.billing.BillingRepository.getInstance(context) }
@@ -280,8 +281,10 @@ fun GooglePlayTipView(
     val isSupporter by satisfactionManager.isSupporter.collectAsState()
     var lastPurchasedTip by remember { mutableStateOf<TipProduct?>(null) }
 
-    val confirmingTip = (billingStatus as? BillingStatus.ConfirmingCheckout)?.tip
     val successStatus = billingStatus as? BillingStatus.Success
+    val errorStatus = billingStatus as? BillingStatus.Error
+    val isConnectingOrPurchasing = billingStatus is BillingStatus.Connecting || billingStatus is BillingStatus.Purchasing
+    val isPending = billingStatus is BillingStatus.Pending
 
     LaunchedEffect(successStatus) {
         if (successStatus != null) {
@@ -339,7 +342,7 @@ fun GooglePlayTipView(
                                 shape = RoundedCornerShape(6.dp)
                             ) {
                                 Text(
-                                    text = "UNLOCKED",
+                                    text = stringResource(R.string.support_badge_unlocked),
                                     fontSize = 9.sp,
                                     fontWeight = FontWeight.ExtraBold,
                                     color = Color.White,
@@ -399,7 +402,7 @@ fun GooglePlayTipView(
             }
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "100% optional one-time tip via Google Play Balance, Google Pay, or Card. No recurring charges or subscriptions.",
+                text = stringResource(R.string.support_iap_disclosure),
                 style = MaterialTheme.typography.bodySmall.copy(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 11.5.sp,
@@ -411,125 +414,93 @@ fun GooglePlayTipView(
 
         Spacer(modifier = Modifier.height(14.dp))
 
-        // Interactive Google Play 1-Tap Checkout Sheet when a tier is pending confirmation
-        AnimatedVisibility(visible = confirmingTip != null) {
-            confirmingTip?.let { pendingTip ->
-                Surface(
-                    color = MaterialTheme.colorScheme.surfaceVariant,
-                    border = BorderStroke(1.5.dp, CoffeeAmber),
-                    shape = RoundedCornerShape(16.dp),
-                    tonalElevation = 6.dp,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 14.dp)
-                        .testTag("google_play_checkout_sheet")
-                ) {
-                    Column(modifier = Modifier.padding(14.dp)) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Icon(
-                                    imageVector = Icons.Default.ShoppingBag,
-                                    contentDescription = null,
-                                    tint = CoffeeAmber,
-                                    modifier = Modifier.size(16.dp)
-                                )
-                                Spacer(modifier = Modifier.width(6.dp))
-                                Text(
-                                    text = "Confirm 1-Tap Support",
-                                    fontSize = 11.5.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    color = CoffeeAmber
-                                )
-                            }
-                            Surface(
-                                color = CoffeeAmber.copy(alpha = 0.15f),
-                                shape = RoundedCornerShape(6.dp)
-                            ) {
-                                Text(
-                                    text = "One-Time",
-                                    fontSize = 10.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    color = CoffeeAmber,
-                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
-                                )
-                            }
-                        }
-
-                        Spacer(modifier = Modifier.height(10.dp))
-
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(text = pendingTip.emoji, fontSize = 28.sp)
-                            Spacer(modifier = Modifier.width(12.dp))
-                            Column(modifier = Modifier.weight(1f)) {
-                                Text(
-                                    text = pendingTip.title,
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 14.sp,
-                                    color = MaterialTheme.colorScheme.onSurface
-                                )
-                                Text(
-                                    text = pendingTip.description,
-                                    fontSize = 11.5.sp,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
-                            }
-                            Text(
-                                text = pendingTip.defaultPriceFormatted,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.ExtraBold,
-                                color = MaterialTheme.colorScheme.primary
+        // Honest Google Play Billing status banners (Connecting / Pending / Unavailable)
+        AnimatedVisibility(visible = isConnectingOrPurchasing || isPending || errorStatus != null) {
+            Surface(
+                color = if (errorStatus != null) {
+                    MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.45f)
+                } else {
+                    MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.7f)
+                },
+                border = BorderStroke(
+                    1.dp,
+                    if (errorStatus != null) MaterialTheme.colorScheme.error.copy(alpha = 0.45f)
+                    else CoffeeAmber.copy(alpha = 0.45f)
+                ),
+                shape = RoundedCornerShape(14.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 12.dp)
+                    .testTag("google_play_billing_status_banner")
+            ) {
+                Column(modifier = Modifier.padding(12.dp)) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        if (isConnectingOrPurchasing) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(18.dp),
+                                strokeWidth = 2.dp,
+                                color = CoffeeAmber
+                            )
+                        } else {
+                            Icon(
+                                imageVector = Icons.Default.ShoppingBag,
+                                contentDescription = null,
+                                tint = if (errorStatus != null) MaterialTheme.colorScheme.error else CoffeeAmber,
+                                modifier = Modifier.size(18.dp)
                             )
                         }
-
-                        Spacer(modifier = Modifier.height(14.dp))
-
+                        Text(
+                            text = when {
+                                errorStatus != null -> errorStatus.message
+                                isPending -> stringResource(R.string.support_iap_footer)
+                                else -> stringResource(R.string.support_iap_title)
+                            },
+                            fontSize = 11.5.sp,
+                            lineHeight = 16.sp,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
+                    if (errorStatus != null) {
+                        Spacer(modifier = Modifier.height(10.dp))
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             OutlinedButton(
-                                onClick = { billingRepository.resetStatus() },
+                                onClick = { billingRepository.startConnection() },
                                 shape = RoundedCornerShape(10.dp),
-                                modifier = Modifier.weight(1f).height(42.dp),
-                                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+                                contentPadding = PaddingValues(horizontal = 10.dp, vertical = 6.dp),
+                                modifier = Modifier.weight(1f)
                             ) {
                                 Text(
-                                    text = stringResource(R.string.action_cancel),
-                                    fontSize = 12.sp,
-                                    fontWeight = FontWeight.SemiBold
-                                )
-                            }
-
-                            Button(
-                                onClick = {
-                                    billingRepository.confirmCheckoutPurchase(pendingTip) { _, msg ->
-                                        lastPurchasedTip = pendingTip
-                                        onShowMessage?.invoke(msg)
-                                    }
-                                },
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = Color(0xFF10B981),
-                                    contentColor = Color.White
-                                ),
-                                shape = RoundedCornerShape(10.dp),
-                                modifier = Modifier
-                                    .weight(1.4f)
-                                    .height(42.dp)
-                                    .testTag("google_play_confirm_buy_button"),
-                                contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp)
-                            ) {
-                                Icon(Icons.Default.Check, contentDescription = null, modifier = Modifier.size(16.dp))
-                                Spacer(modifier = Modifier.width(4.dp))
-                                Text(
-                                    text = "Send ${pendingTip.defaultPriceFormatted}",
-                                    fontSize = 12.5.sp,
-                                    fontWeight = FontWeight.Bold,
+                                    text = stringResource(R.string.support_tab_google_play),
+                                    fontSize = 11.5.sp,
+                                    fontWeight = FontWeight.SemiBold,
                                     maxLines = 1
                                 )
+                            }
+                            if (onSwitchToAlternativeTab != null) {
+                                Button(
+                                    onClick = { onSwitchToAlternativeTab(1) },
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = CoffeeAmber,
+                                        contentColor = Color.White
+                                    ),
+                                    shape = RoundedCornerShape(10.dp),
+                                    contentPadding = PaddingValues(horizontal = 10.dp, vertical = 6.dp),
+                                    modifier = Modifier.weight(1f)
+                                ) {
+                                    Text(
+                                        text = stringResource(R.string.support_tab_paypal_qr),
+                                        fontSize = 11.5.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        maxLines = 1
+                                    )
+                                }
                             }
                         }
                     }
@@ -544,24 +515,24 @@ fun GooglePlayTipView(
         ) {
             availableTips.forEach { tip ->
                 val isPurchasedTier = lastPurchasedTip?.id == tip.id
-                val isConfirmingThisTier = confirmingTip?.id == tip.id
+                val isPurchasingThisTier = (billingStatus as? BillingStatus.Purchasing)?.productId == tip.id
                 Surface(
                     onClick = {
-                        billingRepository.launchTipPurchase(resolvedActivity, tip) { _, msg ->
-                            lastPurchasedTip = tip
+                        billingRepository.launchTipPurchase(resolvedActivity, tip) { ok, msg ->
+                            if (ok) lastPurchasedTip = tip
                             onShowMessage?.invoke(msg)
                         }
                     },
                     shape = RoundedCornerShape(14.dp),
                     color = when {
-                        isConfirmingThisTier -> CoffeeAmber.copy(alpha = 0.22f)
+                        isPurchasingThisTier -> CoffeeAmber.copy(alpha = 0.22f)
                         isPurchasedTier -> Color(0xFF10B981).copy(alpha = 0.14f)
                         else -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.45f)
                     },
                     border = BorderStroke(
-                        width = if (isConfirmingThisTier || isPurchasedTier) 1.5.dp else 1.dp,
+                        width = if (isPurchasingThisTier || isPurchasedTier) 1.5.dp else 1.dp,
                         color = when {
-                            isConfirmingThisTier -> CoffeeAmber
+                            isPurchasingThisTier -> CoffeeAmber
                             isPurchasedTier -> Color(0xFF34D399)
                             else -> MaterialTheme.colorScheme.outlineVariant
                         }
@@ -612,7 +583,7 @@ fun GooglePlayTipView(
                                             shape = RoundedCornerShape(4.dp)
                                         ) {
                                             Text(
-                                                text = "ACTIVE",
+                                                text = stringResource(R.string.support_badge_active),
                                                 color = Color.White,
                                                 fontSize = 8.5.sp,
                                                 fontWeight = FontWeight.ExtraBold,
@@ -634,11 +605,12 @@ fun GooglePlayTipView(
 
                         Button(
                             onClick = {
-                                billingRepository.launchTipPurchase(resolvedActivity, tip) { _, msg ->
-                                    lastPurchasedTip = tip
+                                billingRepository.launchTipPurchase(resolvedActivity, tip) { ok, msg ->
+                                    if (ok) lastPurchasedTip = tip
                                     onShowMessage?.invoke(msg)
                                 }
                             },
+                            enabled = !isPurchasingThisTier,
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = if (isPurchasedTier) Color(0xFF10B981) else CoffeeAmber,
                                 contentColor = Color.White
@@ -646,11 +618,19 @@ fun GooglePlayTipView(
                             shape = RoundedCornerShape(10.dp),
                             contentPadding = PaddingValues(horizontal = 14.dp, vertical = 8.dp)
                         ) {
-                            Text(
-                                text = if (isPurchasedTier) "✓ ${tip.defaultPriceFormatted}" else tip.defaultPriceFormatted,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 13.sp
-                            )
+                            if (isPurchasingThisTier) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.size(16.dp),
+                                    strokeWidth = 2.dp,
+                                    color = Color.White
+                                )
+                            } else {
+                                Text(
+                                    text = if (isPurchasedTier) "✓ ${tip.defaultPriceFormatted}" else tip.defaultPriceFormatted,
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 13.sp
+                                )
+                            }
                         }
                     }
                 }
@@ -673,7 +653,7 @@ fun GooglePlayTipView(
             )
             Spacer(modifier = Modifier.width(4.dp))
             Text(
-                text = "Processed securely by Google Play. Instant offline unlock.",
+                text = stringResource(R.string.support_iap_footer),
                 fontSize = 10.5.sp,
                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
                 textAlign = TextAlign.Center
@@ -737,7 +717,7 @@ fun BuyMeACoffeeQrView(
                 if (qrBitmap != null) {
                     Image(
                         bitmap = qrBitmap!!.asImageBitmap(),
-                        contentDescription = "QR Code to Donate via PayPal",
+                        contentDescription = stringResource(R.string.support_qr_cd),
                         modifier = Modifier.fillMaxSize()
                     )
                 } else {
@@ -848,7 +828,7 @@ fun BuyMeACoffeeQrView(
                 onClick = {
                     val sendIntent = Intent().apply {
                         action = Intent.ACTION_SEND
-                        putExtra(Intent.EXTRA_TEXT, "Support PDFCraft indie development: $donationUrl")
+                        putExtra(Intent.EXTRA_TEXT, context.getString(R.string.support_share_message, donationUrl))
                         type = "text/plain"
                     }
                     val shareIntent = Intent.createChooser(sendIntent, context.getString(R.string.support_qr_share))
@@ -867,7 +847,7 @@ fun BuyMeACoffeeQrView(
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
-                    text = "Share Link",
+                    text = stringResource(R.string.support_share_link),
                     fontSize = 11.sp,
                     maxLines = 1
                 )
@@ -942,7 +922,7 @@ fun WebTipView(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Ko-fi Tip Jar",
+                    text = stringResource(R.string.support_kofi_title),
                     style = MaterialTheme.typography.titleMedium.copy(
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface
@@ -960,7 +940,7 @@ fun WebTipView(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Text(
-                    text = "Support independent offline development with a quick one-time tip via Ko-fi.",
+                    text = stringResource(R.string.support_kofi_desc),
                     style = MaterialTheme.typography.bodySmall.copy(
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 11.5.sp,
@@ -1090,7 +1070,7 @@ fun BuyMeACoffeeDialog(
                     IconButton(onClick = onDismiss) {
                         Icon(
                             imageVector = Icons.Default.Close,
-                            contentDescription = "Close",
+                            contentDescription = stringResource(R.string.action_close),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
@@ -1231,7 +1211,8 @@ fun BuyMeACoffeeDialog(
                     when (tab) {
                         0 -> GooglePlayTipView(
                             activity = hostActivity,
-                            onShowMessage = { msg -> dialogNotice = msg }
+                            onShowMessage = { msg -> dialogNotice = msg },
+                            onSwitchToAlternativeTab = { targetTab -> selectedTab = targetTab }
                         )
                         1 -> BuyMeACoffeeQrView(
                             onShowMessage = { msg -> dialogNotice = msg }

@@ -95,22 +95,23 @@ fun MetadataScreen(
                         ) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Back",
+                                contentDescription = stringResource(R.string.action_back),
                                 tint = MaterialTheme.colorScheme.onSurface
                             )
                         }
                         Spacer(modifier = Modifier.width(8.dp))
                         Column {
                             Text(
-                                text = "PDF Metadata Editor",
+                                text = stringResource(R.string.metadata_editor_title),
                                 style = MaterialTheme.typography.titleMedium.copy(
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                             )
                             Text(
-                                text = sourceFile?.let { "${it.name} (${pageCount} pages • ${fileSizeFormatted})" }
-                                    ?: "View & edit document title, author, subject, and keywords",
+                                text = sourceFile?.let {
+                                    stringResource(R.string.common_file_pages_size, it.name, pageCount, fileSizeFormatted)
+                                } ?: stringResource(R.string.metadata_editor_subtitle),
                                 style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
                             )
                         }
@@ -128,7 +129,7 @@ fun MetadataScreen(
                     ) {
                         Icon(imageVector = Icons.Default.FileUpload, contentDescription = null, modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(6.dp))
-                        Text(if (sourceFile == null) "Select File" else "Change", fontWeight = FontWeight.Bold)
+                        Text(if (sourceFile == null) stringResource(R.string.action_select_file) else stringResource(R.string.action_change), fontWeight = FontWeight.Bold)
                     }
                 }
             }
@@ -179,14 +180,14 @@ fun MetadataScreen(
                         Spacer(modifier = Modifier.height(18.dp))
 
                         Text(
-                            text = "Edit PDF Document Metadata",
+                            text = stringResource(R.string.metadata_empty_title),
                             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                         )
 
                         Spacer(modifier = Modifier.height(6.dp))
 
                         Text(
-                            text = "Update properties like Document Title, Author, Subject description, and searchable Keywords tags directly inside the PDF structure.",
+                            text = stringResource(R.string.metadata_empty_desc),
                             style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
                         )
 
@@ -218,7 +219,7 @@ fun MetadataScreen(
                     PdfDocumentPreviewCard(
                         file = sourceFile,
                         uri = sourceUri,
-                        title = "Document Preview"
+                        title = stringResource(R.string.preview_doc_title)
                     )
                 }
 
@@ -249,7 +250,7 @@ fun MetadataScreen(
                                 }
                                 Column(horizontalAlignment = Alignment.End) {
                                     Text(stringResource(R.string.metadata_pages_size), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                    Text("$pageCount pages • $fileSizeFormatted", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
+                                    Text(stringResource(R.string.common_pages_and_size, pageCount, fileSizeFormatted), style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
                                 }
                             }
 
@@ -281,8 +282,8 @@ fun MetadataScreen(
                                     modifier = Modifier.fillMaxWidth(),
                                     horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
-                                    Text("Created: $creationDate", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                    Text("Modified: $modificationDate", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                    Text(stringResource(R.string.metadata_created, creationDate), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                    Text(stringResource(R.string.metadata_modified, modificationDate), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                 }
                             }
                         }
@@ -355,7 +356,15 @@ fun MetadataScreen(
                             Text(stringResource(R.string.metadata_quick_tags), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             Spacer(modifier = Modifier.height(6.dp))
 
-                            val tagPresets = listOf("Confidential", "Draft", "Final", "Financial", "Legal", "Marketing", "Report")
+                            val tagPresets = listOf(
+                                stringResource(R.string.metadata_tag_confidential),
+                                stringResource(R.string.metadata_tag_draft),
+                                stringResource(R.string.metadata_tag_final),
+                                stringResource(R.string.metadata_tag_financial),
+                                stringResource(R.string.metadata_tag_legal),
+                                stringResource(R.string.metadata_tag_marketing),
+                                stringResource(R.string.metadata_tag_report)
+                            )
                             LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                 items(tagPresets) { tag ->
                                     AssistChip(
@@ -389,7 +398,13 @@ fun MetadataScreen(
                             Text(stringResource(R.string.metadata_subject_presets), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             Spacer(modifier = Modifier.height(6.dp))
 
-                            val subjectPresets = listOf("Annual Report", "Business Proposal", "Contract Agreement", "Project Spec", "Meeting Agenda")
+                            val subjectPresets = listOf(
+                                stringResource(R.string.metadata_subject_annual_report),
+                                stringResource(R.string.metadata_subject_business_proposal),
+                                stringResource(R.string.metadata_subject_contract),
+                                stringResource(R.string.metadata_subject_project_spec),
+                                stringResource(R.string.metadata_subject_meeting_agenda)
+                            )
                             LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                 items(subjectPresets) { preset ->
                                     FilterChip(

@@ -225,7 +225,7 @@ fun RecentFilesSection(
                 trailingIcon = if (searchQuery.isNotBlank()) {
                     {
                         IconButton(onClick = { viewModel.setRecentSearchQuery("") }, modifier = Modifier.size(20.dp)) {
-                            Icon(Icons.Default.Close, contentDescription = "Clear search", modifier = Modifier.size(14.dp))
+                            Icon(Icons.Default.Close, contentDescription = stringResource(R.string.action_clear_search), modifier = Modifier.size(14.dp))
                         }
                     }
                 } else null,
@@ -265,7 +265,7 @@ fun RecentFilesSection(
                                 if (isMultiSelectMode) {
                                     viewModel.toggleRecentFileSelection(item.filePath)
                                 } else {
-                                    viewModel.inspectFileMetadata(item.filePath)
+                                    viewModel.openDocumentInfoScreen(item.filePath)
                                 }
                             },
                             onOpenViewer = { viewModel.openInViewer(item.filePath) },
@@ -316,7 +316,7 @@ fun PdfThumbnailPreview(
         } else if (thumbnailBitmap != null) {
             Image(
                 bitmap = thumbnailBitmap!!.asImageBitmap(),
-                contentDescription = "PDF Page 1 Preview",
+                contentDescription = stringResource(R.string.recent_page_1_preview),
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .fillMaxSize()
@@ -330,7 +330,7 @@ fun PdfThumbnailPreview(
                 modifier = Modifier.align(Alignment.BottomEnd)
             ) {
                 Text(
-                    text = "Page 1",
+                    text = stringResource(R.string.common_page_number, 1),
                     fontSize = 9.sp,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -350,7 +350,7 @@ fun PdfThumbnailPreview(
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
-                    text = "No Preview",
+                    text = stringResource(R.string.recent_no_preview),
                     fontSize = 9.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
                 )
@@ -444,7 +444,7 @@ fun RecentFileCard(
                     ) {
                         Icon(
                             imageVector = Icons.Default.Close,
-                            contentDescription = "Remove",
+                            contentDescription = stringResource(R.string.action_remove),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.size(14.dp)
                         )
@@ -471,7 +471,7 @@ fun RecentFileCard(
                 Column(modifier = Modifier.weight(1f)) {
                     if (item.fileSizeFormatted.isNotBlank()) {
                         Text(
-                            text = if (item.pageCount > 0) "${item.pageCount} pgs • ${item.fileSizeFormatted}" else item.fileSizeFormatted,
+                            text = if (item.pageCount > 0) stringResource(R.string.recent_pages_and_size, item.pageCount, item.fileSizeFormatted) else item.fileSizeFormatted,
                             fontSize = 10.sp,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -494,7 +494,7 @@ fun RecentFileCard(
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Info,
-                                contentDescription = "Inspect Document Metadata",
+                                contentDescription = stringResource(R.string.library_menu_metadata),
                                 tint = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier.size(16.dp)
                             )
@@ -508,7 +508,7 @@ fun RecentFileCard(
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Visibility,
-                                contentDescription = "Quick View PDF",
+                                contentDescription = stringResource(R.string.library_menu_quick_view),
                                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
                                 modifier = Modifier.size(16.dp)
                             )

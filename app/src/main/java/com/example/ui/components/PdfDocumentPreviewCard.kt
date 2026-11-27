@@ -54,7 +54,7 @@ import java.io.File
 fun PdfDocumentPreviewCard(
     file: File? = null,
     uri: Uri? = null,
-    title: String = "Document Preview",
+    title: String = "",
     modifier: Modifier = Modifier,
     initialPageIndex: Int = 0,
     showThumbnailsStrip: Boolean = false,
@@ -98,7 +98,7 @@ fun PdfDocumentPreviewCard(
                     val resolved = PdfEngine.getLocalFileFromUri(context, uri)
                     activeFile = resolved
                 } catch (e: Exception) {
-                    errorMessage = "Failed to load document: ${e.localizedMessage}"
+                    errorMessage = context.getString(R.string.preview_load_error, e.localizedMessage ?: "")
                 }
             }
         }
@@ -136,7 +136,7 @@ fun PdfDocumentPreviewCard(
                 renderer.close()
                 pfd.close()
             } catch (t: Throwable) {
-                errorMessage = "Render error: ${t.localizedMessage}"
+                errorMessage = context.getString(R.string.preview_render_error, t.localizedMessage ?: "")
             } finally {
                 isLoading = false
             }
@@ -208,12 +208,12 @@ fun PdfDocumentPreviewCard(
                     )
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
-                        text = "No Document Selected",
+                        text = stringResource(R.string.picker_no_doc_selected),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = "Select a PDF file to enable live built-in content preview",
+                        text = stringResource(R.string.picker_select_prompt),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -265,13 +265,13 @@ fun PdfDocumentPreviewCard(
 
                         Column {
                             Text(
-                                text = activeFile?.name ?: title,
+                                text = activeFile?.name ?: title.ifEmpty { stringResource(R.string.preview_doc_title) },
                                 style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
                                 maxLines = 1,
                                 color = MaterialTheme.colorScheme.onSurface
                             )
                             Text(
-                                text = "Page ${currentPageIndex + 1} of $totalPages • ${PdfEngine.formatFileSize(activeFile?.length() ?: 0L)}",
+                                text = "${stringResource(R.string.viewer_page_of_total, currentPageIndex + 1, totalPages)} • ${PdfEngine.formatFileSize(activeFile?.length() ?: 0L)}",
                                 style = MaterialTheme.typography.labelSmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -286,7 +286,7 @@ fun PdfDocumentPreviewCard(
                         ) {
                             Icon(
                                 imageVector = if (showThumbnailDrawer) Icons.Default.ViewCarousel else Icons.Default.GridOn,
-                                contentDescription = "Page Thumbnails",
+                                contentDescription = stringResource(R.string.preview_page_thumbnails),
                                 tint = if (showThumbnailDrawer) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                                 modifier = Modifier.size(20.dp)
                             )
@@ -299,7 +299,7 @@ fun PdfDocumentPreviewCard(
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Refresh,
-                                contentDescription = "Rotate Page",
+                                contentDescription = stringResource(R.string.preview_rotate_page),
                                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
                                 modifier = Modifier.size(20.dp)
                             )
@@ -313,7 +313,7 @@ fun PdfDocumentPreviewCard(
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.Info,
-                                    contentDescription = "Document Info",
+                                    contentDescription = stringResource(R.string.tool_doc_info_title),
                                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                                     modifier = Modifier.size(20.dp)
                                 )
@@ -333,7 +333,7 @@ fun PdfDocumentPreviewCard(
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Fullscreen,
-                                contentDescription = "Full Screen Preview",
+                                contentDescription = stringResource(R.string.preview_full_screen),
                                 tint = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier.size(20.dp)
                             )
@@ -346,7 +346,7 @@ fun PdfDocumentPreviewCard(
                         ) {
                             Icon(
                                 imageVector = if (isExpanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
-                                contentDescription = if (isExpanded) "Collapse Preview" else "Expand Preview",
+                                contentDescription = if (isExpanded) stringResource(R.string.preview_collapse) else stringResource(R.string.preview_expand),
                                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
                                 modifier = Modifier.size(20.dp)
                             )
@@ -379,7 +379,7 @@ fun PdfDocumentPreviewCard(
                         CircularProgressIndicator(color = MaterialTheme.colorScheme.primary, strokeWidth = 3.dp)
                         Spacer(modifier = Modifier.height(10.dp))
                         Text(
-                            text = "Rendering page content...",
+                            text = stringResource(R.string.preview_rendering_content),
                             color = Color.White.copy(alpha = 0.8f),
                             fontSize = 12.sp
                         )
@@ -391,7 +391,7 @@ fun PdfDocumentPreviewCard(
                     ) {
                         Icon(imageVector = Icons.Default.Warning, contentDescription = null, tint = MaterialTheme.colorScheme.error, modifier = Modifier.size(36.dp))
                         Spacer(modifier = Modifier.height(8.dp))
-                        Text(text = errorMessage ?: "Unable to render page", color = Color.White, fontSize = 13.sp)
+                        Text(text = errorMessage ?: stringResource(R.string.preview_unable_render), color = Color.White, fontSize = 13.sp)
                     }
                 } else if (currentBitmap != null) {
                     Card(
@@ -410,7 +410,7 @@ fun PdfDocumentPreviewCard(
                     ) {
                         Image(
                             bitmap = currentBitmap!!.asImageBitmap(),
-                            contentDescription = "PDF Page ${currentPageIndex + 1}",
+                            contentDescription = stringResource(R.string.common_page_number, currentPageIndex + 1),
                             contentScale = ContentScale.Fit,
                             modifier = Modifier
                                 .fillMaxHeight()
@@ -454,7 +454,7 @@ fun PdfDocumentPreviewCard(
                             },
                             modifier = Modifier.size(32.dp).testTag("preview_zoom_out")
                         ) {
-                            Icon(imageVector = Icons.Default.ZoomOut, contentDescription = "Zoom Out", tint = Color.White, modifier = Modifier.size(16.dp))
+                            Icon(imageVector = Icons.Default.ZoomOut, contentDescription = stringResource(R.string.preview_zoom_out), tint = Color.White, modifier = Modifier.size(16.dp))
                         }
 
                         Text(
@@ -475,7 +475,7 @@ fun PdfDocumentPreviewCard(
                             },
                             modifier = Modifier.size(32.dp).testTag("preview_zoom_in")
                         ) {
-                            Icon(imageVector = Icons.Default.ZoomIn, contentDescription = "Zoom In", tint = Color.White, modifier = Modifier.size(16.dp))
+                            Icon(imageVector = Icons.Default.ZoomIn, contentDescription = stringResource(R.string.preview_zoom_in), tint = Color.White, modifier = Modifier.size(16.dp))
                         }
 
                         if (scaleFactor != 1.0f || panOffsetX != 0f || panOffsetY != 0f) {
@@ -487,7 +487,7 @@ fun PdfDocumentPreviewCard(
                                 },
                                 modifier = Modifier.size(32.dp).testTag("preview_reset_zoom")
                             ) {
-                                Icon(imageVector = Icons.Default.RestartAlt, contentDescription = "Reset Zoom", tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(16.dp))
+                                Icon(imageVector = Icons.Default.RestartAlt, contentDescription = stringResource(R.string.preview_reset_zoom), tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(16.dp))
                             }
                         }
                     }
@@ -523,7 +523,7 @@ fun PdfDocumentPreviewCard(
                     }
 
                     Text(
-                        text = "Page ${currentPageIndex + 1} of $totalPages",
+                        text = stringResource(R.string.viewer_page_of_total, currentPageIndex + 1, totalPages),
                         style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
                         color = MaterialTheme.colorScheme.onSurface
                     )
@@ -556,7 +556,7 @@ fun PdfDocumentPreviewCard(
                     ) {
                         Column(modifier = Modifier.padding(vertical = 8.dp)) {
                             Text(
-                                text = "Jump to Page:",
+                                text = stringResource(R.string.preview_jump_to_page),
                                 style = MaterialTheme.typography.labelSmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 modifier = Modifier.padding(horizontal = 14.dp, vertical = 2.dp)
@@ -591,7 +591,7 @@ fun PdfDocumentPreviewCard(
                                             if (bmp != null) {
                                                 Image(
                                                     bitmap = bmp.asImageBitmap(),
-                                                    contentDescription = "Thumbnail ${pageIdx + 1}",
+                                                    contentDescription = stringResource(R.string.common_page_number, pageIdx + 1),
                                                     contentScale = ContentScale.Fit,
                                                     modifier = Modifier
                                                         .fillMaxSize()
@@ -658,7 +658,7 @@ fun PdfDocumentPreviewCard(
                     Text(stringResource(R.string.preview_file_name_label, activeFile?.name ?: ""), fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
                     Text(stringResource(R.string.preview_total_pages_label, totalPages), fontSize = 13.sp)
                     Text(stringResource(R.string.preview_file_size_label, PdfEngine.formatFileSize(activeFile?.length() ?: 0L)), fontSize = 13.sp)
-                    Text("File Path: ${activeFile?.absolutePath}", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(stringResource(R.string.preview_file_path_label, activeFile?.absolutePath ?: ""), fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             },
             confirmButton = {

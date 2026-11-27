@@ -77,14 +77,33 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     )
     val isOnboardingCompleted: StateFlow<Boolean> = _isOnboardingCompleted.asStateFlow()
 
+    // First-Launch Interactive Tool Coachmark Overlay State
+    private val _showToolCoachmark = MutableStateFlow(
+        !prefs.getBoolean("pref_tool_coachmark_completed", false)
+    )
+    val showToolCoachmark: StateFlow<Boolean> = _showToolCoachmark.asStateFlow()
+
+    fun completeToolCoachmark() {
+        prefs.edit().putBoolean("pref_tool_coachmark_completed", true).apply()
+        _showToolCoachmark.value = false
+    }
+
+    fun startToolCoachmark() {
+        _showToolCoachmark.value = true
+    }
+
     fun completeOnboarding() {
         prefs.edit().putBoolean("pref_onboarding_completed", true).apply()
         _isOnboardingCompleted.value = true
     }
 
     fun resetOnboardingForTesting() {
-        prefs.edit().putBoolean("pref_onboarding_completed", false).apply()
+        prefs.edit()
+            .putBoolean("pref_onboarding_completed", false)
+            .putBoolean("pref_tool_coachmark_completed", false)
+            .apply()
         _isOnboardingCompleted.value = false
+        _showToolCoachmark.value = true
     }
 
     // Polite Ad Dialog state after PDF actions
@@ -147,78 +166,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val showUpdateDialog: StateFlow<Boolean> = _showUpdateDialog.asStateFlow()
 
     private var sessionPromptShown = false
-
-    // Firebase Auth & Cloud Sync State
-    private val _currentUserEmail = MutableStateFlow<String?>(null)
-    val currentUserEmail: StateFlow<String?> = _currentUserEmail.asStateFlow()
-
-    private val _isCloudSyncEnabled = MutableStateFlow(false)
-    val isCloudSyncEnabled: StateFlow<Boolean> = _isCloudSyncEnabled.asStateFlow()
-
-    init {
-        satisfactionManager.onAppLaunch()
-        try {
-            val auth = com.google.firebase.auth.FirebaseAuth.getInstance()
-            _currentUserEmail.value = auth.currentUser?.email
-            _isCloudSyncEnabled.value = auth.currentUser != null
-        } catch (_: Throwable) {}
-    }
-
-    fun signInWithEmailPassword(email: String, pass: String, onSuccess: () -> Unit, onError: (String) -> Unit) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val auth = com.google.firebase.auth.FirebaseAuth.getInstance()
-                auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        _currentUserEmail.value = auth.currentUser?.email
-                        _isCloudSyncEnabled.value = true
-                        _userMessage.value = "Signed in successfully as ${auth.currentUser?.email}!"
-                        onSuccess()
-                    } else {
-                        onError(task.exception?.message ?: "Authentication failed")
-                    }
-                }
-            } catch (t: Throwable) {
-                onError(t.message ?: "Authentication error")
-            }
-        }
-    }
-
-    fun signUpWithEmailPassword(email: String, pass: String, onSuccess: () -> Unit, onError: (String) -> Unit) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val auth = com.google.firebase.auth.FirebaseAuth.getInstance()
-                auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        _currentUserEmail.value = auth.currentUser?.email
-                        _isCloudSyncEnabled.value = true
-                        _userMessage.value = "Account created & signed in as ${auth.currentUser?.email}!"
-                        onSuccess()
-                    } else {
-                        onError(task.exception?.message ?: "Sign up failed")
-                    }
-                }
-            } catch (t: Throwable) {
-                onError(t.message ?: "Sign up error")
-            }
-        }
-    }
-
-    fun signOut() {
-        try {
-            com.google.firebase.auth.FirebaseAuth.getInstance().signOut()
-            _currentUserEmail.value = null
-            _isCloudSyncEnabled.value = false
-            _userMessage.value = "Signed out successfully."
-        } catch (t: Throwable) {
-            _userMessage.value = "Sign out error: ${t.message}"
-        }
-    }
-
-    fun toggleCloudSync(enabled: Boolean) {
-        _isCloudSyncEnabled.value = enabled
-        _userMessage.value = if (enabled) "Cloud sync enabled for preferences and history." else "Cloud sync disabled."
-    }
 
     // Storage Management (Clear Temp Files Utility)
     private val _tempFilesSize = MutableStateFlow("0 B")
@@ -469,6 +416,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         android.util.Log.d("PDFCraft_Logcat", "MainViewModel init block starting")
+        satisfactionManager.onAppLaunch()
 
         // Increment session count on launch
         val newCount = prefs.getInt("pref_session_count", 0) + 1
@@ -580,13 +528,76 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun saveImageToGallery(context: Context, imageFile: File) {
         viewModelScope.launch {
+            _isProcessing.value = true
             _processingMessage.value = "Saving image to Gallery..."
-            val savedUri = PdfEngine.saveImageToGallery(context, imageFile)
-            if (savedUri != null) {
-                _userMessage.value = "Saved ${imageFile.name} to Gallery"
-            } else {
-                _userMessage.value = "Failed to save image to Gallery"
+            try {
+                val savedUri = PdfEngine.saveImageToGallery(context, imageFile)
+                if (savedUri != null) {
+                    _userMessage.value = "Saved ${imageFile.name} to Gallery"
+                } else {
+                    _userMessage.value = "Failed to save image to Gallery"
+                }
+            } finally {
+                _isProcessing.value = false
             }
+        }
+    }
+
+    // Last completed output file for instant Open / Share / Save to Downloads dialog
+    private val _lastCompletedOutputFile = MutableStateFlow<File?>(null)
+    val lastCompletedOutputFile: StateFlow<File?> = _lastCompletedOutputFile.asStateFlow()
+
+    private val _lastCompletedOperationSummary = MutableStateFlow("")
+    val lastCompletedOperationSummary: StateFlow<String> = _lastCompletedOperationSummary.asStateFlow()
+
+    fun dismissCompletedOutputFileDialog() {
+        _lastCompletedOutputFile.value = null
+        _lastCompletedOperationSummary.value = ""
+    }
+
+    private suspend fun publishCompletedPdfOutput(outputFile: File, operationName: String, summary: String) {
+        // Automatically mirror a copy to public Downloads/PDFCraft so users can always find it in Files/Downloads
+        PdfEngine.savePdfToDownloads(getApplication(), outputFile)
+        _lastCompletedOutputFile.value = outputFile
+        _lastCompletedOperationSummary.value = summary
+        _userMessage.value = summary
+        onPdfOperationCompleted(operationName)
+    }
+
+    fun saveFileToDownloadsExplicitly(context: Context, pdfFile: File) {
+        viewModelScope.launch {
+            val savedUri = PdfEngine.savePdfToDownloads(context, pdfFile)
+            if (savedUri != null) {
+                _userMessage.value = "Saved ${pdfFile.name} to Downloads/PDFCraft"
+            } else {
+                _userMessage.value = "Could not save to Downloads folder"
+            }
+        }
+    }
+
+    fun sharePdfFile(context: Context, pdfFile: File) {
+        if (!pdfFile.exists()) {
+            _userMessage.value = "File no longer exists"
+            return
+        }
+        try {
+            val uri = androidx.core.content.FileProvider.getUriForFile(
+                context,
+                "${context.packageName}.provider",
+                pdfFile
+            )
+            val shareIntent = android.content.Intent(android.content.Intent.ACTION_SEND).apply {
+                type = "application/pdf"
+                putExtra(android.content.Intent.EXTRA_STREAM, uri)
+                clipData = android.content.ClipData.newUri(context.contentResolver, pdfFile.name, uri)
+                addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+            val chooser = android.content.Intent.createChooser(shareIntent, pdfFile.name).apply {
+                addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            context.startActivity(chooser)
+        } catch (e: Exception) {
+            _userMessage.value = "Could not share file: ${e.localizedMessage}"
         }
     }
 
@@ -639,14 +650,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     val oldFilePath = project.outputFilePath
                     val oldFile = File(oldFilePath)
                     val ext = if (oldFile.extension.isNotBlank()) oldFile.extension else "pdf"
-                    val newTitleRaw = if (patternOrPrefix.contains("{N}")) {
-                        patternOrPrefix.replace("{N}", (index + 1).toString())
-                    } else if (patternOrPrefix.contains("{DATE}")) {
-                        val dateFormat = java.text.SimpleDateFormat("yyyyMMdd", java.util.Locale.getDefault())
-                        patternOrPrefix.replace("{DATE}", dateFormat.format(java.util.Date())).replace("{N}", (index + 1).toString())
-                    } else {
-                        "${patternOrPrefix}_${index + 1}"
+                    val dateFormat = java.text.SimpleDateFormat("yyyyMMdd", java.util.Locale.getDefault())
+                    val dateStamp = dateFormat.format(java.util.Date())
+                    val hasNumberPlaceholder = patternOrPrefix.contains("{N}")
+                    var resolved = patternOrPrefix
+                        .replace("{DATE}", dateStamp)
+                        .replace("{N}", (index + 1).toString())
+                    if (!hasNumberPlaceholder && targetProjects.size > 1) {
+                        resolved = "${resolved}_${index + 1}"
                     }
+                    val newTitleRaw = resolved.ifBlank { "Document_${index + 1}" }
 
                     val newFileName = if (newTitleRaw.endsWith(".$ext", ignoreCase = true)) newTitleRaw else "$newTitleRaw.$ext"
 
@@ -811,12 +824,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         }
                     } else {
                         val file = PdfEngine.convertAnyFileToPdf(getApplication(), uri)
-                        val pfd = android.os.ParcelFileDescriptor.open(file, android.os.ParcelFileDescriptor.MODE_READ_ONLY)
-                        val renderer = android.graphics.pdf.PdfRenderer(pfd)
-                        val pageCount = renderer.pageCount
-                        renderer.close()
-                        pfd.close()
+                        val pageCount = readPageCountSafely(file)
 
+                        val maxEagerThumbnails = 60
                         for (i in 0 until pageCount) {
                             val itemId = java.util.UUID.randomUUID().toString()
                             val pageItem = PdfPageSourceItem(
@@ -827,10 +837,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                             )
                             newPages.add(pageItem)
 
-                            // Render thumbnail bitmap
-                            val bmp = repository.renderThumbnail(getApplication(), file, i)
-                            if (bmp != null) {
-                                newThumbnails[itemId] = bmp
+                            // Cap eager in-memory thumbnail bitmaps to prevent OOM on 100+ page PDFs
+                            if (newThumbnails.size < maxEagerThumbnails) {
+                                val bmp = repository.renderThumbnail(getApplication(), file, i)
+                                if (bmp != null) {
+                                    newThumbnails[itemId] = bmp
+                                }
                             }
                         }
                     }
@@ -861,7 +873,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val index = list.indexOfFirst { it.id == itemId }
         if (index != -1) {
             val oldItem = list[index]
-            list[index] = oldItem.copy(rotationDegrees = (oldItem.rotationDegrees + 90) % 360)
+            list[index] = oldItem.copy(rotationDegrees = ((oldItem.rotationDegrees + 90) % 360 + 360) % 360)
             _mergePages.value = list
         }
     }
@@ -888,7 +900,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         if (selectedIds.isEmpty()) return
         val list = _mergePages.value.map { item ->
             if (selectedIds.contains(item.id)) {
-                item.copy(rotationDegrees = (item.rotationDegrees + degrees) % 360)
+                item.copy(rotationDegrees = ((item.rotationDegrees + degrees) % 360 + 360) % 360)
             } else {
                 item
             }
@@ -898,7 +910,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun rotateAllMergePages(degrees: Int) {
         val list = _mergePages.value.map { item ->
-            item.copy(rotationDegrees = (item.rotationDegrees + degrees) % 360)
+            item.copy(rotationDegrees = ((item.rotationDegrees + degrees) % 360 + 360) % 360)
         }
         _mergePages.value = list
     }
@@ -938,8 +950,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     originalSizeBytes = totalOriginalBytes
                 )
 
-                _userMessage.value = "Exported ${outputFile.name} (${PdfEngine.formatFileSize(outputFile.length())})!"
-                onPdfOperationCompleted("merge")
+                publishCompletedPdfOutput(
+                    outputFile = outputFile,
+                    operationName = "merge",
+                    summary = "Exported ${outputFile.name} (${PdfEngine.formatFileSize(outputFile.length())}) to Downloads/PDFCraft!"
+                )
             } catch (e: Exception) {
                 _userMessage.value = "Merge error: ${e.localizedMessage}"
             } finally {
@@ -960,16 +975,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 val newDocs = mutableListOf<PdfDocumentInfo>()
                 for (uri in uris) {
                     val file = PdfEngine.convertAnyFileToPdf(getApplication(), uri)
-                    var pageCount = 1
-                    try {
-                        val pfd = android.os.ParcelFileDescriptor.open(file, android.os.ParcelFileDescriptor.MODE_READ_ONLY)
-                        val renderer = android.graphics.pdf.PdfRenderer(pfd)
-                        pageCount = renderer.pageCount
-                        renderer.close()
-                        pfd.close()
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
+                    val pageCount = readPageCountSafely(file).coerceAtLeast(1)
 
                     newDocs.add(
                         PdfDocumentInfo(
@@ -1030,8 +1036,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     originalSizeBytes = totalBytes
                 )
 
-                _userMessage.value = "PDFBox Merge Complete! Saved ${outputFile.name} (${PdfEngine.formatFileSize(outputFile.length())})"
-                onPdfOperationCompleted("merge_pdfbox")
+                publishCompletedPdfOutput(
+                    outputFile = outputFile,
+                    operationName = "merge_pdfbox",
+                    summary = "Merged ${outputFile.name} (${PdfEngine.formatFileSize(outputFile.length())}) to Downloads/PDFCraft!"
+                )
             } catch (e: Exception) {
                 _userMessage.value = "PDFBox Merge Error: ${e.localizedMessage}"
             } finally {
@@ -1084,6 +1093,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 val density = context.resources.displayMetrics.density
                 val targetWidthPx = (180 * density).toInt().coerceAtLeast(100)
 
+                val maxPreRenderedSplitThumbnails = 60
                 withContext(Dispatchers.IO) {
                     var pfd: android.os.ParcelFileDescriptor? = null
                     var renderer: android.graphics.pdf.PdfRenderer? = null
@@ -1091,14 +1101,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         pfd = android.os.ParcelFileDescriptor.open(file, android.os.ParcelFileDescriptor.MODE_READ_ONLY)
                         renderer = android.graphics.pdf.PdfRenderer(pfd)
                         count = renderer.pageCount
+                        val adaptiveWidthPx = if (count > 30) (targetWidthPx * 0.75f).toInt().coerceAtLeast(90) else targetWidthPx
                         for (i in 0 until count) {
+                            if (i >= maxPreRenderedSplitThumbnails) {
+                                thumbnails.add(null)
+                                continue
+                            }
                             var page: android.graphics.pdf.PdfRenderer.Page? = null
                             try {
                                 page = renderer.openPage(i)
                                 val pw = page.width.coerceAtLeast(1)
                                 val ph = page.height.coerceAtLeast(1)
-                                val targetHeightPx = (targetWidthPx * (ph.toFloat() / pw.toFloat())).toInt().coerceAtLeast(100)
-                                val bmp = Bitmap.createBitmap(targetWidthPx, targetHeightPx, Bitmap.Config.ARGB_8888)
+                                val targetHeightPx = (adaptiveWidthPx * (ph.toFloat() / pw.toFloat())).toInt().coerceAtLeast(100)
+                                val bmp = Bitmap.createBitmap(adaptiveWidthPx, targetHeightPx, Bitmap.Config.RGB_565)
                                 val canvas = android.graphics.Canvas(bmp)
                                 canvas.drawColor(android.graphics.Color.WHITE)
                                 page.render(bmp, null, null, android.graphics.pdf.PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
@@ -1274,7 +1289,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         originalSizeBytes = file.length(),
                         pageRotations = rotations
                     )
-                    _userMessage.value = "Created ${outputFile.name} (${PdfEngine.formatFileSize(outputFile.length())})!"
+                    publishCompletedPdfOutput(
+                        outputFile = outputFile,
+                        operationName = "split",
+                        summary = "Created ${outputFile.name} (${PdfEngine.formatFileSize(outputFile.length())}) in Downloads/PDFCraft!"
+                    )
                 } else {
                     val baseOutputName = "Split_${file.nameWithoutExtension}"
                     val outputFiles = repository.splitPdfToSeparate(
@@ -1285,9 +1304,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         originalSizeBytes = file.length(),
                         pageRotations = rotations
                     )
-                    _userMessage.value = "Created ${outputFiles.size} separate PDF files in exports folder!"
+                    outputFiles.forEach { PdfEngine.savePdfToDownloads(getApplication(), it) }
+                    val firstOut = outputFiles.firstOrNull()
+                    if (firstOut != null) {
+                        _lastCompletedOutputFile.value = firstOut
+                        _lastCompletedOperationSummary.value = "Created ${outputFiles.size} separate PDF files in Downloads/PDFCraft!"
+                    }
+                    _userMessage.value = "Created ${outputFiles.size} separate PDF files in Downloads/PDFCraft!"
+                    onPdfOperationCompleted("split")
                 }
-                onPdfOperationCompleted("split")
             } catch (e: Exception) {
                 _userMessage.value = "Split failed: ${e.localizedMessage}"
             } finally {
@@ -1315,14 +1340,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 val current = _batchCompressList.value.toMutableList()
                 for (uri in uris) {
                     val file = PdfEngine.convertAnyFileToPdf(getApplication(), uri)
-                    var pageCount = 0
-                    try {
-                        val pfd = android.os.ParcelFileDescriptor.open(file, android.os.ParcelFileDescriptor.MODE_READ_ONLY)
-                        val renderer = android.graphics.pdf.PdfRenderer(pfd)
-                        pageCount = renderer.pageCount
-                        renderer.close()
-                        pfd.close()
-                    } catch (_: Exception) {}
+                    val pageCount = readPageCountSafely(file)
 
                     if (current.none { it.file.absolutePath == file.absolutePath }) {
                         current.add(
@@ -1372,6 +1390,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
             try {
                 val preset = _compressSelectedPreset.value
+                var lastOutputFile: File? = null
                 for ((index, item) in items.withIndex()) {
                     _processingMessage.value = "Compressing ${index + 1}/${items.size}: ${item.file.name}"
                     try {
@@ -1383,6 +1402,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                             outputName = outputName,
                             originalSizeBytes = item.originalSize
                         )
+                        PdfEngine.savePdfToDownloads(getApplication(), outputFile)
+                        lastOutputFile = outputFile
                         totalOriginalBytes += item.originalSize
                         totalCompressedBytes += outputFile.length()
                         successCount++
@@ -1392,10 +1413,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     }
                 }
 
-                val totalSaved = totalOriginalBytes - totalCompressedBytes
-                val savedFormatted = PdfEngine.formatFileSize(totalSaved.coerceAtLeast(0))
-                _userMessage.value = "Batch compress completed! Successfully compressed $successCount files and saved $savedFormatted space!"
-                onPdfOperationCompleted("batch_compress")
+                if (successCount > 0) {
+                    val totalSaved = (totalOriginalBytes - totalCompressedBytes).coerceAtLeast(0)
+                    val savedFormatted = PdfEngine.formatFileSize(totalSaved)
+                    val summary = "Batch compressed $successCount/${items.size} PDFs (saved $savedFormatted) • Saved to Downloads/PDFCraft"
+                    _lastCompletedOutputFile.value = lastOutputFile
+                    _lastCompletedOperationSummary.value = summary
+                    _userMessage.value = summary
+                    onPdfOperationCompleted("batch_compress")
+                } else {
+                    _userMessage.value = "Batch compression could not process the selected files."
+                }
             } catch (e: Exception) {
                 FirebaseConfigManager.recordException(e)
                 _userMessage.value = "Batch compression error: ${e.localizedMessage}"
@@ -1434,12 +1462,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 _compressSourceUri.value = uri
                 _compressSourceFile.value = file
 
-                val pfd = android.os.ParcelFileDescriptor.open(file, android.os.ParcelFileDescriptor.MODE_READ_ONLY)
-                val renderer = android.graphics.pdf.PdfRenderer(pfd)
-                _compressPageCount.value = renderer.pageCount
-                recordRecentFileAccess(file, renderer.pageCount)
-                renderer.close()
-                pfd.close()
+                val pageCount = readPageCountSafely(file)
+                _compressPageCount.value = pageCount
+                recordRecentFileAccess(file, pageCount)
 
                 _extractedImages.value = emptyList()
             } catch (e: Exception) {
@@ -1474,8 +1499,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 val savedBytes = file.length() - outputFile.length()
                 val percentSaved = if (file.length() > 0) ((savedBytes.toDouble() / file.length()) * 100).toInt() else 0
 
-                _userMessage.value = "Compressed from ${PdfEngine.formatFileSize(file.length())} to ${PdfEngine.formatFileSize(outputFile.length())} ($percentSaved% smaller)!"
-                onPdfOperationCompleted("compress")
+                publishCompletedPdfOutput(
+                    outputFile = outputFile,
+                    operationName = "compress",
+                    summary = "Compressed from ${PdfEngine.formatFileSize(file.length())} to ${PdfEngine.formatFileSize(outputFile.length())} ($percentSaved% smaller)!"
+                )
             } catch (e: Exception) {
                 _userMessage.value = "Compression failed: ${e.localizedMessage}"
             } finally {
@@ -1539,6 +1567,83 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _activeViewerFile = MutableStateFlow<File?>(null)
     val activeViewerFile: StateFlow<File?> = _activeViewerFile.asStateFlow()
 
+    // Document Info Screen State
+    private val _docInfoSourceUri = MutableStateFlow<Uri?>(null)
+    val docInfoSourceUri: StateFlow<Uri?> = _docInfoSourceUri.asStateFlow()
+
+    private val _docInfoSourceFile = MutableStateFlow<File?>(null)
+    val docInfoSourceFile: StateFlow<File?> = _docInfoSourceFile.asStateFlow()
+
+    private val _docInfoMetadata = MutableStateFlow<PdfMetadata?>(null)
+    val docInfoMetadata: StateFlow<PdfMetadata?> = _docInfoMetadata.asStateFlow()
+
+    private val _docInfoThumbnail = MutableStateFlow<Bitmap?>(null)
+    val docInfoThumbnail: StateFlow<Bitmap?> = _docInfoThumbnail.asStateFlow()
+
+    private val _isLoadingDocInfo = MutableStateFlow(false)
+    val isLoadingDocInfo: StateFlow<Boolean> = _isLoadingDocInfo.asStateFlow()
+
+    fun loadPdfForDocInfo(uri: Uri) {
+        viewModelScope.launch {
+            _isLoadingDocInfo.value = true
+            _docInfoSourceUri.value = uri
+            try {
+                val file = withContext(Dispatchers.IO) {
+                    PdfEngine.convertAnyFileToPdf(getApplication(), uri)
+                }
+                _docInfoSourceFile.value = file
+                loadDocInfoForFile(file)
+            } catch (e: Exception) {
+                _userMessage.value = "Could not extract document info: ${e.localizedMessage}"
+                _isLoadingDocInfo.value = false
+            }
+        }
+    }
+
+    fun loadPdfForDocInfo(file: File) {
+        _docInfoSourceUri.value = Uri.fromFile(file)
+        _docInfoSourceFile.value = file
+        loadDocInfoForFile(file)
+    }
+
+    private fun loadDocInfoForFile(file: File) {
+        viewModelScope.launch {
+            _isLoadingDocInfo.value = true
+            _docInfoMetadata.value = null
+            _docInfoThumbnail.value = null
+            try {
+                val meta = withContext(Dispatchers.IO) {
+                    PdfEngine.extractMetadata(file)
+                }
+                _docInfoMetadata.value = meta
+                recordRecentFileAccess(file, meta.pageCount)
+
+                val bmp = withContext(Dispatchers.IO) {
+                    PdfEngine.generateFirstPageThumbnail(file, widthPx = 280)
+                }
+                _docInfoThumbnail.value = bmp
+            } catch (e: Exception) {
+                _userMessage.value = "Failed to parse document: ${e.localizedMessage}"
+            } finally {
+                _isLoadingDocInfo.value = false
+            }
+        }
+    }
+
+    fun openDocumentInfoScreen(file: File) {
+        setActiveTool(PdfOperationType.DOCUMENT_INFO)
+        loadPdfForDocInfo(file)
+    }
+
+    fun openDocumentInfoScreen(filePath: String) {
+        val file = File(filePath)
+        if (file.exists()) {
+            openDocumentInfoScreen(file)
+        } else {
+            _userMessage.value = "File no longer exists on local storage"
+        }
+    }
+
     // Document Metadata Dialog
     private val _selectedMetadata = MutableStateFlow<PdfMetadata?>(null)
     val selectedMetadata: StateFlow<PdfMetadata?> = _selectedMetadata.asStateFlow()
@@ -1600,6 +1705,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val uri = Uri.fromFile(file)
         setActiveTool(tool)
         when (tool) {
+            PdfOperationType.DOCUMENT_INFO -> loadPdfForDocInfo(file)
+            PdfOperationType.METADATA -> loadPdfForMetadata(uri)
             PdfOperationType.SIGN -> loadPdfForSign(uri)
             PdfOperationType.COMPRESS -> loadPdfForCompress(uri)
             PdfOperationType.ROTATE -> loadPdfForRotate(uri)
@@ -1655,12 +1762,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 _encryptSourceUri.value = uri
                 _encryptSourceFile.value = file
 
-                val pfd = android.os.ParcelFileDescriptor.open(file, android.os.ParcelFileDescriptor.MODE_READ_ONLY)
-                val renderer = android.graphics.pdf.PdfRenderer(pfd)
-                _encryptPageCount.value = renderer.pageCount
-                recordRecentFileAccess(file, renderer.pageCount)
-                renderer.close()
-                pfd.close()
+                val pageCount = readPageCountSafely(file)
+                _encryptPageCount.value = pageCount
+                recordRecentFileAccess(file, pageCount)
 
                 _encryptOutputName.value = "Secure_${file.name}"
             } catch (e: Exception) {
@@ -1696,8 +1800,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     outputName = _encryptOutputName.value,
                     originalSizeBytes = file.length()
                 )
-                _userMessage.value = "Successfully encrypted and saved ${outputFile.name} (${PdfEngine.formatFileSize(outputFile.length())})!"
-                onPdfOperationCompleted("encrypt")
+                publishCompletedPdfOutput(
+                    outputFile = outputFile,
+                    operationName = "encrypt",
+                    summary = "Encrypted & saved ${outputFile.name} (${PdfEngine.formatFileSize(outputFile.length())}) to Downloads/PDFCraft!"
+                )
             } catch (e: Exception) {
                 _userMessage.value = "Encryption failed: ${e.localizedMessage}"
             } finally {
@@ -1846,12 +1953,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 _watermarkSourceUri.value = uri
                 _watermarkSourceFile.value = file
 
-                val pfd = android.os.ParcelFileDescriptor.open(file, android.os.ParcelFileDescriptor.MODE_READ_ONLY)
-                val renderer = android.graphics.pdf.PdfRenderer(pfd)
-                _watermarkPageCount.value = renderer.pageCount
-                recordRecentFileAccess(file, renderer.pageCount)
-                renderer.close()
-                pfd.close()
+                val pageCount = readPageCountSafely(file)
+                _watermarkPageCount.value = pageCount
+                recordRecentFileAccess(file, pageCount)
 
                 _watermarkOutputName.value = "Watermarked_${file.name}"
                 triggerWatermarkPreviewUpdate()
@@ -1879,8 +1983,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     outputName = _watermarkOutputName.value,
                     originalSizeBytes = file.length()
                 )
-                _userMessage.value = "Successfully watermarked ${outputFile.name}!"
-                onPdfOperationCompleted("watermark")
+                publishCompletedPdfOutput(
+                    outputFile = outputFile,
+                    operationName = "watermark",
+                    summary = "Watermarked ${outputFile.name} (${PdfEngine.formatFileSize(outputFile.length())}) in Downloads/PDFCraft!"
+                )
             } catch (e: Exception) {
                 _userMessage.value = "Watermark failed: ${e.localizedMessage}"
             } finally {
@@ -1899,10 +2006,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _signPageCount = MutableStateFlow(0)
     val signPageCount: StateFlow<Int> = _signPageCount.asStateFlow()
 
-    private val _signerName = MutableStateFlow("Authorized Signatory")
+    private val _signerName = MutableStateFlow("")
     val signerName: StateFlow<String> = _signerName.asStateFlow()
 
-    private val _signReason = MutableStateFlow("Approved & Verified")
+    private val _signReason = MutableStateFlow("")
     val signReason: StateFlow<String> = _signReason.asStateFlow()
 
     private val _signOutputName = MutableStateFlow("PDFCraft_Signed.pdf")
@@ -1929,12 +2036,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 _signSourceUri.value = uri
                 _signSourceFile.value = file
 
-                val pfd = android.os.ParcelFileDescriptor.open(file, android.os.ParcelFileDescriptor.MODE_READ_ONLY)
-                val renderer = android.graphics.pdf.PdfRenderer(pfd)
-                _signPageCount.value = renderer.pageCount
-                recordRecentFileAccess(file, renderer.pageCount)
-                renderer.close()
-                pfd.close()
+                val pageCount = readPageCountSafely(file)
+                _signPageCount.value = pageCount
+                recordRecentFileAccess(file, pageCount)
 
                 _signOutputName.value = "Signed_${file.name}"
             } catch (e: Exception) {
@@ -1963,7 +2067,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     outputName = _signOutputName.value,
                     originalSizeBytes = file.length()
                 )
-                _userMessage.value = "Successfully signed ${outputFile.name}!"
+                publishCompletedPdfOutput(
+                    outputFile = outputFile,
+                    operationName = "sign",
+                    summary = "Signed ${outputFile.name} (${PdfEngine.formatFileSize(outputFile.length())}) in Downloads/PDFCraft!"
+                )
                 FirebaseConfigManager.logAnalyticsEvent("pdf_sign_success", emptyMap())
             } catch (e: Exception) {
                 _userMessage.value = "Signature failed: ${e.localizedMessage}"
@@ -2083,7 +2191,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     outputName = _metadataOutputName.value,
                     originalSizeBytes = file.length()
                 )
-                _userMessage.value = "Successfully updated document metadata in ${outputFile.name}!"
+                publishCompletedPdfOutput(
+                    outputFile = outputFile,
+                    operationName = "metadata_update",
+                    summary = "Updated metadata in ${outputFile.name} (saved to Downloads/PDFCraft)!"
+                )
                 FirebaseConfigManager.logAnalyticsEvent("pdf_metadata_update_success", emptyMap())
             } catch (e: Exception) {
                 _userMessage.value = "Metadata update failed: ${e.localizedMessage}"
@@ -2247,8 +2359,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     pageCount = _rotatePageCount.value,
                     deletedPages = deleted
                 )
-                _userMessage.value = "Successfully saved modified PDF to ${outputFile.name}!"
-                onPdfOperationCompleted("rotate")
+                publishCompletedPdfOutput(
+                    outputFile = outputFile,
+                    operationName = "rotate",
+                    summary = "Saved modified PDF ${outputFile.name} (${PdfEngine.formatFileSize(outputFile.length())}) to Downloads/PDFCraft!"
+                )
             } catch (e: Exception) {
                 _userMessage.value = "Page modification failed: ${e.localizedMessage}"
             } finally {
@@ -2308,8 +2423,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     imageUris = uris,
                     outputName = _imageToPdfOutputName.value
                 )
-                _userMessage.value = "Successfully created PDF with ${uris.size} image pages: ${outputFile.name}!"
-                onPdfOperationCompleted("image_to_pdf")
+                publishCompletedPdfOutput(
+                    outputFile = outputFile,
+                    operationName = "image_to_pdf",
+                    summary = "Created PDF with ${uris.size} image pages: ${outputFile.name} in Downloads/PDFCraft!"
+                )
             } catch (e: Exception) {
                 _userMessage.value = "Image to PDF conversion failed: ${e.localizedMessage}"
             } finally {
@@ -2385,8 +2503,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     outputName = _pageNumberOutputName.value,
                     originalSizeBytes = file.length()
                 )
-                _userMessage.value = "Successfully applied page numbers to ${outputFile.name}!"
-                onPdfOperationCompleted("page_number")
+                publishCompletedPdfOutput(
+                    outputFile = outputFile,
+                    operationName = "page_number",
+                    summary = "Applied page numbers to ${outputFile.name} in Downloads/PDFCraft!"
+                )
             } catch (e: Exception) {
                 _userMessage.value = "Failed to add page numbers: ${e.localizedMessage}"
             } finally {
@@ -2466,8 +2587,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     options = _textToPdfOptions.value,
                     outputName = _textToPdfOutputName.value
                 )
-                _userMessage.value = "Created PDF: ${outputFile.name}!"
-                onPdfOperationCompleted("text_to_pdf")
+                publishCompletedPdfOutput(
+                    outputFile = outputFile,
+                    operationName = "text_to_pdf",
+                    summary = "Created PDF ${outputFile.name} in Downloads/PDFCraft!"
+                )
             } catch (e: Exception) {
                 _userMessage.value = "Conversion failed: ${e.localizedMessage}"
             } finally {
@@ -2630,13 +2754,35 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     title = _htmlDocTitle.value,
                     outputName = _htmlOutputName.value
                 )
-                _userMessage.value = "Generated PDF: ${outputFile.name}!"
-                onPdfOperationCompleted("html_to_pdf")
+                publishCompletedPdfOutput(
+                    outputFile = outputFile,
+                    operationName = "html_to_pdf",
+                    summary = "Generated PDF ${outputFile.name} in Downloads/PDFCraft!"
+                )
             } catch (e: Exception) {
                 _userMessage.value = "HTML conversion failed: ${e.localizedMessage}"
             } finally {
                 _isProcessing.value = false
             }
+        }
+    }
+
+    private suspend fun readPageCountSafely(file: File): Int = withContext(Dispatchers.IO) {
+        var pfd: android.os.ParcelFileDescriptor? = null
+        var renderer: android.graphics.pdf.PdfRenderer? = null
+        try {
+            pfd = android.os.ParcelFileDescriptor.open(file, android.os.ParcelFileDescriptor.MODE_READ_ONLY)
+            renderer = android.graphics.pdf.PdfRenderer(pfd)
+            renderer.pageCount
+        } catch (_: Exception) {
+            try {
+                com.tom_roush.pdfbox.pdmodel.PDDocument.load(file).use { it.numberOfPages }
+            } catch (_: Exception) {
+                0
+            }
+        } finally {
+            try { renderer?.close() } catch (_: Throwable) {}
+            try { pfd?.close() } catch (_: Throwable) {}
         }
     }
 }

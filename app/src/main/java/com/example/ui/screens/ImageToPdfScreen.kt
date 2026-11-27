@@ -72,7 +72,7 @@ fun ImageToPdfScreen(
             tempCameraUri = uri
             cameraLauncher.launch(uri)
         } catch (e: Exception) {
-            viewModel.showUserMessage("Failed to launch camera: ${e.localizedMessage}")
+            viewModel.showUserMessage(context.getString(R.string.image_to_pdf_camera_error, e.localizedMessage ?: ""))
         }
     }
 
@@ -102,19 +102,19 @@ fun ImageToPdfScreen(
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         IconButton(onClick = { viewModel.setActiveTool(null) }) {
-                            Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = MaterialTheme.colorScheme.onSurface)
+                            Icon(Icons.Default.ArrowBack, contentDescription = stringResource(R.string.action_back), tint = MaterialTheme.colorScheme.onSurface)
                         }
                         Spacer(modifier = Modifier.width(8.dp))
                         Column {
                             Text(
-                                text = "Image to PDF Converter",
+                                text = stringResource(R.string.image_to_pdf_title),
                                 style = MaterialTheme.typography.titleMedium.copy(
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                             )
                             Text(
-                                text = "Convert photos & gallery pictures into multi-page PDF",
+                                text = stringResource(R.string.image_to_pdf_subtitle),
                                 style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
                             )
                         }
@@ -182,12 +182,12 @@ fun ImageToPdfScreen(
                             )
                             Spacer(modifier = Modifier.height(12.dp))
                             Text(
-                                text = "No Images Selected Yet",
+                                text = stringResource(R.string.image_to_pdf_empty_title),
                                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                             )
                             Spacer(modifier = Modifier.height(4.dp))
                             Text(
-                                text = "Tap 'Select Photos' or 'Capture Photo' above to add images and construct your multi-page PDF.",
+                                text = stringResource(R.string.image_to_pdf_empty_desc),
                                 style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
                                 textAlign = androidx.compose.ui.text.style.TextAlign.Center
                             )
@@ -197,7 +197,7 @@ fun ImageToPdfScreen(
             } else {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = "Selected Images (${selectedImageUris.size} pages)",
+                        text = stringResource(R.string.image_to_pdf_selected_count, selectedImageUris.size),
                         style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface),
                         modifier = Modifier.padding(bottom = 8.dp)
                     )
@@ -218,7 +218,7 @@ fun ImageToPdfScreen(
                                 Box(modifier = Modifier.fillMaxSize()) {
                                     AsyncImage(
                                         model = uri,
-                                        contentDescription = "Image $index",
+                                        contentDescription = stringResource(R.string.common_page_number, index + 1),
                                         contentScale = ContentScale.Crop,
                                         modifier = Modifier.fillMaxSize()
                                     )
@@ -247,7 +247,7 @@ fun ImageToPdfScreen(
                                             .size(24.dp)
                                             .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.8f), androidx.compose.foundation.shape.CircleShape)
                                     ) {
-                                        Icon(Icons.Default.Close, contentDescription = "Remove", tint = MaterialTheme.colorScheme.error, modifier = Modifier.size(14.dp))
+                                        Icon(Icons.Default.Close, contentDescription = stringResource(R.string.action_remove), tint = MaterialTheme.colorScheme.error, modifier = Modifier.size(14.dp))
                                     }
                                 }
                             }

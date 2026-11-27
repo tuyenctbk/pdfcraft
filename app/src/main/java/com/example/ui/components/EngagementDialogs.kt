@@ -133,7 +133,7 @@ fun SuggestRateDialog(
                         val isSelected = i <= selectedRating
                         Icon(
                             imageVector = if (isSelected) Icons.Default.Star else Icons.Outlined.StarOutline,
-                            contentDescription = "Star $i",
+                            contentDescription = stringResource(R.string.rate_star_cd, i),
                             tint = if (isSelected) Color(0xFFFFB800) else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
                             modifier = Modifier
                                 .size(36.dp)
@@ -317,7 +317,7 @@ fun SuggestShareDialog(
  */
 @Composable
 fun SuggestUpdateDialog(
-    versionName: String = "1.7.6",
+    versionName: String = "",
     releaseNotes: String? = null,
     onUpdateNow: (context: Context) -> Unit,
     onLater: () -> Unit = {},

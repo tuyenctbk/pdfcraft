@@ -77,7 +77,7 @@ import com.example.ui.theme.TextPrimary
 @Composable
 fun PdfBoxPreviewDialog(
     pdfUri: Uri,
-    documentTitle: String = "PDF Preview",
+    documentTitle: String = "",
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -161,7 +161,7 @@ fun PdfBoxPreviewDialog(
 
                             Column {
                                 Text(
-                                    text = metadata?.title ?: documentTitle,
+                                    text = metadata?.title ?: documentTitle.ifEmpty { stringResource(R.string.preview_doc_title) },
                                     style = MaterialTheme.typography.titleMedium.copy(
                                         fontWeight = FontWeight.Bold,
                                         color = TextPrimary
@@ -170,7 +170,7 @@ fun PdfBoxPreviewDialog(
                                 )
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Text(
-                                        text = "Apache PDFBox Preview",
+                                        text = stringResource(R.string.preview_pdfbox_title),
                                         fontSize = 11.sp,
                                         color = EmeraldPrimary,
                                         fontWeight = FontWeight.SemiBold
@@ -189,7 +189,7 @@ fun PdfBoxPreviewDialog(
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.Info,
-                                    contentDescription = "Document Info",
+                                    contentDescription = stringResource(R.string.tool_doc_info_title),
                                     tint = if (showMetadataDetails) EmeraldPrimary else TextMuted
                                 )
                             }
@@ -200,7 +200,7 @@ fun PdfBoxPreviewDialog(
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.Close,
-                                    contentDescription = "Close Preview",
+                                    contentDescription = stringResource(R.string.preview_close_cd),
                                     tint = TextPrimary
                                 )
                             }
@@ -216,7 +216,7 @@ fun PdfBoxPreviewDialog(
                     ) {
                         Column(modifier = Modifier.padding(14.dp)) {
                             Text(
-                                text = "Document Properties (PDFBox Engine)",
+                                text = stringResource(R.string.preview_pdfbox_props),
                                 fontWeight = FontWeight.Bold,
                                 color = EmeraldPrimary,
                                 fontSize = 12.sp
@@ -237,7 +237,7 @@ fun PdfBoxPreviewDialog(
                                 ) {
                                     Text(stringResource(R.string.preview_pdf_version_label, meta.version), fontSize = 12.sp, color = TextMuted)
                                     Text(
-                                        if (meta.isEncrypted) "Protected / Encrypted" else "Standard Unencrypted",
+                                        if (meta.isEncrypted) stringResource(R.string.preview_protected_encrypted) else stringResource(R.string.preview_standard_unencrypted),
                                         fontSize = 12.sp,
                                         color = if (meta.isEncrypted) RedDelete else EmeraldPrimary
                                     )
@@ -272,7 +272,7 @@ fun PdfBoxPreviewDialog(
                         ) {
                             Image(
                                 bitmap = currentBitmap!!.asImageBitmap(),
-                                contentDescription = "Page ${currentPageIndex + 1} Preview",
+                                contentDescription = stringResource(R.string.common_page_number, currentPageIndex + 1),
                                 contentScale = ContentScale.Fit,
                                 modifier = Modifier.fillMaxSize()
                             )
@@ -325,7 +325,7 @@ fun PdfBoxPreviewDialog(
                             ) {
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                    contentDescription = "Previous Page",
+                                    contentDescription = stringResource(R.string.preview_action_previous),
                                     tint = if (currentPageIndex > 0) EmeraldPrimary else TextMuted.copy(alpha = 0.3f)
                                 )
                             }
@@ -338,7 +338,7 @@ fun PdfBoxPreviewDialog(
                                     .padding(horizontal = 16.dp, vertical = 6.dp)
                             ) {
                                 Text(
-                                    text = "Page ${currentPageIndex + 1} of $totalPages",
+                                    text = stringResource(R.string.viewer_page_of_total, currentPageIndex + 1, totalPages),
                                     color = TextPrimary,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 13.sp
@@ -352,7 +352,7 @@ fun PdfBoxPreviewDialog(
                             ) {
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                                    contentDescription = "Next Page",
+                                    contentDescription = stringResource(R.string.preview_action_next),
                                     tint = if (currentPageIndex < totalPages - 1) EmeraldPrimary else TextMuted.copy(alpha = 0.3f)
                                 )
                             }
@@ -371,7 +371,7 @@ fun PdfBoxPreviewDialog(
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.ZoomOut,
-                                    contentDescription = "Zoom Out",
+                                    contentDescription = stringResource(R.string.preview_zoom_out),
                                     tint = TextPrimary
                                 )
                             }
@@ -389,7 +389,7 @@ fun PdfBoxPreviewDialog(
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.ZoomIn,
-                                    contentDescription = "Zoom In",
+                                    contentDescription = stringResource(R.string.preview_zoom_in),
                                     tint = TextPrimary
                                 )
                             }
@@ -400,7 +400,7 @@ fun PdfBoxPreviewDialog(
                             ) {
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Filled.RotateRight,
-                                    contentDescription = "Rotate View",
+                                    contentDescription = stringResource(R.string.preview_rotate_view),
                                     tint = EmeraldPrimary
                                 )
                             }
@@ -414,7 +414,7 @@ fun PdfBoxPreviewDialog(
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.Refresh,
-                                    contentDescription = "Reset View",
+                                    contentDescription = stringResource(R.string.preview_reset_view),
                                     tint = TextMuted
                                 )
                             }

@@ -82,22 +82,23 @@ fun SignScreen(
                         ) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Back",
+                                contentDescription = stringResource(R.string.action_back),
                                 tint = MaterialTheme.colorScheme.onSurface
                             )
                         }
                         Spacer(modifier = Modifier.width(8.dp))
                         Column {
                             Text(
-                                text = "PDF Digital Signature",
+                                text = stringResource(R.string.sign_title),
                                 style = MaterialTheme.typography.titleMedium.copy(
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                             )
                             Text(
-                                text = sourceFile?.let { "${it.name} (${pageCount} pages • ${PdfEngine.formatFileSize(it.length())})" }
-                                    ?: "Add verified cryptographic signature blocks",
+                                text = sourceFile?.let {
+                                    stringResource(R.string.common_file_pages_size, it.name, pageCount, PdfEngine.formatFileSize(it.length()))
+                                } ?: stringResource(R.string.sign_subtitle),
                                 style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
                             )
                         }
@@ -115,7 +116,7 @@ fun SignScreen(
                     ) {
                         Icon(imageVector = Icons.Default.FileUpload, contentDescription = null, modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(6.dp))
-                        Text(if (sourceFile == null) "Select PDF" else "Change", fontWeight = FontWeight.Bold)
+                        Text(if (sourceFile == null) stringResource(R.string.action_select_pdf) else stringResource(R.string.action_change), fontWeight = FontWeight.Bold)
                     }
                 }
             }
@@ -165,14 +166,14 @@ fun SignScreen(
                         Spacer(modifier = Modifier.height(18.dp))
 
                         Text(
-                            text = "Sign Documents Securely",
+                            text = stringResource(R.string.sign_empty_title),
                             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                         )
 
                         Spacer(modifier = Modifier.height(6.dp))
 
                         Text(
-                            text = "Embed verified signatory details, approval reasons, and timestamp stamps directly into your PDF document.",
+                            text = stringResource(R.string.sign_empty_desc),
                             style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
                         )
 
@@ -203,7 +204,7 @@ fun SignScreen(
                     PdfDocumentPreviewCard(
                         file = sourceFile,
                         uri = sourceUri,
-                        title = "Document Preview"
+                        title = stringResource(R.string.preview_doc_title)
                     )
                 }
 
@@ -219,7 +220,7 @@ fun SignScreen(
                                 Icon(imageVector = Icons.Default.Draw, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
-                                    text = "Signatory Details",
+                                    text = stringResource(R.string.sign_details_title),
                                     style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                                 )
                             }
@@ -229,6 +230,7 @@ fun SignScreen(
                                 value = signerName,
                                 onValueChange = { viewModel.setSignerName(it) },
                                 label = { Text(stringResource(R.string.sign_signer_name_label)) },
+                                placeholder = { Text(stringResource(R.string.sign_signer_name_placeholder)) },
                                 singleLine = true,
                                 modifier = Modifier.fillMaxWidth().testTag("signer_name_input")
                             )
@@ -239,6 +241,7 @@ fun SignScreen(
                                 value = signReason,
                                 onValueChange = { viewModel.setSignReason(it) },
                                 label = { Text(stringResource(R.string.sign_reason_label)) },
+                                placeholder = { Text(stringResource(R.string.sign_reason_placeholder)) },
                                 singleLine = true,
                                 modifier = Modifier.fillMaxWidth().testTag("sign_reason_input")
                             )

@@ -107,29 +107,29 @@ class BillingRepository private constructor(
         return listOf(
             TipProduct(
                 id = BillingManager.SKU_COFFEE_199,
-                title = "Espresso Boost",
-                description = "Warm cup of coffee to power coding",
+                title = appContext.getString(R.string.billing_tip_coffee_title),
+                description = appContext.getString(R.string.billing_tip_coffee_desc),
                 defaultPriceFormatted = "$1.99",
                 emoji = "☕"
             ),
             TipProduct(
                 id = BillingManager.SKU_SNACK_499,
-                title = "Coffee & Croissant",
-                description = "Fuel an afternoon of feature work",
+                title = appContext.getString(R.string.billing_tip_snack_title),
+                description = appContext.getString(R.string.billing_tip_snack_desc),
                 defaultPriceFormatted = "$4.99",
                 emoji = "🥐"
             ),
             TipProduct(
                 id = BillingManager.SKU_SUPPORTER_999,
-                title = "Super Supporter",
-                description = "Keep PDFCraft 100% offline & private",
+                title = appContext.getString(R.string.billing_tip_supporter_title),
+                description = appContext.getString(R.string.billing_tip_supporter_desc),
                 defaultPriceFormatted = "$9.99",
                 emoji = "🚀"
             ),
             TipProduct(
                 id = BillingManager.SKU_HERO_1999,
-                title = "Hero Supporter",
-                description = "Lifetime gratitude & permanent badge",
+                title = appContext.getString(R.string.billing_tip_hero_title),
+                description = appContext.getString(R.string.billing_tip_hero_desc),
                 defaultPriceFormatted = "$19.99",
                 emoji = "👑"
             )
@@ -149,7 +149,9 @@ class BillingRepository private constructor(
 
             startConnection()
         } catch (e: Exception) {
-            _billingStatus.value = BillingStatus.Error(e.message ?: "Failed to initialize BillingClient")
+            _billingStatus.value = BillingStatus.Error(
+                e.message ?: appContext.getString(R.string.billing_error_init)
+            )
         }
     }
 
@@ -172,7 +174,7 @@ class BillingRepository private constructor(
                 } else {
                     isConnected = false
                     _billingStatus.value = BillingStatus.Error(
-                        "Google Play Billing unavailable: ${billingResult.debugMessage}"
+                        appContext.getString(R.string.billing_error_unavailable, billingResult.debugMessage)
                     )
                 }
             }
@@ -244,20 +246,20 @@ class BillingRepository private constructor(
     }
 
     /**
-     * Launches the Google Play Billing flow using the lifecycle-observed [Activity] session.
-     * Never fails with 'Billing requires an active activity session'.
+     * Launches the genuine Google Play Billing flow using the lifecycle-observed [Activity] session.
+     * Surfaces honest Play Store availability errors instead of simulating purchases.
      */
     fun launchTipPurchase(
         explicitActivity: Activity? = null,
         tip: TipProduct,
         onResult: (Boolean, String) -> Unit = { _, _ -> }
     ) {
-        val activeActivity = resolveActiveActivity(explicitActivity)
         val client = billingClient
-
         if (client == null) {
             setupBillingClient()
-            _billingStatus.value = BillingStatus.ConfirmingCheckout(tip)
+            val err = appContext.getString(R.string.billing_error_init)
+            _billingStatus.value = BillingStatus.Error(err)
+            onResult(false, err)
             return
         }
 
@@ -269,7 +271,7 @@ class BillingRepository private constructor(
             if (cachedDetails != null && currentActivity != null) {
                 launchBillingFlowWithDetails(client, currentActivity, tip, cachedDetails, onResult)
             } else if (currentActivity != null && isConnected && client.isReady) {
-                // Dynamically query product details for the selected SKU before falling back to interactive checkout sheet
+                _billingStatus.value = BillingStatus.Connecting
                 val queryParams = QueryProductDetailsParams.newBuilder()
                     .setProductList(
                         listOf(
@@ -293,12 +295,17 @@ class BillingRepository private constructor(
                         }
                     } else {
                         scope.launch {
-                            _billingStatus.value = BillingStatus.ConfirmingCheckout(tip)
+                            val detail = billingResult.debugMessage.ifBlank { "Google Play" }
+                            val err = appContext.getString(R.string.billing_error_unavailable, detail)
+                            _billingStatus.value = BillingStatus.Error(err)
+                            onResult(false, err)
                         }
                     }
                 }
             } else {
-                _billingStatus.value = BillingStatus.ConfirmingCheckout(tip)
+                val err = appContext.getString(R.string.billing_error_unavailable, "Google Play")
+                _billingStatus.value = BillingStatus.Error(err)
+                onResult(false, err)
             }
         }
 
@@ -310,12 +317,6 @@ class BillingRepository private constructor(
                     executeWithReadyClient()
                 }
             })
-            // If Play Store billing service is unavailable on emulator, open interactive checkout sheet immediately
-            scope.launch {
-                if (!isConnected) {
-                    _billingStatus.value = BillingStatus.ConfirmingCheckout(tip)
-                }
-            }
         }
     }
 
@@ -338,29 +339,9 @@ class BillingRepository private constructor(
         _billingStatus.value = BillingStatus.Purchasing(tip.id)
         val result = client.launchBillingFlow(activity, flowParams)
         if (result.responseCode != BillingClient.BillingResponseCode.OK) {
-            _billingStatus.value = BillingStatus.ConfirmingCheckout(tip)
-        }
-    }
-
-    /**
-     * Completes the 1-Tap Google Play tip checkout confirmation sheet.
-     */
-    fun confirmCheckoutPurchase(
-        tip: TipProduct,
-        onResult: (Boolean, String) -> Unit = { _, _ -> }
-    ) {
-        _billingStatus.value = BillingStatus.Purchasing(tip.id)
-        scope.launch {
-            SatisfactionManager.getInstance(appContext).markAsSupporter()
-            val orderId = "GPA.${System.currentTimeMillis().toString().takeLast(8)}"
-            _billingStatus.value = BillingStatus.Success(
-                orderId = orderId,
-                productId = tip.id
-            )
-            val msg = "${tip.emoji} ${tip.title} (${tip.defaultPriceFormatted}) — ${appContext.getString(R.string.support_thank_you_title)}"
-            Toast.makeText(appContext, msg, Toast.LENGTH_SHORT).show()
-            _billingEvents.tryEmit(msg)
-            onResult(true, msg)
+            val err = appContext.getString(R.string.billing_error_purchase_failed, result.debugMessage)
+            _billingStatus.value = BillingStatus.Error(err)
+            onResult(false, err)
         }
     }
 
@@ -373,7 +354,7 @@ class BillingRepository private constructor(
                 _billingStatus.value = BillingStatus.Ready
             }
             else -> {
-                val err = "Purchase failed: ${billingResult.debugMessage}"
+                val err = appContext.getString(R.string.billing_error_purchase_failed, billingResult.debugMessage)
                 _billingStatus.value = BillingStatus.Error(err)
                 _billingEvents.tryEmit(err)
             }
@@ -381,31 +362,42 @@ class BillingRepository private constructor(
     }
 
     private fun handlePurchase(purchase: Purchase) {
-        if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED) {
-            val consumeParams = ConsumeParams.newBuilder()
-                .setPurchaseToken(purchase.purchaseToken)
-                .build()
+        when (purchase.purchaseState) {
+            Purchase.PurchaseState.PURCHASED -> {
+                val consumeParams = ConsumeParams.newBuilder()
+                    .setPurchaseToken(purchase.purchaseToken)
+                    .build()
 
-            billingClient?.consumeAsync(consumeParams) { result, _ ->
-                if (result.responseCode == BillingClient.BillingResponseCode.OK) {
-                    SatisfactionManager.getInstance(appContext).markAsSupporter()
-                    val productId = purchase.products.firstOrNull() ?: BillingManager.SKU_COFFEE_199
-                    _billingStatus.value = BillingStatus.Success(
-                        orderId = purchase.orderId,
-                        productId = productId
-                    )
-                    scope.launch {
-                        val msg = appContext.getString(R.string.support_thank_you_title)
-                        Toast.makeText(appContext, msg, Toast.LENGTH_SHORT).show()
-                        _billingEvents.tryEmit(msg)
+                billingClient?.consumeAsync(consumeParams) { result, _ ->
+                    if (result.responseCode == BillingClient.BillingResponseCode.OK) {
+                        SatisfactionManager.getInstance(appContext).markAsSupporter()
+                        val productId = purchase.products.firstOrNull() ?: BillingManager.SKU_COFFEE_199
+                        _billingStatus.value = BillingStatus.Success(
+                            orderId = purchase.orderId,
+                            productId = productId
+                        )
+                        scope.launch {
+                            val msg = appContext.getString(R.string.support_thank_you_title)
+                            Toast.makeText(appContext, msg, Toast.LENGTH_SHORT).show()
+                            _billingEvents.tryEmit(msg)
+                        }
+                    } else {
+                        val err = appContext.getString(R.string.billing_error_purchase_failed, result.debugMessage)
+                        _billingStatus.value = BillingStatus.Error(err)
                     }
                 }
+            }
+            Purchase.PurchaseState.PENDING -> {
+                _billingStatus.value = BillingStatus.Pending
+            }
+            else -> {
+                _billingStatus.value = BillingStatus.Ready
             }
         }
     }
 
     fun resetStatus() {
-        _billingStatus.value = BillingStatus.Ready
+        _billingStatus.value = if (isConnected) BillingStatus.Ready else BillingStatus.Idle
     }
 
     // --- Application.ActivityLifecycleCallbacks ---

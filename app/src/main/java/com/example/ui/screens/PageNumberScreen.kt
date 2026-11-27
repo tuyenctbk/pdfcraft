@@ -72,19 +72,19 @@ fun PageNumberScreen(
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         IconButton(onClick = { viewModel.setActiveTool(null) }) {
-                            Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = MaterialTheme.colorScheme.onSurface)
+                            Icon(Icons.Default.ArrowBack, contentDescription = stringResource(R.string.action_back), tint = MaterialTheme.colorScheme.onSurface)
                         }
                         Spacer(modifier = Modifier.width(8.dp))
                         Column {
                             Text(
-                                text = "Add Page Numbers",
+                                text = stringResource(R.string.tool_page_number_title),
                                 style = MaterialTheme.typography.titleMedium.copy(
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                             )
                             Text(
-                                text = "Overlay page numbers on PDF headers or footers",
+                                text = stringResource(R.string.tool_page_number_desc),
                                 style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
                             )
                         }
@@ -108,7 +108,7 @@ fun PageNumberScreen(
                     ) {
                         Column(modifier = Modifier.padding(16.dp)) {
                             Text(
-                                text = "Select Target PDF Document",
+                                text = stringResource(R.string.page_number_select_target),
                                 style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                             )
                             Spacer(modifier = Modifier.height(8.dp))
@@ -200,12 +200,12 @@ fun PageNumberScreen(
                                 Spacer(modifier = Modifier.height(12.dp))
 
                                 val positions = listOf(
-                                    PageNumberPosition.FOOTER_CENTER to "Footer Center",
-                                    PageNumberPosition.FOOTER_LEFT to "Footer Left",
-                                    PageNumberPosition.FOOTER_RIGHT to "Footer Right",
-                                    PageNumberPosition.HEADER_CENTER to "Header Center",
-                                    PageNumberPosition.HEADER_LEFT to "Header Left",
-                                    PageNumberPosition.HEADER_RIGHT to "Header Right"
+                                    PageNumberPosition.FOOTER_CENTER to stringResource(R.string.page_number_pos_footer_center),
+                                    PageNumberPosition.FOOTER_LEFT to stringResource(R.string.page_number_pos_footer_left),
+                                    PageNumberPosition.FOOTER_RIGHT to stringResource(R.string.page_number_pos_footer_right),
+                                    PageNumberPosition.HEADER_CENTER to stringResource(R.string.page_number_pos_header_center),
+                                    PageNumberPosition.HEADER_LEFT to stringResource(R.string.page_number_pos_header_left),
+                                    PageNumberPosition.HEADER_RIGHT to stringResource(R.string.page_number_pos_header_right)
                                 )
 
                                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {

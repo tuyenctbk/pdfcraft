@@ -107,22 +107,23 @@ fun WatermarkScreen(
                         ) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Back",
+                                contentDescription = stringResource(R.string.action_back),
                                 tint = MaterialTheme.colorScheme.onSurface
                             )
                         }
                         Spacer(modifier = Modifier.width(8.dp))
                         Column {
                             Text(
-                                text = "PDF Watermark Studio",
+                                text = stringResource(R.string.watermark_studio_title),
                                 style = MaterialTheme.typography.titleMedium.copy(
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                             )
                             Text(
-                                text = sourceFile?.let { "${it.name} (${pageCount} pages • ${PdfEngine.formatFileSize(it.length())})" }
-                                    ?: "Brand & secure documents with custom text or image watermarks",
+                                text = sourceFile?.let {
+                                    stringResource(R.string.common_file_pages_size, it.name, pageCount, PdfEngine.formatFileSize(it.length()))
+                                } ?: stringResource(R.string.watermark_studio_subtitle),
                                 style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
                             )
                         }
@@ -140,7 +141,7 @@ fun WatermarkScreen(
                     ) {
                         Icon(imageVector = Icons.Default.FileUpload, contentDescription = null, modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(6.dp))
-                        Text(if (sourceFile == null) "Select File" else "Change", fontWeight = FontWeight.Bold)
+                        Text(if (sourceFile == null) stringResource(R.string.action_select_file) else stringResource(R.string.action_change), fontWeight = FontWeight.Bold)
                     }
                 }
             }
@@ -191,14 +192,14 @@ fun WatermarkScreen(
                         Spacer(modifier = Modifier.height(18.dp))
 
                         Text(
-                            text = "Brand & Protect PDF Documents",
+                            text = stringResource(R.string.watermark_empty_title),
                             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                         )
 
                         Spacer(modifier = Modifier.height(6.dp))
 
                         Text(
-                            text = "Add custom text watermarks (e.g. CONFIDENTIAL, DRAFT, APPROVED) or company image logos with full control over opacity, position, scale, and angle.",
+                            text = stringResource(R.string.watermark_empty_desc),
                             style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
                         )
 
@@ -299,7 +300,7 @@ fun WatermarkScreen(
                                 if (previewBitmap != null) {
                                     Image(
                                         bitmap = previewBitmap!!.asImageBitmap(),
-                                        contentDescription = "Live Watermark Preview",
+                                        contentDescription = stringResource(R.string.watermark_preview_cd),
                                         modifier = Modifier.fillMaxHeight().padding(8.dp).clip(RoundedCornerShape(6.dp))
                                     )
                                 } else {
@@ -314,22 +315,31 @@ fun WatermarkScreen(
                             Spacer(modifier = Modifier.height(10.dp))
 
                             // Badges summary
+                            val defaultWatermarkText = stringResource(R.string.watermark_preset_confidential)
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.spacedBy(6.dp)
                             ) {
                                 SuggestionChip(
                                     onClick = { },
-                                    label = { Text(if (watermarkType == WatermarkType.TEXT) "Text: ${watermarkText.ifBlank { "CONFIDENTIAL" }}" else "Image Logo") },
+                                    label = {
+                                        Text(
+                                            if (watermarkType == WatermarkType.TEXT) {
+                                                stringResource(R.string.watermark_badge_text, watermarkText.ifBlank { defaultWatermarkText })
+                                            } else {
+                                                stringResource(R.string.watermark_badge_image)
+                                            }
+                                        )
+                                    },
                                     modifier = Modifier.weight(1f)
                                 )
                                 SuggestionChip(
                                     onClick = { },
-                                    label = { Text("Opacity: ${(watermarkOpacity * 100).toInt()}%") }
+                                    label = { Text(stringResource(R.string.watermark_badge_opacity, (watermarkOpacity * 100).toInt())) }
                                 )
                                 SuggestionChip(
                                     onClick = { },
-                                    label = { Text("Angle: ${watermarkRotation.toInt()}°") }
+                                    label = { Text(stringResource(R.string.watermark_badge_angle, watermarkRotation.toInt())) }
                                 )
                             }
                         }
@@ -363,7 +373,14 @@ fun WatermarkScreen(
                                 Text(stringResource(R.string.watermark_quick_presets), style = MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant))
                                 Spacer(modifier = Modifier.height(6.dp))
 
-                                val textPresets = listOf("CONFIDENTIAL", "DRAFT", "APPROVED", "SAMPLE", "DO NOT COPY", "INTERNAL USE")
+                                val textPresets = listOf(
+                                    stringResource(R.string.watermark_preset_confidential),
+                                    stringResource(R.string.watermark_preset_draft),
+                                    stringResource(R.string.watermark_preset_approved),
+                                    stringResource(R.string.watermark_preset_sample),
+                                    stringResource(R.string.watermark_preset_do_not_copy),
+                                    stringResource(R.string.watermark_preset_internal)
+                                )
                                 LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                     items(textPresets) { preset ->
                                         FilterChip(
@@ -376,7 +393,7 @@ fun WatermarkScreen(
 
                                 Spacer(modifier = Modifier.height(16.dp))
 
-                                Text("Text Size: ${watermarkTextSize.toInt()} pt", style = MaterialTheme.typography.labelMedium)
+                                Text(stringResource(R.string.watermark_text_size, watermarkTextSize.toInt()), style = MaterialTheme.typography.labelMedium)
                                 Slider(
                                     value = watermarkTextSize,
                                     onValueChange = { viewModel.setWatermarkTextSize(it) },
@@ -450,7 +467,7 @@ fun WatermarkScreen(
                                 ) {
                                     Icon(imageVector = Icons.Default.AddPhotoAlternate, contentDescription = null)
                                     Spacer(modifier = Modifier.width(8.dp))
-                                    Text(if (watermarkImageUri == null) "Select Watermark Logo Image" else "Change Logo Image", fontWeight = FontWeight.Bold)
+                                    Text(if (watermarkImageUri == null) stringResource(R.string.watermark_select_logo) else stringResource(R.string.watermark_change_logo), fontWeight = FontWeight.Bold)
                                 }
 
                                 if (watermarkImageUri != null) {
@@ -470,7 +487,7 @@ fun WatermarkScreen(
 
                                 Spacer(modifier = Modifier.height(16.dp))
 
-                                Text("Logo Scale: ${(watermarkImageScale * 100).toInt()}%", style = MaterialTheme.typography.labelMedium)
+                                Text(stringResource(R.string.watermark_logo_scale, (watermarkImageScale * 100).toInt()), style = MaterialTheme.typography.labelMedium)
                                 Slider(
                                     value = watermarkImageScale,
                                     onValueChange = { viewModel.setWatermarkImageScale(it) },
@@ -494,7 +511,7 @@ fun WatermarkScreen(
                             Text(stringResource(R.string.watermark_position_transparency), style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold))
                             Spacer(modifier = Modifier.height(14.dp))
 
-                            Text("Opacity / Transparency: ${(watermarkOpacity * 100).toInt()}%", style = MaterialTheme.typography.labelMedium)
+                            Text(stringResource(R.string.watermark_opacity, (watermarkOpacity * 100).toInt()), style = MaterialTheme.typography.labelMedium)
                             Slider(
                                 value = watermarkOpacity,
                                 onValueChange = { viewModel.setWatermarkOpacity(it) },
@@ -508,11 +525,11 @@ fun WatermarkScreen(
                             Spacer(modifier = Modifier.height(6.dp))
 
                             val angles = listOf(
-                                Pair("0° Horizontal", 0f),
-                                Pair("30° Diagonal", 30f),
-                                Pair("45° Diagonal", 45f),
-                                Pair("90° Vertical", 90f),
-                                Pair("-45° Reverse", -45f)
+                                Pair(stringResource(R.string.watermark_angle_horizontal), 0f),
+                                Pair(stringResource(R.string.watermark_angle_30), 30f),
+                                Pair(stringResource(R.string.watermark_angle_45), 45f),
+                                Pair(stringResource(R.string.watermark_angle_90), 90f),
+                                Pair(stringResource(R.string.watermark_angle_neg45), -45f)
                             )
                             LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                 items(angles) { (label, angle) ->
@@ -528,15 +545,6 @@ fun WatermarkScreen(
 
                             Text(stringResource(R.string.watermark_placement), style = MaterialTheme.typography.labelMedium)
                             Spacer(modifier = Modifier.height(8.dp))
-
-                            val positions = listOf(
-                                Pair("Center", WatermarkPosition.CENTER),
-                                Pair("Top Left", WatermarkPosition.TOP_LEFT),
-                                Pair("Top Right", WatermarkPosition.TOP_RIGHT),
-                                Pair("Bottom Left", WatermarkPosition.BOTTOM_LEFT),
-                                Pair("Bottom Right", WatermarkPosition.BOTTOM_RIGHT),
-                                Pair("Tile Pattern", WatermarkPosition.TILE)
-                            )
 
                             Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                                 Row(horizontalArrangement = Arrangement.spacedBy(6.dp), modifier = Modifier.fillMaxWidth()) {

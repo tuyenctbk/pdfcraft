@@ -109,7 +109,7 @@ fun MergeScreen(
     val selectedIds by viewModel.selectedMergePageIds.collectAsState()
 
     var previewUri by remember { mutableStateOf<Uri?>(null) }
-    var previewTitle by remember { mutableStateOf("PDF Document") }
+    var previewTitle by remember { mutableStateOf("") }
 
     // File picker launcher for PDFBox multi-file merge
     val pdfBoxFilePickerLauncher = rememberLauncherForActivityResult(
@@ -162,21 +162,21 @@ fun MergeScreen(
                         ) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Back",
+                                contentDescription = stringResource(R.string.action_back),
                                 tint = MaterialTheme.colorScheme.onSurface
                             )
                         }
                         Spacer(modifier = Modifier.width(8.dp))
                         Column {
                             Text(
-                                text = "PDF Merge Engine",
+                                text = stringResource(R.string.merge_engine_title),
                                 style = MaterialTheme.typography.titleMedium.copy(
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                             )
                             Text(
-                                text = "Powered by Apache PDFBox for Android",
+                                text = stringResource(R.string.merge_engine_subtitle),
                                 style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.primary, fontSize = 11.sp)
                             )
                         }
@@ -236,7 +236,7 @@ fun MergeScreen(
                             )
                             Spacer(modifier = Modifier.width(6.dp))
                             Text(
-                                text = "PDFBox Multi-File",
+                                text = stringResource(R.string.merge_tab_multi_file),
                                 fontWeight = if (selectedMergeModeTab == 0) FontWeight.Bold else FontWeight.Normal,
                                 color = if (selectedMergeModeTab == 0) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant,
                                 fontSize = 13.sp
@@ -262,7 +262,7 @@ fun MergeScreen(
                             )
                             Spacer(modifier = Modifier.width(6.dp))
                             Text(
-                                text = "Page Studio & Mix",
+                                text = stringResource(R.string.merge_tab_page_studio),
                                 fontWeight = if (selectedMergeModeTab == 1) FontWeight.Bold else FontWeight.Normal,
                                 color = if (selectedMergeModeTab == 1) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant,
                                 fontSize = 13.sp
@@ -346,7 +346,7 @@ fun MergeScreen(
                                 Spacer(modifier = Modifier.height(18.dp))
 
                                 Text(
-                                    text = "PDFBox Document Merger",
+                                    text = stringResource(R.string.merge_empty_title),
                                     style = MaterialTheme.typography.titleLarge.copy(
                                         fontWeight = FontWeight.Bold,
                                         color = MaterialTheme.colorScheme.onSurface
@@ -356,7 +356,7 @@ fun MergeScreen(
                                 Spacer(modifier = Modifier.height(6.dp))
 
                                 Text(
-                                    text = "Pick multiple PDF files from your device to merge them losslessly into a single document using Apache PDFBox for Android.",
+                                    text = stringResource(R.string.merge_empty_desc),
                                     style = MaterialTheme.typography.bodyMedium.copy(
                                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                                         textAlign = androidx.compose.ui.text.style.TextAlign.Center
@@ -403,7 +403,7 @@ fun MergeScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Selected Documents (${pdfDocuments.size})",
+                                text = stringResource(R.string.merge_selected_docs, pdfDocuments.size),
                                 style = MaterialTheme.typography.titleMedium.copy(
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onSurface
@@ -439,7 +439,7 @@ fun MergeScreen(
                                 item {
                                     PdfDocumentPreviewCard(
                                         uri = pdfDocuments.first().uri,
-                                        title = "First Document Preview (${pdfDocuments.first().title})"
+                                        title = stringResource(R.string.merge_first_doc_preview, pdfDocuments.first().title)
                                     )
                                     Spacer(modifier = Modifier.height(4.dp))
                                 }
@@ -486,7 +486,7 @@ fun MergeScreen(
                                              Spacer(modifier = Modifier.height(2.dp))
                                             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                                 Text(
-                                                    text = "${doc.pageCount} pages",
+                                                    text = stringResource(R.string.common_pages_count, doc.pageCount),
                                                     fontSize = 11.sp,
                                                     color = MaterialTheme.colorScheme.primary,
                                                     fontWeight = FontWeight.SemiBold
@@ -517,7 +517,7 @@ fun MergeScreen(
                                             ) {
                                                 Icon(
                                                     imageVector = Icons.Default.Visibility,
-                                                    contentDescription = "Preview Document",
+                                                    contentDescription = stringResource(R.string.merge_preview_doc),
                                                     tint = MaterialTheme.colorScheme.primary,
                                                     modifier = Modifier.size(18.dp)
                                                 )
@@ -530,7 +530,7 @@ fun MergeScreen(
                                             ) {
                                                 Icon(
                                                     imageVector = Icons.Default.ArrowUpward,
-                                                    contentDescription = "Move Up",
+                                                    contentDescription = stringResource(R.string.merge_move_up),
                                                     tint = if (index > 0) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f),
                                                     modifier = Modifier.size(18.dp)
                                                 )
@@ -543,7 +543,7 @@ fun MergeScreen(
                                             ) {
                                                 Icon(
                                                     imageVector = Icons.Default.ArrowDownward,
-                                                    contentDescription = "Move Down",
+                                                    contentDescription = stringResource(R.string.merge_move_down),
                                                     tint = if (index < pdfDocuments.size - 1) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f),
                                                     modifier = Modifier.size(18.dp)
                                                 )
@@ -555,7 +555,7 @@ fun MergeScreen(
                                             ) {
                                                 Icon(
                                                     imageVector = Icons.Default.Delete,
-                                                    contentDescription = "Remove",
+                                                    contentDescription = stringResource(R.string.action_remove),
                                                     tint = MaterialTheme.colorScheme.error,
                                                     modifier = Modifier.size(18.dp)
                                                 )
@@ -661,7 +661,7 @@ fun MergeScreen(
                                 Spacer(modifier = Modifier.height(18.dp))
 
                                 Text(
-                                    text = "No Pages in Studio Grid",
+                                    text = stringResource(R.string.merge_studio_empty_title),
                                     style = MaterialTheme.typography.titleLarge.copy(
                                         fontWeight = FontWeight.Bold,
                                         color = MaterialTheme.colorScheme.onSurface
@@ -671,7 +671,7 @@ fun MergeScreen(
                                 Spacer(modifier = Modifier.height(6.dp))
 
                                 Text(
-                                    text = "Import PDF files or Images (JPG, PNG, WEBP) from your device to visually drag, reorder, rotate, and mix individual pages together.",
+                                    text = stringResource(R.string.merge_studio_empty_desc),
                                     style = MaterialTheme.typography.bodyMedium.copy(
                                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                                         textAlign = androidx.compose.ui.text.style.TextAlign.Center
@@ -719,7 +719,7 @@ fun MergeScreen(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Text(
-                                    text = "Batch Page & Document Tools",
+                                    text = stringResource(R.string.merge_batch_tools),
                                     style = MaterialTheme.typography.bodyMedium.copy(
                                         fontWeight = FontWeight.Bold,
                                         color = MaterialTheme.colorScheme.onSurface
@@ -736,7 +736,7 @@ fun MergeScreen(
                                     colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.primary)
                                 ) {
                                     Text(
-                                        text = if (selectedIds.size == pages.size) "Deselect All" else "Select All",
+                                        text = if (selectedIds.size == pages.size) stringResource(R.string.action_deselect_all) else stringResource(R.string.action_select_all),
                                         fontSize = 12.sp,
                                         fontWeight = FontWeight.Bold
                                     )
@@ -753,7 +753,7 @@ fun MergeScreen(
                                 // Entire Document Rotation options
                                 Column(modifier = Modifier.weight(1f)) {
                                     Text(
-                                        text = "Rotate Entire Document:",
+                                        text = stringResource(R.string.merge_rotate_entire),
                                         fontSize = 11.sp,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                                         fontWeight = FontWeight.SemiBold
@@ -781,7 +781,7 @@ fun MergeScreen(
                                 Column(modifier = Modifier.weight(1f)) {
                                     val hasSelection = selectedIds.isNotEmpty()
                                     Text(
-                                        text = if (hasSelection) "Rotate Selected (${selectedIds.size}):" else "Rotate Selected (Select below):",
+                                        text = if (hasSelection) stringResource(R.string.merge_rotate_selected, selectedIds.size) else stringResource(R.string.merge_rotate_selected_hint),
                                         fontSize = 11.sp,
                                         color = if (hasSelection) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                                         fontWeight = FontWeight.SemiBold

@@ -115,8 +115,9 @@ fun SplitScreen(
                                     overflow = TextOverflow.Ellipsis
                                 )
                                 Text(
-                                    text = sourceFile?.let { "${it.name} ($totalPages pages • ${PdfEngine.formatFileSize(it.length())})" }
-                                        ?: stringResource(R.string.tool_split_desc),
+                                    text = sourceFile?.let {
+                                        stringResource(R.string.common_file_pages_size, it.name, totalPages, PdfEngine.formatFileSize(it.length()))
+                                    } ?: stringResource(R.string.tool_split_desc),
                                     style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
                                     maxLines = 1,
                                     overflow = TextOverflow.Ellipsis
@@ -330,13 +331,13 @@ fun SplitScreen(
                                     ) {
                                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                             Text(
-                                                text = "Combine Selected",
+                                                text = stringResource(R.string.split_combine_selected),
                                                 fontSize = 12.sp,
                                                 color = if (isCombine) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface,
                                                 fontWeight = FontWeight.Bold
                                             )
                                             Text(
-                                                text = "Extract to 1 single PDF",
+                                                text = stringResource(R.string.split_combine_desc),
                                                 fontSize = 10.sp,
                                                 color = if (isCombine) MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f) else MaterialTheme.colorScheme.onSurfaceVariant
                                             )
@@ -361,13 +362,13 @@ fun SplitScreen(
                                     ) {
                                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                             Text(
-                                                text = "Individual Files",
+                                                text = stringResource(R.string.split_individual_files),
                                                 fontSize = 12.sp,
                                                 color = if (isSeparate) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface,
                                                 fontWeight = FontWeight.Bold
                                             )
                                             Text(
-                                                text = "Extract each to its own PDF",
+                                                text = stringResource(R.string.split_individual_desc),
                                                 fontSize = 10.sp,
                                                 color = if (isSeparate) MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f) else MaterialTheme.colorScheme.onSurfaceVariant
                                             )
@@ -460,7 +461,7 @@ fun SplitScreen(
                                         color = MaterialTheme.colorScheme.onSurface
                                     )
                                     Text(
-                                        text = "$totalPages pages • Tap for thumbnail grid, rotate, or delete",
+                                        text = stringResource(R.string.split_pages_tap_hint, totalPages),
                                         style = MaterialTheme.typography.labelSmall,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                                         maxLines = 1,
@@ -623,7 +624,7 @@ fun SplitScreen(
                                         if (bmp != null) {
                                             Image(
                                                 bitmap = bmp.asImageBitmap(),
-                                                contentDescription = "Page ${pageIdx + 1}",
+                                                contentDescription = stringResource(R.string.common_page_number, pageIdx + 1),
                                                 contentScale = ContentScale.Fit,
                                                 alpha = if (isDeleted) 0.35f else 1f,
                                                 modifier = Modifier
@@ -689,16 +690,16 @@ fun SplitScreen(
                                     .padding(end = 8.dp)
                             ) {
                                 Text(
-                                    text = "${selectedPages.size} of $totalPages pages selected",
+                                    text = stringResource(R.string.split_selected_of_total, selectedPages.size, totalPages),
                                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface),
                                     maxLines = 1,
                                     overflow = TextOverflow.Ellipsis
                                 )
                                 Text(
                                     text = if (splitMode == SplitMode.COMBINE_SELECTED) {
-                                        "Creates 1 extracted PDF document"
+                                        stringResource(R.string.split_creates_one)
                                     } else {
-                                        "Creates ${selectedPages.size} separate PDF documents"
+                                        stringResource(R.string.split_creates_separate, selectedPages.size)
                                     },
                                     style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
                                     maxLines = 1,
@@ -716,7 +717,7 @@ fun SplitScreen(
                                 Icon(imageVector = Icons.Default.ContentCut, contentDescription = null)
                                 Spacer(modifier = Modifier.width(6.dp))
                                 Text(
-                                    text = if (splitMode == SplitMode.COMBINE_SELECTED) "Export Combined PDF" else "Export Individual Pages",
+                                    text = if (splitMode == SplitMode.COMBINE_SELECTED) stringResource(R.string.split_export_combined) else stringResource(R.string.split_export_individual),
                                     fontWeight = FontWeight.Bold,
                                     maxLines = 1,
                                     softWrap = false
