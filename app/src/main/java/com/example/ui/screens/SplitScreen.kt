@@ -10,12 +10,15 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.RotateRight
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -60,6 +63,7 @@ fun SplitScreen(
     var previewInitialPage by remember { mutableIntStateOf(0) }
     var previewStartInGrid by remember { mutableStateOf(true) }
     var showAdvancedControls by remember { mutableStateOf(true) }
+    var customRangeText by remember { mutableStateOf("") }
 
     val filePickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument()
@@ -189,7 +193,9 @@ fun SplitScreen(
                     if (totalPages > 0) {
                         Spacer(modifier = Modifier.height(8.dp))
                         Row(
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .horizontalScroll(rememberScrollState()),
                             horizontalArrangement = Arrangement.spacedBy(6.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
@@ -277,7 +283,6 @@ fun SplitScreen(
                             Column {
                                 Spacer(modifier = Modifier.height(8.dp))
 
-                                var customRangeText by remember { mutableStateOf("") }
                                 Row(
                                     modifier = Modifier.fillMaxWidth(),
                                     horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -559,7 +564,7 @@ fun SplitScreen(
                                                     .testTag("split_rotate_page_$pageIdx")
                                             ) {
                                                 Icon(
-                                                    imageVector = Icons.Default.RotateRight,
+                                                    imageVector = Icons.AutoMirrored.Filled.RotateRight,
                                                     contentDescription = stringResource(R.string.tool_rotate_title),
                                                     tint = if (angle % 360 != 0) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                                                     modifier = Modifier.size(15.dp)

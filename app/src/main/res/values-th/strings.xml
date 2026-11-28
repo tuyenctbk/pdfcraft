@@ -11,7 +11,7 @@
     <string name="onboarding_skip">ข้าม</string>
     <string name="onboarding_next">ถัดไป</string>
     <string name="onboarding_get_started">เริ่มต้นใช้งาน</string>
-    <string name="onboarding_title_1">ประมวลผลบนอุปกรณ์ 100% ปลอดภัย</string>
+    <string name="onboarding_title_1" formatted="false">ประมวลผลบนอุปกรณ์ 100% ปลอดภัย</string>
     <string name="onboarding_desc_1">รวม แยก และย่อขนาดไฟล์ PDF ได้โดยตรงบนเครื่องของคุณโดยไม่ต้องอัปโหลดขึ้นคลาวด์</string>
     <string name="onboarding_title_2">สิทธิ์เข้าถึงพื้นที่จัดเก็บ</string>
     <string name="onboarding_desc_2">อนุญาตสิทธิ์เข้าถึงพื้นที่จัดเก็บเพื่อให้ PDFCraft สามารถนำเข้าและบันทึกไฟล์ PDF ได้อย่างง่ายดาย</string>
@@ -81,7 +81,7 @@
     <string name="hub_metric_processed">PROCESSED</string>
     <string name="hub_metric_saved">SPACE SAVED</string>
     <string name="hub_metric_privacy">DATA PRIVACY</string>
-    <string name="hub_privacy_value">100% Local</string>
+    <string name="hub_privacy_value" formatted="false">100% Local</string>
     <string name="hub_quick_actions">Quick Actions</string>
     <string name="hub_view_all_tools">ดูเครื่องมือทั้งหมด 15 รายการ</string>
     <string name="hub_recent_activity">Recent Documents</string>
@@ -300,7 +300,7 @@
     <string name="nav_library">คลังเอกสาร</string>
     <string name="nav_settings">การตั้งค่า</string>
     <string name="support_dev_title">สนับสนุนนักพัฒนา</string>
-    <string name="support_dev_subtitle">PDFCraft ฟรี 100% ใช้งานออฟไลน์และเป็นส่วนตัวโดยไม่ต้องสมัครสมาชิก หากมีประโยชน์ โปรดเลี้ยงกาแฟเพื่อสนับสนุนการพัฒนา!</string>
+    <string name="support_dev_subtitle" formatted="false">PDFCraft ฟรี 100% ใช้งานออฟไลน์และเป็นส่วนตัวโดยไม่ต้องสมัครสมาชิก หากมีประโยชน์ โปรดเลี้ยงกาแฟเพื่อสนับสนุนการพัฒนา!</string>
     <string name="support_coffee_small">เลี้ยงกาแฟ ($3)</string>
     <string name="support_coffee_medium">เลี้ยงอาหารกลางวัน ($5)</string>
     <string name="support_coffee_large">ผู้สนับสนุนระดับสุดยอด ($10)</string>
@@ -312,7 +312,7 @@
     <string name="support_hub_banner_subtitle">สนับสนุนการพัฒนา PDF แบบออฟไลน์และเป็นส่วนตัวด้วยกาแฟ</string>
     <string name="support_thank_you">ขอบคุณที่สนับสนุนการพัฒนาซอฟต์แวร์อิสระ!</string>
     <string name="rate_dialog_title">ชอบ PDFCraft หรือไม่?</string>
-    <string name="rate_dialog_desc">คะแนนของคุณช่วยให้เราคงความเป็นออฟไลน์ ความเป็นส่วนตัว และฟีเจอร์ครบครันของ PDFCraft!</string>
+    <string name="rate_dialog_desc" formatted="false">คะแนนของคุณช่วยให้เราคงความเป็นออฟไลน์ ความเป็นส่วนตัว และฟีเจอร์ครบครันของ PDFCraft!</string>
     <string name="rate_dialog_rate_5_stars">ให้ 5 ดาวบน Play Store</string>
     <string name="rate_dialog_submit">ส่งคะแนน</string>
     <string name="rate_dialog_maybe_later">ไว้คราวหลัง</string>
@@ -320,7 +320,7 @@
     <string name="rate_feedback_thanks">ขอบคุณสำหรับข้อเสนอแนะ!</string>
     <string name="share_dialog_title">แชร์ PDFCraft ให้เพื่อน</string>
     <string name="share_dialog_desc">ช่วยเพื่อนร่วมงานและเพื่อนๆ รวม แยก บีบอัด และล็อก PDF แบบออฟไลน์ได้อย่างง่ายดาย!</string>
-    <string name="share_dialog_bullet_offline">เครื่องมือประมวลผลบนเครื่องแบบออฟไลน์ 100%</string>
+    <string name="share_dialog_bullet_offline" formatted="false">เครื่องมือประมวลผลบนเครื่องแบบออฟไลน์ 100%</string>
     <string name="share_dialog_bullet_tools">รวม แยก บีบอัด และหมุน PDF</string>
     <string name="share_dialog_bullet_security">ล็อกรหัสผ่านและการดึงรูปภาพ</string>
     <string name="share_dialog_share_button">แชร์แอป PDFCraft</string>
@@ -369,7 +369,7 @@
     <string name="settings_pref_subtitle">ปรับแต่งประสบการณ์และความปลอดภัยใน PDFCraft ของคุณ</string>
     <string name="settings_theme_appearance">ลักษณะธีม</string>
     <string name="settings_security_privacy">ความปลอดภัยและความเป็นส่วนตัว</string>
-    <string name="settings_security_privacy_desc">การดำเนินการ PDF ทั้งหมดทำงานบนอุปกรณ์ 100% ไม่มีการอัปโหลดเนื้อหาเอกสารไปยังเซิร์ฟเวอร์ภายนอก</string>
+    <string name="settings_security_privacy_desc" formatted="false">การดำเนินการ PDF ทั้งหมดทำงานบนอุปกรณ์ 100% ไม่มีการอัปโหลดเนื้อหาเอกสารไปยังเซิร์ฟเวอร์ภายนอก</string>
     <string name="settings_cloud_sync_title">การซิงค์บนคลาวด์และบัญชี</string>
     <string name="settings_cloud_sync_signed_in">ลงชื่อเข้าใช้เป็น %1$s การตั้งค่าและประวัติของคุณสามารถซิงค์ได้อย่างปลอดภัย</string>
     <string name="settings_cloud_sync_signed_out">ลงชื่อเข้าใช้เพื่อซิงค์การตั้งค่าและประวัติในอุปกรณ์ต่างๆ</string>
@@ -397,7 +397,7 @@
 
     <!-- Donation & Multi-Method Support Expansion -->
     <string name="support_hub_compact_title">ชอบ PDFCraft ไหม? ☕</string>
-    <string name="support_hub_compact_subtitle">ช่วยให้ PDFCraft ใช้งานแบบออฟไลน์และเป็นส่วนตัว 100%</string>
+    <string name="support_hub_compact_subtitle" formatted="false">ช่วยให้ PDFCraft ใช้งานแบบออฟไลน์และเป็นส่วนตัว 100%</string>
     <string name="support_hub_btn_tip">สนับสนุน ☕</string>
     <string name="support_hub_dismiss">ปิด</string>
     <string name="support_tab_google_play">Google Play</string>
@@ -410,7 +410,7 @@
     <string name="support_tip_supporter">ผู้สนับสนุนระดับซูเปอร์ ($9.99) 🚀</string>
     <string name="support_tip_hero">ผู้สนับสนุนระดับฮีโร่ ($19.99) 👑</string>
     <string name="support_thank_you_title">ขอบพระคุณเป็นอย่างยิ่งสำหรับการสนับสนุน! ❤️</string>
-    <string name="support_thank_you_desc">ความช่วยเหลือของคุณช่วยให้ PDFCraft ใช้งานได้ฟรี ออฟไลน์ และปลอดภัย</string>
+    <string name="support_thank_you_desc" formatted="false">ความช่วยเหลือของคุณช่วยให้ PDFCraft ใช้งานได้ฟรี ออฟไลน์ และปลอดภัย</string>
     <string name="support_status_active">ผู้สนับสนุนที่ใช้งานอยู่ ⭐</string>
     <string name="support_crypto_title">สนับสนุนด้วยคริปโต (USDT / BTC)</string>
     <string name="support_crypto_desc">การสนับสนุนแบบกระจายศูนย์สำหรับเครื่องมือส่วนตัว</string>
@@ -424,7 +424,7 @@
     <string name="recent_selected_count">เลือกแล้ว (%1$d/%2$d)</string>
     <string name="recent_search_hint">ค้นหา PDF ล่าสุด…</string>
     <string name="recent_no_match">ไม่พบ PDF ที่ตรงกัน: %1$s</string>
-    <string name="dialog_feature_processing_title">ประมวลผลในเครื่อง 100%</string>
+    <string name="dialog_feature_processing_title" formatted="false">ประมวลผลในเครื่อง 100%</string>
     <string name="dialog_feature_processing_desc">การดำเนินการ PDF การหมุน การแยก การบีบอัด และการส่งออกรูปภาพทั้งหมดทำงานภายในเครื่อง</string>
     <string name="dialog_feature_privacy_title">ไม่มีการอัปโหลดขึ้นคลาวด์</string>
     <string name="dialog_feature_privacy_desc">เอกสารภาษี ใบแจ้งหนี้ สัญญา และเอกสารส่วนตัวของคุณจะไม่ถูกส่งไปยังเซิร์ฟเวอร์ภายนอกเด็ดขาด</string>
@@ -485,8 +485,8 @@
     <string name="common_unknown">ไม่ทราบ</string>
     <string name="common_none">ไม่มี</string>
     <string name="brand_studio_badge">สตูดิโอ</string>
-    <string name="brand_offline_status">100% บนอุปกรณ์ • ออฟไลน์</string>
-    <string name="brand_splash_tagline">100% บนอุปกรณ์ • ไม่อัปโหลด</string>
+    <string name="brand_offline_status" formatted="false">100% บนอุปกรณ์ • ออฟไลน์</string>
+    <string name="brand_splash_tagline" formatted="false">100% บนอุปกรณ์ • ไม่อัปโหลด</string>
     <string name="cd_studio_logo">โลโก้ PDFCraft Studio</string>
     <string name="cd_privacy_info">ความเป็นส่วนตัวและข้อมูลแอป</string>
     <string name="cd_toggle_theme">สลับธีมสว่าง/มืด</string>
@@ -519,10 +519,10 @@
     <string name="coachmark_step2_try">ลองใช้เครื่องมือแยก</string>
     <string name="coachmark_step3_badge">เครื่องมือ 3 จาก 4 • ลดขนาดไฟล์</string>
     <string name="coachmark_step3_title">บีบอัดและลดขนาด PDF</string>
-    <string name="coachmark_step3_summary">ลดขนาดไฟล์ PDF ขนาดใหญ่ได้สูงสุด 80% สำหรับอีเมลหรือแชทโดยยังคงความคมชัด</string>
+    <string name="coachmark_step3_summary" formatted="false">ลดขนาดไฟล์ PDF ขนาดใหญ่ได้สูงสุด 80% สำหรับอีเมลหรือแชทโดยยังคงความคมชัด</string>
     <string name="coachmark_step3_tip1">เลือกคุณภาพสูงสุด สมดุล หรือกะทัดรัด</string>
     <string name="coachmark_step3_tip2">บีบอัดหลายไฟล์ PDF พร้อมกันเป็นชุดได้ตามต้องการ</string>
-    <string name="coachmark_step3_tip3">ประมวลผลออฟไลน์ 100% — เอกสารไม่ออกจากเครื่องของคุณ</string>
+    <string name="coachmark_step3_tip3" formatted="false">ประมวลผลออฟไลน์ 100% — เอกสารไม่ออกจากเครื่องของคุณ</string>
     <string name="coachmark_step3_try">ลองใช้การบีบอัด</string>
     <string name="coachmark_step4_badge">เครื่องมือ 4 จาก 4 • แก้ไขหน้าเร็ว</string>
     <string name="coachmark_step4_title">หมุน ลบ และดูตัวอย่างหน้า</string>
@@ -602,7 +602,7 @@
     <string name="compress_selected_files">ไฟล์ที่เลือก (%1$d)</string>
     <string name="compress_batch_preset">ค่าบีบอัดแบบชุด</string>
     <string name="compress_empty_title">ปรับขนาดและแยกรูป</string>
-    <string name="compress_empty_desc">ลดขนาดไฟล์ได้สูงสุด 80% ไม่ง้อคลาวด์ หรือแยกรูปทุกหน้าความละเอียดสูงบนเครื่อง</string>
+    <string name="compress_empty_desc" formatted="false">ลดขนาดไฟล์ได้สูงสุด 80% ไม่ง้อคลาวด์ หรือแยกรูปทุกหน้าความละเอียดสูงบนเครื่อง</string>
     <string name="compress_input_preview">ตัวอย่างเอกสาร</string>
     <string name="compress_choose_level">เลือกระดับการบีบอัด</string>
     <string name="compress_est_impact">ขนาดไฟล์โดยประมาณ</string>
@@ -761,11 +761,11 @@
     <string name="recent_page_1_preview">ตัวอย่าง PDF หน้า 1</string>
     <string name="recent_no_preview">ไม่มีตัวอย่าง</string>
     <string name="recent_pages_and_size">%1$d หน้า • %2$s</string>
-    <string name="support_card_tagline">ออฟไลน์ 100% • ส่วนตัว • นักพัฒนาอิสระ</string>
+    <string name="support_card_tagline" formatted="false">ออฟไลน์ 100% • ส่วนตัว • นักพัฒนาอิสระ</string>
     <string name="support_badge_optional">❤️ ตามสมัครใจ</string>
     <string name="support_badge_unlocked">ปลดล็อกแล้ว</string>
     <string name="support_badge_active">ใช้งานอยู่</string>
-    <string name="support_iap_disclosure">ทิปครั้งเดียวตามสมัครใจ 100% ผ่าน Google Play, Google Pay หรือบัตร ไม่มีค่าใช้จ่ายซ้ำหรือการสมัครสมาชิก</string>
+    <string name="support_iap_disclosure" formatted="false">ทิปครั้งเดียวตามสมัครใจ 100% ผ่าน Google Play, Google Pay หรือบัตร ไม่มีค่าใช้จ่ายซ้ำหรือการสมัครสมาชิก</string>
     <string name="support_confirm_title">ยืนยันการสนับสนุน 1 แตะ</string>
     <string name="support_badge_one_time">ครั้งเดียว</string>
     <string name="support_send_amount">ส่ง %1$s</string>
@@ -780,7 +780,7 @@
     <string name="billing_tip_snack_title">กาแฟและครัวซองต์</string>
     <string name="billing_tip_snack_desc">เติมพลังพัฒนาฟีเจอร์ใหม่ตลอดบ่าย</string>
     <string name="billing_tip_supporter_title">ผู้สนับสนุนระดับซูเปอร์</string>
-    <string name="billing_tip_supporter_desc">ช่วยให้ PDFCraft ออฟไลน์ 100% และเป็นส่วนตัว</string>
+    <string name="billing_tip_supporter_desc" formatted="false">ช่วยให้ PDFCraft ออฟไลน์ 100% และเป็นส่วนตัว</string>
     <string name="billing_tip_hero_title">ผู้สนับสนุนระดับฮีโร่</string>
     <string name="billing_tip_hero_desc">คำขอบคุณตลอดไปและป้ายถาวร</string>
     <string name="billing_error_init">เริ่มต้น Google Play Billing ไม่สำเร็จ</string>

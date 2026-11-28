@@ -179,15 +179,21 @@ fun PdfToImagesScreen(
                     )
                     TextButton(
                         onClick = {
-                            val uris = exportedImages.map {
-                                FileProvider.getUriForFile(context, "${context.packageName}.provider", it)
+                            try {
+                                val uris = exportedImages.filter { it.exists() }.map {
+                                    FileProvider.getUriForFile(context, "${context.packageName}.provider", it)
+                                }
+                                if (uris.isNotEmpty()) {
+                                    val shareIntent = Intent(Intent.ACTION_SEND_MULTIPLE).apply {
+                                        type = "image/*"
+                                        putParcelableArrayListExtra(Intent.EXTRA_STREAM, ArrayList(uris))
+                                        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                                    }
+                                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.action_share)))
+                                }
+                            } catch (e: Exception) {
+                                viewModel.showUserMessage(e.localizedMessage ?: context.getString(R.string.picker_error_reading_file))
                             }
-                            val shareIntent = Intent(Intent.ACTION_SEND_MULTIPLE).apply {
-                                type = "image/*"
-                                putParcelableArrayListExtra(Intent.EXTRA_STREAM, ArrayList(uris))
-                                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                            }
-                            context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.action_share)))
                         }
                     ) {
                         Icon(Icons.Default.Share, contentDescription = null, modifier = Modifier.size(16.dp))
@@ -212,12 +218,18 @@ fun PdfToImagesScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable {
-                                    val uri = FileProvider.getUriForFile(context, "${context.packageName}.provider", file)
-                                    val viewIntent = Intent(Intent.ACTION_VIEW).apply {
-                                        setDataAndType(uri, "image/*")
-                                        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                                    try {
+                                        if (file.exists()) {
+                                            val uri = FileProvider.getUriForFile(context, "${context.packageName}.provider", file)
+                                            val viewIntent = Intent(Intent.ACTION_VIEW).apply {
+                                                setDataAndType(uri, "image/*")
+                                                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                                            }
+                                            context.startActivity(Intent.createChooser(viewIntent, context.getString(R.string.pdf_to_images_view_page, index + 1)))
+                                        }
+                                    } catch (e: Exception) {
+                                        viewModel.showUserMessage(e.localizedMessage ?: context.getString(R.string.picker_error_reading_file))
                                     }
-                                    context.startActivity(Intent.createChooser(viewIntent, context.getString(R.string.pdf_to_images_view_page, index + 1)))
                                 }
                         ) {
                             Column(modifier = Modifier.padding(6.dp)) {

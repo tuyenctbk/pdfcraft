@@ -83,29 +83,25 @@ fun PdfBoxPreviewDialog(
 ) {
     val context = LocalContext.current
 
-    var currentPageIndex by remember { mutableIntStateOf(0) }
-    var totalPages by remember { mutableIntStateOf(1) }
-    var currentBitmap by remember { mutableStateOf<Bitmap?>(null) }
-    var isLoadingPage by remember { mutableStateOf(true) }
-    var metadata by remember { mutableStateOf<PdfBoxDocumentMetadata?>(null) }
+    var currentPageIndex by remember(pdfUri) { mutableIntStateOf(0) }
+    var totalPages by remember(pdfUri) { mutableIntStateOf(1) }
+    var currentBitmap by remember(pdfUri) { mutableStateOf<Bitmap?>(null) }
+    var isLoadingPage by remember(pdfUri) { mutableStateOf(true) }
+    var metadata by remember(pdfUri) { mutableStateOf<PdfBoxDocumentMetadata?>(null) }
     var showMetadataDetails by remember { mutableStateOf(false) }
 
-    var rotationDegrees by remember { mutableIntStateOf(0) }
+    var rotationDegrees by remember(pdfUri) { mutableIntStateOf(0) }
     var scaleFactor by remember { mutableFloatStateOf(1.2f) }
 
     LaunchedEffect(pdfUri) {
-        isLoadingPage = true
         val meta = PdfBoxPreviewService.getDocumentMetadataWithPdfBox(context, pdfUri)
         metadata = meta
         if (meta != null && meta.totalPages > 0) {
             totalPages = meta.totalPages
         }
-        val bmp = PdfBoxPreviewService.renderPageBitmapWithPdfBox(context, pdfUri, currentPageIndex, scaleFactor)
-        currentBitmap = bmp
-        isLoadingPage = false
     }
 
-    LaunchedEffect(currentPageIndex, scaleFactor) {
+    LaunchedEffect(pdfUri, currentPageIndex, scaleFactor) {
         isLoadingPage = true
         val bmp = PdfBoxPreviewService.renderPageBitmapWithPdfBox(context, pdfUri, currentPageIndex, scaleFactor)
         currentBitmap = bmp

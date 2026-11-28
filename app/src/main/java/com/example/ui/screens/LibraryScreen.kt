@@ -98,17 +98,17 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.TextButton
 
+import androidx.compose.material.icons.automirrored.filled.BrandingWatermark
+import androidx.compose.material.icons.automirrored.filled.Sort
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Sort
 import androidx.compose.material.icons.filled.SwapVert
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 
 import androidx.compose.material3.Checkbox
 import androidx.compose.material.icons.filled.DriveFileRenameOutline
 
-enum class LibrarySortOption(@androidx.annotation.StringRes val titleRes: Int) {
+enum class LibrarySortOption(@param:androidx.annotation.StringRes val titleRes: Int) {
     DATE_CREATED(R.string.library_sort_date_created),
     FILE_SIZE(R.string.library_sort_file_size),
     ALPHABETICAL(R.string.library_sort_alphabetical)
@@ -380,7 +380,7 @@ fun LibraryScreen(
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
                                         Icon(
-                                            imageVector = Icons.Default.Sort,
+                                            imageVector = Icons.AutoMirrored.Filled.Sort,
                                             contentDescription = stringResource(R.string.library_sort_options),
                                             tint = MaterialTheme.colorScheme.primary,
                                             modifier = Modifier.size(16.dp)
@@ -573,7 +573,7 @@ fun LibraryScreen(
                                 PdfOperationType.COMPRESS -> Icons.Default.Compress
                                 PdfOperationType.EXTRACT -> Icons.Default.Image
                                 PdfOperationType.ENCRYPT -> Icons.Default.Lock
-                                PdfOperationType.WATERMARK -> Icons.Default.BrandingWatermark
+                                PdfOperationType.WATERMARK -> Icons.AutoMirrored.Filled.BrandingWatermark
                                 PdfOperationType.SIGN -> Icons.Default.Draw
                                 PdfOperationType.METADATA -> Icons.Default.Tune
                                 PdfOperationType.ROTATE -> Icons.Default.Refresh
@@ -584,7 +584,6 @@ fun LibraryScreen(
                                 PdfOperationType.PDF_TO_IMAGES -> Icons.Default.PhotoLibrary
                                 PdfOperationType.HTML_TO_PDF -> Icons.Default.Code
                                 PdfOperationType.DOCUMENT_INFO -> Icons.Default.Info
-                                else -> Icons.Default.Description
                             }
                             Box(
                                 modifier = Modifier

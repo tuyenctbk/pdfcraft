@@ -72,9 +72,9 @@ fun PdfToTextScreen(
                     if (extractedText.isNotBlank()) {
                         IconButton(
                             onClick = {
-                                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
                                 val clip = ClipData.newPlainText("PDF Text", extractedText)
-                                clipboard.setPrimaryClip(clip)
+                                clipboard?.setPrimaryClip(clip)
                                 viewModel.showUserMessage(context.getString(R.string.action_copy) + " ✓")
                             },
                             modifier = Modifier.testTag("copy_extracted_text_button")
@@ -83,11 +83,15 @@ fun PdfToTextScreen(
                         }
                         IconButton(
                             onClick = {
-                                val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                                    type = "text/plain"
-                                    putExtra(Intent.EXTRA_TEXT, extractedText)
+                                try {
+                                    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                                        type = "text/plain"
+                                        putExtra(Intent.EXTRA_TEXT, extractedText)
+                                    }
+                                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.action_share)))
+                                } catch (e: Exception) {
+                                    viewModel.showUserMessage(e.localizedMessage ?: context.getString(R.string.picker_error_reading_file))
                                 }
-                                context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.action_share)))
                             },
                             modifier = Modifier.testTag("share_extracted_text_button")
                         ) {

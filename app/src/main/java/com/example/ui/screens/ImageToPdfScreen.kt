@@ -16,9 +16,11 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,7 +45,7 @@ fun ImageToPdfScreen(
     val isProcessing by viewModel.isProcessing.collectAsState()
     val outputName by viewModel.imageToPdfOutputName.collectAsState()
 
-    var tempCameraUri by remember { mutableStateOf<Uri?>(null) }
+    var tempCameraUri by rememberSaveable { mutableStateOf<Uri?>(null) }
 
     val imagePickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetMultipleContents()
@@ -102,7 +104,7 @@ fun ImageToPdfScreen(
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         IconButton(onClick = { viewModel.setActiveTool(null) }) {
-                            Icon(Icons.Default.ArrowBack, contentDescription = stringResource(R.string.action_back), tint = MaterialTheme.colorScheme.onSurface)
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.action_back), tint = MaterialTheme.colorScheme.onSurface)
                         }
                         Spacer(modifier = Modifier.width(8.dp))
                         Column {

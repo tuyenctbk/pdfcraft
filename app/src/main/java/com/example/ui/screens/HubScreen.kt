@@ -15,6 +15,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.automirrored.filled.HelpOutline
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.automirrored.filled.RotateRight
 import androidx.compose.material3.*
@@ -546,7 +547,7 @@ fun HubScreen(
                                 .testTag("hub_replay_tour_button")
                         ) {
                             Icon(
-                                imageVector = Icons.Default.HelpOutline,
+                                imageVector = Icons.AutoMirrored.Filled.HelpOutline,
                                 contentDescription = stringResource(R.string.hub_feature_guide),
                                 tint = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier.size(18.dp)

@@ -1,5 +1,5 @@
 language_code,language_name,app_name,short_description,full_description
-en,English,PDFCraft: PDF Reader & Tools,"Offline PDF reader with night mode, voice read aloud, merge, compress & sign.","PDFCraft is a private, offline PDF reader and document toolkit designed to view, convert, and manage PDF files directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, academic, and business documents.
+en,English,PDFCraft: PDF Reader & Tools,"Offline PDF reader with night mode, voice TTS, merge, split, compress & inspect.","PDFCraft is a private, offline PDF reader and document toolkit designed to view, convert, and manage PDF files directly on your device. All operations run locally with zero cloud uploads, ensuring complete confidentiality for your personal, academic, and business documents.
 
 SMART PDF READER & VOICE
 • Eye-Comfort Reading Modes: Switch seamlessly between Standard Day, Dark Night Invert, and Warm Sepia reading filters.
@@ -7,11 +7,11 @@ SMART PDF READER & VOICE
 • Fast Navigation & Search: Scrub through multi-page documents with the interactive page slider, pinch-to-zoom up to 4.5x, double-tap zoom, and instant full-text search.
 • Native Print & Share: Print documents directly via Android Print services or send the open PDF into any editing tool in one tap.
 
-14 OFFLINE PDF TOOLS
+15 OFFLINE PDF TOOLS
 • Merge & Reorder: Combine multiple PDFs, images, and text files into a single document with custom page ordering.
 • Split & Extract: Extract specific pages, page ranges, or divide multi-page documents into separate files.
 • Compress PDF: Reduce document file sizes with balanced, web, and high-compression presets.
-• Sign Documents: Draw handwritten electronic signatures and apply them directly onto PDF pages.
+• Sign Documents: Apply clean digital signature stamps with signer name, approval reason, and timestamp onto PDF pages.
 • Protect & Encrypt: Secure confidential documents with 128-bit AES password protection and permission controls.
 • Watermark: Stamp custom text or image watermarks with adjustable opacity, rotation, and position.
 • Rotate Pages: Rotate individual or all pages by 90, 180, or 270 degrees.
@@ -23,9 +23,11 @@ SMART PDF READER & VOICE
   - PDF to Text: Extract selectable text and word statistics from PDF documents.
   - HTML to PDF: Convert HTML markup and styled tables into clean PDFs.
 • Edit Metadata: Inspect and update document title, author, subject, and keywords.
+• Document Info Inspector: Inspect page format and dimensions, PDF version, security permissions, creation history, and copy or share a full report.
 
 PRIVACY & PERFORMANCE
 • 100% On-Device Processing: Works completely offline with no internet required. Your files never leave your device.
+• Seamless Workflow & Library: Open PDFs or share files directly from other apps, batch compress multiple PDFs, rotate or delete pages inside live thumbnail grid preview, auto-save exports to Downloads/PDFCraft, and organize files with search, sort, favorites, and bulk rename.
 • Adaptive Material 3 UI: Optimized for smartphones, tablets, foldables, and Android TV with D-pad navigation."
 es,Spanish,PDFCraft: Lector y Editor PDF,"Lector PDF offline con modo noche, lectura en voz alta, unir, comprimir y firma.","PDFCraft es un lector y kit de herramientas PDF privado y sin conexion, disenado para ver, convertir y gestionar documentos directamente en su dispositivo. Todas las operaciones se ejecutan localmente sin subir archivos a la nube, garantizando absoluta confidencialidad para sus documentos personales y profesionales.
 
@@ -35,11 +37,11 @@ LECTOR PDF INTELIGENTE Y VOZ
 • Navegacion y Busqueda Rapida: Desplacese por documentos extensos con el control deslizante, zoom tactil de hasta 4.5x, doble toque y busqueda de texto.
 • Imprimir y Compartir: Imprima directamente con los servicios de Android o comparta el documento en cualquier herramienta con un toque.
 
-14 HERRAMIENTAS PDF SIN CONEXION
+15 HERRAMIENTAS PDF SIN CONEXION
 • Unir y Reordenar: Combine multiples archivos PDF, imagenes y notas en un solo documento con orden personalizado.
 • Dividir y Extraer: Extraiga paginas seleccionadas, rangos especificos o separe documentos en archivos independientes.
 • Comprimir PDF: Reduzca el tamano de los archivos con ajustes preestablecidos de compresion rapida y equilibrada.
-• Firmar Documentos: Dibuje firmas electronicas manuscritas y apliquelas directamente en las paginas.
+• Firmar Documentos: Aplique sellos de firma digital con nombre del firmante, motivo y marca de tiempo en páginas PDF.
 • Proteger y Cifrar: Proteja documentos confidenciales con contrasenas seguras y cifrado AES de 128 bits.
 • Marcas de Agua: Aplique sellos de texto personalizados con control de opacidad, angulo y posicion.
 • Rotar Paginas: Ajuste la orientacion de paginas individuales o completas en 90, 180 o 270 grados.
@@ -51,9 +53,11 @@ LECTOR PDF INTELIGENTE Y VOZ
   - PDF a Texto: Extraiga texto seleccionable y estadisticas de palabras.
   - HTML a PDF: Transforme documentos web y codigo HTML en documentos PDF nitidos.
 • Editar Metadatos: Modifique titulo, autor, asunto y palabras clave.
+• Inspector de Información PDF: Consulte formato y dimensiones de página, versión PDF, permisos de seguridad, historial y copie el informe completo.
 
 PRIVACIDAD Y RENDIMIENTO
 • 100% en el Dispositivo: Funciona completamente sin conexion a internet. Sus archivos nunca salen de su dispositivo.
+• Flujo Ágil y Biblioteca: Abra PDF o comparta archivos desde otras aplicaciones, comprima lotes de PDF, rote o elimine páginas desde la vista en cuadrícula, guarde automáticamente en Downloads/PDFCraft y organice con búsqueda, favoritos y renombrado masivo.
 • Interfaz Adaptable Material 3: Optimizada para telefonos, tabletas, plegables y Android TV con soporte D-Pad."
 fr,French,PDFCraft: Lecteur & Outils PDF,"Lecteur PDF hors ligne: mode nuit, lecture vocale, fusionner, compresser, signer","PDFCraft est un lecteur et studio d'outils PDF hors ligne et securise, concu pour consulter, convertir et organiser vos documents directement sur votre appareil. Toutes les operations s'executent localement sans aucun transfert vers le cloud, garantissant la confidentialite totale de vos fichiers personnels et professionnels.
 
@@ -63,11 +67,11 @@ LECTEUR PDF INTELLIGENT & VOCAL
 • Navigation & Recherche Instantanee: Parcourez vos documents grace au curseur de pages interactif, zoom tactile jusqu'a 4.5x, zoom par double frappe et recherche de texte.
 • Impression & Partage: Imprimez directement via les services Android ou partagez le fichier vers vos outils en un instant.
 
-14 OUTILS PDF HORS LIGNE
+15 OUTILS PDF HORS LIGNE
 • Fusionner & Reorganiser: Assemblez plusieurs PDF, images et textes en un seul document avec ordre personnalise.
 • Diviser & Extraire: Extrayez des pages precises, des plages de pages ou scindez vos documents volumineux.
 • Compresser PDF: Reduisez le poids de vos fichiers grace aux profils d'optimisation equilibres et avances.
-• Signer des Documents: Dessinez votre signature manuscrite electronique et apposez-la sur les pages.
+• Signer des Documents: Apposez des tampons de signature numérique avec nom du signataire, motif et horodatage sur vos PDF.
 • Proteger & Chiffrer: Verrouillez vos documents confidentiels avec mot de passe et chiffrement AES 128 bits.
 • Filigrane: Appliquez des filigranes textuels personnalises avec reglage d'opacite, d'angle et de position.
 • Faire Pivoter: Tournez les pages individuellement ou globalement a 90, 180 ou 270 degres.
@@ -79,11 +83,13 @@ LECTEUR PDF INTELLIGENT & VOCAL
   - PDF vers Texte: Extrayez le contenu textuel et visualisez les statistiques de mots.
   - HTML vers PDF: Convertissez du code HTML et des tableaux web en fichiers PDF impeccables.
 • Modifier les Metadonnees: Editez le titre, l'auteur, le sujet et les mots-cles.
+• Inspecteur d'Infos PDF: Vérifiez le format et les dimensions des pages, la version PDF, les autorisations de sécurité et copiez le rapport complet.
 
 CONFIDENTIALITE & FLUIDITE
 • Traitement 100% Local: Fonctionne completement sans connexion internet. Vos donnees restent sur votre appareil.
+• Flux Fluide et Bibliothèque: Ouvrez ou partagez des PDF depuis d'autres applications, compressez par lots, pivotez ou supprimez des pages en aperçu grille, enregistrez automatiquement dans Downloads/PDFCraft et gérez vos favoris et renommages par lots.
 • Interface Adaptative Material 3: Conçue pour smartphones, tablettes, ecrans pliables et Android TV."
-de,German,PDFCraft: PDF-Reader & Tools,"Offline-PDF-Reader mit Nachtmodus, Vorlesen, Zusammenfügen, Komprimieren & Sign.","PDFCraft ist ein privater Offline-PDF-Reader und Dokumenten-Werkzeugkasten zur direkten Anzeige, Konvertierung und Verwaltung von PDF-Dateien auf Ihrem Gerat. Alle Vorgange laufen lokal ohne Cloud-Uploads ab, was vollstandige Vertraulichkeit fur Ihre personlichen und geschaflichen Unterlagen garantiert.
+de,German,PDFCraft: PDF-Reader & Tools,"Offline-PDF-Reader mit Nachtmodus, Vorlesen, Zusammenfügen, Komprimieren & mehr.","PDFCraft ist ein privater Offline-PDF-Reader und Dokumenten-Werkzeugkasten zur direkten Anzeige, Konvertierung und Verwaltung von PDF-Dateien auf Ihrem Gerat. Alle Vorgange laufen lokal ohne Cloud-Uploads ab, was vollstandige Vertraulichkeit fur Ihre personlichen und geschaflichen Unterlagen garantiert.
 
 INTELLIGENTER PDF-READER & SPRACHAUSGABE
 • Augenschonende Lesemodi: Wechseln Sie nahtlos zwischen Standard-Tag, Dunkel-Nacht-Invertierung und Warm-Sepia-Filtern.
@@ -91,11 +97,11 @@ INTELLIGENTER PDF-READER & SPRACHAUSGABE
 • Schnelle Navigation & Suche: Blattern Sie durch Dokumente mit dem interaktiven Schieberegler, Zoom bis 4.5x, Doppeltipp-Zoom und Volltextsuche.
 • Drucken & Teilen: Drucken Sie direkt uber Android-Druckdienste oder leiten Sie PDFs mit einem Tippen weiter.
 
-14 OFFLINE-PDF-WERKZEUGE
+15 OFFLINE-PDF-WERKZEUGE
 • Zusammenfuhren & Sortieren: Kombinieren Sie mehrere PDFs, Bilder und Textdateien in gewunschter Reihenfolge.
 • Teilen & Extrahieren: Extrahieren Sie ausgewahlte Seiten, Seitenbereiche oder teilen Sie mehrseitige Dokumente auf.
 • PDF Komprimieren: Reduzieren Sie die Dateigrose mit voreingestellten, verlustarmen Profilen.
-• Dokumente Signieren: Zeichnen Sie handschriftliche elektronische Signaturen und platzieren Sie diese prazise.
+• Dokumente Signieren: Fügen Sie digitale Signaturstempel mit Namen, Grund und Zeitstempel direkt in PDF-Seiten ein.
 • Schutzen & Verschlusseln: Sichern Sie Dokumente mit 128-Bit-AES-Passwortschutz und Berechtigungen.
 • Wasserzeichen: Versehen Sie Seiten mit individuellem Textwasserzeichen inklusive Drehung und Transparenz.
 • Seiten Drehen: Richten Sie einzelne oder alle Seiten um 90, 180 oder 270 Grad aus.
@@ -107,11 +113,13 @@ INTELLIGENTER PDF-READER & SPRACHAUSGABE
   - PDF zu Text: Extrahieren Sie bearbeitbaren Text und Wortstatistiken aus PDF-Dateien.
   - HTML zu PDF: Wandeln Sie HTML-Code und Web-Tabellen in strukturierte Dokumente um.
 • Metadaten Bearbeiten: Verwalten Sie Titel, Autor, Thema und Suchbegriffe.
+• Dokument-Info-Inspektor: Prüfen Sie Seitenformat, Abmessungen, PDF-Version, Sicherheitsrechte und Erstellungsverlauf inkl. Berichtsexport.
 
 DATENSCHUTZ & LEISTUNG
 • 100% Auf dem Gerat: Funktioniert vollstandig offline ohne Internetverbindung.
+• Nahtloser Workflow & Bibliothek: Öffnen oder teilen Sie PDFs direkt aus anderen Apps, komprimieren Sie Stapel, drehen oder löschen Sie Seiten in der Rastervorschau, speichern Sie automatisch in Downloads/PDFCraft und nutzen Sie Suche, Favoriten & Stapelumbenennung.
 • Material 3 Oberflache: Prazise angepasst an Smartphones, Tablets, Foldables und Android TV mit D-Pad-Unterstutzung."
-zh,Chinese (Simplified),PDFCraft: 离线PDF阅读器与工具箱,100%离线PDF阅读器与工具箱：夜间护眼、语音朗读、合并、拆分、压缩与手写签名,"PDFCraft 是一款注重隐私的本地离线 PDF 阅读器与多功能文档工具箱，专为在设备端直接查看、转换和管理 PDF 文件而设计。所有操作完全在本地运行，绝不上传云端，确保个人与商业文档的绝对私密与安全。
+zh,Chinese (Simplified),PDFCraft: 离线PDF阅读器与工具箱,100%离线PDF阅读器与15款工具：夜间护眼、语音朗读、合并、拆分、压缩与签章,"PDFCraft 是一款注重隐私的本地离线 PDF 阅读器与多功能文档工具箱，专为在设备端直接查看、转换和管理 PDF 文件而设计。所有操作完全在本地运行，绝不上传云端，确保个人与商业文档的绝对私密与安全。
 
 智能 PDF 阅读与语音朗读
 • 护眼阅读模式：自由切换标准日间模式、深色夜间反色模式以及温润护眼羊皮纸模式。
@@ -119,11 +127,11 @@ zh,Chinese (Simplified),PDFCraft: 离线PDF阅读器与工具箱,100%离线PDF�
 • 流畅导航与即时搜索：配备交互式滑动选页滑块、双指缩放（高达 4.5 倍）、双击自适应缩放以及全文即时搜索。
 • 原生打印与分享：支持 Android 原生打印服务，或一键将正在阅读的文档导入到其他工具中处理。
 
-14 种离线实用 PDF 工具
+15 种离线实用 PDF 工具
 • 合并与重新排序：将多个 PDF、图片与文本文件按自定义页面顺序合并为一个文档。
 • 拆分与页面提取：按指定页码、页面范围拆分或将长篇文档拆分为独立文件。
 • 压缩 PDF：提供平衡压缩、网页压缩与深度压缩档位，大幅缩减文件体积。
-• 电子签名：自由绘制手写电子签名并轻松加盖到 PDF 指定页面。
+• 文档签章：在 PDF 页面添加包含签署人姓名、审批事由和时间戳的清晰电子签章块。
 • 加密与权限保护：使用高强度 128 位 AES 算法为重要文件设置打开密码与权限限制。
 • 添加水印：添加自定义文字水印，支持调节透明度、旋转角度与居中对齐。
 • 旋转页面：将单个或全部页面旋转 90 度、180 度或 270 度。
@@ -135,11 +143,13 @@ zh,Chinese (Simplified),PDFCraft: 离线PDF阅读器与工具箱,100%离线PDF�
   - PDF 提取文字：离线提取文档内的可选文字并统计字数与字符。
   - HTML 转 PDF：将网页源码与带样式表格导出为规整 PDF。
 • 编辑元数据：轻松查看并修改文档标题、作者、主题和关键字。
+• 文档信息检测器：全面查看页面尺寸与格式、PDF 版本、加密与权限状态及创建历史，一键复制或分享完整报告。
 
 绝对隐私与性能优势
 • 100% 本地运算：完全不需要连接网络，文件全程不离开您的设备。
+• 高效工作流与文档库：支持从其他应用直接打开或分享 PDF/图片，支持批量压缩、缩略图网格实时旋转与删除页面、自动保存至 Downloads/PDFCraft，并提供搜索、排序、收藏与批量重命名管理。
 • Material 3 现代化界面：针对手机、平板、折叠屏及 Android TV 遥控器操作进行了全面适配与优化。"
-ja,Japanese,PDFCraft: PDFリーダー＆編集ツール,夜間モード・音声読み上げ・結合・分割・圧縮・電子署名対応の完全オフラインPDFツール,"PDFCraftは、端末上で直接ドキュメントを閲覧・変換・管理できる完全オフラインのプライベートPDFリーダー＆ツールキットです。すべての処理はデバイス内で完結し、クラウドへのアップロードは一切行われないため、重要な個人情報や仕事書類の機密性が安全に保護されます。
+ja,Japanese,PDFCraft: PDFリーダー＆編集ツール,夜間モード・音声読み上げ・15種の編集機能対応の完全オフラインPDFリーダー＆ツール,"PDFCraftは、端末上で直接ドキュメントを閲覧・変換・管理できる完全オフラインのプライベートPDFリーダー＆ツールキットです。すべての処理はデバイス内で完結し、クラウドへのアップロードは一切行われないため、重要な個人情報や仕事書類の機密性が安全に保護されます。
 
 高機能PDFリーダー＆音声読み上げ
 • 快適な読書モード: 標準デイモード、暗所用の夜間ダークモード、目に優しい温かみのあるセピアモードを瞬時に切り替え。
@@ -147,11 +157,11 @@ ja,Japanese,PDFCraft: PDFリーダー＆編集ツール,夜間モード・音声
 • 快適なナビゲーション＆全文検索: ページスライダーでの高速移動、最大4.5倍までのピンチズーム、ダブルタップ拡大、高速テキスト検索に対応。
 • 印刷＆共有: Android標準印刷機能による直接印刷や、他のアプリへのワンタップ共有に対応。
 
-14種類のオフラインPDFツール
+15種類のオフラインPDFツール
 • 結合と並べ替え: 複数のPDF、画像、テキストを自由な順序で1つのドキュメントに結合。
 • 分割とページ抽出: 指定ページや範囲を取り出し、個別ファイルとして保存・分割。
 • PDF圧縮: 用途に応じたプリセットで品質を保ちながらファイル容量を削減。
-• 電子署名: 手書きの署名を作成し、PDF上の任意の位置へスムーズに配置。
+• 電子署名スタンプ: 署名者名・理由・タイムスタンプ付きの明確な電子署名ブロックをPDFページに配置。
 • 暗号化と保護: 128ビットAES暗号化により、閲覧パスワードや印刷制限を設定。
 • 透かし追加: 角度、透明度、位置を細かく指定してカスタムテキスト透かしを適用。
 • ページの回転: 特定のページまたは全ページを90度、180度、270度単位で回転補正。
@@ -163,11 +173,13 @@ ja,Japanese,PDFCraft: PDFリーダー＆編集ツール,夜間モード・音声
   - PDFからテキスト抽出: ドキュメント内の文字を抜き出し、単語数や文字数を集計。
   - HTMLからPDF: HTMLコードやWebテーブルを整ったPDFドキュメントへ変換。
 • メタデータ編集: タイトル、作成者、サブジェクト、キーワード情報を編集。
+• ドキュメント情報インスペクター: ページ形式・寸法、PDFバージョン、セキュリティ権限、作成履歴を確認しレポートを共有。
 
 プライバシー重視と快適な動作
 • 100%オンデバイス処理: インターネット接続不要で動作。データが外部へ送信される心配はありません。
+• シームレスな連携とライブラリ: 他アプリからの直接表示・共有、複数PDFの一括圧縮、サムネイル一覧での回転・削除保存、Downloads/PDFCraftへの自動保存、検索・お気に入り・一括リネームに対応。
 • 洗練されたMaterial 3 UI: スマートフォン、タブレット、折りたたみ端末、Android TVリモコン操作に完全最適化。"
-ko,Korean,PDFCraft: 오프라인 PDF 리더 & 편집기,"야간모드, 음성 낭독, 병합, 분할, 압축 및 전자서명을 지원하는 100% 오프라인 PDF","PDFCraft는 기기 내에서 직접 문서를 열람, 변환 및 관리할 수 있는 안전한 오프라인 PDF 뷰어 겸 도구 모음입니다. 모든 작업이 외부 서버 업로드 없이 기기 내부에서 100% 로컬로 처리되므로 개인 및 비즈니스 문서의 기밀이 철저히 보호됩니다.
+ko,Korean,PDFCraft: 오프라인 PDF 리더 & 편집기,"야간모드, 음성 낭독, 병합, 분할, 압축, 정보 검사까지 15가지 오프라인 PDF 도구","PDFCraft는 기기 내에서 직접 문서를 열람, 변환 및 관리할 수 있는 안전한 오프라인 PDF 뷰어 겸 도구 모음입니다. 모든 작업이 외부 서버 업로드 없이 기기 내부에서 100% 로컬로 처리되므로 개인 및 비즈니스 문서의 기밀이 철저히 보호됩니다.
 
 스마트 PDF 리더 & 음성 낭독
 • 시력 보호 읽기 모드: 기본 주간 모드, 눈이 편안한 다크 야간 반전 모드, 따뜻한 세피아 필터를 손쉽게 전환할 수 있습니다.
@@ -175,11 +187,11 @@ ko,Korean,PDFCraft: 오프라인 PDF 리더 & 편집기,"야간모드, 음성 �
 • 빠른 탐색 및 검색: 부드러운 페이지 슬라이더, 최대 4.5배 핀치 투 줌, 더블 탭 확대, 실시간 본문 텍스트 검색을 지원합니다.
 • 인쇄 및 공유: 안드로이드 기본 인쇄 서비스를 이용해 즉시 출력하거나 다른 편집 도구로 간편하게 공유할 수 있습니다.
 
-14가지 강력한 오프라인 PDF 도구
+15가지 강력한 오프라인 PDF 도구
 • 병합 및 재정렬: 여러 PDF, 이미지, 텍스트 파일을 원하는 페이지 순서대로 하나의 완성된 문서로 결합합니다.
 • 분할 및 페이지 추출: 특정 페이지나 범위를 추출하거나 두 개 이상의 독립 문서로 분리합니다.
 • PDF 압축: 균형 압축, 고효율 압축 사전 설정을 통해 문서 용량을 대폭 줄입니다.
-• 전자서명: 손글씨 서명을 직접 그리거나 저장하여 PDF 페이지에 손쉽게 배치합니다.
+• 문서 서명: 서명자 이름, 사유, 타임스탬프가 포함된 깔끔한 전자 서명 스탬프를 PDF 페이지에 적용합니다.
 • 비밀번호 암호화: 128비트 AES 알고리즘으로 열람 비밀번호 및 인쇄/복사 권한을 설정합니다.
 • 워터마크 추가: 텍스트 투명도, 회전 각도, 위치를 정밀하게 조절하여 복제 방지 스탬프를 삽입합니다.
 • 페이지 회전: 개별 페이지 또는 전체 문서를 90도, 180도, 270도로 회전합니다.
@@ -191,9 +203,11 @@ ko,Korean,PDFCraft: 오프라인 PDF 리더 & 편집기,"야간모드, 음성 �
   - PDF 텍스트 추출: 문서 내 텍스트를 추출하고 단어 수 및 글자 수를 통계로 확인합니다.
   - HTML을 PDF로: 웹 마크업 및 테이블 서식을 깔끔한 PDF로 렌더링합니다.
 • 메타데이터 편집: 문서 제목, 작성자, 주제 및 검색 키워드를 검토하고 수정합니다.
+• 문서 정보 검사기: 페이지 규격·크기, PDF 버전, 보안 권한, 생성 이력을 한눈에 확인하고 전체 보고서를 복사·공유합니다.
 
 보안과 최적화된 성능
 • 완전 오프라인: 인터넷 연결이 필요 없으며 파일이 외부로 유출되지 않습니다.
+• 편리한 워크플로와 라이브러리: 다른 앱에서 PDF·사진 바로 열기 및 공유, 여러 PDF 일괄 압축, 썸네일 그리드에서 페이지 회전·삭제 저장, Downloads/PDFCraft 자동 저장, 검색·즐겨찾기·일괄 이름 변경을 지원합니다.
 • 직관적인 Material 3 인터페이스: 스마트폰, 태블릿, 폴더블 기기 및 안드로이드 TV 리모컨 조작을 완벽하게 지원합니다."
 pt,Portuguese,PDFCraft: Leitor & Editor PDF,"Leitor PDF offline com modo noturno, voz alta, unir, comprimir e assinar.","O PDFCraft e um leitor e conjunto de ferramentas PDF privado e offline, desenvolvido para visualizar, converter e organizar arquivos PDF diretamente no seu aparelho. Todas as funcoes sao executadas localmente sem nenhum upload para a nuvem, garantindo total privacidade para seus documentos pessoais e profissionais.
 
@@ -203,11 +217,11 @@ LEITOR INTELIGENTE E LEITURA POR VOZ
 • Navegacao e Busca Rapida: Navegue por documentos longos com o controle deslizante, zoom de ate 4.5x, duplo toque e busca textual imediata.
 • Imprimir e Compartilhar: Imprima diretamente pelos servicos do Android ou envie o PDF aberto para outras ferramentas com um unico toque.
 
-14 FERRAMENTAS PDF OFFLINE
+15 FERRAMENTAS PDF OFFLINE
 • Juntar e Reordenar: Combine multiplos arquivos PDF, imagens e textos em um unico documento com organizacao personalizada.
 • Dividir e Extrair: Extraia paginas especificas, intervalos de paginas ou divida documentos extensos em partes menores.
 • Comprimir PDF: Reduza o tamanho dos arquivos com perfis predefinidos de alta eficiencia.
-• Assinar Documentos: Desenhe assinaturas eletronicas manuais e posicione-as nas paginas do documento.
+• Assinar Documentos: Aplique carimbos de assinatura digital com nome do signatário, motivo e data/hora nas páginas.
 • Proteger e Criptografar: Proteja arquivos confidenciais com senhas seguras e criptografia AES de 128 bits.
 • Marca-d'agua: Aplique marcas de texto personalizadas com ajuste de transparencia, rotacao e posicao.
 • Girar Paginas: Ajuste a orientacao de paginas individuais ou de todo o documento em 90, 180 ou 270 graus.
@@ -219,9 +233,11 @@ LEITOR INTELIGENTE E LEITURA POR VOZ
   - PDF para Texto: Extraia texto selecionavel e veja estatisticas de contagem de palavras.
   - HTML para PDF: Transforme codigo HTML e tabelas da web em documentos PDF organizados.
 • Editar Metadados: Visualize e edite titulo, autor, assunto e palavras-chave.
+• Inspetor de Informações PDF: Verifique formato e dimensões da página, versão PDF, permissões de segurança, histórico e copie o relatório completo.
 
 PRIVACIDADE E DESEMPENHO
 • 100% no Aparelho: Funciona completamente sem conexao com a internet. Seus arquivos nunca saem do seu celular.
+• Fluxo Integrado e Biblioteca: Abra ou compartilhe PDFs de outros apps, comprima arquivos em lote, gire ou remova páginas na grade de miniaturas, salve automaticamente em Downloads/PDFCraft e organize com busca, favoritos e renomeação em lote.
 • Design Adaptativo Material 3: Otimizado para smartphones, tablets, telas dobraveis e Android TV com controle remoto."
 ru,Russian,PDFCraft: PDF Ридер и Утилиты,"Офлайн PDF ридер с ночным режимом, чтением вслух, объединением и сжатием.","PDFCraft — это безопасный офлайн-ридер и набор утилит для чтения, конвертации и редактирования PDF-документов прямо на вашем устройстве. Все процессы выполняются локально без отправки файлов в облако, что гарантирует полную конфиденциальность ваших личных и деловых данных.
 
@@ -231,11 +247,11 @@ ru,Russian,PDFCraft: PDF Ридер и Утилиты,"Офлайн PDF риде
 • Быстрая навигация и поиск: листайте многостраничные файлы удобным ползунком, масштабируйте до 4.5x, используйте двойное касание и мгновенный поиск по тексту.
 • Печать и экспорт: отправляйте документы на печать через службы Android или делитесь файлами в один клик.
 
-14 НАДЕЖНЫХ ОФЛАЙН-ИНСТРУМЕНТОВ
+15 НАДЕЖНЫХ ОФЛАЙН-ИНСТРУМЕНТОВ
 • Объединение и сортировка: собирайте несколько PDF, изображений и текстовых заметок в единый документ с нужным порядком страниц.
 • Разделение и извлечение: извлекайте выбранные страницы или диапазоны, разделяя документ на отдельные файлы.
 • Сжатие PDF: уменьшайте размер документов без потери читаемости благодаря сбалансированным профилям сжатия.
-• Электронная подпись: рисуйте рукописную подпись и наносите её на любые страницы PDF.
+• Подпись документов: добавляйте аккуратный штамп электронной подписи с именем, причиной и отметкой времени.
 • Защита и шифрование: устанавливайте пароль на открытие и защищайте конфиденциальные файлы 128-битным шифрованием AES.
 • Водяные знаки: добавляйте настраиваемые текстовые водяные знаки с регулировкой прозрачности, угла и положения.
 • Поворот страниц: поворачивайте страницы на 90, 180 или 270 градусов.
@@ -247,9 +263,11 @@ ru,Russian,PDFCraft: PDF Ридер и Утилиты,"Офлайн PDF риде
   - Извлечение текста: копируйте текст из PDF и просматривайте статистику слов.
   - HTML в PDF: сохраняйте HTML-разметку и таблицы в виде PDF.
 • Редактор метаданных: изменяйте заголовок, автора, тему и ключевые слова.
+• Инспектор документа: просматривайте формат и размеры страниц, версию PDF, права безопасности, историю создания и копируйте полный отчет.
 
 ПРИВАТНОСТЬ И БЫСТРОДЕЙСТВИЕ
 • 100% офлайн: приложение работает без подключения к интернету, ваши документы остаются строго на устройстве.
+• Удобный рабочий процесс и библиотека: открывайте и отправляйте PDF из других приложений, сжимайте файлы пакетами, поворачивайте и удаляйте страницы в предпросмотре, сохраняйте в Downloads/PDFCraft и управляйте избранным и массовым переименованием.
 • Интерфейс Material 3: полная адаптация под телефоны, планшеты, складные устройства и Android TV."
 it,Italian,PDFCraft: Lettore & Tool PDF,"Lettore PDF offline con modalita notte, lettura vocale, unione e compressione.","PDFCraft e un lettore e studio di strumenti PDF privato e offline, progettato per visualizzare, convertire e gestire documenti direttamente sul tuo dispositivo. Tutte le operazioni vengono eseguite localmente senza caricare file sul cloud, garantendo la totale riservatezza dei tuoi documenti personali e di lavoro.
 
@@ -259,11 +277,11 @@ LETTORE PDF INTELLIGENTE E LETTURA VOCALE
 • Navigazione Rapida e Ricerca: Scorri tra i documenti con il cursore interattivo delle pagine, zoom fino a 4.5x, doppio tocco e ricerca testuale immediata.
 • Stampa e Condivisione: Stampa direttamente tramite i servizi Android o condividi il documento aperto in qualsiasi app in un istante.
 
-14 STRUMENTI PDF OFFLINE
+15 STRUMENTI PDF OFFLINE
 • Unisci e Riordina: Combina piu file PDF, immagini e testi in un singolo documento con ordinamento personalizzato.
 • Dividi ed Estrai: Estrai pagine specifiche, intervalli di pagine o separa documenti corposi in file indipendenti.
 • Comprimi PDF: Riduci le dimensioni dei file preservando la qualita visiva grazie a profili bilanciati.
-• Firma Documenti: Disegna firme autografe elettroniche e posizionale con precisione sulle pagine.
+• Firma Documenti: Applica timbri di firma digitale con nome del firmatario, motivo e data/ora sulle pagine PDF.
 • Proteggi e Cifra: Blocca i file riservati con password sicure e crittografia AES a 128 bit.
 • Filigrana: Applica timbri di testo personalizzati con regolazione di trasparenza, rotazione e allineamento.
 • Ruota Pagine: Orienta pagine singole o l'intero documento di 90, 180 o 270 gradi.
@@ -275,9 +293,11 @@ LETTORE PDF INTELLIGENTE E LETTURA VOCALE
   - Da PDF a Testo: Estrai testo selezionabile e visualizza le statistiche sul conteggio parole.
   - Da HTML a PDF: Trasforma pagine web e tabelle HTML in documenti PDF pronti all'uso.
 • Modifica Metadati: Visualizza e aggiorna titolo, autore, oggetto e parole chiave.
+• Ispettore Info Documento: Verifica formato e dimensioni delle pagine, versione PDF, permessi di sicurezza, cronologia e copia il report completo.
 
 RISERVATEZZA E PRESTAZIONI
 • Elaborazione 100% Locale: Funziona completamente offline senza connessione internet. I tuoi file non lasciano mai il dispositivo.
+• Flusso Fluido e Libreria: Apri o condividi PDF da altre app, comprimi più file in blocco, ruota o elimina pagine nell'anteprima a griglia, salva automaticamente in Downloads/PDFCraft e organizza con ricerca, preferiti e rinomina multipla.
 • Interfaccia Material 3: Ottimizzata per smartphone, tablet, dispositivi pieghevoli e Android TV con telecomando D-Pad."
 ar,Arabic,PDFCraft: قارئ وأدوات PDF,قارئ PDF بدون إنترنت مع وضع ليلي، قراءة صوتية، دمج، ضغط وتوقيع المستندات.,"تطبيق PDFCraft هو قارئ مستندات ومجموعة أدوات PDF شاملة وخاصة تعمل بدون اتصال بالإنترنت، مصممة لعرض ملفات PDF وتحويلها وتعديلها مباشرة على جهازك. تجري جميع العمليات محلياً بنسبة 100% دون رفع أي ملفات إلى السحابة، مما يضمن السرية المطلقة لملفاتك الشخصية وأعمالك.
 
@@ -287,11 +307,11 @@ ar,Arabic,PDFCraft: قارئ وأدوات PDF,قارئ PDF بدون إنترنت
 • تصفح وبحث فوري: تنقل بين الصفحات باستخدام شريط التمرير السريع، مع تكبير حتى 4.5x باللمس والتكبير بنقرتين والبحث النصي السريع.
 • طباعة ومشاركة فورية: اطبع المستندات مباشرة عبر خدمات أندرويد أو شارك الملف في تطبيقاتك بنقرة واحدة.
 
-14 أداة PDF متقدمة بدون إنترنت
+15 أداة PDF متقدمة بدون إنترنت
 • دمج وترتيب الصفحات: ادمج عدة ملفات PDF وصور ونصوص في مستند واحد مع تخصيص ترتيب الصفحات بالكامل.
 • تقسيم واستخراج: استخرج صفحات محددة أو نطاقات معينة وقسم الملفات الكبيرة إلى مستندات منفصلة.
 • ضغط ملفات PDF: قلل حجم المستندات مع الحفاظ على وضوحها عبر خيارات ضغط متوازنة.
-• توقيع المستندات: ارسم توقيعك اليدوي وضعه بسهولة على أي صفحة من صفحات الملف.
+• توقيع المستندات: أضف ختم توقيع رقمي واضح يتضمن اسم الموقع وسبب التوقيع والتاريخ والوقت على صفحات PDF.
 • حماية وتشفير: احمِ مستنداتك السرية بكلمات مرور قوية وتشفير AES متين بقوة 128 بت.
 • علامة مائية مخصصة: أضف علامات مائية نصية مع التحكم في الشفافية والزاوية والموقع لمنع السرقة.
 • تدوير الصفحات: عدل اتجاه الصفحات الفردية أو المستند بالكامل بزوايا 90 أو 180 أو 270 درجة.
@@ -303,9 +323,11 @@ ar,Arabic,PDFCraft: قارئ وأدوات PDF,قارئ PDF بدون إنترنت
   - استخراج النصوص: استخرج النصوص المحددة من الملف واطلع على إحصاءات الكلمات.
   - تحويل HTML إلى PDF: حول كود HTML والجداول المنسقة إلى مستندات PDF جاهزة.
 • تعديل البيانات الوصفية: عدل العنوان والمؤلف والموضوع والكلمات المفتاحية للمستند.
+• فاحص معلومات المستند: اعرض مقاس وأبعاد الصفحات، إصدار PDF، أذونات الأمان، وسجل الإنشاء مع نسخ أو مشاركة التقرير الكامل.
 
 خصوصية تامة وسرعة فائقة
 • معالجة محلية بالكامل: يعمل التطبيق بدون الحاجة إلى الإنترنت وتبقى ملفاتك في أمان تام داخل جهازك.
+• سير عمل سلس ومكتبة منظمة: افتح ملفات PDF أو شاركها مباشرة من التطبيقات الأخرى، واضغط عدة ملفات دفعة واحدة، واحفظ المخرجات تلقائياً في Downloads/PDFCraft مع البحث والفرز والمفضلة وإعادة التسمية الجماعية.
 • واجهة عصرية بتصميم Material 3: متوافقة تماماً مع الهواتف الذكية والأجهزة اللوحية والأجهزة القابلة للطي وأجهزة Android TV."
 hi,Hindi,PDFCraft: ऑफ़लाइन PDF रीडर,"ऑफ़लाइन PDF रीडर: नाइट मोड, वॉयस रीडिंग, मर्ज, स्प्लिट, कंप्रेस और सिग्नेचर।","PDFCraft एक सुरक्षित, निजी और ऑफ़लाइन PDF रीडर और डॉक्यूमेंट टूलकिट है, जिसे आपके डिवाइस पर सीधे PDF फाइलों को देखने, बदलने और प्रबंधित करने के लिए तैयार किया गया है। सभी कार्य 100% स्थानीय रूप से बिना किसी क्लाउड अपलोड के पूरे होते हैं, जिससे आपके व्यक्तिगत और व्यावसायिक दस्तावेज़ पूरी तरह सुरक्षित रहते हैं।
 
@@ -315,11 +337,11 @@ hi,Hindi,PDFCraft: ऑफ़लाइन PDF रीडर,"ऑफ़लाइन
 • तेज़ नेविगेशन और सर्च: स्मूद पेज स्लाइडर, 4.5x पिंच ज़ूम, डबल टैप ज़ूम और तत्काल टेक्स्ट सर्च का आनंद लें।
 • प्रिंट और शेयर: Android प्रिंट सेवाओं के माध्यम से सीधे प्रिंट करें या किसी भी ऐप पर तुरंत शेयर करें।
 
-14 उपयोगी ऑफ़लाइन PDF टूल्स
+15 उपयोगी ऑफ़लाइन PDF टूल्स
 • मर्ज और रीऑर्डर: कई PDF, फोटो और टेक्स्ट फाइलों को अपनी पसंद के क्रम में एक सिंगल फाइल में जोड़ें।
 • स्प्लिट और एक्सट्रैक्ट: चुनिंदा पेज या पेज रेंज को अलग करें या बड़े डॉक्यूमेंट को कई फाइलों में बांटें।
 • PDF कंप्रेस करें: उच्च गुणवत्ता बनाए रखते हुए डॉक्यूमेंट का फाइल साइज़ काफी कम करें।
-• डिजिटल सिग्नेचर: अपने हाथ से हस्ताक्षर बनाएं और उन्हें सीधे PDF पेजों पर लगाएं।
+• दस्तावेज़ हस्ताक्षर: हस्ताक्षरकर्ता का नाम, कारण और समय के साथ PDF पृष्ठों पर डिजिटल हस्ताक्षर स्टैम्प लगाएँ।
 • पासवर्ड से सुरक्षित करें: 128-बिट AES एन्क्रिप्शन और मजबूत पासवर्ड से फाइलों को सुरक्षित करें।
 • वॉटरमार्क लगाएं: पारदर्शिता, एंगल और पॉजिशन एडजस्ट करके मनचाहा टेक्स्ट वॉटरमार्क जोड़ें।
 • पेज रोटेट करें: किसी भी पेज को 90, 180 या 270 डिग्री पर आसानी से घुमाएं।
@@ -331,9 +353,11 @@ hi,Hindi,PDFCraft: ऑफ़लाइन PDF रीडर,"ऑफ़लाइन
   - PDF से टेक्स्ट निकालें: टेक्स्ट कॉपी करें और शब्दों व अक्षरों की संख्या देखें।
   - HTML से PDF: वेब कोड और टेबल को व्यवस्थित PDF में बदलें।
 • मेटाडेटा एडिट करें: टाइटल, लेखक, विषय और कीवर्ड्स अपडेट करें।
+• दस्तावेज़ जानकारी निरीक्षक: पेज का आकार और आयाम, PDF संस्करण, सुरक्षा अनुमतियाँ और निर्माण इतिहास देखें तथा पूरी रिपोर्ट कॉपी करें।
 
 सुरक्षा और तेज़ परफॉर्मेंस
 • पूरी तरह ऑफ़लाइन: किसी इंटरनेट कनेक्शन की ज़रूरत नहीं है। आपकी फाइलें कभी आपके फोन से बाहर नहीं जातीं।
+• सहज कार्यप्रवाह और लाइब्रेरी: अन्य ऐप्स से सीधे PDF खोलें या साझा करें, एक साथ कई PDF कंप्रेस करें, ग्रिड प्रीव्यू में पेज घुमाएँ या हटाएँ, Downloads/PDFCraft में ऑटो-सेव करें और खोज, पसंदीदा व बैच रीनेम से फ़ाइलें व्यवस्थित करें।
 • Material 3 अडैप्टिव डिज़ाइन: फोन, टैबलेट, फोल्डेबल स्क्रीन और Android TV के लिए पूरी तरह अनुकूलित।"
 nl,Dutch,PDFCraft: PDF-lezer & Tools,"Offline PDF-lezer: nachtmodus, voorlezen, samenvoegen, comprimeren en tekenen.","PDFCraft is een veilige, offline PDF-lezer en gereedschapskist waarmee u PDF-bestanden rechtstreeks op uw apparaat bekijkt, converteert en beheert. Alle bewerkingen worden lokaal uitgevoerd zonder cloud-uploads, waardoor uw persoonlijke en zakelijke documenten volledig vertrouwelijk blijven.
 
@@ -343,11 +367,11 @@ SLIMME PDF-LEZER & VOORLEESFUNCTIE
 • Snelle Navigatie & Zoeken: Blader vlot met de paginaschuifregelaar, zoom in tot 4.5x, dubbeltik om te vergroten en doorzoek direct de volledige tekst.
 • Direct Afdrukken & Delen: Druk rechtstreeks af via Android-afdrukservices of stuur het PDF-bestand met een tik door naar andere apps.
 
-14 KRACHTIGE OFFLINE PDF-TOOLS
+15 KRACHTIGE OFFLINE PDF-TOOLS
 • Samenvoegen & Herordenen: Combineer meerdere PDF's, afbeeldingen en teksten tot een enkel document in de gewenste volgorde.
 • Splitsen & Extraheren: Haal specifieke pagina's of paginabereiken uit documenten of splits grote bestanden op.
 • PDF Comprimeren: Verklein de bestandsgrootte aanzienlijk met behoud van heldere weergave.
-• Documenten Ondertekenen: Teken handgeschreven handtekeningen en plaats ze precies waar nodig op de pagina.
+• Documenten Ondertekenen: Plaats een digitale handtekeningstempel met naam, reden en tijdstempel op PDF-pagina's.
 • Beveiligen & Versleutelen: Beveilig vertrouwelijke bestanden met 128-bits AES-wachtwoordversleuteling.
 • Watermerk Toevoegen: Voeg tekstwatermerken toe met instelbare dekking, draaihoek en positie.
 • Pagina's Draaien: Roteer afzonderlijke of alle pagina's met 90, 180 of 270 graden.
@@ -359,9 +383,11 @@ SLIMME PDF-LEZER & VOORLEESFUNCTIE
   - PDF naar Tekst: Extraheer bewerkbare tekst en bekijk woordstatistieken.
   - HTML naar PDF: Zet webcode en tabellen om in gestructureerde PDF-bestanden.
 • Metadata Bewerken: Beheer titel, auteur, onderwerp en trefwoorden.
+• Documentinfo-inspector: Bekijk paginaformaat, afmetingen, PDF-versie, beveiligingsrechten en geschiedenis, en kopieer het volledige rapport.
 
 PRIVACY EN PRESTATIES
 • 100% Lokaal Verwerkt: Geen internetverbinding vereist. Uw bestanden verlaten uw apparaat nooit.
+• Vlotte Workflow & Bibliotheek: Open of deel PDF's direct vanuit andere apps, comprimeer in batches, draai of verwijder pagina's in het rasteroverzicht, sla automatisch op in Downloads/PDFCraft en beheer met zoeken, favorieten en bulk-hernoemen.
 • Material 3 Interface: Volledig geoptimaliseerd voor telefoons, tablets, foldables en Android TV met afstandsbediening."
 pl,Polish,PDFCraft: Czytnik & Narzędzia,"Czytnik PDF offline z trybem nocnym, czytaniem na głos, łączeniem i kompresją.","PDFCraft to bezpieczny, działający w pełni offline czytnik i edytor dokumentów PDF, stworzony do wygodnego przeglądania, konwertowania i organizowania plików bezpośrednio na Twoim urządzeniu. Wszystkie operacje wykonywane są lokalnie bez wysyłania danych do chmury, gwarantując prywatność Twoich dokumentów.
 
@@ -371,11 +397,11 @@ INTELIGENTNY CZYTNIK PDF I CZYTANIE GŁOSOWE
 • Szybka Nawigacja i Wyszukiwanie: Przeglądaj dokumenty za pomocą suwaka stron, powiększaj gestem do 4.5x, używaj podwójnego stuknięcia i natychmiastowego wyszukiwania tekstu.
 • Drukuj i Udostępniaj: Drukuj bezpośrednio za pomocą usług Androida lub udostępniaj plik jednym kliknięciem.
 
-14 NARZĘDZI PDF OFFLINE
+15 NARZĘDZI PDF OFFLINE
 • Łączenie i Zmiana Kolejności: Scalaj wiele plików PDF, obrazów i tekstów w jeden dokument z własnym układem stron.
 • Dzielenie i Wyodrębnianie: Wyciągaj wybrane strony, zakresy stron lub dziel obszerne pliki na mniejsze części.
 • Kompresja PDF: Zmniejszaj rozmiar plików przy zachowaniu wysokiej czytelności tekstu i grafiki.
-• Podpisywanie Dokumentów: Twórz odręczne podpisy elektroniczne i umieszczaj je w dowolnym miejscu strony.
+• Podpisywanie Dokumentów: Dodawaj czytelne pieczęcie podpisu cyfrowego z nazwiskiem, powodem i datą na stronach PDF.
 • Zabezpieczanie Hasłem: Chroń poufne dane silnym szyfrowaniem 128-bit AES oraz hasłem dostępu.
 • Znaki Wodne: Dodawaj własne znaki wodne z pełną kontrolą przezroczystości, kąta obrotu i pozycji.
 • Obracanie Stron: Obracaj pojedyncze strony lub cały dokument o 90, 180 lub 270 stopni.
@@ -387,11 +413,13 @@ INTELIGENTNY CZYTNIK PDF I CZYTANIE GŁOSOWE
   - Tekst z PDF: Wyodrębniaj zaznaczalny tekst i sprawdzaj statystyki liczby słów.
   - HTML do PDF: Konwertuj kod HTML i tabele internetowe do czytelnych plików PDF.
 • Edycja Metadanych: Zmieniaj tytuł, autora, temat oraz słowa kluczowe.
+• Inspektor Informacji PDF: Sprawdzaj format i wymiary stron, wersję PDF, uprawnienia bezpieczeństwa oraz kopiuj lub udostępniaj pełny raport.
 
 BEZPIECZEŃSTWO I WYDAJNOŚĆ
 • 100% na Urządzeniu: Aplikacja działa bez konieczności połączenia z internetem. Twoje pliki są zawsze u Ciebie.
+• Płynna Praca i Biblioteka: Otwieraj i udostępniaj PDF z innych aplikacji, kompresuj wiele plików naraz, obracaj lub usuwaj strony na podglądzie siatki, zapisuj automatycznie w Downloads/PDFCraft i korzystaj z wyszukiwania, ulubionych oraz grupowej zmiany nazw.
 • Adaptacyjny Interfejs Material 3: Dostosowany do smartfonów, tabletów, urządzeń składanych oraz Android TV z obsługą pilota."
-tr,Turkish,PDFCraft: PDF Okuyucu & Araç,"Gece modu, sesli okuma, birleştirme, sıkıştırma ve imzalama ile çevrimdışı PDF.","PDFCraft, PDF dosyalarını doğrudan cihazınızda görüntülemek, dönüştürmek ve düzenlemek için geliştirilmiş güvenli ve çevrimdışı bir PDF okuyucu ve araç setidir. Tüm işlemler buluta dosya yüklenmeden 100% yerel olarak gerçekleşir; böylece kişisel ve kurumsal belgeleriniz tamamen gizli kalır.
+tr,Turkish,PDFCraft: PDF Okuyucu & Editör,"Gece modu, sesli okuma, birleştirme, sıkıştırma ve imzalama ile çevrimdışı PDF.","PDFCraft, PDF dosyalarını doğrudan cihazınızda görüntülemek, dönüştürmek ve düzenlemek için geliştirilmiş güvenli ve çevrimdışı bir PDF okuyucu ve araç setidir. Tüm işlemler buluta dosya yüklenmeden 100% yerel olarak gerçekleşir; böylece kişisel ve kurumsal belgeleriniz tamamen gizli kalır.
 
 AKILLI PDF OKUYUCU VE SESLİ OKUMA
 • Göz Korumalı Okuma Modları: Standart Gündüz, Koyu Gece Ters Çevirme ve Sıcak Sepya okuma filtreleri arasında kolayca geçiş yapın.
@@ -399,11 +427,11 @@ AKILLI PDF OKUYUCU VE SESLİ OKUMA
 • Hızlı Gezinme ve Arama: Sayfa kaydırıcı, 4.5x'e kadar dokunmatik yakınlaştırma, çift dokunuşla büyütme ve anında metin araması ile belgeleri kolayca tarayın.
 • Yazdırma ve Paylaşma: Android yazdırma hizmetleriyle doğrudan yazdırın veya açık belgeyi tek dokunuşla paylaşın.
 
-14 ÇEVRİMDIŞI PDF ARACI
+15 ÇEVRİMDIŞI PDF ARACI
 • Birleştirme ve Sıralama: Birden fazla PDF, görsel ve metin dosyasını dilediğiniz sayfa sırasıyla tek bir belgede toplayın.
 • Bölme ve Sayfa Çıkarma: Belirli sayfaları veya aralıkları ayıklayın, büyük belgeleri bağımsız dosyalara bölün.
 • PDF Sıkıştırma: Dosya boyutlarını görsel kaliteyi koruyarak dengeli profillerle küçültün.
-• Belge İmzalama: El yazısıyla elektronik imzanızı çizin ve PDF sayfalarının üzerine ekleyin.
+• Belgeleri İmzala: İmzalayan adı, neden ve zaman damgası içeren dijital imza damgalarını PDF sayfalarına ekleyin.
 • Parola ile Koruma ve Şifreleme: Gizli belgelerinizi 128-bit AES şifreleme ve güçlü parolalarla kilitleyin.
 • Filigran Ekleme: Şeffaflık, açı ve konumunu ayarlayabileceğiniz özel metin filigranları uygulayın.
 • Sayfa Döndürme: Tek tek veya tüm sayfaları 90, 180 veya 270 derece döndürün.
@@ -415,9 +443,11 @@ AKILLI PDF OKUYUCU VE SESLİ OKUMA
   - PDF'ten Metin Çıkarma: Belge metinlerini kopyalayın ve kelime istatistiklerini görüntüleyin.
   - HTML'den PDF'e: Web kodlarını ve tabloları tertemiz PDF belgelerine çevirin.
 • Meta Veri Düzenleme: Başlık, yazar, konu ve anahtar kelimeleri güncelleyin.
+• Belge Bilgisi Denetçisi: Sayfa boyutu ve ölçülerini, PDF sürümünü, güvenlik izinlerini ve oluşturma geçmişini inceleyip raporu kopyalayın.
 
 GİZLİLİK VE PERFORMANS
 • %100 Cihaz Üzerinde: İnternet bağlantısı gerekmez. Belgeleriniz asla telefonunuzun dışına çıkmaz.
+• Akıcı İş Akışı ve Kitaplık: Diğer uygulamalardan doğrudan PDF açın veya paylaşın, toplu sıkıştırma yapın, küçük resim ızgarasında sayfa döndürüp silin, Downloads/PDFCraft klasörüne otomatik kaydedin ve arama, favoriler ve toplu adlandırma ile düzenleyin.
 • Material 3 Arayüzü: Akıllı telefonlar, tabletler, katlanabilir ekranlar ve uzaktan kumandalı Android TV için tam uyumludur."
 vi,Vietnamese,PDFCraft: Đọc & Công cụ PDF,"Trình đọc & công cụ PDF ngoại tuyến: chế độ đêm, đọc to, ghép, nén và ký tên.","PDFCraft là trình đọc và bộ công cụ xử lý PDF ngoại tuyến an toàn, bảo mật tuyệt đối, được thiết kế để xem, chuyển đổi và quản lý tài liệu ngay trên thiết bị của bạn. Mọi thao tác xử lý hoàn toàn cục bộ 100% không tải lên máy chủ đám mây, đảm bảo sự riêng tư tuyệt đối cho tài liệu học tập và công việc.
 
@@ -427,11 +457,11 @@ TRÌNH ĐỌC PDF THÔNG MINH & ĐỌC VĂN BẢN (TTS)
 • Điều Hướng Nhanh & Tìm Kiếm: Kéo trang mượt mà bằng thanh trượt, thu phóng 2 ngón tay lên đến 4.5x, chạm đúp để phóng to và tìm kiếm từ ngữ tức thì.
 • In Ấn & Chia Sẻ Nhanh: In tài liệu trực tiếp qua dịch vụ Android Print hoặc chia sẻ sang các ứng dụng khác chỉ với một chạm.
 
-14 CÔNG CỤ PDF NGOẠI TUYẾN TOÀN DIỆN
+15 CÔNG CỤ PDF NGOẠI TUYẾN TOÀN DIỆN
 • Ghép & Sắp Xếp Trang: Hợp nhất nhiều file PDF, hình ảnh và văn bản thành một tập tin duy nhất với thứ tự tùy chỉnh.
 • Tách & Trích Xuất: Tách các trang đã chọn, khoảng trang cụ thể hoặc chia nhỏ tài liệu dung lượng lớn.
 • Nén PDF Giảm Dung Lượng: Thu nhỏ kích thước tệp đáng kể với các tùy chọn nén thông minh giữ trọn độ nét.
-• Ký Tên Điện Tử: Vẽ chữ ký tay cá nhân và chèn trực tiếp vào bất kỳ trang nào của văn bản.
+• Ký Tài Liệu: Đóng dấu chữ ký số gọn gàng kèm tên người ký, lý do xác nhận và mốc thời gian lên trang PDF.
 • Đặt Mật Khẩu Bảo Mật: Khóa tệp bảo mật với mã hóa 128-bit AES cùng mật khẩu mở và quyền hạn.
 • Đóng Dấu Bản Quyền (Watermark): Thêm hình mờ văn bản với khả năng chỉnh độ mờ, góc xoay và vị trí.
 • Xoay Chiều Trang: Sửa hướng trang đơn lẻ hoặc toàn bộ tài liệu theo 90, 180 hoặc 270 độ.
@@ -443,9 +473,11 @@ TRÌNH ĐỌC PDF THÔNG MINH & ĐỌC VĂN BẢN (TTS)
   - Trích xuất văn bản từ PDF: Lấy chữ từ tài liệu và xem thống kê số từ, số ký tự.
   - HTML sang PDF: Chuyển đổi mã HTML và bảng biểu web thành tài liệu PDF chuẩn xác.
 • Chỉnh Sửa Thông Tin Tệp (Metadata): Cập nhật tiêu đề, tác giả, chủ đề và từ khóa tìm kiếm.
+• Trình Kiểm Tra Thông Tin PDF: Xem khổ giấy và kích thước trang, phiên bản PDF, quyền bảo mật, lịch sử tạo và sao chép báo cáo chi tiết.
 
 BẢO MẬT & HIỆU SUẤT TỐI ƯU
 • Xử Lý 100% Cục Bộ: Hoạt động mượt mà không cần mạng internet. Dữ liệu của bạn luôn an toàn trên máy.
+• Quy Trình Mượt Mà & Thư Viện: Mở hoặc chia sẻ PDF trực tiếp từ ứng dụng khác, nén hàng loạt nhiều PDF, xoay hoặc xóa trang ngay trên lưới xem trước, tự động lưu vào Downloads/PDFCraft cùng tìm kiếm, yêu thích và đổi tên hàng loạt.
 • Giao Diện Material 3: Tối ưu hoàn hảo cho điện thoại, máy tính bảng, màn hình gập và Android TV có điều khiển từ xa."
 id,Indonesian,PDFCraft: Pembaca & Edit PDF,"Pembaca PDF offline: mode malam, baca suara, gabung, kompres & tanda tangan.","PDFCraft adalah pembaca PDF dan toolkit dokumen privat yang bekerja sepenuhnya secara offline di perangkat Anda. Semua proses konversi dan manipulasi file berjalan 100% lokal tanpa mengunggah ke cloud, menjamin kerahasiaan penuh untuk dokumen pribadi, pendidikan, dan bisnis Anda.
 
@@ -455,11 +487,11 @@ PEMBACA PDF PINTAR & SUARA TEKS
 • Navigasi Cepat & Pencarian: Telusuri halaman panjang dengan slider responsif, cubit untuk zoom hingga 4.5x, ketuk dua kali, dan pencarian kata instan.
 • Cetak & Bagikan: Cetak dokumen langsung lewat layanan cetak Android atau bagikan ke aplikasi lain dengan sekali ketuk.
 
-14 ALAT PDF OFFLINE LENGKAP
+15 ALAT PDF OFFLINE LENGKAP
 • Gabung & Atur Ulang: Satukan beberapa file PDF, gambar, dan catatan teks menjadi satu file dengan urutan halaman sesuai keinginan.
 • Pisahkan & Ekstrak: Ambil halaman tertentu, rentang nomor halaman, atau pisahkan dokumen besar menjadi file mandiri.
 • Kompres PDF: Kecilkan ukuran file dengan profil kompresi seimbang dan hemat memori.
-• Tanda Tangan Dokumen: Buat tanda tangan digital tulisan tangan dan tempelkan langsung ke halaman PDF.
+• Tanda Tangan Dokumen: Bubuhkan stempel tanda tangan digital berisi nama penanda tangan, alasan, dan stempel waktu.
 • Kunci & Enkripsi: Amankan dokumen sensitif dengan proteksi kata sandi dan enkripsi 128-bit AES.
 • Watermark: Bubuhkan cap teks kustom dengan pengaturan transparansi, sudut kemiringan, dan posisi.
 • Putar Halaman: Perbaiki orientasi halaman secara individual atau menyeluruh sebesar 90, 180, atau 270 derajat.
@@ -471,11 +503,13 @@ PEMBACA PDF PINTAR & SUARA TEKS
   - Ekstrak Teks dari PDF: Ambil isi teks dan hitung jumlah kata secara akurat.
   - HTML ke PDF: Ubah kode HTML dan tabel situs web menjadi dokumen PDF.
 • Edit Metadata: Perbarui judul, penulis, subjek, dan kata kunci dokumen.
+• Inspektur Info Dokumen: Periksa format dan dimensi halaman, versi PDF, izin keamanan, riwayat pembuatan, serta salin laporan lengkap.
 
 PRIVASI & KINERJA MAKSIMAL
 • 100% di Perangkat: Berjalan lancar tanpa sambungan internet. File Anda tidak pernah meninggalkan ponsel.
+• Alur Kerja Mulus & Pustaka: Buka atau bagikan PDF langsung dari aplikasi lain, kompres batch banyak file, putar atau hapus halaman di pratinjau grid, simpan otomatis ke Downloads/PDFCraft, serta kelola dengan pencarian, favorit, dan ubah nama massal.
 • Tampilan Material 3: Dioptimalkan untuk smartphone, tablet, layar lipat, dan Android TV dengan remote navigasi."
-th,Thai,PDFCraft: ตัวอ่านและเครื่องมือ,โปรแกรมอ่าน PDF ออฟไลน์พร้อมโหมดกลางคืน อ่านออกเสียง รวม แยก และบีบอัดไฟล์,"PDFCraft เป็นโปรแกรมอ่านและชุดเครื่องมือจัดการไฟล์ PDF แบบออฟไลน์ที่มีความปลอดภัยสูง ออกแบบมาเพื่อเปิดดู แปลงไฟล์ และจัดการเอกสารโดยตรงบนอุปกรณ์ของคุณ การประมวลผลทั้งหมดเกิดขึ้นภายในเครื่อง 100% โดยไม่มีการอัปโหลดไฟล์ขึ้นคลาวด์ มั่นใจได้ในความปลอดภัยของข้อมูลส่วนบุคคลและเอกสารสำคัญ
+th,Thai,PDFCraft: อ่านและจัดการ PDF,โปรแกรมอ่าน PDF ออฟไลน์พร้อมโหมดกลางคืน อ่านออกเสียง รวม แยก และบีบอัดไฟล์,"PDFCraft เป็นโปรแกรมอ่านและชุดเครื่องมือจัดการไฟล์ PDF แบบออฟไลน์ที่มีความปลอดภัยสูง ออกแบบมาเพื่อเปิดดู แปลงไฟล์ และจัดการเอกสารโดยตรงบนอุปกรณ์ของคุณ การประมวลผลทั้งหมดเกิดขึ้นภายในเครื่อง 100% โดยไม่มีการอัปโหลดไฟล์ขึ้นคลาวด์ มั่นใจได้ในความปลอดภัยของข้อมูลส่วนบุคคลและเอกสารสำคัญ
 
 โปรแกรมอ่าน PDF อัจฉริยะพร้อมระบบอ่านออกเสียง
 • โหมดถนอมสายตา: สลับระหว่างโหมดกลางวันปกติ โหมดกลางคืนสีเข้ม และโหมดซีเปียโทนอุ่นเพื่อความสบายตา
@@ -483,11 +517,11 @@ th,Thai,PDFCraft: ตัวอ่านและเครื่องมือ,�
 • เลื่อนดูและค้นหาได้รวดเร็ว: เลื่อนเปลี่ยนหน้าอย่างง่ายดายด้วยแถบเลื่อน ซูมขยายได้สูงสุด 4.5 เท่า แตะสองครั้งเพื่อขยาย และค้นหาข้อความได้ทันที
 • สั่งพิมพ์และแชร์: สั่งพิมพ์โดยตรงผ่านระบบของ Android หรือส่งต่อเอกสารไปยังแอปอื่นได้ในสัมผัสเดียว
 
-14 เครื่องมือ PDF ออฟไลน์ครบครัน
+15 เครื่องมือ PDF ออฟไลน์ครบครัน
 • รวมไฟล์และจัดลำดับหน้า: นำไฟล์ PDF หลายไฟล์ รูปภาพ และข้อความมารวมเป็นเอกสารเดียวพร้อมจัดเรียงหน้าตามต้องการ
 • แยกไฟล์และดึงหน้าเอกสาร: เลือกดึงเฉพาะหน้าที่ต้องการ กำหนดช่วงหน้า หรือแบ่งเอกสารออกเป็นไฟล์ย่อย
 • บีบอัด PDF: ลดขนาดไฟล์เอกสารให้เล็กลงโดยยังคงความคมชัดของตัวอักษรและรูปภาพ
-• เซ็นเอกสารอิเล็กทรอนิกส์: วาดลายเซ็นของคุณและวางลงบนหน้าเอกสารได้อย่างสะดวก
+• ลงนามเอกสาร: ประทับตราลงนามดิจิทัลพร้อมชื่อผู้ลงนาม เหตุผล และวันที่เวลาบนหน้า PDF อย่างเป็นระเบียบ
 • ล็อกและเข้ารหัสไฟล์: ปกป้องเอกสารลับด้วยรหัสผ่านและการเข้ารหัส 128-bit AES
 • ใส่ลายน้ำ: เพิ่มข้อความลายน้ำป้องกันการคัดลอก ปรับความโปร่งใส มุมเอียง และตำแหน่งได้อิสระ
 • หมุนหน้าเอกสาร: หมุนปรับทิศทางของหน้าเอกสาร 90, 180 หรือ 270 องศา
@@ -499,9 +533,11 @@ th,Thai,PDFCraft: ตัวอ่านและเครื่องมือ,�
   - ดึงข้อความจาก PDF: คัดลอกเนื้อหาข้อความและดูสถิติจำนวนคำ
   - HTML เป็น PDF: แปลงรหัส HTML และตารางเว็บให้เป็นไฟล์ PDF
 • แก้ไขข้อมูลเมทาดาตา: ปรับเปลี่ยนชื่อเอกสาร ผู้เขียน หัวข้อ และคำสำคัญ
+• ตัวตรวจสอบข้อมูลเอกสาร: ดูขนาดและรูปแบบหน้า เวอร์ชัน PDF สิทธิ์ความปลอดภัย ประวัติการสร้าง พร้อมคัดลอกและแชร์รายงานครบถ้วน
 
 ความเป็นส่วนตัวและประสิทธิภาพ
 • ทำงานออฟไลน์ 100%: ไม่ต้องใช้อินเทอร์เน็ต ไฟล์ของคุณจะอยู่บนเครื่องอย่างปลอดภัยเสมอ
+• ขั้นตอนทำงานลื่นไหลและคลังเอกสาร: เปิดหรือแชร์ PDF จากแอปอื่นได้ทันที บีบอัดหลายไฟล์พร้อมกัน หมุนหรือลบหน้าในมุมมองตาราง บันทึกอัตโนมัติใน Downloads/PDFCraft พร้อมค้นหา รายการโปรด และเปลี่ยนชื่อหลายไฟล์
 • ดีไซน์ Material 3: รองรับทั้งสมาร์ทโฟน แท็บเล็ต หน้าจอพับได้ และ Android TV"
 sv,Swedish,PDFCraft: PDF-läsare & Verktyg,"Offline PDF-läsare med nattläge, röstuppläsning, sammanfoga och komprimera.","PDFCraft ar en privat och saker offline-PDF-lasare och verktygslada for att visa, konvertera och hantera PDF-dokument direkt pa din enhet. Alla atgarder kors lokalt utan nagon molnuppladdning, vilket garanterar fullstandig sekretess for dina personliga och affarsmassiga dokument.
 
@@ -511,11 +547,11 @@ SMART PDF-LASARE & ROSTUPPLASNING
 • Snabb Navigering & Sokning: Bladdra smidigt med sidreglaget, nyp for att zooma upp till 4.5x, dubbelklicka for forstoring och sok i hela dokumentet.
 • Skriv Ut & Dela: Skriv ut direkt via Androids utskriftstjanster eller dela dokumentet vidare med ett tryck.
 
-14 KRAFTFULLA OFFLINE-VERKTYG
+15 KRAFTFULLA OFFLINE-VERKTYG
 • Sammanfoga & Ordna Om: Slå ihop flera PDF-filer, bilder och textanteckningar i valfri ordning till ett dokument.
 • Dela Upp & Extrahera: Plocka ut utvalda sidor, sidintervall eller dela upp stora filer i mindre delar.
 • Komprimera PDF: Minska filstorleken effektivt med bibehallen skarp text och grafik.
-• Signera Dokument: Rita din egen elektroniska signatur och placera den direkt pa sidorna.
+• Signera Dokument: Lägg till tydliga digitala signaturstämplar med namn, orsak och tidsstämpel på PDF-sidor.
 • Skydda & Kryptera: Las kansliga filer med starkt losenord och 128-bitars AES-kryptering.
 • Vattenstampel: Lagg till anpassad vattenstampel med kontroll over genomskinlighet, vinkel och placering.
 • Rotera Sidor: Vrid enskilda sidor eller hela dokumentet i 90, 180 eller 270 grader.
@@ -527,9 +563,11 @@ SMART PDF-LASARE & ROSTUPPLASNING
   - Extrahera Text: Kopiera text fran dokumentet och se ordstatistik.
   - HTML till PDF: Forvandla HTML-kod och webbtabeller till strukturerade PDF-filer.
 • Redigera Metadata: Uppdatera dokumentets titel, forfattare, amne och nyckelord.
+• Dokumentinspektör: Granska sidformat och mått, PDF-version, säkerhetsbehörigheter, historik och kopiera eller dela hela rapporten.
 
 INTEGRITET & SNABBHET
 • 100% Pa Enheten: Fungerar helt utan internetanslutning. Dina dokument lamnar aldrig din telefon.
+• Smidigt Arbetsflöde & Bibliotek: Öppna eller dela PDF-filer direkt från andra appar, batchkomprimera, rotera eller ta bort sidor i rutnätsförhandsvisningen, spara automatiskt i Downloads/PDFCraft och organisera med sökning, favoriter och massnamnbyte.
 • Modern Material 3-Design: Anpassad for smartmobiler, surfplattor, vikbara enheter och Android TV med fjarrkontroll."
 no,Norwegian,PDFCraft: PDF-leser og Verktøy,"Frakoblet PDF-leser med nattmodus, høytlesing, slå sammen og komprimere.","PDFCraft er en sikker, frakoblet PDF-leser og komplett verktoykasse for visning, konvertering og organisering av PDF-dokumenter pa enheten din. Alle handlinger kjores lokalt uten opplasting til nettskyen, noe som sikrer full konfidensialitet for dine personlige og profesjonelle filer.
 
@@ -539,11 +577,11 @@ SMART PDF-LESER MED TALE
 • Rask Navigasjon og Sok: Bla uanstrengt med sideskyveren, zoom inn opptil 4.5x, dobbelttrykk for a forstorre og finn ord med raskt tekstsok.
 • Utskrift og Deling: Skriv ut direkte via Android-utskrift eller videresend filen til andre apper med ett trykk.
 
-14 PRAKTISKE OFFLINE-VERKTOY
+15 PRAKTISKE OFFLINE-VERKTOY
 • Sla Sammen og Endre Rekkefolge: Kombiner flere PDF-filer, bilder og tekster til ett samlet dokument.
 • Splitt og Hent Ut: Hent ut bestemte sider eller del opp store dokumenter i selvstendige filer.
 • Komprimer PDF: Reduser filstorrelsen med smarte forhandsinnstillinger uten a ofre lesbarheten.
-• Signer Dokumenter: Tegn din elektroniske handskrevne signatur og plasser den hvor som helst pa siden.
+• Signer Dokumenter: Legg til digitale signaturstempler med navn, årsak og tidsstempel direkte på PDF-sider.
 • Beskytt med Passord: Sikre konfidensielle data med 128-bits AES-kryptering og tilgangskontroll.
 • Vannmerke: Legg til tilpassede vannmerker med kontroll over opasitet, vinkel og plassering.
 • Roter Sidor: Roter enkeltsider eller hele dokumentet 90, 180 eller 270 grader.
@@ -555,9 +593,11 @@ SMART PDF-LESER MED TALE
   - Hent Ut Tekst: Trekk ut tekstinnhold og se statistikk over ord og tegn.
   - HTML til PDF: Konverter nettkode og tabeller til klare PDF-filer.
 • Rediger Metadata: Juster tittel, forfatter, emne og sokbare nokkelord.
+• Dokumentinspektør: Kontroller sideformat og mål, PDF-versjon, sikkerhetstillatelser, opprettelseshistorikk og kopier full rapport.
 
 PERSONVERN OG YTELSE
 • 100% Lokalt: Fungerer uten internettilkobling. Filene forblir alltid pa enheten din.
+• Sømløs Arbeidsflyt & Bibliotek: Åpne eller del PDF-er direkte fra andre apper, batchkomprimer flere filer, roter eller slett sider i rutenettvisning, autolagre i Downloads/PDFCraft og organiser med søk, favoritter og massenavnendring.
 • Material 3 Brukergrensesnitt: Optimalisert for telefoner, nettbrett, brettbare mobiler og Android TV."
 da,Danish,PDFCraft: PDF-læser & Værktøj,"Offline PDF-læser med nattilstand, højtlæsning, flet og komprimer dokumenter.","PDFCraft er en sikker offline PDF-læser og dokumentværktøjskasse, der giver dig mulighed for at vise, konvertere og håndtere PDF-filer direkte på din enhed. Alle handlinger kører 100% lokalt uden upload til skyen, hvilket sikrer fuld fortrolighed for dine vigtige dokumenter.
 
@@ -567,11 +607,11 @@ INTELLIGENT PDF-LÆSER & TALE
 • Hurtig Navigation & Søgning: Rul ubesværet gennem siderne, zoom op til 4.5x, brug dobbelttryk og søg i hele teksten.
 • Udskriv & Del: Udskriv direkte via Android-udskrivning eller videresend filer med et enkelt tryk.
 
-14 PRAKTISKE OFFLINE-VÆRKTØJER
+15 PRAKTISKE OFFLINE-VÆRKTØJER
 • Flet & Omorganiser: Saml flere PDF-filer, billeder og tekstfiler i et dokument med brugerdefineret rækkefølge.
 • Opdel & Udtræk: Udsondr udvalgte sider eller opdel store dokumenter i separate filer.
 • Komprimer PDF: Formindsk filstørrelsen med bevarelse af skarp tekst og billedkvalitet.
-• Underskriv Dokumenter: Tegn din håndskrevne elektroniske signatur og anbring den direkte på siden.
+• Signer Dokumenter: Tilføj digitale signaturstempler med underskriverens navn, årsag og tidsstempel på PDF-sider.
 • Lås & Krypter: Beskyt følsomme data med 128-bit AES-adgangskodekryptering.
 • Vandmærke: Indsæt tilpassede tekstvandmærker med kontrol over gennemsigtighed, vinkel og placering.
 • Roter Sider: Vend enkelte sider eller hele dokumentet 90, 180 eller 270 grader.
@@ -583,11 +623,13 @@ INTELLIGENT PDF-LÆSER & TALE
   - Udtræk Tekst: Kopiér tekst fra PDF og se ordstatistikker.
   - HTML til PDF: Konverter HTML-kode og tabeller til præcise PDF-dokumenter.
 • Rediger Metadata: Opdater dokumenttitel, forfatter, emne og søgeord.
+• Dokumentinfo-inspektør: Tjek sideformat og dimensioner, PDF-version, sikkerhedstilladelser, historik og kopier den fulde rapport.
 
 SIKKERHED & HØJ HASTIGHED
 • 100% På Enheden: Kræver ingen internetforbindelse. Dine filer forbliver altid hos dig.
+• Smidigt Workflow & Bibliotek: Åbn eller del PDF'er direkte fra andre apps, batchkomprimer flere filer, roter eller slet sider i gittervisning, gem automatisk i Downloads/PDFCraft og organiser med søgning, favoritter og masseomdøbning.
 • Material 3 Brugerflade: Tilpasset telefoner, tablets, foldbare skærme og Android TV."
-fi,Finnish,PDFCraft: PDF-lukija ja Työkal,"Offline-PDF-lukija: yötila, ääneenluku, yhdistäminen, pakkaus ja allekirjoitus.","PDFCraft on turvallinen offline-PDF-lukija ja monipuolinen asiakirjatyökalupaketti, jolla tarkastelet, muunnat ja hallitset PDF-tiedostoja suoraan laitteellasi. Kaikki toiminnot suoritetaan paikallisesti ilman pilvilatauksia, mikä takaa asiakirjojesi täydellisen luottamuksellisuuden.
+fi,Finnish,PDFCraft: PDF-lukija & editori,"Offline-PDF-lukija: yötila, ääneenluku, yhdistäminen, pakkaus ja allekirjoitus.","PDFCraft on turvallinen offline-PDF-lukija ja monipuolinen asiakirjatyökalupaketti, jolla tarkastelet, muunnat ja hallitset PDF-tiedostoja suoraan laitteellasi. Kaikki toiminnot suoritetaan paikallisesti ilman pilvilatauksia, mikä takaa asiakirjojesi täydellisen luottamuksellisuuden.
 
 ÄLYKÄS PDF-LUKIJA & ÄÄNEENLUKU
 • Silmille Mukavat Lukutilat: Vaihda helposti tavallisen päivätilan, tumman yötilan ja lämpimän seepiasävyn välillä.
@@ -595,11 +637,11 @@ fi,Finnish,PDFCraft: PDF-lukija ja Työkal,"Offline-PDF-lukija: yötila, äänee
 • Nopea Selaus & Haku: Liiku sulavasti sivujen välillä, suurenna jopa 4.5x, kaksoisnapauta zoomataksesi ja etsi sanoja tekstistä.
 • Tulosta & Jaa: Tulosta vaivattomasti Android-tulostuspalveluilla tai jaa tiedosto eteenpäin yhdellä napautuksella.
 
-14 MONIPUOLISTA OFFLINE-TYÖKALUA
+15 MONIPUOLISTA OFFLINE-TYÖKALUA
 • Yhdistä & Järjestä: Kokoa useita PDF-tiedostoja, kuvia ja tekstejä yhdeksi tiedostoksi haluamassasi järjestyksessä.
 • Jaa & Pura Sivuja: Erottele valitut sivut tai pilko laajat asiakirjat itsenäisiksi tiedostoiksi.
 • Pakkaa PDF: Pienennä tiedostokokoa tehokkaasti säilyttäen samalla hyvän luettavuuden.
-• Allekirjoita Asiakirjat: Piirrä oma sähköinen allekirjoituksesi ja liitä se suoraan asiakirjaan.
+• Allekirjoita Asiakirjat: Lisää PDF-sivuille digitaalinen allekirjoitusleima nimellä, syyllä ja aikaleimalla.
 • Suojaa Salasanalla: Lukitse arkaluonteiset tiedot vahvalla 128-bittisellä AES-salauksella.
 • Vesileima: Lisää mukautettuja tekstivesileimoja läpinäkyvyyden ja asennon säädöllä.
 • Käännä Sivuja: Oikaise sivujen asentoa 90, 180 tai 270 astetta.
@@ -611,9 +653,11 @@ fi,Finnish,PDFCraft: PDF-lukija ja Työkal,"Offline-PDF-lukija: yötila, äänee
   - Pura Teksti: Kopioi tekstiä PDF:stä ja tarkista sanamäärätilastot.
   - HTML PDF:ksi: Muunna verkkokoodi ja taulukot siistiksi PDF-tiedostoksi.
 • Muokkaa Metatietoja: Päivitä otsikko, tekijä, aihe ja avainsanat.
+• Asiakirjatietojen tarkastaja: Tarkista sivukoko ja mitat, PDF-versio, suojausasetukset ja luontihistoria sekä kopioi koko raportti.
 
 YKSITYISYYS & SUORITUSKYKY
 • Täysin Paikallinen: Ei vaadi verkkoyhteyttä. Tiedostosi eivät koskaan poistu puhelimestasi.
+• Sujuva Työnkulku ja Kirjasto: Avaa tai jaa PDF-tiedostoja muista sovelluksista, pakkaa eränä, kierrä tai poista sivuja ruudukkoesikatselussa, tallenna automaattisesti Downloads/PDFCraft-kansioon ja järjestä haulla, suosikeilla ja eränimeämisellä.
 • Material 3 -Muotoilu: Optimoitu puhelimille, tableteille, taittuvanäyttöisille laitteille ja Android TV:lle."
 cs,Czech,PDFCraft: Prohlížeč & Nástroje,"Offline PDF prohlížeč s nočním režimem, předčítáním, slučováním a kompresí.","PDFCraft je bezpečný offline prohlížeč a kompletní sada nástrojů pro práci s PDF přímo na vašem zařízení. Veškeré operace probíhají výhradně lokálně bez nahrávání dat do cloudu, což zajišťuje naprosté soukromí pro vaše osobní i pracovní dokumenty.
 
@@ -623,11 +667,11 @@ CHYTRÝ PDF PROHLÍŽEČ S HLASOVÝM ČTENÍM
 • Plynulá Navigace a Vyhledávání: Procházejte stránky posuvníkem, přibližujte až 4.5x gestem i dvojitým poklepáním a okamžitě vyhledávejte v textu.
 • Tisk a Sdílení: Tiskněte přímo pomocí služeb Androidu nebo dokument jedním klepnutím sdílejte do jiných aplikací.
 
-14 SPOLEHLIVÝCH OFFLINE NÁSTROJŮ
+15 SPOLEHLIVÝCH OFFLINE NÁSTROJŮ
 • Sloučení a Uspořádání: Spojte více PDF souborů, obrázků i textů do jednoho dokumentu s vlastním pořadím stránek.
 • Rozdělení a Extrakce: Vyjměte vybrané stránky, rozsahy stránek nebo rozdělte objemný soubor na menší části.
 • Komprese PDF: Zmenšete velikost souborů s vyváženým zachováním ostrosti textu a grafiky.
-• Podepisování Dokumentů: Nakreslete vlastní elektronický podpis a vložte jej přímo na stránku.
+• Podepsat Dokumenty: Přidejte na stránky PDF digitální podpisové razítko se jménem, důvodem a časovým razítkem.
 • Zabezpečení Heslem: Zašifrujte citlivé dokumenty silným 128bitovým AES šifrováním a přístupovým heslem.
 • Vodoznak: Opatřete stránky vlastním textovým vodoznakem s možností nastavení průhlednosti, úhlu a pozice.
 • Otočení Stran: Otočte jednotlivé strany nebo celý dokument o 90, 180 nebo 270 stupňů.
@@ -639,9 +683,11 @@ CHYTRÝ PDF PROHLÍŽEČ S HLASOVÝM ČTENÍM
   - Extrakce Textu: Zkopírujte text z PDF a zkontrolujte statistiku počtu slov.
   - HTML do PDF: Převeďte webový kód a tabulky do úhledného PDF dokumentu.
 • Úprava Metadat: Zkontrolujte a upravte název, autora, předmět a klíčová slova.
+• Inspektor Informací PDF: Zkontrolujte formát a rozměry stránek, verzi PDF, oprávnění zabezpečení a zkopírujte kompletní přehled.
 
 SOUKROMÍ A VÝKON
 • 100% v Zařízení: Aplikace pracuje kompletně bez internetu. Vaše data nikdy neopustí zařízení.
+• Plynulá Práce a Knihovna: Otevírejte či sdílejte PDF přímo z jiných aplikací, hromadně komprimujte, otáčejte a mažte stránky v mřížce náhledů, ukládejte automaticky do Downloads/PDFCraft a využívejte vyhledávání, oblíbené a hromadné přejmenování.
 • Adaptivní Vzhled Material 3: Přizpůsobeno pro telefony, tablety, skládací telefony a Android TV s dálkovým ovládáním."
 hu,Hungarian,PDFCraft: PDF-olvasó & Eszköz,"Offline PDF-olvasó éjszakai móddal, felolvasással, egyesítéssel és tömörítéssel.","A PDFCraft egy biztonságos, offline PDF-olvasó és dokumentumkezelő eszköztár, amellyel közvetlenül az eszközén tekinthet meg, konvertálhat és szerkeszthet PDF-fájlokat. Minden művelet helyben fut felhőbe történő feltöltés nélkül, garantálva személyes és munkahelyi dokumentumai teljes védelmét.
 
@@ -651,11 +697,11 @@ INTELLIGENS PDF-OLVASÓ ÉS FELOLVASÁS
 • Gyors Lapozás és Keresés: Böngésszen kényelmesen az oldalsúrolóval, nagyítson akár 4.5x-es méretig, és keressen azonnal a szövegben.
 • Nyomtatás és Megosztás: Nyomtasson közvetlenül az Android nyomtatási szolgáltatásaival, vagy ossza meg a fájlt egyetlen érintéssel.
 
-14 PRAKTIKUS OFFLINE PDF-ESZKÖZ
+15 PRAKTIKUS OFFLINE PDF-ESZKÖZ
 • Egyesítés és Átrendezés: Vonjon össze több PDF-fájlt, fényképet és szöveget egyetlen dokumentummá tetszőleges sorrendben.
 • Felosztás és Oldalkivonás: Vegyen ki kiválasztott oldalakat vagy bontson szét nagy dokumentumokat különálló fájlokra.
 • PDF Tömörítés: Csökkentse a fájlméretet látványos minőségromlás nélkül.
-• Dokumentumok Aláírása: Rajzoljon kézzel elektronikus aláírást, és helyezze el pontosan az oldalon.
+• Dokumentumok Aláírása: Helyezzen el digitális aláírásbélyegzőt névvel, indokkal és időbélyeggel a PDF oldalain.
 • Védelem és Titkosítás: Védje bizalmas dokumentumait 128 bites AES titkosítással és jelszóval.
 • Vízjel Hozzáadása: Helyezzen el egyedi szöveges vízjelet állítható áttetszőséggel, elforgatással és pozícióval.
 • Oldalak Elforgatása: Igazítsa az oldalakat 90, 180 vagy 270 fokkal.
@@ -667,9 +713,11 @@ INTELLIGENS PDF-OLVASÓ ÉS FELOLVASÁS
   - Szöveg Kivonása: Másolja ki a PDF szövegét és tekintse meg a szószám-statisztikákat.
   - HTML-ből PDF: Konvertáljon webes forráskódot és táblázatokat tiszta PDF-dokumentummá.
 • Metaadatok Szerkesztése: Frissítse a dokumentum címét, szerzőjét, témáját és kulcsszavait.
+• Dokumentuminformáció-vizsgáló: Ellenőrizze az oldalméretet, a PDF-verziót, a biztonsági engedélyeket, és másolja a teljes jelentést.
 
 ADATVÉDELEM ÉS GYORSASÁG
 • 100% Helyi Feldolgozás: Nem igényel internetkapcsolatot. Fájljai soha nem hagyják el az eszközt.
+• Gördülékeny Munkamenet és Könyvtár: Nyisson meg vagy osszon meg PDF-eket más alkalmazásokból, tömörítsen kötegelve, forgasson vagy töröljön oldalakat az előnézeti rácsban, mentsen automatikusan a Downloads/PDFCraft mappába kereséssel és kedvencekkel.
 • Material 3 Felület: Teljes mértékben támogatja az okostelefonokat, táblagépeket, hajlítható kijelzőket és az Android TV-t."
 ro,Romanian,PDFCraft: Cititor & Unelte PDF,"Cititor PDF offline cu mod de noapte, citire vocala, îmbinare și comprimare.","PDFCraft este un cititor si set de instrumente PDF offline, complet privat, conceput pentru vizualizarea, conversia si organizarea fisierelor PDF direct pe dispozitivul dumneavoastra. Toate procesele ruleaza local, fara incarcare in cloud, asigurand confidentialitatea deplina a documentelor personale si profesionale.
 
@@ -679,11 +727,11 @@ CITITOR PDF INTELIGENT SI CITIRE VOCALA
 • Navigare si Cautare Rapida: Parcurgeti paginile cu ajutorul glisorului fluid, mariti pana la 4.5x, dubla atingere si cautare rapida in text.
 • Imprimare si Trimitere: Imprimati direct prin serviciile Android sau trimiteti documentul deschis catre alte aplicatii cu o atingere.
 
-14 INSTRUMENTE PDF OFFLINE COMPLETE
+15 INSTRUMENTE PDF OFFLINE COMPLETE
 • Imbinare si Reordonare: Combinati mai multe fisiere PDF, imagini si notite intr-un singur document cu ordonare flexibila.
 • Divizare si Extragere: Extrageti pagini selectate, intervale de pagini sau separati fisierele voluminoase.
 • Comprimare PDF: Reduceti considerabil dimensiunea fisierului pastrand claritatea textului si a imaginilor.
-• Semnare Documente: Desenati semnatura olografa electronica si aplicati-o pe paginile documentului.
+• Semnare Documente: Aplicați ștampile de semnătură digitală cu numele semnatarului, motivul și marcajul de timp.
 • Parolare si Criptare: Securizati fisierele confidentiale cu criptare 128-bit AES si parola de deschidere.
 • Filigran Personalizat: Adaugati marcaje de tip text cu transparenta, rotire si pozitionare reglabile.
 • Rotire Pagini: Corectati orientarea paginilor la 90, 180 sau 270 de grade.
@@ -695,9 +743,11 @@ CITITOR PDF INTELIGENT SI CITIRE VOCALA
   - Extragere Text din PDF: Copiati textul din PDF si vizualizati statistici privind numarul de cuvinte.
   - HTML in PDF: Convertiti cod HTML si tabele web in fisiere PDF curate.
 • Editare Metadate: Modificati titlul, autorul, subiectul si cuvintele-cheie.
+• Inspector Informații Document: Verificați formatul și dimensiunile paginii, versiunea PDF, permisiunile de securitate și copiați raportul complet.
 
 CONFIDENTIALITATE SI RANDAMENT
 • 100% pe Dispozitiv: Functioneaza complet fara internet. Documentele nu parasesc niciodata memoria telefonului.
+• Flux Rapid și Bibliotecă: Deschideți sau partajați PDF-uri direct din alte aplicații, comprimați în lot, rotiți sau ștergeți pagini în previzualizarea grilă, salvați automat în Downloads/PDFCraft și organizați cu căutare, favorite și redenumire în bloc.
 • Design Material 3: Optimizat pentru telefoane, tablete, ecrane pliabile si Android TV cu telecomanda."
 el,Greek,PDFCraft: Αναγνώστης & PDF,"Offline ανάγνωση PDF με νυχτερινή λειτουργία, φωνή, συγχώνευση και συμπίεση.","Το PDFCraft είναι ένα ασφαλές πρόγραμμα ανάγνωσης και πλήρης σουίτα εργαλείων PDF εκτός σύνδεσης, σχεδιασμένο για προβολή, μετατροπή και διαχείριση αρχείων απευθείας στη συσκευή σας. Όλες οι λειτουργίες εκτελούνται τοπικά χωρίς μεταφόρτωση στο cloud, εξασφαλίζοντας απόλυτη προστασία των προσωπικών και επαγγελματικών σας εγγράφων.
 
@@ -707,11 +757,11 @@ el,Greek,PDFCraft: Αναγνώστης & PDF,"Offline ανάγνωση PDF με
 • Γρήγορη Πλοήγηση & Αναζήτηση: Περιηγηθείτε με το ρυθμιστικό σελίδων, μεγέθυνση έως 4.5x, διπλό πάτημα και άμεση αναζήτηση κειμένου.
 • Εκτύπωση & Κοινή Χρήση: Εκτυπώστε απευθείας μέσω των υπηρεσιών του Android ή μοιραστείτε αρχεία με ένα πάτημα.
 
-14 ΕΡΓΑΛΕΙΑ PDF ΕΚΤΟΣ ΣΥΝΔΕΣΗΣ
+15 ΕΡΓΑΛΕΙΑ PDF ΕΚΤΟΣ ΣΥΝΔΕΣΗΣ
 • Συγχώνευση & Αναδιάταξη: Ενώστε πολλαπλά αρχεία PDF, εικόνες και κείμενα σε ένα ενιαίο έγγραφο με προσαρμοσμένη σειρά.
 • Διαχωρισμός & Εξαγωγή: Απομονώστε συγκεκριμένες σελίδες ή χωρίστε μεγάλα έγγραφα σε ξεχωριστά αρχεία.
 • Συμπίεση PDF: Μειώστε το μέγεθος των εγγράφων διατηρώντας παράλληλα την ευκρίνεια.
-• Ηλεκτρονική Υπογραφή: Σχεδιάστε τη χειρόγραφη υπογραφή σας και τοποθετήστε την όπου επιθυμείτε.
+• Υπογραφή Εγγράφων: Προσθέστε ψηφιακή σφραγίδα υπογραφής με όνομα, αιτιολογία και ημερομηνία στις σελίδες PDF.
 • Προστασία με Κωδικό: Κλειδώστε εμπιστευτικά αρχεία με ισχυρή κρυπτογράφηση 128-bit AES.
 • Υδατογράφημα: Εισαγάγετε προσαρμοσμένο υδατογράφημα κειμένου με έλεγχο διαφάνειας, γωνίας και θέσης.
 • Περιστροφή Σελίδων: Περιστρέψτε σελίδες κατά 90, 180 ή 270 μοίρες.
@@ -723,9 +773,11 @@ el,Greek,PDFCraft: Αναγνώστης & PDF,"Offline ανάγνωση PDF με
   - Εξαγωγή Κειμένου: Αντιγράψτε κείμενο από το PDF και δείτε στατιστικά λέξεων.
   - HTML σε PDF: Μετατρέψτε ιστοσελίδες και πίνακες HTML σε έγγραφα PDF.
 • Επεξεργασία Μεταδεδομένων: Αλλάξτε τον τίτλο, τον δημιουργό, το θέμα και τις λέξεις-κλειδιά.
+• Επιθεωρητής Πληροφοριών PDF: Ελέγξτε διαστάσεις σελίδας, έκδοση PDF, δικαιώματα ασφαλείας, ιστορικό και αντιγράψτε την πλήρη αναφορά.
 
 ΙΔΙΩΤΙΚΟΤΗΤΑ & ΥΨΗΛΗ ΑΠΟΔΟΣΗ
 • 100% στη Συσκευή: Λειτουργεί πλήρως χωρίς σύνδεση στο διαδίκτυο.
+• Άνετη Ροή Εργασίας & Βιβλιοθήκη: Ανοίξτε ή μοιραστείτε PDF από άλλες εφαρμογές, συμπιέστε μαζικά, περιστρέψτε ή διαγράψτε σελίδες στην προεπισκόπηση πλέγματος, αποθηκεύστε αυτόματα στο Downloads/PDFCraft με αναζήτηση, αγαπημένα και μαζική μετονομασία.
 • Σχεδιασμός Material 3: Απόλυτα προσαρμοσμένο για κινητά, tablet, αναδιπλούμενες συσκευές και Android TV."
 he,Hebrew,PDFCraft: קורא וכלי PDF,"קורא PDF לא מקוון עם מצב לילה, הקראה קולית, מיזוג, דחיסה וחתימה דיגיטלית.","PDFCraft הוא קורא וערכת כלי PDF פרטית הפועלת באופן לא מקוון, שנועדה להציג, להמיר ולנהל קובצי PDF ישירות על גבי המכשיר שלכם. כל הפעולות מתבצעות באופן מקומי ללא העלאה לענן, מה שמבטיח סודיות מלאה למסמכים האישיים והעסקיים שלכם.
 
@@ -735,11 +787,11 @@ he,Hebrew,PDFCraft: קורא וכלי PDF,"קורא PDF לא מקוון עם מ�
 • ניווט וחיפוש מהיר: דפדפו בקלות עם סרגל העמודים, הגדילו עד פי 4.5, השתמשו בהקשה כפולה ובצעו חיפוש טקסט מיידי.
 • הדפסה ושיתוף: הדפיסו ישירות דרך שירותי Android או שתפו את המסמך בלחיצה אחת.
 
-14 כלי PDF מתקדמים ללא חיבור רשת
+15 כלי PDF מתקדמים ללא חיבור רשת
 • מיזוג וסידור עמודים: אחדו מספר קובצי PDF, תמונות והערות למסמך אחד בסדר הרצוי.
 • פיצול וחילוץ: חלצו עמודים נבחרים או טווחי עמודים וחלקו מסמכים ארוכים לקבצים נפרדים.
 • דחיסת PDF: הקטינו את גודל הקבצים תוך שמירה על איכות וחדות הקריאה.
-• חתימה דיגיטלית: ציירו חתימה ידנית והוסיפו אותה ישירות לעמודי המסמך.
+• חתימה על מסמכים: הוסף חותמת חתימה דיגיטלית מסודרת עם שם החותם, סיבה וחותמת זמן על עמודי PDF.
 • נעילה והצפנה: הגנו על מסמכים רגישים עם הצפנת 128-bit AES וסיסמה.
 • סימן מים מותאם אישית: הוסיפו חותמת טקסט עם שליטה בשקיפות, בזווית ובמיקום.
 • סיבוב עמודים: סובבו עמודים בודדים או את המסמך כולו ב-90, 180 או 270 מעלות.
@@ -751,9 +803,11 @@ he,Hebrew,PDFCraft: קורא וכלי PDF,"קורא PDF לא מקוון עם מ�
   - חילוץ טקסט מ-PDF: העתיקו טקסט מתוך המסמך וצפו בספירת מילים.
   - HTML ל-PDF: המירו קוד HTML וטבלאות אינטרנט לקובצי PDF קריאים.
 • עריכת מטא-דאטה: עדכנו כותרת, מחבר, נושא ומילות מפתח.
+• בודק פרטי מסמך: בדוק פורמט ומידות עמוד, גרסת PDF, הרשאות אבטחה והיסטוריית יצירה, והעתק או שתף דוח מלא.
 
 פרטיות וביצועים מהירים
 • 100% במכשיר: עובד ללא צורך בחיבור לאינטרנט. הקבצים נשארים תמיד אצלכם.
+• זרימת עבודה חלקה וספרייה: פתח או שתף קובצי PDF מאפליקציות אחרות, דחוס קבצים באצווה, סובב או מחק עמודים בתצוגת הרשת, שמור אוטומטית ב-Downloads/PDFCraft וארגן עם חיפוש, מועדפים ושינוי שם מרובה.
 • עיצוב Material 3: מותאם לטלפונים חכמים, טאבלטים, מסכים מתקפלים ו-Android TV עם שלט רחוק."
 uk,Ukrainian,PDFCraft: PDF Рідер та Утиліти,"Офлайн PDF рідер з нічним режимом, читанням вголос, об'єднанням та стисненням.","PDFCraft — це надійний офлайн-рідер та універсальний набір інструментів для читання, конвертації та редагування PDF безпосередньо на вашому пристрої. Усі операції виконуються локально без завантаження у хмару, що гарантує цілковиту приватність ваших документів.
 
@@ -763,11 +817,11 @@ uk,Ukrainian,PDFCraft: PDF Рідер та Утиліти,"Офлайн PDF рі
 • Швидка Навігація та Пошук: Гортайте сторінки інтерактивним повзунком, масштабуйте до 4.5x, використовуйте подвійний дотик та миттєвий пошук тексту.
 • Друк та Поширення: Друкуйте напряму через служби Android або надсилайте відкритий документ в один дотик.
 
-14 ЗРУЧНИХ ОФЛАЙН-ІНСТРУМЕНТІВ
+15 ЗРУЧНИХ ОФЛАЙН-ІНСТРУМЕНТІВ
 • Об'єднання та Сортування: Збирайте кілька PDF, зображень і текстових файлів в один документ із налаштованим порядком сторінок.
 • Розділення та Витяг: Витягуйте обрані сторінки чи діапазони або діліть великі документи на окремі частини.
 • Стиснення PDF: Зменшуйте розмір файлів зі збереженням високої чіткості тексту.
-• Електронний Підпис: Малюйте власний рукописний підпис і прикріплюйте його до сторінок.
+• Підпис документів: додавайте акуратний штамп цифрового підпису з іменем, причиною та міткою часу на сторінки PDF.
 • Захист і Шифрування: Захищайте конфіденційні файли надійним 128-бітним шифруванням AES та паролем.
 • Водяні Знаки: Додавайте текстові водяні знаки з налаштуванням прозорості, кута нахилу та позиції.
 • Поворот Сторінок: Орієнтуйте сторінки на 90, 180 або 270 градусів.
@@ -779,9 +833,11 @@ uk,Ukrainian,PDFCraft: PDF Рідер та Утиліти,"Офлайн PDF рі
   - Витяг Тексту з PDF: Копіюйте текст із файлів та переглядайте статистику слів.
   - HTML у PDF: Перетворюйте вебкод і таблиці на чисті документи PDF.
 • Редагування Метаданих: Оновлюйте назву, автора, тему та ключові слова.
+• Інспектор документа: переглядайте формат і розміри сторінок, версію PDF, права безпеки, історію створення та копіюйте повний звіт.
 
 БЕЗПЕКА ТА ШВИДКОДІЯ
 • 100% на Пристрої: Працює повністю автономно без підключення до мережі.
+• Зручний робочий процес і бібліотека: відкривайте й надсилайте PDF з інших додатків, стискайте файли пакетами, обертайте та видаляйте сторінки у попередньому перегляді, зберігайте в Downloads/PDFCraft і керуйте обраним та масовим перейменуванням.
 • Інтерфейс Material 3: Адаптовано для смартфонів, планшетів, складаних пристроїв та Android TV."
 bn,Bengali,PDFCraft: অফলাইন PDF রিডার,"নাইট মোড, ভয়েস রিডিং, মার্জ, কম্প্রেস এবং স্বাক্ষর সহ অফলাইন PDF রিডার ও টুলস।","PDFCraft হলো একটি নিরাপদ, অফলাইন PDF রিডার এবং বহুমুখী ডকুমেন্ট টুলকিট, যা আপনার ডিভাইসে সরাসরি PDF ফাইল দেখা, রূপান্তর ও পরিচালনা করার জন্য তৈরি করা হয়েছে। সমস্ত কাজ শতভাগ লোকালভাবে সম্পন্ন হয়, ক্লাউডে কোনো ফাইল আপলোড হয় না, ফলে আপনার ব্যক্তিগত ও প্রাতিষ্ঠানিক ডকুমেন্টের সম্পূর্ণ গোপনীয়তা নিশ্চিত থাকে।
 
@@ -791,11 +847,11 @@ bn,Bengali,PDFCraft: অফলাইন PDF রিডার,"নাইট মো
 • দ্রুত নেভিগেশন ও অনুসন্ধান: পেজ স্লাইডার, ৪.৫ গুণ পর্যন্ত জুম, ডাবল ট্যাপ জুম এবং তাৎক্ষণিক টেক্সট সার্চের সুবিধা।
 • প্রিন্ট ও শেয়ার: অ্যান্ড্রয়েড প্রিন্ট সার্ভিসের মাধ্যমে সরাসরি প্রিন্ট করুন বা যেকোনো অ্যাপে তাৎক্ষণিক শেয়ার করুন।
 
-১৪টি প্রয়োজনীয় অফলাইন PDF টুল
+১৫টি প্রয়োজনীয় অফলাইন PDF টুল
 • মার্জ ও পেজ সাজানো: একাধিক PDF, ছবি এবং টেক্সট ফাইল নিজের পছন্দমতো ক্রমানুসারে একটি সিঙ্গেল ফাইলে রূপান্তর করুন।
 • স্প্লিট ও পেজ আলাদা করা: নির্দিষ্ট পেজ বা পেজ রেঞ্জ আলাদা করুন কিংবা বড় ফাইলকে একাধিক অংশে বিভক্ত করুন।
 • PDF কম্প্রেস: ফাইলের স্পষ্টতা বজায় রেখে আকার উল্লেখযোগ্যভাবে ছোট করুন।
-• ডিজিটাল স্বাক্ষর: নিজের হাতে স্বাক্ষর এঁকে সরাসরি পেজে যুক্ত করুন।
+• নথি স্বাক্ষর: স্বাক্ষরকারীর নাম, কারণ ও সময়সহ PDF পৃষ্ঠায় পরিচ্ছন্ন ডিজিটাল স্বাক্ষর স্ট্যাম্প যুক্ত করুন।
 • পাসওয়ার্ড সুরক্ষা: ১২৮-বিট AES এনক্রিপশন ও পাসওয়ার্ড দিয়ে গোপনীয় ফাইল সুরক্ষিত করুন।
 • ওয়াটারমার্ক যুক্ত করা: স্বচ্ছতা, কোণ এবং অবস্থান নিয়ন্ত্রণ করে কাস্টম টেক্সট ওয়াটারমার্ক দিন।
 • পেজ রোটেট: পেজগুলো ৯০, ১৮০ বা ২৭০ ডিগ্রিতে ঘোরান।
@@ -807,9 +863,11 @@ bn,Bengali,PDFCraft: অফলাইন PDF রিডার,"নাইট মো
   - PDF থেকে টেক্সট এক্সট্র্যাক্ট: টেক্সট কপি করুন এবং শব্দের পরিসংখ্যান দেখুন।
   - HTML থেকে PDF: ওয়েব কোড ও টেবিলকে সুন্দর PDF ডকুমেন্টে রূপান্তর করুন।
 • মেটাডেটা সম্পাদনা: ডকুমেন্টের শিরোনাম, লেখক, বিষয় এবং কি-ওয়ার্ড পরিবর্তন করুন।
+• নথি তথ্য পরিদর্শক: পৃষ্ঠার আকার ও মাপ, PDF সংস্করণ, নিরাপত্তা অনুমতি এবং তৈরির ইতিহাস দেখুন ও সম্পূর্ণ রিপোর্ট কপি করুন।
 
 গোপনীয়তা ও গতি
 • ১০০% অফলাইন: কোনো ইন্টারনেট সংযোগের প্রয়োজন নেই। আপনার ফাইল আপনার ফোনেই সুরক্ষিত থাকে।
+• সহজ কর্মপ্রবাহ ও লাইব্রেরি: অন্য অ্যাপ থেকে সরাসরি PDF খুলুন বা শেয়ার করুন, ব্যাচ কমপ্রেস করুন, গ্রিড প্রিভিউতে পৃষ্ঠা ঘোরান বা মুছুন, Downloads/PDFCraft-এ স্বয়ংক্রিয় সংরক্ষণ ও অনুসন্ধান, প্রিয় এবং একযোগে নাম পরিবর্তন ব্যবহার করুন।
 • আধুনিক Material 3 ডিজাইন: ফোন, ট্যাবলেট, ফোল্ডেবল ও রিমোট কন্ট্রোলযুক্ত Android TV-তে চমৎকারভাবে ব্যবহারযোগ্য।"
 tl,Filipino,PDFCraft: PDF Reader & Editor,"Offline PDF reader na may night mode, boses, pagsasama, pag-compress at lagda.","Ang PDFCraft ay isang pribado at offline na PDF reader at document toolkit na idinisenyo upang tingnan, i-convert, at ayusin ang mga PDF file nang direkta sa iyong telepono. Ang lahat ng operasyon ay 100% lokal na pinoproseso nang walang cloud upload, na tinitiyak ang lubos na privacy ng iyong mga personal at pangnegosyong dokumento.
 
@@ -819,11 +877,11 @@ MATALINONG PDF READER AT VOICE READING
 • Mabilis na Pag-navigate at Paghahanap: Mag-browse gamit ang page slider, mag-zoom hanggang 4.5x, double-tap zoom, at agarang paghahanap sa teksto.
 • Direktang Pag-print at Pagbahagi: Mag-print gamit ang Android Print o ibahagi ang dokumento sa isang pindot lang.
 
-14 NA OFFLINE PDF TOOLS
+15 NA OFFLINE PDF TOOLS
 • Pagsamahin at Isaayos: Pagsamahin ang maraming PDF, larawan, at teksto sa isang file na may sariling pagkakasunod-sunod ng pahina.
 • Hatiin at Kunin: Kumuha ng mga partikular na pahina o hatiin ang mahahabang dokumento sa magkakahiwalay na file.
 • I-compress ang PDF: Bawasan ang laki ng file habang pinapanatili ang malinaw na kalidad.
-• Lagdaan ang Dokumento: Gumuhit ng sariling e-signature at ilagay ito saanman sa pahina.
+• Pirmahan ang Dokumento: Maglagay ng malinis na digital signature stamp na may pangalan, dahilan, at oras sa PDF.
 • Protektahan gamit ang Password: I-lock ang mga dokumento gamit ang 128-bit AES encryption at password.
 • Maglagay ng Watermark: Magdagdag ng text watermark na may kontrol sa transparency, anggulo, at posisyon.
 • I-rotate ang mga Pahina: Paikutin ang mga pahina ng 90, 180, o 270 degrees.
@@ -835,9 +893,11 @@ MATALINONG PDF READER AT VOICE READING
   - Kumuha ng Teksto: Kopyahin ang teksto mula sa PDF at tingnan ang bilang ng salita.
   - HTML patungong PDF: I-convert ang web code at table sa maayos na PDF.
 • I-edit ang Metadata: Baguhin ang pamagat, may-akda, paksa, at mga keyword ng file.
+• Document Info Inspector: Suriin ang sukat ng pahina, bersyon ng PDF, mga pahintulot sa seguridad, kasaysayan, at kopyahin ang buong ulat.
 
 PRIVACY AT BILIS
 • 100% sa Device: Gumagana nang walang koneksyon sa internet. Hindi aalis ang iyong mga file sa iyong telepono.
+• Maayos na Daloy at Library: Buksan o ibahagi ang PDF mula sa ibang app, mag-batch compress, mag-ikot o magtanggal ng pahina sa grid preview, awtomatikong i-save sa Downloads/PDFCraft, at ayusin gamit ang paghahanap, paborito, at maramihang pagpalit ng pangalan.
 • Material 3 Interface: Angkop para sa mga smartphone, tablet, foldable screen, at Android TV."
 ms,Malay,PDFCraft: Pembaca & Alatan PDF,"Pembaca PDF luar talian dengan mod malam, bacaan suara, gabung dan mampat.","PDFCraft ialah pembaca PDF dan kit alatan dokumen luar talian yang selamat dan peribadi, direka khas untuk membuka, menukar dan mengurus fail PDF terus pada peranti anda. Semua proses dijalankan 100% secara setempat tanpa muat naik ke awan, menjamin kerahsiaan penuh fail peribadi dan perniagaan anda.
 
@@ -847,11 +907,11 @@ PEMBACA PDF PINTAR & BACAAN SUARA (TTS)
 • Navigasi Pantas & Carian: Semak dokumen dengan gelangsar halaman, zum cubit sehingga 4.5x, dwiketuk zum dan carian teks segera.
 • Cetak & Kongsi: Cetak terus melalui perkhidmatan Android Print atau kongsikan dokumen ke aplikasi lain dengan sekali sentuh.
 
-14 ALATAN PDF LUAR TALIAN
+15 ALATAN PDF LUAR TALIAN
 • Gabung & Susun Semula: Gabungkan beberapa fail PDF, gambar dan teks menjadi satu dokumen dengan susunan pilihan anda.
 • Pisah & Ekstrak: Ambil halaman terpilih atau bahagikan dokumen besar kepada beberapa fail berasingan.
 • Mampatkan PDF: Kecilkan saiz fail dokumen sambil mengekalkan kejelasan teks dan grafik.
-• Tandatangan Dokumen: Lukis tandatangan elektronik tulisan tangan dan letakkan terus pada halaman PDF.
+• Tandatangan Dokumen: Tambah cop tandatangan digital yang kemas dengan nama penandatangan, sebab dan cap masa.
 • Kunci & Enkripsi: Lindungi fail sulit dengan kata laluan kukuh dan enkripsi 128-bit AES.
 • Tera Air (Watermark): Masukkan tera air teks dengan kawalan kelegapan, sudut dan kedudukan.
 • Putar Halaman: Betulkan orientasi halaman sebanyak 90, 180 atau 270 darjah.
@@ -863,9 +923,11 @@ PEMBACA PDF PINTAR & BACAAN SUARA (TTS)
   - Ekstrak Teks: Salin teks daripada PDF dan semak statistik kiraan perkataan.
   - HTML ke PDF: Tukar kod web HTML dan jadual menjadi dokumen PDF.
 • Edit Metadata: Kemas kini tajuk, pengarang, subjek dan kata kunci dokumen.
+• Pemeriksa Info Dokumen: Semak format dan dimensi halaman, versi PDF, kebenaran keselamatan, sejarah ciptaan serta salin laporan penuh.
 
 PRIVASI & KELAJUAN TINGGI
 • 100% Pada Peranti: Berfungsi lancar tanpa internet. Fail anda tidak pernah meninggalkan peranti anda.
+• Aliran Kerja Lancar & Pustaka: Buka atau kongsi PDF terus daripada aplikasi lain, mampatkan secara berkelompok, putar atau padam halaman dalam pratonton grid, simpan automatik ke Downloads/PDFCraft dan urus dengan carian, kegemaran serta tukar nama pukal.
 • Reka Bentuk Material 3: Dioptimumkan untuk telefon pintar, tablet, skrin lipat dan Android TV dengan alat kawalan jauh."
 ta,Tamil,PDFCraft: ஆஃப்லைன் PDF ரீடர்,"இரவு முறை, குரல் வாசிப்பு, இணைத்தல் மற்றும் சுருக்கும் ஆஃப்லைன் PDF ரீடர்.","PDFCraft என்பது உங்கள் சாதனத்திலேயே நேரடியாக PDF கோப்புகளைப் படிக்கவும், மாற்றவும் மற்றும் நிர்வகிக்கவும் வடிவமைக்கப்பட்ட ஒரு பாதுகாப்பான ஆஃப்லைன் PDF ரீடர் மற்றும் டூல்கிட் ஆகும். அனைத்து செயல்பாடுகளும் கிளவுட் பதிவேற்றம் இன்றி 100% உள்ளூரிலேயே நடைபெறுவதால், உங்கள் தனிப்பட்ட ஆவணங்களின் பாதுகாப்பு முழுமையாக உறுதி செய்யப்படுகிறது.
 
@@ -875,11 +937,11 @@ ta,Tamil,PDFCraft: ஆஃப்லைன் PDF ரீடர்,"இரவு �
 • விரைவான வழிசெலுத்தல் மற்றும் தேடல்: பக்கங்களை ஸ்லைடர் மூலம் சுலபமாகத் திருப்புங்கள், 4.5x வரை பெரிதாக்குங்கள், உடனடியாக உரை தேடுங்கள்.
 • அச்சிடுதல் மற்றும் பகிர்தல்: ஆண்ட்ராய்டு அச்சுச் சேவை மூலம் நேரடியாக அச்சிடுங்கள் அல்லது ஒரே தொடுதலில் பகிருங்கள்.
 
-14 சக்திவாய்ந்த ஆஃப்லைன் PDF கருவிகள்
+15 சக்திவாய்ந்த ஆஃப்லைன் PDF கருவிகள்
 • இணைத்தல் மற்றும் வரிசைப்படுத்துதல்: பல PDF கோப்புகள், புகைப்படங்கள் மற்றும் உரைகளை நீங்கள் விரும்பும் வரிசையில் ஒன்றாக இணையுங்கள்.
 • பிரித்தல் மற்றும் பக்கங்களை எடுத்தல்: தேவையான பக்கங்களை மட்டும் தனியாகப் பிரிக்கவும் அல்லது பெரிய கோப்புகளைச் சிறியதாக மாற்றவும்.
 • PDF சுருக்குதல் (Compress): தெளிவு குறையாமல் கோப்பின் அளவை எளிதாகக் குறைக்கவும்.
-• டிஜிட்டல் கையொப்பம்: கையெழுத்திட்டு அதை நேரடியாக PDF பக்கங்களில் சேர்க்கவும்.
+• ஆவண கையொப்பம்: கையொப்பமிடுபவர் பெயர், காரணம் மற்றும் நேரமுத்திரையுடன் PDF பக்கங்களில் டிஜிட்டல் முத்திரை இடவும்.
 • கடவுச்சொல் பாதுகாப்பு: 128-பிட் AES என்க்ரிப்ஷன் மூலம் முக்கியக் கோப்புகளுக்கு கடவுச்சொல் பூட்டு போடவும்.
 • வாட்டர்மார்க்: நீங்கள் விரும்பும் உரை வாட்டர்மார்க்கை கோணமும் ஒளிபுகாத்தன்மையும் மாற்றி அமைக்கவும்.
 • பக்கங்களைச் சுழற்றுதல்: பக்கங்களை 90, 180 அல்லது 270 டிகிரியில் சுழற்றிச் சரிசெய்யவும்.
@@ -891,9 +953,11 @@ ta,Tamil,PDFCraft: ஆஃப்லைன் PDF ரீடர்,"இரவு �
   - உரை பிரித்தெடுத்தல்: PDF-லிருந்து உரையை நகலெடுத்து சொல் எண்ணிக்கையைப் பார்க்கவும்.
   - HTML-லிருந்து PDF: இணையக் குறியீடுகளையும் அட்டவணைகளையும் PDF ஆக மாற்றவும்.
 • மெட்டாடேட்டா திருத்துதல்: தலைப்பு, ஆசிரியர் மற்றும் முக்கிய வார்த்தைகளை மாற்றவும்.
+• ஆவணத் தகவல் ஆய்வாளர்: பக்க வடிவம், அளவுகள், PDF பதிப்பு, பாதுகாப்பு அனுமதிகள் மற்றும் உருவாக்க வரலாற்றை பார்த்து அறிக்கையைப் பகிரவும்.
 
 முழுமையான தனியுரிமை
 • 100% சாதனத்தில் மட்டுமே: இணையத் தொடர்பு தேவையில்லை. கோப்புகள் உங்கள் சாதனத்தை விட்டு வெளியேறாது.
+• எளிய பணிப்பாய்வு மற்றும் நூலகம்: பிற செயலிகளிலிருந்து PDF-களை நேரடியாகத் திறந்து பகிரவும், தொகுப்பு சுருக்கம் செய்யவும், கட்ட முன்னோட்டத்தில் பக்கங்களைச் சுழற்றவும் நீக்கவும், Downloads/PDFCraft-இல் தானாகச் சேமித்து தேடல், பிடித்தவை மூலம் நிர்வகிக்கவும்.
 • Material 3 வடிவமைப்பு: மொபைல், டேப்லெட் மற்றும் Android TV-க்கு முழுமையாகப் பொருந்தும்."
 te,Telugu,PDFCraft: ఆఫ్‌లైన్ PDF రీడర్,"రాత్రి మోడ్, వాయిస్ రీడింగ్, విలీనం, కుదింపుతో కూడిన ఆఫ్‌లైన్ PDF రీడర్.","PDFCraft అనేది మీ పరికరంలో నేరుగా PDF ఫైల్‌లను వీక్షించడానికి, మార్చడానికి మరియు నిర్వహించడానికి రూపొందించబడిన సురక్షితమైన ఆఫ్‌లైన్ PDF రీడర్ మరియు టూల్‌కిట్. క్లౌడ్ అప్‌లోడ్ లేకుండా అన్ని పనులు 100% స్థానికంగా పరికరంలోనే జరుగుతాయి, కాబట్టి మీ పత్రాల గోప్యతకు పూర్తి భరోసా ఉంటుంది.
 
@@ -903,11 +967,11 @@ te,Telugu,PDFCraft: ఆఫ్‌లైన్ PDF రీడర్,"రాత్�
 • వేగవంతమైన నావిగేషన్ & సెర్చ్: పేజీ స్లైడర్, 4.5x జూమ్, డబుల్ ట్యాప్ మరియు తక్షణ టెక్స్ట్ సెర్చ్ సదుపాయం.
 • ప్రింట్ & షేర్: Android ప్రింట్ ద్వారా నేరుగా ప్రింట్ చేయండి లేదా సులభంగా షేర్ చేయండి.
 
-14 శక్తివంతమైన ఆఫ్‌లైన్ PDF టూల్స్
+15 శక్తివంతమైన ఆఫ్‌లైన్ PDF టూల్స్
 • విలీనం & పేజీల క్రమం: బహుళ PDFలు, ఫోటోలు మరియు టెక్స్ట్‌లను మీకు నచ్చిన క్రమంలో ఒకే ఫైల్‌గా కలపండి.
 • విభజన & పేజీల సేకరణ: నిర్దిష్ట పేజీలను వేరు చేయండి లేదా పెద్ద డాక్యుమెంట్‌ను విడివిడిగా మార్చండి.
 • PDF కంప్రెస్: స్పష్టత తగ్గకుండా ఫైల్ పరిమాణాన్ని సమర్థవంతంగా తగ్గించండి.
-• డిజిటల్ సంతకం: మీ చేతితో సంతకం గీసి నేరుగా PDF పేజీలపై సులభంగా చేర్చండి.
+• పత్రాల సంతకం: సంతకం పేరు, కారణం మరియు సమయముద్రతో PDF పేజీలపై స్పష్టమైన డిజిటల్ సంతకం స్టాంప్ జోడించండి.
 • పాస్‌వర్డ్ రక్షణ: 128-బిట్ AES ఎన్‌క్రిప్షన్‌తో మీ ఫైళ్లకు పాస్‌వర్డ్ సెట్ చేయండి.
 • వాటర్‌మార్క్: పారదర్శకత మరియు కోణాన్ని సర్దుబాటు చేస్తూ టెక్స్ట్ వాటర్‌మార్క్ జోడించండి.
 • పేజీల రొటేషన్: పేజీలను 90, 180 లేదా 270 డిగ్రీలలో తిప్పండి.
@@ -919,9 +983,11 @@ te,Telugu,PDFCraft: ఆఫ్‌లైన్ PDF రీడర్,"రాత్�
   - టెక్స్ట్ సేకరణ: PDF నుండి టెక్స్ట్ కాపీ చేయండి మరియు పదాల సంఖ్యను లెక్కించండి.
   - HTML నుండి PDF: వెబ్ కోడ్ మరియు టేబుళ్లను PDFగా మార్చండి.
 • మెటాడేటా సవరణ: శీర్షిక, రచయిత మరియు కీలకపదాలను సవరించండి.
+• పత్ర సమాచార పరిశీలకుడు: పేజీ పరిమాణం, PDF వెర్షన్, భద్రతా అనుమతులు మరియు సృష్టి చరిత్రను పరిశీలించి పూర్తి నివేదికను కాపీ చేయండి.
 
 గోప్యత & వేగం
 • 100% ఆఫ్‌లైన్: ఇంటర్నెట్ అవసరం లేదు. ఫైళ్లు మీ పరికరంలోనే సురక్షితంగా ఉంటాయి.
+• సులభమైన వర్క్‌ఫ్లో & లైబ్రరీ: ఇతర యాప్‌ల నుండి PDFలను నేరుగా తెరవండి లేదా షేర్ చేయండి, బ్యాచ్ కంప్రెస్ చేయండి, గ్రిడ్ ప్రివ్యూలో పేజీలను తిప్పండి లేదా తొలగించండి, Downloads/PDFCraftలో ఆటో-సేవ్ చేసి శోధన, ఇష్టమైనవి, బల్క్ రీనేమ్‌తో నిర్వహించండి.
 • Material 3 డిజైన్: ఫోన్లు, టాబ్లెట్‌లు మరియు Android TV రిమోట్ నావిగేషన్‌కు అనుకూలం."
 mr,Marathi,PDFCraft: ऑफलाइन PDF वाचक,"नाईट मोड, व्हॉइस वाचन, विलीनीकरण आणि कॉम्प्रेशनसह संपूर्ण ऑफलाइन PDF टूल.","PDFCraft हे एक खाजगी आणि सुरक्षित ऑफलाइन PDF वाचक आणि डॉक्युमेंट टूलकिट आहे, जे थेट तुमच्या डिव्हाइसवर PDF फाइल्स पाहण्यासाठी, रूपांतरित करण्यासाठी आणि व्यवस्थापित करण्यासाठी डिझाइन केलेले आहे. सर्व प्रक्रिया कोणत्याही क्लाउड अपलोडशिवाय 100% स्थानिक पातळीवर होतात, ज्यामुळे तुमच्या कागदपत्रांची गोपनीयता पूर्णपणे सुरक्षित राहते.
 
@@ -931,11 +997,11 @@ mr,Marathi,PDFCraft: ऑफलाइन PDF वाचक,"नाईट मोड
 • जलद नेव्हिगेशन आणि शोध: पेज स्लाइडर, 4.5x पर्यंत झूम, डबल टॅप आणि जलद मजकूर शोध सुविधा.
 • प्रिंट आणि शेअर: Android प्रिंट सेवेद्वारे थेट प्रिंट करा किंवा एका स्पर्शाने शेअर करा.
 
-14 उपयुक्त ऑफलाइन PDF टूल्स
+15 उपयुक्त ऑफलाइन PDF टूल्स
 • विलीनीकरण आणि क्रमवारी: एकाधिक PDF, चित्रे आणि मजकूर एकाच फाइलमध्ये आपल्या पसंतीच्या क्रमाने जोडा.
 • विभाजन आणि पेजेस वेगळे करणे: ठराविक पृष्ठे निवडून वेगळी करा किंवा मोठी फाइल छोट्या भागांत विभागून घ्या.
 • PDF कॉम्प्रेस करा: मजकुराची गुणवत्ता कायम ठेवून फाइलचा आकार लक्षणीयरीत्या कमी करा.
-• डिजिटल स्वाक्षरी: हाताने स्वाक्षरी काढा आणि ती थेट PDF पानांवर जोडा.
+• दस्तऐवज स्वाक्षरी: स्वाक्षरीकर्त्याचे नाव, कारण आणि वेळेसह PDF पृष्ठांवर डिजिटल स्वाक्षरी स्टॅम्प जोडा.
 • पासवर्ड सुरक्षा: 128-बिट AES एन्क्रिप्शनने महत्त्वाच्या फाइल्स पासवर्डसह सुरक्षित करा.
 • वॉटरमार्क: पारदर्शकता आणि कोन बदलून हवा तसा टेक्स्ट वॉटरमार्क जोडा.
 • पाने फिरवणे (Rotate): पृष्ठे 90, 180 किंवा 270 अंशांवर फिरवा.
@@ -947,9 +1013,11 @@ mr,Marathi,PDFCraft: ऑफलाइन PDF वाचक,"नाईट मोड
   - मजकूर काढणे: PDF मधील मजकूर कॉपी करा आणि शब्दसंख्या तपासा.
   - HTML ते PDF: वेब कोड आणि तक्ते PDF मध्ये बदला.
 • मेटाडेटा संपादन: शीर्षक, लेखक आणि कीवर्ड्स अद्यतनित करा.
+• दस्तऐवज माहिती तपासक: पृष्ठ आकार व मोजमाप, PDF आवृत्ती, सुरक्षा परवानग्या आणि निर्मिती इतिहास तपासा व संपूर्ण अहवाल कॉपी करा.
 
 गोपनीयता आणि उत्कृष्ट कार्यक्षमता
 • 100% डिव्हाइसवर: इंटरनेट कनेक्शनची अजिबात गरज नाही. तुमच्या फाइल्स सुरक्षित राहतात.
+• सुरळीत कार्यप्रवाह आणि लायब्ररी: इतर अ‍ॅप्समधून थेट PDF उघडा किंवा शेअर करा, बॅच कॉम्प्रेस करा, ग्रिड प्रीव्ह्यूमध्ये पृष्ठे फिरवा किंवा हटवा, Downloads/PDFCraft मध्ये ऑटो-सेव्ह करा आणि शोध, आवडते व एकत्रित नाव बदलाने व्यवस्थापित करा.
 • आधुनिक Material 3 डिझाइन: स्मार्टफोन, टॅब्लेट, फोल्डेबल आणि Android TV साठी पूर्णपणे अनुकूल."
 gu,Gujarati,PDFCraft: ઑફલાઇન PDF રીડર,"નાઇટ મોડ, વૉઇસ રીડિંગ, મર્જ અને કમ્પ્રેશન સાથે ઑફલાઇન PDF રીડર અને ટૂલ્સ.","PDFCraft એ એક ખાનગી અને સુરક્ષિત ઑફલાઇન PDF રીડર અને દસ્તાવેજ ટૂલકિટ છે, જે તમારા ઉપકરણ પર સીધી PDF ફાઇલો જોવા, કન્વર્ટ કરવા અને મેનેજ કરવા માટે બનાવવામાં આવી છે. કોઈપણ ક્લાઉડ અપલોડ વિના તમામ કાર્યો સ્થાનિક રીતે 100% પૂર્ણ થાય છે, જેથી તમારા દસ્તાવેજો સંપૂર્ણપણે સુરક્ષિત રહે છે.
 
@@ -959,11 +1027,11 @@ gu,Gujarati,PDFCraft: ઑફલાઇન PDF રીડર,"નાઇટ મો�
 • ઝડપી નેવિગેશન અને સર્ચ: પેજ સ્લાઇડર, 4.5x ઝૂમ, ડબલ ટેપ અને ત્વરિત લખાણ શોધની સુવિધા.
 • પ્રિન્ટ અને શેર: Android પ્રિન્ટ દ્વારા સીધા પ્રિન્ટ કરો અથવા એક ક્લિકમાં શેર કરો.
 
-14 ઉપયોગી ઑફલાઇન PDF ટૂલ્સ
+15 ઉપયોગી ઑફલાઇન PDF ટૂલ્સ
 • મર્જ અને ક્રમબદ્ધ ગોઠવણી: બહુવિધ PDF, ફોટા અને ટેક્સ્ટને તમારી પસંદગીના ક્રમમાં એક જ ફાઇલમાં જોડો.
 • વિભાજન અને પેજ અલગ કરવા: ચોક્કસ પૃષ્ઠો અલગ કરો અથવા મોટી ફાઇલને નાના ભાગોમાં વહેંચો.
 • PDF કમ્પ્રેસ કરો: ગુણવત્તા જાળવી રાખીને ફાઇલનું કદ નોંધપાત્ર રીતે ઘટાડો.
-• ડિજિટલ સહી: હાથથી સહી દોરીને સીધી PDF પેજ પર ઉમેરો.
+• દસ્તાવેજ સહી: સહી કરનારનું નામ, કારણ અને સમય સાથે PDF પૃષ્ઠો પર ડિજિટલ સહી સ્ટેમ્પ ઉમેરો.
 • પાસવર્ડ સુરક્ષા: 128-બીટ AES એન્ક્રિપ્શન સાથે ફાઇલો પર પાસવર્ડ લોક લગાવો.
 • વૉટરમાર્ક: પારદર્શિતા અને એંગલ એડજસ્ટ કરીને લખાણ વૉટરમાર્ક ઉમેરો.
 • પૃષ્ઠો ફેરવો (Rotate): પૃષ્ઠોને 90, 180 અથવા 270 ડિગ્રીમાં ફેરવો.
@@ -975,9 +1043,11 @@ gu,Gujarati,PDFCraft: ઑફલાઇન PDF રીડર,"નાઇટ મો�
   - ટેક્સ્ટ બહાર કાઢો: લખાણ કૉપિ કરો અને શબ્દોની ગણતરી જુઓ.
   - HTML માંથી PDF: વેબ કોડ અને કોષ્ટકોને PDF માં કન્વર્ટ કરો.
 • મેટાડેટા એડિટ કરો: શીર્ષક, લેખક અને કીવર્ડ્સ બદલો.
+• દસ્તાવેજ માહિતી નિરીક્ષક: પેજનું માપ, PDF વર્ઝન, સુરક્ષા પરવાનગીઓ અને નિર્માણ ઇતિહાસ જુઓ અને સંપૂર્ણ રિપોર્ટ કૉપિ કરો.
 
 સંપૂર્ણ ગોપનીયતા
 • 100% ઑફલાઇન: ઇન્ટરનેટ કનેક્શનની જરૂર નથી. ફાઇલો હંમેશાં તમારા ફોનમાં સુરક્ષિત રહે છે.
+• સરળ વર્કફ્લો અને લાઇબ્રેરી: અન્ય એપ્સમાંથી સીધા PDF ખોલો કે શેર કરો, બેચ કમ્પ્રેસ કરો, ગ્રીડ પ્રિવ્યૂમાં પેજ ફેરવો કે કાઢો, Downloads/PDFCraft માં ઓટો-સેવ કરો અને શોધ, મનપસંદ તેમજ બલ્ક રીનેમ વડે ગોઠવો.
 • Material 3 ઇન્ટરફેસ: મોબાઇલ, ટેબ્લેટ અને Android TV માટે સુસંગત."
 kn,Kannada,PDFCraft: ಆಫ್‌ಲೈನ್ PDF ರೀಡರ್,"ರಾತ್ರಿ ಮೋಡ್, ಧ್ವನಿ ಓದುವಿಕೆ, ವಿಲೀನ ಮತ್ತು ಸಂಕೋಚನದೊಂದಿಗೆ ಆಫ್‌ಲೈನ್ PDF ರೀಡರ್.","PDFCraft ಎನ್ನುವುದು ನಿಮ್ಮ ಸಾಧನದಲ್ಲಿಯೇ ನೇರವಾಗಿ PDF ಫೈಲ್‌ಗಳನ್ನು ವೀಕ್ಷಿಸಲು, ಪರಿವರ್ತಿಸಲು ಮತ್ತು ನಿರ್ವಹಿಸಲು ವಿನ್ಯಾಸಗೊಳಿಸಲಾದ ಸುರಕ್ಷಿತ ಆಫ್‌ಲೈನ್ PDF ರೀಡರ್ ಮತ್ತು ಟೂಲ್‌ಕಿಟ್ ಆಗಿದೆ. ಯಾವುದೇ ಕ್ಲೌಡ್ ಅಪ್‌ಲೋಡ್ ಇಲ್ಲದೆ ಎಲ್ಲಾ ಪ್ರಕ್ರಿಯೆಗಳು 100% ಸ್ಥಳೀಯವಾಗಿ ನಡೆಯುತ್ತವೆ, ಆದ್ದರಿಂದ ನಿಮ್ಮ ವೈಯಕ್ತಿಕ ದಾಖಲೆಗಳ ಗೌಪ್ಯತೆ ಸಂಪೂರ್ಣವಾಗಿ ಸುರಕ್ಷಿತವಾಗಿರುತ್ತದೆ.
 
@@ -987,11 +1057,11 @@ kn,Kannada,PDFCraft: ಆಫ್‌ಲೈನ್ PDF ರೀಡರ್,"ರಾತ್�
 • ವೇಗದ ನ್ಯಾವಿಗೇಷನ್ ಮತ್ತು ಹುಡುಕಾಟ: ಪೇಜ್ ಸ್ಲೈಡರ್, 4.5x ಜೂಮ್, ಡಬಲ್ ಟ್ಯಾಪ್ ಮತ್ತು ತಕ್ಷಣದ ಪಠ್ಯ ಹುಡುಕಾಟ ಸೌಲಭ್ಯ.
 • ಮುದ್ರಣ ಮತ್ತು ಹಂಚಿಕೆ: Android ಮುದ್ರಣದ ಮೂಲಕ ನೇರವಾಗಿ ಮುದ್ರಿಸಿ ಅಥವಾ ಸುಲಭವಾಗಿ ಹಂಚಿಕೊಳ್ಳಿ.
 
-14 ಪ್ರಮುಖ ಆಫ್‌ಲೈನ್ PDF ಪರಿಕರಗಳು
+15 ಪ್ರಮುಖ ಆಫ್‌ಲೈನ್ PDF ಪರಿಕರಗಳು
 • ವಿಲೀನ ಮತ್ತು ಮರುಹೊಂದಿಸುವಿಕೆ: ಬಹು PDFಗಳು, ಫೋಟೋಗಳು ಮತ್ತು ಪಠ್ಯಗಳನ್ನು ನಿಮ್ಮಿಷ್ಟದ ಕ್ರಮದಲ್ಲಿ ಒಂದೇ ಫೈಲ್ ಆಗಿ ಜೋಡಿಸಿ.
 • ವಿಭಜನೆ ಮತ್ತು ಪುಟ ಪ್ರತ್ಯೇಕಿಸುವಿಕೆ: ನಿರ್ದಿಷ್ಟ ಪುಟಗಳನ್ನು ಬೇರ್ಪಡಿಸಿ ಅಥವಾ ದೊಡ್ಡ ಫೈಲ್‌ಗಳನ್ನು ಪ್ರತ್ಯೇಕ ಭಾಗಗಳಾಗಿ ವಿಂಗಡಿಸಿ.
 • PDF ಕಂಪ್ರೆಸ್: ಸ್ಪಷ್ಟತೆ ಕಳೆದುಕೊಳ್ಳದೆ ಫೈಲ್ ಗಾತ್ರವನ್ನು ಗಣನೀಯವಾಗಿ ಕಡಿಮೆ ಮಾಡಿ.
-• ಡಿಜಿಟಲ್ ಸಹಿ: ನಿಮ್ಮ ಸಹಿಯನ್ನು ಬರೆದು ನೇರವಾಗಿ PDF ಪುಟಗಳ ಮೇಲೆ ಇರಿಸಿ.
+• ದಾಖಲೆ ಸಹಿ: ಸಹಿ ಮಾಡಿದವರ ಹೆಸರು, ಕಾರಣ ಮತ್ತು ಸಮಯದೊಂದಿಗೆ PDF ಪುಟಗಳಲ್ಲಿ ಡಿಜಿಟಲ್ ಸಹಿ ಸ್ಟ್ಯಾಂಪ್ ಅಳವಡಿಸಿ.
 • ಪಾಸ್‌ವರ್ಡ್ ಭದ್ರತೆ: 128-ಬಿಟ್ AES ಎನ್‌ಕ್ರಿಪ್ಶನ್‌ನೊಂದಿಗೆ ಫೈಲ್‌ಗಳಿಗೆ ಪಾಸ್‌ವರ್ಡ್ ರಕ್ಷಣೆ ಒದಗಿಸಿ.
 • ವಾಟರ್‌ಮಾರ್ಕ್: ಪಾರದರ್ಶಕತೆ ಮತ್ತು ಕೋನವನ್ನು ಹೊಂದಿಸಿ ಪಠ್ಯ ವಾಟರ್‌ಮಾರ್ಕ್ ಸೇರಿಸಿ.
 • ಪುಟಗಳನ್ನು ತಿರುಗಿಸಿ: ಪುಟಗಳನ್ನು 90, 180 ಅಥವಾ 270 ಡಿಗ್ರಿಗಳಲ್ಲಿ ತಿರುಗಿಸಿ.
@@ -1003,9 +1073,11 @@ kn,Kannada,PDFCraft: ಆಫ್‌ಲೈನ್ PDF ರೀಡರ್,"ರಾತ್�
   - ಪಠ್ಯವನ್ನು ಹೊರತೆಗೆಯಿರಿ: ಪಠ್ಯವನ್ನು ನಕಲಿಸಿ ಮತ್ತು ಪದಗಳ ಸಂಖ್ಯೆಯನ್ನು ನೋಡಿ.
   - HTML ನಿಂದ PDF: ವೆಬ್ ಕೋಡ್ ಮತ್ತು ಕೋಷ್ಟಕಗಳನ್ನು PDF ಆಗಿ ಪರಿವರ್ತಿಸಿ.
 • ಮೆಟಾಡೇಟಾ ಸಂಪಾದನೆ: ಶೀರ್ಷಿಕೆ, ಲೇಖಕ ಮತ್ತು ಕೀವರ್ಡ್‌ಗಳನ್ನು ನವೀಕರಿಸಿ.
+• ದಾಖಲೆ ಮಾಹಿತಿ ಪರಿಶೀಲಕ: ಪುಟದ ಗಾತ್ರ ಮತ್ತು ಅಳತೆ, PDF ಆವೃತ್ತಿ, ಭದ್ರತಾ ಅನುಮತಿಗಳು ಹಾಗೂ ಇತಿಹಾಸವನ್ನು ಪರಿಶೀಲಿಸಿ ಪೂರ್ಣ ವರದಿ ನಕಲಿಸಿ.
 
 ಸಂಪೂರ್ಣ ಗೌಪ್ಯತೆ
 • 100% ಸಾಧನದಲ್ಲಿಯೇ: ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕದ ಅಗತ್ಯವಿಲ್ಲ. ಫೈಲ್‌ಗಳು ನಿಮ್ಮ ಸಾಧನದಲ್ಲೇ ಸುರಕ್ಷಿತವಾಗಿರುತ್ತವೆ.
+• ಸುಗಮ ಕಾರ್ಯಪ್ರವಾಹ ಮತ್ತು ಲೈಬ್ರರಿ: ಇತರ ಆ್ಯಪ್‌ಗಳಿಂದ ನೇರವಾಗಿ PDF ತೆರೆಯಿರಿ ಅಥವಾ ಹಂಚಿಕೊಳ್ಳಿ, ಬ್ಯಾಚ್ ಕಂಪ್ರೆಸ್ ಮಾಡಿ, ಗ್ರಿಡ್ ಪ್ರಿವ್ಯೂನಲ್ಲಿ ಪುಟಗಳನ್ನು ತಿರುಗಿಸಿ ಅಥವಾ ಅಳಿಸಿ, Downloads/PDFCraft ನಲ್ಲಿ ಸ್ವಯಂ ಉಳಿಸಿ ಮತ್ತು ಹುಡುಕಾಟ, ಮೆಚ್ಚಿನವುಗಳೊಂದಿಗೆ ನಿರ್ವಹಿಸಿ.
 • Material 3 ವಿನ್ಯಾಸ: ಫೋನ್, ಟ್ಯಾಬ್ಲೆಟ್ ಮತ್ತು Android TV ರಿಮೋಟ್ ಕಂಟ್ರೋಲ್‌ಗೆ ಸಂಪೂರ್ಣ ಹೊಂದಿಕೊಳ್ಳುತ್ತದೆ."
 ml,Malayalam,PDFCraft: ഓഫ്‌ലൈൻ PDF റീഡർ,"നൈറ്റ് മോഡ്, വോയ്‌സ് റീഡിംഗ്, ലയിപ്പിക്കൽ എന്നിവയുള്ള ഓഫ്‌ലൈൻ PDF റീഡർ.","PDFCraft നിങ്ങളുടെ ഉപകരണത്തിൽ നേരിട്ട് PDF ഫയലുകൾ കാണാനും പരിവർത്തനം ചെയ്യാനും കൈകാര്യം ചെയ്യാനും രൂപകൽപ്പന ചെയ്ത സുരക്ഷിതമായ ഓഫ്‌ലൈൻ PDF റീഡറും ടൂൾകിറ്റുമാണ്. ക്ലൗഡ് അപ്‌ലോഡുകളില്ലാതെ എല്ലാ പ്രവർത്തനങ്ങളും 100% ഉപകരണത്തിനുള്ളിൽ തന്നെ നടക്കുന്നതിനാൽ രേഖകളുടെ പൂർണ്ണ സ്വകാര്യത ഉറപ്പാക്കുന്നു.
 
@@ -1015,11 +1087,11 @@ ml,Malayalam,PDFCraft: ഓഫ്‌ലൈൻ PDF റീഡർ,"നൈറ്റ�
 • വേഗതയേറിയ നാവിഗേഷനും തിരച്ചിലും: പേജ് സ്ലൈഡർ, 4.5x വരെ സൂം ചെയ്യൽ, തത്സമയ ടെക്സ്റ്റ് തിരച്ചിൽ എന്നിവ ലഭ്യമാണ്.
 • പ്രിന്റും പങ്കിടലും: Android പ്രിന്റ് വഴി നേരിട്ട് പ്രിന്റ് ചെയ്യുകയോ ലളിതമായി പങ്കിടുകയോ ചെയ്യാം.
 
-14 ഓഫ്‌ലൈൻ PDF ടൂളുകൾ
+15 ഓഫ്‌ലൈൻ PDF ടൂളുകൾ
 • ലയിപ്പിക്കലും ക്രമീകരിക്കലും: ഒന്നിലധികം PDF-കൾ, ചിത്രങ്ങൾ, കുറിപ്പുകൾ എന്നിവ ഇഷ്ടമുള്ള ക്രമത്തിൽ ഒന്നാക്കുക.
 • വിഭജനവും വേർതിരിക്കലും: ആവശ്യമായ പേജുകൾ മാത്രം വേർതിരിക്കുകയോ വലിയ ഫയലുകൾ വിഭജിക്കുകയോ ചെയ്യുക.
 • PDF കംപ്രസ് ചെയ്യുക: വ്യക്തത നഷ്ടപ്പെടാതെ ഫയൽ വലുപ്പം കാര്യക്ഷമമായി കുറയ്ക്കുക.
-• ഡിജിറ്റൽ ഒപ്പ്: കൈയൊപ്പ് രേഖപ്പെടുത്തി അത് നേരിട്ട് PDF പേജുകളിൽ ചേർക്കുക.
+• പ്രമാണ ഒപ്പ്: ഒപ്പിടുന്നയാളുടെ പേര്, കാരണം, സമയം എന്നിവയുള്ള ഡിജിറ്റൽ ഒപ്പ് സ്റ്റാമ്പ് PDF പേജുകളിൽ ചേർക്കുക.
 • പാസ്‌വേഡ് സുരക്ഷ: 128-ബിറ്റ് AES എൻക്രിപ്ഷൻ വഴി പാസ്‌വേഡ് ഉപയോഗിച്ച് സുരക്ഷിതമാക്കുക.
 • വാട്ടർമാർക്ക്: സുതാര്യതയും ആംഗിളും ക്രമീകരിച്ച് വാട്ടർമാർക്ക് ചേർക്കുക.
 • പേജുകൾ തിരിക്കുക: പേജുകൾ 90, 180 അല്ലെങ്കിൽ 270 ഡിഗ്രിയിൽ തിരിക്കുക.
@@ -1031,9 +1103,11 @@ ml,Malayalam,PDFCraft: ഓഫ്‌ലൈൻ PDF റീഡർ,"നൈറ്റ�
   - ടെക്സ്റ്റ് വേർതിരിക്കൽ: PDF-ൽ നിന്ന് ടെക്സ്റ്റ് പകർത്തുകയും വാക്കുകളുടെ എണ്ണം കാണുകയും ചെയ്യുക.
   - HTML-ൽ നിന്ന് PDF: വെബ് കോഡുകളും പട്ടികകളും PDF ആക്കി മാറ്റുക.
 • മെറ്റാഡാറ്റ എഡിറ്റ് ചെയ്യുക: ശീർഷകം, രചയിതാവ്, കീവേഡുകൾ എന്നിവ മാറ്റുക.
+• പ്രമാണ വിവര പരിശോധകൻ: പേജ് അളവുകൾ, PDF പതിപ്പ്, സുരക്ഷാ അനുമതികൾ, ചരിത്രം എന്നിവ പരിശോധിച്ച് പൂർണ്ണ റിപ്പോർട്ട് പകർത്തുക.
 
 സ്വകാര്യതയും മികച്ച പ്രകടനവും
 • 100% ഉപകരണത്തിൽ മാത്രം: ഇന്റർനെറ്റ് ആവശ്യമില്ല. ഫയലുകൾ നിങ്ങളുടെ ഫോണിൽ സുരക്ഷിതമായിരിക്കും.
+• സുഗമമായ പ്രവർത്തനവും ലൈബ്രറിയും: മറ്റ് ആപ്പുകളിൽ നിന്ന് PDF നേരിട്ട് തുറക്കുക അല്ലെങ്കിൽ പങ്കിടുക, ബാച്ച് കംപ്രസ് ചെയ്യുക, ഗ്രിഡ് പ്രിവ്യൂവിൽ പേജുകൾ തിരിക്കുകയോ നീക്കുകയോ ചെയ്യുക, Downloads/PDFCraft-ൽ ഓട്ടോ-സേവ് ചെയ്ത് തിരയൽ, പ്രിയപ്പെട്ടവ എന്നിവയിലൂടെ ക്രമീകരിക്കുക.
 • Material 3 ഡിസൈൻ: ഫോണുകൾ, ടാബ്‌ലെറ്റുകൾ, Android TV എന്നിവയ്‌ക്ക് അനുയോജ്യം."
 pa,Punjabi,PDFCraft: ਔਫਲਾਈਨ PDF ਰੀਡਰ,"ਨਾਈਟ ਮੋਡ, ਵੌਇਸ ਰੀਡਿੰਗ, ਮਰਜ ਅਤੇ ਕੰਪਰੈਸ ਨਾਲ ਔਫਲਾਈਨ PDF ਰੀਡਰ ਅਤੇ ਟੂਲਕਿੱਟ।","PDFCraft ਇੱਕ ਨਿੱਜੀ ਅਤੇ ਸੁਰੱਖਿਅਤ ਔਫਲਾਈਨ PDF ਰੀਡਰ ਅਤੇ ਦਸਤਾਵੇਜ਼ ਟੂਲਕਿੱਟ ਹੈ, ਜੋ ਤੁਹਾਡੇ ਡਿਵਾਈਸ 'ਤੇ ਸਿੱਧੀਆਂ PDF ਫਾਈਲਾਂ ਵੇਖਣ, ਬਦਲਣ ਅਤੇ ਪ੍ਰਬੰਧਿਤ ਕਰਨ ਲਈ ਤਿਆਰ ਕੀਤਾ ਗਿਆ ਹੈ। ਬਿਨਾਂ ਕਿਸੇ ਕਲਾਉਡ ਅੱਪਲੋਡ ਦੇ ਸਾਰੇ ਕੰਮ 100% ਲੋਕਲ ਹੁੰਦੇ ਹਨ, ਜਿਸ ਨਾਲ ਤੁਹਾਡੇ ਦਸਤਾਵੇਜ਼ ਪੂਰੀ ਤਰ੍ਹਾਂ ਸੁਰੱਖਿਅਤ ਰਹਿੰਦੇ ਹਨ।
 
@@ -1043,11 +1117,11 @@ pa,Punjabi,PDFCraft: ਔਫਲਾਈਨ PDF ਰੀਡਰ,"ਨਾਈਟ ਮੋਡ
 • ਤੇਜ਼ ਨੇਵੀਗੇਸ਼ਨ ਅਤੇ ਖੋਜ: ਪੇਜ ਸਲਾਈਡਰ, 4.5x ਜ਼ੂਮ, ਡਬਲ ਟੈਪ ਅਤੇ ਤੁਰੰਤ ਸ਼ਬਦ ਖੋਜ ਦੀ ਸਹੂਲਤ।
 • ਪ੍ਰਿੰਟ ਅਤੇ ਸ਼ੇਅਰ: Android ਪ੍ਰਿੰਟ ਰਾਹੀਂ ਸਿੱਧਾ ਪ੍ਰਿੰਟ ਕਰੋ ਜਾਂ ਇੱਕ ਟੈਪ ਵਿੱਚ ਸ਼ੇਅਰ ਕਰੋ।
 
-14 ਉਪਯੋਗੀ ਔਫਲਾਈਨ PDF ਟੂਲ
+15 ਉਪਯੋਗੀ ਔਫਲਾਈਨ PDF ਟੂਲ
 • ਮਰਜ ਅਤੇ ਕ੍ਰਮਬੱਧ ਕਰਨਾ: ਕਈ PDF, ਤਸਵੀਰਾਂ ਅਤੇ ਨੋਟਸ ਨੂੰ ਆਪਣੀ ਪਸੰਦ ਦੇ ਕ੍ਰਮ ਵਿੱਚ ਇੱਕੋ ਫਾਈਲ ਵਿੱਚ ਜੋੜੋ।
 • ਵੰਡਣਾ ਅਤੇ ਪੇਜ ਵੱਖ ਕਰਨਾ: ਖਾਸ ਪੰਨੇ ਵੱਖ ਕਰੋ ਜਾਂ ਵੱਡੀ ਫਾਈਲ ਨੂੰ ਛੋਟੇ ਹਿੱਸਿਆਂ ਵਿੱਚ ਵੰਡੋ।
 • PDF ਕੰਪਰੈੱਸ: ਕੁਆਲਿਟੀ ਬਣਾਈ ਰੱਖਦੇ ਹੋਏ ਫਾਈਲ ਦਾ ਆਕਾਰ ਕਾਫ਼ੀ ਘਟਾਓ।
-• ਡਿਜੀਟਲ ਦਸਤਖਤ: ਹੱਥ ਨਾਲ ਦਸਤਖਤ ਬਣਾਓ ਅਤੇ ਸਿੱਧੇ PDF ਪੰਨਿਆਂ 'ਤੇ ਲਗਾਓ।
+• ਦਸਤਾਵੇਜ਼ ਦਸਤਖਤ: ਦਸਤਖਤਕਰਤਾ ਦੇ ਨਾਮ, ਕਾਰਨ ਅਤੇ ਸਮੇਂ ਨਾਲ PDF ਪੰਨਿਆਂ 'ਤੇ ਡਿਜੀਟਲ ਦਸਤਖਤ ਸਟੈਂਪ ਲਗਾਓ।
 • ਪਾਸਵਰਡ ਸੁਰੱਖਿਆ: 128-ਬਿੱਟ AES ਏਨਕ੍ਰਿਪਸ਼ਨ ਨਾਲ ਫਾਈਲਾਂ 'ਤੇ ਪਾਸਵਰਡ ਲਗਾਓ।
 • ਵਾਟਰਮਾਰਕ: ਪਾਰਦਰਸ਼ਤਾ ਅਤੇ ਕੋਣ ਬਦਲ ਕੇ ਟੈਕਸਟ ਵਾਟਰਮਾਰਕ ਸ਼ਾਮਲ ਕਰੋ।
 • ਪੰਨੇ ਘੁਮਾਓ (Rotate): ਪੰਨਿਆਂ ਨੂੰ 90, 180 ਜਾਂ 270 ਡਿਗਰੀ 'ਤੇ ਘੁਮਾਓ।
@@ -1059,9 +1133,11 @@ pa,Punjabi,PDFCraft: ਔਫਲਾਈਨ PDF ਰੀਡਰ,"ਨਾਈਟ ਮੋਡ
   - ਟੈਕਸਟ ਕੱਢਣਾ: PDF ਵਿੱਚੋਂ ਲਿਖਤ ਕਾਪੀ ਕਰੋ ਅਤੇ ਸ਼ਬਦਾਂ ਦੀ ਗਿਣਤੀ ਵੇਖੋ।
   - HTML ਤੋਂ PDF: ਵੈੱਬ ਕੋਡ ਅਤੇ ਟੇਬਲਾਂ ਨੂੰ PDF ਵਿੱਚ ਬਦਲੋ।
 • ਮੈਟਾਡੇਟਾ ਸੰਪਾਦਨ: ਸਿਰਲੇਖ, ਲੇਖਕ ਅਤੇ ਕੀਵਰਡਸ ਅੱਪਡੇਟ ਕਰੋ।
+• ਦਸਤਾਵੇਜ਼ ਜਾਣਕਾਰੀ ਜਾਂਚਕਰਤਾ: ਪੰਨੇ ਦਾ ਆਕਾਰ, PDF ਸੰਸਕਰਣ, ਸੁਰੱਖਿਆ ਇਜਾਜ਼ਤਾਂ ਅਤੇ ਇਤਿਹਾਸ ਵੇਖੋ ਅਤੇ ਪੂਰੀ ਰਿਪੋਰਟ ਕਾਪੀ ਕਰੋ।
 
 ਪੂਰੀ ਗੁਪਤਤਾ
 • 100% ਡਿਵਾਈਸ 'ਤੇ: ਇੰਟਰਨੈਟ ਦੀ ਲੋੜ ਨਹੀਂ। ਤੁਹਾਡੀਆਂ ਫਾਈਲਾਂ ਤੁਹਾਡੇ ਫੋਨ ਵਿੱਚ ਹੀ ਸੁਰੱਖਿਅਤ ਰਹਿੰਦੀਆਂ ਹਨ।
+• ਸੌਖਾ ਵਰਕਫਲੋ ਅਤੇ ਲਾਇਬ੍ਰੇਰੀ: ਹੋਰ ਐਪਾਂ ਤੋਂ ਸਿੱਧੇ PDF ਖੋਲ੍ਹੋ ਜਾਂ ਸਾਂਝੇ ਕਰੋ, ਬੈਚ ਕੰਪ੍ਰੈੱਸ ਕਰੋ, ਗ੍ਰਿੱਡ ਪ੍ਰੀਵਿਊ ਵਿੱਚ ਪੰਨੇ ਘੁਮਾਓ ਜਾਂ ਹਟਾਓ, Downloads/PDFCraft ਵਿੱਚ ਆਟੋ-ਸੇਵ ਕਰੋ ਅਤੇ ਖੋਜ, ਮਨਪਸੰਦ ਤੇ ਬਲਕ ਰੀਨੇਮ ਨਾਲ ਪ੍ਰਬੰਧ ਕਰੋ।
 • Material 3 ਡਿਜ਼ਾਈਨ: ਮੋਬਾਈਲ, ਟੈਬਲੇਟ ਅਤੇ Android TV ਲਈ ਪੂਰੀ ਤਰ੍ਹਾਂ ਅਨੁਕੂਲ।"
 sw,Swahili,PDFCraft: Kisomaji & Zana PDF,"Kisomaji cha PDF nje ya mtandao chenye hali ya usiku, sauti, kuunganisha & bana.","PDFCraft ni kisomaji cha PDF cha faragha na seti ya zana kamili inayofanya kazi bila intaneti moja kwa moja kwenye kifaa chako. Shughuli zote hufanyika ndani ya kifaa chako bila kupakia faili kwenye wingu, ikihakikisha usiri kamili wa nyaraka zako binafsi na za kikazi.
 
@@ -1071,11 +1147,11 @@ KISOMAJI BORA CHA PDF NA KUSOMA KWA SAUTI (TTS)
 • Urambazaji wa Haraka na Utafutaji: Pitia kurasa kwa kitelezi chepesi, kukuza hadi 4.5x, gusa mara mbili, na utafute maneno papo hapo.
 • Chapisha na Shiriki: Chapisha moja kwa moja kupitia huduma za Android au shiriki faili kwa mguso mmoja.
 
-ZANA 14 ZA PDF BILA MTANDAO
+ZANA 15 ZA PDF BILA MTANDAO
 • Unganisha na Panga Upya: Unganisha faili nyingi za PDF, picha na maandishi kuwa faili moja yenye mpangilio unaotaka.
 • Gawanya na Toa Kurasa: Tenganisha kurasa maalum au kata nyaraka kubwa kuwa faili ndogo zinazojitegemea.
 • Bana Ukubwa wa PDF (Compress): Punguza ukubwa wa faili huku ukidumisha ubora mzuri wa maandishi.
-• Saini Nyaraka: Chora saini yako ya kielektroniki na kuiweka moja kwa moja kwenye kurasa za PDF.
+• Saini Nyaraka: Weka muhuri nadhifu wa sahihi ya kidijitali wenye jina, sababu na muda kwenye kurasa za PDF.
 • Funga kwa Nenosiri: Linda nyaraka za siri kwa usimbaji salama wa 128-bit AES na nenosiri.
 • Weka Alama Ficho (Watermark): Ongeza alama ya maandishi inayoweza kurekebishwa mwangaza na mkao.
 • Zungusha Kurasa: Rekebisha mwelekeo wa kurasa kwa nyuzi 90, 180 au 270.
@@ -1087,11 +1163,13 @@ ZANA 14 ZA PDF BILA MTANDAO
   - Toa Maandishi: Nakili maandishi kutoka PDF na uangalie idadi ya maneno.
   - HTML kuwa PDF: Badilisha msimbo wa wavuti na majedwali kuwa nyaraka za PDF.
 • Hariri Taarifa za Faili (Metadata): Badilisha kichwa, mwandishi, mada na maneno muhimu.
+• Mkaguzi wa Taarifa za PDF: Kagua ukubwa wa kurasa, toleo la PDF, ruhusa za usalama, historia na nakili ripoti kamili.
 
 FARAGHA NA KASI YA JUU
 • 100% Kwenye Kifaa: Inafanya kazi bila intaneti. Faili zako hazitoki kamwe kwenye simu yako.
+• Mtiririko Laini na Maktaba: Fungua au shiriki PDF moja kwa moja kutoka programu nyingine, bana faili nyingi kwa pamoja, zungusha au futa kurasa kwenye mwonekano wa gridi, hifadhi kiotomatiki katika Downloads/PDFCraft na panga kwa utafutaji na vipendwa.
 • Muundo wa Kisasa wa Material 3: Imeboreshwa kwa simu, kompyuta kibao na Android TV yenye rimoti."
-af,Afrikaans,PDFCraft: PDF-leser & Tools,"Vanlyn PDF-leser met nagmodus, hardoplees, saamvoeg, saampers en onderteken.","PDFCraft is 'n private vanlyn PDF-leser en dokumentgereedskapskis wat ontwerp is om PDF-leers direk op jou toestel te bekyk, om te skakel en te bestuur. Alle bewerkings vind 100% plaaslik plaas sonder wolkoplaaie, wat algehele vertroulikheid vir jou persoonlike en werksdokumente waarborg.
+af,Afrikaans,PDFCraft: PDF-leser & Nutsgoed,"Vanlyn PDF-leser met nagmodus, hardoplees, saamvoeg, saampers en onderteken.","PDFCraft is 'n private vanlyn PDF-leser en dokumentgereedskapskis wat ontwerp is om PDF-leers direk op jou toestel te bekyk, om te skakel en te bestuur. Alle bewerkings vind 100% plaaslik plaas sonder wolkoplaaie, wat algehele vertroulikheid vir jou persoonlike en werksdokumente waarborg.
 
 SLIM PDF-LESER MET VOORLEESFUNKSIE (TTS)
 • Ooggemak-leesmodusse: Wissel gerieflik tussen Standaard Dagmodus, Donker Nagmodus en 'n Warm Sepia-filter.
@@ -1099,11 +1177,11 @@ SLIM PDF-LESER MET VOORLEESFUNKSIE (TTS)
 • Vinnige Navigasie en Soektog: Blaai gladweg met die bladsyglyer, zoem tot 4.5x in, dubbeltik om te vergroot en soek dadelik na teks.
 • Druk en Deel: Druk direk via Android-drukdienste of deel die dokument met 'n enkele tik.
 
-14 VOLLEDIGE VANLYN PDF-GEREEDSKAP
+15 VOLLEDIGE VANLYN PDF-GEREEDSKAP
 • Voeg Saam en Herorden: Kombineer veelvuldige PDF's, beelde en tekste in 'n enkele leer in jou gekose volgorde.
 • Verdeel en Onttrek: Haal spesifieke bladsye uit of verdeel groot dokumente in afsonderlike leers.
 • Komprimeer PDF: Maak leers kleiner terwyl skerp leesbaarheid en beeldkwaliteit behoue bly.
-• Onderteken Dokumente: Teken jou eie elektroniese handtekening en plaas dit direk op die bladsye.
+• Onderteken Dokumente: Plaas 'n digitale handtekeningstempel met naam, rede en tydstempel direk op PDF-bladsye.
 • Sluit met Wagwoord: Beveilig sensitiewe inligting met 128-bis AES-enkripsie en 'n wagwoord.
 • Watermerk: Voeg teks-watermerke by met beheer oor deursigtigheid, hoek en posisie.
 • Draai Bladsye: Roteer bladsye met 90, 180 of 270 grade.
@@ -1115,9 +1193,11 @@ SLIM PDF-LESER MET VOORLEESFUNKSIE (TTS)
   - Onttrek Teks: Kopieer teks uit PDF's en bekyk woordstatistieke.
   - HTML na PDF: Omskep webkode en tabelle in skoon PDF-leers.
 • Wysig Metadata: Dateer titel, outeur, onderwerp en sleutelwoorde op.
+• Dokumentinligting-inspekteur: Gaan bladsyformaat, afmetings, PDF-weergawe, sekuriteitstoestemmings na en kopieer die volledige verslag.
 
 SEKRETESSE EN WERKVERRIGTING
 • 100% Plaaslik op Toestel: Werk heeltemal sonder 'n internetverbinding. Jou leers verlaat nooit jou foon nie.
+• Vlot Werkvloei & Biblioteek: Maak PDF's direk oop of deel vanaf ander toepassings, bondelkomprimeer verskeie PDF's, draai of skrap bladsye in die roosteraansig, stoor outomaties in Downloads/PDFCraft en organiseer met soek, gunstelinge en massahernoeming.
 • Material 3-Koppelvlak: Geoptimaliseer vir slimfone, tablette, voubare toestelle en Android TV met afstandbeheer."
 bg,Bulgarian,PDFCraft: PDF Четец и Утилити,"Офлайн PDF четец с нощен режим, четене на глас, обединяване и компресиране.","PDFCraft е сигурен офлайн четец и пълен набор от инструменти за преглед, конвертиране и редактиране на PDF файлове директно на вашето устройство. Всички действия се извършват локално без качване в облак, гарантирайки абсолютна поверителност на вашите лични и служебни документи.
 
@@ -1127,11 +1207,11 @@ bg,Bulgarian,PDFCraft: PDF Четец и Утилити,"Офлайн PDF чет
 • Бърза Навигация и Търсене: Прелиствайте с удобния плъзгач, увеличавайте до 4.5x, използвайте двойно докосване и бързо търсене в текста.
 • Печат и Споделяне: Печатайте директно чрез услугите на Android или препращайте файла с едно докосване.
 
-14 ПРАКТИЧНИ ОФЛАЙН PDF ИНСТРУМЕНТА
+15 ПРАКТИЧНИ ОФЛАЙН PDF ИНСТРУМЕНТА
 • Обединяване и Подреждане: Обединявайте няколко PDF файла, изображения и текстове в общ документ с персонализиран ред на страниците.
 • Разделяне и Извличане: Извличайте отделни страници или диапазони и разделяйте големи документи на по-малки части.
 • Компресиране на PDF: Намалявайте обема на файловете, запазвайки четимостта на текста и снимките.
-• Подписване на Документи: Начертайте свой ръкописен електронен подпис и го поставете на желаното място.
+• Подписване на документи: добавете цифров печат за подпис с име, основание и дата/час върху PDF страниците.
 • Заключване с Парола: Защитете поверителни файлове с надеждно 128-битово AES криптиране и парола.
 • Воден Знак: Поставяйте персонализирани текстови водни знаци с настройка на прозрачност, ъгъл и позиция.
 • Завъртане на Страници: Завъртайте страници на 90, 180 или 270 градуса.
@@ -1143,9 +1223,11 @@ bg,Bulgarian,PDFCraft: PDF Четец и Утилити,"Офлайн PDF чет
   - Извличане на Текст: Копирайте текст от PDF и следете статистика за броя на думите.
   - HTML към PDF: Превръщайте уеб код и таблици в прегледни PDF файлове.
 • Редактиране на Метаданни: Актуализирайте заглавие, автор, тема и ключови думи.
+• Инспектор на документа: проверявайте формата и размерите на страниците, PDF версията, правата за сигурност и копирайте пълния отчет.
 
 ПОВЕРИТЕЛНОСТ И БЪРЗИНА
 • 100% Локална Обработка: Работи изцяло без интернет връзка. Документите ви не напускат вашето устройство.
+• Плавен работен процес и библиотека: отваряйте или споделяйте PDF директно от други приложения, компресирайте пакетно, завъртайте или изтривайте страници в решетъчния преглед, записвайте автоматично в Downloads/PDFCraft с търсене, любими и групово преименуване.
 • Material 3 Дизайн: Напълно оптимизиран за телефони, таблети, сгъваеми устройства и Android TV."
 hr,Croatian,PDFCraft: PDF Čitač i Alati,"Izvanmrežni PDF čitač: noćni način, čitanje naglas, spajanje i kompresija.","PDFCraft je siguran izvanmrežni PDF čitač i sveobuhvatan paket alata za pregled, pretvaranje i organizaciju PDF dokumenata izravno na vašem uređaju. Sve se radnje odvijaju 100% lokalno bez prijenosa u oblak, čime se jamči potpuna povjerljivost vaših osobnih i poslovnih dokumenata.
 
@@ -1155,11 +1237,11 @@ PAMETNI PDF ČITAČ I ČITANJE NAGLAS (TTS)
 • Brza Navigacija i Pretraživanje: Pregledavajte stranice klizačem, povećavajte do 4.5x, koristite dvostruki dodir i trenutačno pretražujte tekst.
 • Ispis i Dijeljenje: Ispisujte izravno putem Android usluga ili podijelite dokument jednim dodirom.
 
-14 PRAKTIČNIH IZVANMREŽNIH PDF ALATA
+15 PRAKTIČNIH IZVANMREŽNIH PDF ALATA
 • Spajanje i Preslagivanje: Spojite više PDF datoteka, slika i bilješki u jedan cjeloviti dokument željenim redoslijedom.
 • Razdvajanje i Izdvajanje: Izvucite odabrane stranice ili podijelite opsežne datoteke na manje dijelove.
 • Sažimanje PDF-a: Smanjite veličinu datoteka uz očuvanje oštrine teksta i slika.
-• Potpisivanje Dokumenata: Nacrtajte vlastiti rukopisni potpis i jednostavno ga postavite na stranicu.
+• Potpisivanje Dokumenata: Dodajte uredan pečat digitalnog potpisa s imenom potpisnika, razlogom i vremenskom oznakom.
 • Zaštita Lozinkom: Osigurajte povjerljive podatke snažnim 128-bitnim AES šifriranjem i lozinkom.
 • Vodeni Žig: Dodajte tekstualne vodene žigove uz prilagodbu prozirnosti, kuta i položaja.
 • Zakretanje Stranica: Zakrenite stranice za 90, 180 ili 270 stupnjeva.
@@ -1171,11 +1253,13 @@ PAMETNI PDF ČITAČ I ČITANJE NAGLAS (TTS)
   - Izdvajanje Teksta: Kopirajte tekst iz PDF-a i provjerite broj riječi.
   - HTML u PDF: Pretvorite internetski kod i tablice u čiste PDF dokumente.
 • Uređivanje Metapodataka: Promijenite naslov, autora, temu i ključne riječi.
+• Inspektor Podataka Dokumenta: Provjerite format i dimenzije stranica, verziju PDF-a, sigurnosne dozvole te kopirajte cjelovito izvješće.
 
 PRIVATNOST I BRZINA
 • 100% na Uređaju: Radi bez potrebe za internetom. Vaše datoteke nikada ne napuštaju vaš telefon.
+• Gladak Tijek Rada i Biblioteka: Otvarajte ili dijelite PDF-ove iz drugih aplikacija, skupno sažimajte, rotirajte ili brišite stranice u mrežnom pretpregledu, automatski spremajte u Downloads/PDFCraft te organizirajte pretragom, favoritima i skupnim preimenovanjem.
 • Sučelje Material 3: Potpuno prilagođeno pametnim telefonima, tabletima, sklopivim uređajima i Android TV-u s daljinskim upravljačem."
-et,Estonian,PDFCraft: PDF-lugeja & Tools,"Võrguühenduseta PDF-lugeja öörežiimi, ettelugemise, ühendamise ja tihendamisega.","PDFCraft on turvaline võrguühenduseta PDF-lugeja ja terviklik dokumenditööriistade komplekt PDF-failide vaatamiseks, teisendamiseks ja haldamiseks otse teie seadmes. Kõik toimingud toimuvad 100% kohapeal ilma pilve üleslaadimiseta, tagades teie isiklike ja äriliste dokumentide täieliku konfidentsiaalsuse.
+et,Estonian,"PDFCraft: PDF-lugeja, redaktor","Võrguühenduseta PDF-lugeja öörežiimi, ettelugemise, ühendamise ja tihendamisega.","PDFCraft on turvaline võrguühenduseta PDF-lugeja ja terviklik dokumenditööriistade komplekt PDF-failide vaatamiseks, teisendamiseks ja haldamiseks otse teie seadmes. Kõik toimingud toimuvad 100% kohapeal ilma pilve üleslaadimiseta, tagades teie isiklike ja äriliste dokumentide täieliku konfidentsiaalsuse.
 
 NUTIKAS PDF-LUGEJA JA ETTELUGEMINE (TTS)
 • Silmasõbralikud Lugemisrežiimid: Vahetage sujuvalt tavalise Päevarežiimi, Tumeda Öörežiimi ja Soojatoonilise Seepia filtri vahel.
@@ -1183,11 +1267,11 @@ NUTIKAS PDF-LUGEJA JA ETTELUGEMINE (TTS)
 • Kiire Navigeerimine ja Otsing: Sirvige lehti mugava liuguriga, suurendage kuni 4.5x, topeltpuudutage ja otsige koheselt tekstist.
 • Printimine ja Jagamine: Printige otse Androidi teenuste kaudu või jagage dokumenti vaid ühe puudutusega.
 
-14 TÕHUSAT VÕRGUÜHENDUSETA TÖÖRIISTA
+15 TÕHUSAT VÕRGUÜHENDUSETA TÖÖRIISTA
 • Ühendamine ja Järjestamine: Liitke mitu PDF-i, pilti ja tekstifaili üheks dokumendiks soovitud lehekülgede järjekorras.
 • Poolitamine ja Väljavõtted: Eraldage valitud lehed või jagage mahukad dokumendid iseseisvateks failideks.
 • PDF-i Tihendamine: Vähendage faili mahtu, säilitades teksti ja piltide hea loetavuse.
-• Allkirjastamine: Joonistage oma käsikirjaline e-allkiri ja asetage see otse lehele.
+• Dokumentide Allkirjastamine: Lisage PDF-lehtedele digitaalne allkirjatempel nime, põhjuse ja ajatempliga.
 • Parooliga Kaitsmine: Lukustage tundlikud failid tugeva 128-bitise AES-krüptimise ja parooliga.
 • Vesimärk: Lisage kohandatud tekstivesimärke läbipaistvuse, nurga ja asukoha reguleerimisega.
 • Lehtede Pööramine: Pöörake üksikuid lehti või tervet dokumenti 90, 180 või 270 kraadi.
@@ -1199,9 +1283,11 @@ NUTIKAS PDF-LUGEJA JA ETTELUGEMINE (TTS)
   - Teksti Eraldamine: Kopeerige tekst PDF-ist ja vaadake sõnastatistikat.
   - HTML PDF-iks: Teisendage veebikood ja tabelid selgeks PDF-dokumendiks.
 • Metaandmete Muutmine: Uuendage pealkirja, autorit, teemat ja otsingusõnu.
+• Dokumendiinfo Inspektor: Kontrollige lehe formaati ja mõõtmeid, PDF-versiooni, turvaõigusi ning kopeerige või jagage kogu aruannet.
 
 PRIVAATSUS JA KIIRUS
 • 100% Seadmes: Toimib ilma internetita. Teie failid jäävad alati ainult teie seadmesse.
+• Sujuv Töövoog ja Teek: Avage või jagage PDF-faile otse teistest rakendustest, pakkige hulgi, pöörake või kustutage lehti ruudustiku eelvaates, salvestage automaatselt kausta Downloads/PDFCraft ning korraldage otsingu, lemmikute ja hulgi ümbernimetamisega.
 • Material 3 Disain: Kohandatud nutitelefonidele, tahvelarvutitele, volditavatele ekraanidele ja puldiga Android TV-le."
 lv,Latvian,PDFCraft: PDF Lasītājs & Rīki,"Bezsaistes PDF lasītājs ar nakts režīmu, balsi, apvienošanu un saspiešanu.","PDFCraft ir privāts bezsaistes PDF lasītājs un daudzpusīgs dokumentu rīku komplekts, kas radīts PDF failu apskatei, konvertēšanai un rediģēšanai tieši jūsu ierīcē. Visas darbības tiek veiktas 100% lokāli bez augšupielādes mākonī, garantējot pilnīgu personīgo un darba dokumentu konfidencialitāti.
 
@@ -1211,11 +1297,11 @@ VISS-VIENĀ PDF LASĪTĀJS UN BALSS LASĪŠANA (TTS)
 • Ātra Pārvietošanās un Meklēšana: Pārlūkojiet lapas ar ritinātāju, pietuviniet līdz 4.5x, veiciet dubultskāriena tālummaiņu un meklējiet tekstu.
 • Drukāšana un Kopīgošana: Drukājiet tieši, izmantojot Android drukāšanu, vai kopīgojiet failus ar vienu pieskārienu.
 
-14 JAUDĪGI BEZSAISTES PDF RĪKI
+15 JAUDĪGI BEZSAISTES PDF RĪKI
 • Apvienot un Pārkārtot: Apvienojiet vairākus PDF failus, attēlus un tekstus vienā dokumentā vēlamajā secībā.
 • Sadalīt un Iegūt Lapas: Izņemiet noteiktas lapas vai sadaliet apjomīgus dokumentus atsevišķās daļās.
 • PDF Saspiešana: Samaziniet faila izmēru, saglabājot teicamu lasāmību.
-• Dokumentu Parakstīšana: Uzzīmējiet savu elektronisko parakstu un ievietojiet to tieši dokumentā.
+• Dokumentu Parakstīšana: Pievienojiet PDF lapām digitālā paraksta zīmogu ar vārdu, iemeslu un laika zīmogu.
 • Aizsardzība ar Paroli: Šifrējiet dokumentus ar drošu 128 bitu AES šifrēšanu un paroli.
 • Ūdenszīme: Pievienojiet pielāgotas teksta ūdenszīmes ar caurspīdīguma un leņķa kontroli.
 • Lapu Pagriešana: Pagrieziet lapas par 90, 180 vai 270 grādiem.
@@ -1227,9 +1313,11 @@ VISS-VIENĀ PDF LASĪTĀJS UN BALSS LASĪŠANA (TTS)
   - Teksta Iegūšana: Kopējiet tekstu no PDF un pārbaudiet vārdu skaitu.
   - HTML par PDF: Pārvērtiet tīmekļa kodu un tabulas tīrā PDF dokumentā.
 • Metadatu Rediģēšana: Mainiet dokumenta nosaukumu, autoru, tēmu un atslēgvārdus.
+• Dokumenta Informācijas Inspektors: Pārbaudiet lapas formātu un izmērus, PDF versiju, drošības atļaujas un kopējiet pilnu pārskatu.
 
 PRIVĀTUMS UN ĀTRUMS
 • 100% Ierīcē: Lietotne darbojas bez interneta pieslēguma. Jūsu faili paliek tikai jūsu ierīcē.
+• Ērta Darbplūsma un Bibliotēka: Atveriet vai kopīgojiet PDF tieši no citām lietotnēm, saspiediet pakotnē, pagrieziet vai dzēsiet lapas režģa priekšskatījumā, automātiski saglabājiet mapē Downloads/PDFCraft un kārtojiet ar meklēšanu, izlasi un masveida pārdēvēšanu.
 • Material 3 Saskarne: Pielāgota tālruņiem, planšetdatoriem, salokāmiem ekrāniem un Android TV."
 lt,Lithuanian,PDFCraft: PDF Skaitytuvas,"Neprisijungęs PDF skaitytuvas su nakties režimu, garsiniu skaitymu ir glaudinimu","PDFCraft yra saugi, neprisijungus veikianti PDF skaitytuvė ir visapusiškas dokumentų įrankių rinkinys, skirtas peržiūrėti, konvertuoti ir tvarkyti PDF failus tiesiogiai jūsų įrenginyje. Visi veiksmai atliekami 100% vietoje be jokio įkėlimo į debesiją, užtikrinant visišką asmeninių ir darbo dokumentų privatumą.
 
@@ -1239,11 +1327,11 @@ IŠMANUS PDF SKAITYTUVAS IR BALSO SKAITYMAS (TTS)
 • Greita Navigacija ir Paieška: Slinkite puslapius slankikliu, priartinkite iki 4.5x, dukart bakstelėkite ir ieškokite teksto visame faile.
 • Spausdinimas ir Bendrinimas: Spausdinkite tiesiogiai per Android spausdinimo paslaugas arba bendrinkite vienu paspaudimu.
 
-14 NAUDINGŲ OFFLINE PDF ĮRANKIŲ
+15 NAUDINGŲ OFFLINE PDF ĮRANKIŲ
 • Sujungimas ir Pertvarkymas: Sujunkite kelis PDF failus, nuotraukas ir užrašus į vieną dokumentą pasirinkta tvarka.
 • Padalijimas ir Išskyrimas: Išskirkite pasirinktus puslapius arba padalykite didelius dokumentus į atskirus failus.
 • PDF Glaudinimas: Sumažinkite failo dydį išlaikydami ryškų tekstą bei grafinius elementus.
-• Pasirašymas: Nubraižykite ranka rašytą elektroninį parašą ir įterpkite jį tiesiai į puslapį.
+• Dokumentų Pasirašymas: Pridėkite skaitmeninio parašo spaudą su vardu, priežastimi ir laiko žyma PDF puslapiuose.
 • Apsauga Slaptažodžiu: Užrakinkite slaptus failus patikimu 128 bitų AES šifravimu.
 • Vandens Ženklas: Pridėkite pritaikomus teksto vandens ženklus su permatomumo ir kampo nustatymais.
 • Puslapių Pasukimas: Pasukite puslapius 90, 180 arba 270 laipsnių kampu.
@@ -1255,9 +1343,11 @@ IŠMANUS PDF SKAITYTUVAS IR BALSO SKAITYMAS (TTS)
   - Teksto Ištraukimas: Nukopijuokite tekstą iš PDF ir stebėkite žodžių skaičių.
   - HTML į PDF: Paverskite interneto kodą ir lenteles į švarius PDF dokumentus.
 • Metaduomenų Redagavimas: Atnaujinkite pavadinimą, autorių, temą ir raktinius žodžius.
+• Dokumento Informacijos Inspektorius: Patikrinkite puslapio formatą ir matmenis, PDF versiją, saugos leidimus bei nukopijuokite visą ataskaitą.
 
 PRIVATUMAS IR NAŠUMAS
 • 100% Įrenginyje: Veikia be interneto ryšio. Failai niekada nepalieka jūsų telefono.
+• Sklandi Darbo Eiga ir Biblioteka: Atidarykite ar bendrinkite PDF iš kitų programų, glaudinkite paketais, sukite ar šalinkite puslapius tinklelio peržiūroje, automatiškai išsaugokite Downloads/PDFCraft aplanke ir tvarkykite su paieška, mėgstamiausiais bei masiniu pervadinimu.
 • Material 3 Dizainas: Optimizuota išmaniesiems telefonams, planšetėms, sulenkiamiems įrenginiams ir Android TV."
 sr,Serbian,PDFCraft: PDF Читач и Алати,"Офлајн PDF читач са ноћним режимом, читањем наглас, спајањем и компресијом.","PDFCraft је сигуран офлајн PDF читач и свеобухватан пакет алата за преглед, конверзију и уређивање PDF фајлова директно на вашем уређају. Све операције се одвијају 100% локално без слања датотека у облак, чиме се гарантује потпуна приватност ваших личних и пословних докумената.
 
@@ -1267,11 +1357,11 @@ sr,Serbian,PDFCraft: PDF Читач и Алати,"Офлајн PDF читач �
 • Брза Навигација и Претрага: Листајте странице клизачем, зумирајте до 4.5x, користите двоструки додир и тренутно претражујте текст.
 • Штампање и Дељење: Штампајте директно преко Android услуга или поделите документ једним додиром.
 
-14 КОРИСНИХ ОФЛАЈН PDF АЛАТА
+15 КОРИСНИХ ОФЛАЈН PDF АЛАТА
 • Спајање и Преуређивање: Спојите више PDF фајлова, слика и бележака у један документ жељеним редоследом.
 • Раздвајање и Извлачење: Издвојите изабране странице или поделите велике фајлове на засебне делове.
 • Компресија PDF-а: Смањите величину докумената уз очување оштрине текста и графике.
-• Потписивање Докумената: Нацртајте сопствени електронски потпис и једноставно га поставите на страницу.
+• Потписивање докумената: додајте уредни печат дигиталног потписа са именом, разлогом и временском ознаком.
 • Заштита Лозинком: Обезбедите поверљиве фајлове снажном 128-битном AES енкрипцијом и лозинком.
 • Водени Жиг: Додајте прилагођене текстуалне водене жигове уз подешавање провидности, угла и позиције.
 • Ротација Страница: Ротирајте странице за 90, 180 или 270 степени.
@@ -1283,11 +1373,13 @@ sr,Serbian,PDFCraft: PDF Читач и Алати,"Офлајн PDF читач �
   - Извлачење Текста: Копирајте текст из PDF-а и погледајте број речи.
   - HTML у PDF: Претворите веб код и табеле у чисте PDF документе.
 • Измена Метаподатака: Ажурирајте наслов, аутора, тему и кључне речи.
+• Инспектор података документа: проверите формат и димензије страница, PDF верзију, безбедносне дозволе и копирајте цео извештај.
 
 ПРИВАТНОСТ И БРЗИНА
 • 100% Локално: Ради без потребе за интернетом. Фајлови никада не напуштају ваш уређај.
+• Лак ток рада и библиотека: отварајте или делите PDF директно из других апликација, пакетно компресујте, ротирајте или бришите странице у мрежном приказу, аутоматски чувајте у Downloads/PDFCraft и организујте претрагом, омиљеним и групним преименовањем.
 • Material 3 Изглед: Прилагођено паметним телефонима, таблетима, преклопивим уређајима и Android TV-у са даљинским управљачем."
-sk,Slovak,PDFCraft: PDF Čítačka & Tools,"Offline PDF čítačka s nočným režimom, hlasným čítaním, spájaním a kompresiou.","PDFCraft je bezpečná offline čítačka a ucelený balík nástrojov na prácu s PDF súbormi priamo vo vašom zariadení. Všetky operácie prebiehajú 100% lokálne bez odosielania údajov do cloudu, čo zaručuje úplné súkromie pre vaše osobné aj pracovné dokumenty.
+sk,Slovak,PDFCraft: PDF čítačka & editor,"Offline PDF čítačka s nočným režimom, hlasným čítaním, spájaním a kompresiou.","PDFCraft je bezpečná offline čítačka a ucelený balík nástrojov na prácu s PDF súbormi priamo vo vašom zariadení. Všetky operácie prebiehajú 100% lokálne bez odosielania údajov do cloudu, čo zaručuje úplné súkromie pre vaše osobné aj pracovné dokumenty.
 
 INTELIGENTNÁ PDF ČÍTAČKA S ČÍTANÍM NAHLAS (TTS)
 • Režimy Šetrné k Očiam: Ľahko prepínajte medzi denným režimom, tmavým nočným invertovaným zobrazením a teplým sépiovým filtrom.
@@ -1295,11 +1387,11 @@ INTELIGENTNÁ PDF ČÍTAČKA S ČÍTANÍM NAHLAS (TTS)
 • Rýchla Navigácia a Vyhľadávanie: Pohodlne listujte posuvníkom strán, približujte až 4.5x, používajte dvojité klepnutie a okamžite hľadajte v texte.
 • Tlač a Zdieľanie: Tlačte priamo cez systémové služby Androidu alebo zdieľajte dokument jedným ťuknutím.
 
-14 SPOĽAHLIVÝCH OFFLINE NÁSTROJOV
+15 SPOĽAHLIVÝCH OFFLINE NÁSTROJOV
 • Spájanie a Usporiadanie: Zlúčte viacero PDF súborov, obrázkov a textov do jedného dokumentu s vlastným poradím strán.
 • Rozdelenie a Extrakcia: Vyberte určité strany alebo rozdeľte veľké dokumenty na samostatné súbory.
 • Kompresia PDF: Zmenšite veľkosť súborov pri zachovaní skvelej čitateľnosti.
-• Podpisovanie Dokumentov: Nakreslite vlastný rukopisný podpis a umiestnite ho priamo na stranu.
+• Podpisovanie Dokumentov: Pridajte na strany PDF digitálnu podpisovú pečiatku s menom, dôvodom a časovou pečiatkou.
 • Uzamknutie Heslom: Zabezpečte citlivé dokumenty silným 128-bitovým šifrovaním AES a heslom.
 • Vodoznak: Vložte vlastný textový vodoznak s nastavením priehľadnosti, sklonu a polohy.
 • Otáčanie Strán: Otočte jednotlivé strany alebo celý dokument o 90, 180 alebo 270 stupňov.
@@ -1311,9 +1403,11 @@ INTELIGENTNÁ PDF ČÍTAČKA S ČÍTANÍM NAHLAS (TTS)
   - Extrakcia Textu: Skopírujte text z PDF a skontrolujte počet slov.
   - HTML do PDF: Preveďte webový kód a tabuľky do čistého PDF súboru.
 • Úprava Metadát: Aktualizujte názov, autora, predmet a kľúčové slová.
+• Inšpektor Informácií PDF: Skontrolujte formát a rozmery strán, verziu PDF, oprávnenia zabezpečenia a skopírujte kompletnú správu.
 
 SÚKROMIE A VÝKON
 • 100% v Zariadení: Funguje bez internetového pripojenia. Vaše dáta zostávajú u vás.
+• Plynulý Pracovný Tok a Knižnica: Otvárajte alebo zdieľajte PDF priamo z iných aplikácií, hromadne komprimujte, otáčajte či mažte strany v mriežke náhľadov, automaticky ukladajte do Downloads/PDFCraft a organizujte vyhľadávaním, obľúbenými a hromadným premenovaním.
 • Material 3 Rozhranie: Prispôsobené pre telefóny, tablety, skladacie displeje a Android TV s ovládačom."
 sl,Slovenian,PDFCraft: PDF Bralnik & Orodja,"Brezpovezovalni PDF bralnik z nočnim načinom, glasnim branjem in stiskanjem.","PDFCraft je varen brezpovezovalni PDF bralnik in celovit nabor orodij za pregledovanje, pretvarjanje in urejanje PDF datotek neposredno v vaši napravi. Vsa opravila tečejo 100% lokalno brez nalaganja v oblak, kar zagotavlja popolno zasebnost vaših osebnih in poslovnih dokumentov.
 
@@ -1323,11 +1417,11 @@ PAMETNI PDF BRALNIK IN GLASNO BRANJE (TTS)
 • Hitra Navigacija in Iskanje: Udobno listajte z drsnikom strani, povečajte do 4.5x, uporabite dvojni dotik in hitro poiščite besede.
 • Tiskanje in Skupna Raba: Tiskajte neposredno prek storitev Android ali delite datoteko z enim samim dotikom.
 
-14 ZMOGLJIVIH OFFLINE ORODIJ
+15 ZMOGLJIVIH OFFLINE ORODIJ
 • Združevanje in Razvrščanje: Združite več PDF datotek, slik in besedil v enoten dokument po poljubnem vrstnem redu.
 • Razdelitev in Izločanje: Izločite določene strani ali razdelite obsežne dokumente na manjše samostojne datoteke.
 • Stiskanje PDF: Zmanjšajte velikost datotek ob ohranjanju ostrega besedila in grafike.
-• Podpisovanje Dokumentov: Narišite lastnoročni podpis in ga preprosto postavite na stran.
+• Podpisovanje Dokumentov: Na strani PDF dodajte digitalen žig podpisa z imenom podpisnika, razlogom in časovnim žigom.
 • Zaščita z Geslom: Zaščitite zaupne datoteke z močnim 128-bitnim šifriranjem AES in geslom.
 • Vodni Žig: Dodajte poljuben besedilni vodni žig z nastavitvijo prosojnosti, kota in lege.
 • Vrtenje Strani: Zavrtite posamezne strani ali celoten dokument za 90, 180 ali 270 stopinj.
@@ -1339,9 +1433,11 @@ PAMETNI PDF BRALNIK IN GLASNO BRANJE (TTS)
   - Izločanje Besedila: Kopirajte besedilo iz PDF-ja in preglejte število besed.
   - HTML v PDF: Pretvorite spletno kodo in tabele v čist PDF dokument.
 • Urejanje Metapodatkov: Spremenite naslov, avtorja, zadevo in ključne besede.
+• Pregledovalnik Podatkov PDF: Preverite obliko in mere strani, različico PDF, varnostna dovoljenja ter kopirajte celotno poročilo.
 
 ZASEBNOST IN HITROST
 • 100% v Napravi: Deluje brez internetne povezave. Vaše datoteke nikoli ne zapustijo telefona.
+• Tekoč Potek Dela in Knjižnica: Odpirajte ali delite PDF-je neposredno iz drugih aplikacij, paketno stiskajte, sukajte ali brišite strani v mrežnem predogledu, samodejno shranjujte v Downloads/PDFCraft ter urejajte z iskanjem, priljubljenimi in množičnim preimenovanjem.
 • Material 3 Oblikovanje: Prilagojeno za pametne telefone, tablice, zložljive naprave in Android TV."
 ca,Catalan,PDFCraft: Lector & Editor PDF,"Lector de PDF fora de línia amb mode nocturn, lectura per veu, unir i comprimir.","PDFCraft és un lector i conjunt d'eines PDF privat i fora de línia, dissenyat per visualitzar, convertir i organitzar documents directament al vostre dispositiu. Totes les operacions s'executen localment sense cap càrrega al núvol, garantint una confidencialitat absoluta per als vostres documents personals i professionals.
 
@@ -1351,11 +1447,11 @@ LECTOR PDF INTEL·LIGENT I LECTURA EN VEU ALTA (TTS)
 • Navegació i Cerca Ràpida: Desplaceu-vos amb el control lliscant de pàgines, feu zoom fins a 4.5x, doble toc i cerca instantània de text.
 • Imprimir i Compartir: Imprimiu directament mitjançant els serveis d'Android o compartiu el document amb un sol toc.
 
-14 EINES PDF COMPLETES FORA DE LÍNIA
+15 EINES PDF COMPLETES FORA DE LÍNIA
 • Unir i Reordenar: Combineu múltiples fitxers PDF, imatges i textos en un sol document amb ordre personalitzat.
 • Dividir i Extreure: Extraieu pàgines seleccionades o dividiu documents extensos en fitxers independents.
 • Comprimir PDF: Reduïu la mida dels fitxers conservant una gran nitidesa visual.
-• Signar Documents: Dibuixeu la vostra signatura manuscrita electrònica i apliqueu-la directament a les pàgines.
+• Signar Documents: Apliqueu segells de signatura digital amb nom del signant, motiu i marca horària a les pàgines PDF.
 • Protegir amb Contrasenya: Bloquegeu documents confidencials amb xifratge segur de 128 bits AES.
 • Marca d'Aigua: Afegiu marques d'aigua de text amb control de transparència, angle i posició.
 • Girar Pàgines: Corregiu l'orientació de les pàgines a 90, 180 o 270 graus.
@@ -1367,9 +1463,11 @@ LECTOR PDF INTEL·LIGENT I LECTURA EN VEU ALTA (TTS)
   - Extreure Text: Copieu text del PDF i consulteu les estadístiques de recompte de paraules.
   - HTML a PDF: Transformeu codi web i taules en documents PDF polits.
 • Editar Metadades: Modifiqueu el títol, l'autor, el tema i les paraules clau.
+• Inspector d'Informació PDF: Consulteu format i dimensions de pàgina, versió PDF, permisos de seguretat i copieu l'informe complet.
 
 PRIVADESA I RENDIMENT
 • 100% al Dispositiu: Funciona completament sense connexió a internet. Els fitxers no surten mai del telèfon.
+• Flux Àgil i Biblioteca: Obriu o compartiu PDF directament des d'altres aplicacions, comprimiu lots de PDF, gireu o elimineu pàgines a la graella de previsualització, deseu automàticament a Downloads/PDFCraft i organitzeu amb cerca, preferits i reanomenament massiu.
 • Interfície Material 3: Optimizada per a telèfons intel·ligents, tauletes, pantalles plegables i Android TV amb comandament a distància."
 eu,Basque,PDFCraft: PDF Irakurlea,"Lineaz kanpoko PDF irakurlea: gau-modua, ahots-irakurketa, batu eta konprimatu.","PDFCraft zure gailuan bertan PDF fitxategiak ikusteko, bihurtzeko eta antolatzeko diseinatutako lineaz kanpoko PDF irakurle eta tresna-kutxa segurua da. Eragiketa guztiak %100ean lokalean gauzatzen dira hodeira ezer igo gabe, zure dokumentu pertsonalen eta profesionalen erabateko pribatutasuna bermatuz.
 
@@ -1379,11 +1477,11 @@ PDF IRAKURLE ADIMENDUNA ETA AHOTS-IRAKURKETA (TTS)
 • Nabigazio eta Bilaketa Azkarra: Mugitu orrialdeetan zehar graduatzailearekin, handitu 4.5x-raino, ukitu bikoitza egin eta bilatu testua berehala.
 • Inprimatu eta Partekatu: Inprimatu zuzenean Android bidez edo partekatu fitxategia ukitu bakar batekin.
 
-14 TRESNA INDARTSU LINEAZ KANPO
+15 TRESNA INDARTSU LINEAZ KANPO
 • Batu eta Berrantolatu: Elkartu hainbat PDF, irudi eta testu dokumentu bakar batean nahi duzun orrialde-ordenan.
 • Banatu eta Erauzi: Atera orrialde zehatzak edo zatitu dokumentu luzeak fitxategi independenteetan.
 • PDF-a Konprimatu: Txikitu fitxategiaren tamaina testuaren argitasuna mantenduz.
-• Sinatu Dokumentuak: Marraztu zure eskuzko sinadura elektronikoa eta jarri orrialdeetan.
+• Dokumentuak Sinatu: Gehitu sinadura digitaleko zigiluak sinatzailearen izena, arrazoia eta data-orduarekin PDF orrietan.
 • Pasahitz Bidez Babestu: Babestu datu garrantzitsuak 128 biteko AES enkriptatzearekin eta pasahitzarekin.
 • Filigrana: Gehitu testu-ur-markak gardentasuna, angelua eta kokapena doituz.
 • Biratu Orriak: Zuzendu orrien orientazioa 90, 180 edo 270 gradutan.
@@ -1395,9 +1493,11 @@ PDF IRAKURLE ADIMENDUNA ETA AHOTS-IRAKURKETA (TTS)
   - Erauzi Testua: Kopiatu PDFko testua eta ikusi hitzen estatistikak.
   - HTML PDFra: Bihurtu web-kodea eta taulak PDF garbi batean.
 • Metadatuak Editatu: Eguneratu izenburua, egilea, gaia eta gako-hitzak.
+• Dokumentu-informazio Ikuskatzailea: Ikusi orrialde-formatua, neurriak, PDF bertsioa, segurtasun-baimenak eta kopiatu txosten osoa.
 
 PRIBATUTASUNA ETA ABIADURA
 • %100 Gailuan: Interneteko konexiorik gabe dabil. Zure fitxategiak ez dira inoiz zure gailutik irtengo.
+• Lan-fluxu Arina eta Liburutegia: Ireki edo partekatu PDFak beste aplikazioetatik zuzenean, konprimitu sortaka, biratu edo ezabatu orrialdeak sareta-aurrebistan, gorde automatikoki Downloads/PDFCraft karpetan eta antolatu bilaketa, gogoko eta berrizendatze masiboarekin.
 • Material 3 Diseinua: Smartphone, tablet, gailu tolesgarri eta Android TVrako optimizatua."
 gl,Galician,PDFCraft: Lector e Editor PDF,"Lector PDF fóra de liña con modo noite, lectura de voz, unir e comprimir.","PDFCraft é un lector e conxunto de ferramentas PDF fóra de liña e seguro, deseñado para visualizar, converter e xestionar documentos directamente no teu dispositivo. Todas as operacións desenvólvense de xeito 100% local sen subir arquivos á nube, garantindo total privacidade para os teus documentos persoais e laborais.
 
@@ -1407,11 +1507,11 @@ LECTOR PDF INTELIXENTE E LECTURA POR VOZ (TTS)
 • Navegación e Busca Rápida: Desprázate comodamente co control deslizante, amplía ata 4.5x, fai dobre toque e busca texto ao instante.
 • Imprimir e Compartir: Imprime directamente polos servizos de Android ou comparte o documento cun só toque.
 
-14 FERRAMENTAS PDF FÓRA DE LIÑA
+15 FERRAMENTAS PDF FÓRA DE LIÑA
 • Unir e Reordenar: Xunta varios ficheiros PDF, imaxes e notas nun único documento coa orde elixida.
 • Dividir e Extraer: Extrae páxinas seleccionadas ou divide documentos grandes en arquivos independentes.
 • Comprimir PDF: Reduce o tamaño dos ficheiros mantendo unha excelente nitidez de texto e imaxes.
-• Asinar Documentos: Debuxa a túa sinatura manuscrita electrónica e aplícaa directamente nas páxinas.
+• Asinar Documentos: Aplica selos de sinatura dixital con nome do asinante, motivo e marca de tempo nas páxinas PDF.
 • Protexer con Contrasinal: Protexe documentos confidenciais con cifrado AES de 128 bits e contrasinal.
 • Marca de Auga: Engade marcas de auga de texto con control de transparencia, ángulo e posición.
 • Rotar Páxinas: Corrige a orientación das páxinas en 90, 180 ou 270 graos.
@@ -1423,9 +1523,11 @@ LECTOR PDF INTELIXENTE E LECTURA POR VOZ (TTS)
   - Extraer Texto: Copia texto do PDF e consulta as estatísticas de reconto de palabras.
   - HTML a PDF: Transforma código web e táboas en documentos PDF limpos.
 • Editar Metadatos: Modifica título, autor, asunto e palabras clave.
+• Inspector de Información PDF: Consulta o formato e dimensións das páxinas, versión PDF, permisos de seguridade e copia o informe completo.
 
 PRIVACIDADE E AXILIDADE
 • 100% no Dispositivo: Funciona sen conexión a internet. Os teus arquivos nunca saen do teu teléfono.
+• Fluxo Áxil e Biblioteca: Abre ou comparte PDF directamente desde outras aplicacións, comprime por lotes, xira ou elimina páxinas na grella de vista previa, garda automaticamente en Downloads/PDFCraft e organiza con busca, favoritos e renomeado masivo.
 • Deseño Material 3: Optimizado para móbiles, tabletas, pantallas pregables e Android TV con mando a distancia."
 fa,Persian,PDFCraft: پی دی اف خوان آفلاین,پی‌دی‌اف خوان آفلاین با حالت شب، خواندن صوتی، ادغام، فشرده‌سازی و امضا.,"برنامه PDFCraft یک پی‌دی‌اف خوان و جعبه‌ابزار همه‌کاره و کاملاً آفلاین است که برای مشاهده، تبدیل و مدیریت اسناد مستقیماً روی دستگاه شما طراحی شده است. تمام عملیات به صورت ۱۰۰٪ محلی و بدون نیاز به آپلود در سرورهای ابری انجام می‌شود که محرمانگی کامل اسناد شما را تضمین می‌کند.
 
@@ -1435,11 +1537,11 @@ fa,Persian,PDFCraft: پی دی اف خوان آفلاین,پی‌دی‌اف خ�
 • ناوبری سریع و جستجو: ورق زدن با اسلایدر صفحات، زوم لمسی تا ۴.۵ برابر، زوم با دو بار ضربه و جستجوی متنی آنی.
 • چاپ و اشتراک‌گذاری: چاپ مستقیم از طریق سرویس چاپ اندروید یا ارسال سریع سند با یک لمس.
 
-۱۴ ابزار کاربردی و آفلاین پی‌دی‌اف
+۱۵ ابزار کاربردی و آفلاین پی‌دی‌اف
 • ادغام و مرتب‌سازی: ترکیب چندین فایل PDF، تصویر و متن در یک سند واحد با ترتیب دلخواه صفحات.
 • جداسازی و استخراج صفحات: استخراج صفحات مشخص یا تقسیم فایل‌های حجیم به بخش‌های مجزا.
 • فشرده‌سازی PDF: کاهش چشمگیر حجم فایل با حفظ کیفیت و وضوح متن و تصاویر.
-• امضای الکترونیکی اسناد: کشیدن امضای دستی و درج مستقیم آن در صفحات PDF.
+• امضای دیجیتال اسناد: درج مهر امضای دیجیتال همراه با نام امضاکننده، دلیل و تاریخ و ساعت بر روی صفحات PDF.
 • قفل‌گذاری و رمزگذاری: محافظت از اسناد محرمانه با رمز عبور و رمزنگاری قدرتمند ۱۲۸ بیتی AES.
 • واترمارک متنی: افزودن واترمارک اختصاصی با قابلیت تنظیم شفافیت، زاویه چرخش و موقعیت.
 • چرخاندن صفحات: تصحیح جهت صفحات با زاویه ۹۰، ۱۸۰ یا ۲۷۰ درجه.
@@ -1451,9 +1553,11 @@ fa,Persian,PDFCraft: پی دی اف خوان آفلاین,پی‌دی‌اف خ�
   - استخراج متن از PDF: کپی متون و مشاهده آمار دقیق کلمات سند.
   - تبدیل HTML به PDF: تبدیل کدهای وب و جدول‌ها به فایل PDF تمیز.
 • ویرایش متادیتا: ویرایش عنوان، نویسنده، موضوع و کلمات کلیدی سند.
+• بازرس اطلاعات سند: بررسی قالب و ابعاد صفحه، نسخه PDF، مجوزهای امنیتی، تاریخچه ساخت و کپی یا اشتراک‌گذاری گزارش کامل.
 
 امنیت کامل و سرعت بالا
 • ۱۰۰٪ روی دستگاه: بدون نیاز به اینترنت کار می‌کند. فایل‌های شما همیشه روی گوشی شما می‌مانند.
+• جریان کاری روان و کتابخانه: باز کردن یا اشتراک‌گذاری مستقیم PDF از برنامه‌های دیگر، فشرده‌سازی دسته‌ای، چرخش و حذف صفحات در پیش‌نمایش شبکه‌ای، ذخیره خودکار در Downloads/PDFCraft و مدیریت با جستجو، علاقه‌مندی‌ها و تغییر نام گروهی.
 • رابط کاربری Material 3: بهینه‌سازی شده برای گوشی‌ها، تبلت‌ها، دستگاه‌های تاشو و Android TV با کنترل از راه دور."
 ur,Urdu,PDFCraft: آف لائن PDF ریڈر,نائٹ موڈ، آواز سے پڑھنے، ضم کرنے اور کمپریس کے ساتھ آف لائن پی ڈی ایف ریڈر۔,"ایپلی کیشن PDFCraft ایک نجی اور محفوظ آف لائن پی ڈی ایف ریڈر اور جامع ٹول کٹ ہے، جو براہ راست آپ کے آلے پر PDF فائلوں کو دیکھنے، تبدیل کرنے اور منظم کرنے کے لیے بنائی گئی ہے۔ تمام کام کلاؤڈ پر فائلیں اپ لوڈ کیے بغیر 100 فیصد مقامی طور پر انجام پاتے ہیں، جس سے آپ کے ذاتی اور دفتری دستاویزات کی مکمل رازداری برقرار رہتی ہے۔
 
@@ -1463,11 +1567,11 @@ ur,Urdu,PDFCraft: آف لائن PDF ریڈر,نائٹ موڈ، آواز سے پ�
 • تیز رفتار نیویگیشن اور تلاش: پیج سلائیڈر، 4.5 گنا تک زوم، ڈبل ٹیپ اور فوری الفاظ کی تلاش کی سہولت۔
 • پرنٹ اور شیئر: اینڈرائیڈ پرنٹ سروسز کے ذریعے براہ راست پرنٹ کریں یا ایک کلک میں دستاویزات شیئر کریں۔
 
-14 طاقتور آف لائن پی ڈی ایف ٹولز
+15 طاقتور آف لائن پی ڈی ایف ٹولز
 • ضم کرنا اور صفحات ترتیب دینا: متعدد پی ڈی ایف، تصاویر اور نوٹس کو اپنی مرضی کی ترتیب میں ایک ہی فائل میں یکجا کریں۔
 • تقسیم اور صفحات الگ کرنا: مخصوص صفحات الگ کریں یا بڑی دستاویزات کو چھوٹی فائلوں میں تقسیم کریں۔
 • پی ڈی ایف سائز کم کرنا (Compress): الفاظ کی صفائی برقرار رکھتے ہوئے فائل کا سائز نمایاں طور پر کم کریں۔
-• ڈیجیٹل دستخط: اپنے ہاتھ سے دستخط بنائیں اور انہیں پی ڈی ایف صفحات پر چسپاں کریں۔
+• دستاویزات پر دستخط: دستخط کنندہ کے نام، وجہ اور تاریخ و وقت کے ساتھ PDF صفحات پر ڈیجیٹل دستخط کی مہر لگائیں۔
 • پاس ورڈ سے محفوظ بنانا: 128 بٹ AES انکرپشن اور مضبوط پاس ورڈ کے ذریعے فائلوں کو محفوظ بنائیں۔
 • واٹر مارک لگانا: شفافیت اور زاویہ تبدیل کرتے ہوئے اپنی مرضی کا متنی واٹر مارک شامل کریں۔
 • صفحات گھمانا (Rotate): صفحات کو 90، 180 یا 270 ڈگری پر گھمائیں۔
@@ -1479,9 +1583,11 @@ ur,Urdu,PDFCraft: آف لائن PDF ریڈر,نائٹ موڈ، آواز سے پ�
   - پی ڈی ایف سے ٹیکسٹ نکالنا: تحریر کاپی کریں اور الفاظ کی گنتی دیکھیں۔
   - HTML سے پی ڈی ایف: ویب کوڈز اور ٹیبلز کو صاف ستھری پی ڈی ایف میں بدلیں۔
 • میٹا ڈیٹا میں ترمیم: دستاویز کا عنوان، مصنف اور کلیدی الفاظ تبدیل کریں۔
+• دستاویز معلومات انسپکٹر: صفحے کا سائز اور پیمائش، PDF ورژن، سیکیورٹی اجازتیں اور تاریخ دیکھیں اور مکمل رپورٹ کاپی کریں۔
 
 رازداری اور تیز رفتار کارکردگی
 • 100% آف لائن: انٹرنیٹ کی کوئی ضرورت نہیں۔ آپ کی فائلیں کبھی آپ کے فون سے باہر نہیں جاتیں۔
+• ہموار ورک فلو اور لائبریری: دیگر ایپس سے براہِ راست PDF کھولیں یا شیئر کریں، متعدد فائلیں ایک ساتھ کمپریس کریں، گرڈ پریویو میں صفحات گھمائیں یا حذف کریں، Downloads/PDFCraft میں خودکار محفوظ کریں اور تلاش، پسندیدہ و اجتماعی نام تبدیلی سے منظم کریں۔
 • جدید Material 3 ڈیزائن: موبائل، ٹیبلٹ، فولڈ ایبل اسکرین اور اینڈرائیڈ ٹی وی کے لیے مکمل ہم آہنگ۔"
 is,Icelandic,PDFCraft: PDF-lesari og Tól,"Ótengdur PDF-lesari með næturstillingu, raddlestri, sameiningu og þjöppun.","PDFCraft er öruggur og ótengdur PDF-lesari og fjölhæft skjalaverkfæri sem hannað er til að skoða, breyta og skipuleggja PDF-skjöl beint í tækinu þínu. Allar aðgerðir fara fram 100% staðbundið án þess að hlaða skjölum upp í skýið, sem tryggir fullan trúnað um persónuleg gögn og vinnuskjöl.
 
@@ -1491,11 +1597,11 @@ SNJALL PDF-LESARI OG RADDLESTUR (TTS)
 • Hröð Fletting og Leit: Renndu í gegnum blaðsíður með rennistikunni, stækkaðu allt að 4.5x, notaðu tvísmell og leitaðu í textanum.
 • Prentun og Deiling: Prentaðu beint með prentþjónustu Android eða deildu skjalinu með einum smelli.
 
-14 ÖFLUG ÓTENGD PDF-VERKFÆRI
+15 ÖFLUG ÓTENGD PDF-VERKFÆRI
 • Sameina og Endurraða: Settu mörg PDF-skjöl, myndir og textaskrár saman í eitt skjal í þeirri röð sem þú vilt.
 • Kljúfa og Ná í Síður: Taktu út valdar síður eða skiptu stórum skjölum upp í smærri einingar.
 • Þjappa PDF: Minnkaðu skráarstærðina án þess að fórna skýrleika texta eða mynda.
-• Undirrita Skjöl: Teiknaðu rafræna undirskrift og settu hana á réttan stað á síðunni.
+• Undirrita Skjöl: Settu stafrænan undirskriftarstimpil með nafni, ástæðu og tímastimpli á PDF-síður.
 • Læsa með Lykilorði: Verndaðu trúnaðargögn með öruggri 128-bita AES-dulkóðun og lykilorði.
 • Vatnsmerki: Bættu við sérsniðnu textavatnsmerki með stillingu á gegnsæi og staðsetningu.
 • Snúa Síðum: Snúðu einstökum síðum eða öllu skjalinu um 90, 180 eða 270 gráður.
@@ -1507,9 +1613,11 @@ SNJALL PDF-LESARI OG RADDLESTUR (TTS)
   - Sækja Texta: Afritaðu texta úr PDF og skoðaðu orðafjölda.
   - HTML í PDF: Breyttu vefkóða og töflum í snyrtileg PDF-skjöl.
 • Breyta Lýsigögnum: Uppfærðu titil, höfund, efni og leitarorð.
+• Skjalaupplýsingaskoðari: Skoðaðu síðustærð og mál, PDF-útgáfu, öryggisheimildir, sögu og afritaðu heildarskýrslu.
 
 PERSÓNUVERND OG HRAÐI
 • 100% Staðbundið: Virkar án nettengingar. Skjölin þín fara aldrei úr tækinu þínu.
+• Lipurt Vinnuflæði og Safn: Opnaðu eða deildu PDF beint úr öðrum forritum, fjöldaþjappaðu skjölum, snúðu eða eyddu síðum í yfirlitsgrind, vistaðu sjálfkrafa í Downloads/PDFCraft og skipuleggðu með leit, eftirlætum og fjöldaendurnefningu.
 • Material 3 Viðmót: Aðlagað að snjallsímum, spjaldtölvum, brjótanlegum skjám og Android TV."
 sq,Albanian,PDFCraft: Lexues & Mjete PDF,"Lexues PDF jashtë linje me modalitet nate, lexim zanor, bashkim dhe ngjeshje.","PDFCraft është një lexues PDF privat dhe paketë veglash e plotë jashtë linje, e krijuar për të hapur, konvertuar dhe menaxhuar dokumentet PDF drejtpërdrejt në pajisjen tuaj. Të gjitha proceset kryhen 100% lokalisht pa u ngarkuar në renë kompjuterike (cloud), duke garantuar fshehtësi të plotë për dokumentet tuaja personale dhe të punës.
 
@@ -1519,11 +1627,11 @@ LEXUES PDF I MENÇUR DHE LEXIM ME ZË (TTS)
 • Lundrim dhe Kërkim i Shpejtë: Lëvizni lehtësisht me rrëshqitësin e faqeve, zmadhoni deri në 4.5x, prekni dy herë dhe kërkoni fjalë menjëherë.
 • Printim dhe Shpërndarje: Printoni drejtpërdrejt përmes shërbimeve të Android-it ose shpërndajeni dokumentin me një prekje.
 
-14 MJETE TË FUQISHME PDF JASHTË LINJE
+15 MJETE TË FUQISHME PDF JASHTË LINJE
 • Bashkim dhe Rirreshtim: Bashkoni disa skedarë PDF, imazhe dhe shënime në një dokument të vetëm sipas radhës suaj.
 • Ndarje dhe Nxjerrje Faqesh: Veçoni faqe të caktuara ose ndani dokumente të mëdha në skedarë më vete.
 • Ngjeshje PDF (Compress): Zvogëloni madhësinë e skedarëve duke ruajtur qartësinë e tekstit dhe fotove.
-• Nënshkrim Dokumentesh: Vizatoni nënshkrimin tuaj elektronik dhe vendoseni lehtësisht mbi faqet e PDF-së.
+• Nënshkrim Dokumentesh: Vendosni vulë nënshkrimi digjital me emrin e nënshkruesit, arsyen dhe datën në faqet PDF.
 • Mbrojtje me Fjalëkalim: Kyçni dokumentet konfidenciale me enkriptim të sigurt 128-bit AES.
 • Filigranë (Watermark): Shtoni filigranë teksti me rregullim të transparencës, këndit dhe vendndodhjes.
 • Rrotullim Faqesh: Rrotulloni faqet në 90, 180 ose 270 gradë.
@@ -1535,9 +1643,11 @@ LEXUES PDF I MENÇUR DHE LEXIM ME ZË (TTS)
   - Nxjerrje Teksti: Kopjoni tekst nga PDF-ja dhe shikoni numrin e fjalëve.
   - HTML në PDF: Ktheni kodin e faqeve të internetit dhe tabelat në skedarë PDF.
 • Redaktim të Dhënash (Metadata): Përditësoni titullin, autorin, temën dhe fjalët kyçe.
+• Inspektori i Informacionit PDF: Kontrolloni formatin dhe përmasat e faqes, versionin PDF, lejet e sigurisë dhe kopjoni raportin e plotë.
 
 PRIVATËSI DHE SHPEJTËSI
 • 100% në Pajisje: Funksionon pa lidhje interneti. Skedarët tuaj nuk largohen kurrë nga telefoni.
+• Rrjedhë e Shpejtë Pune & Bibliotekë: Hapni ose ndani PDF drejtpërdrejt nga aplikacione të tjera, ngjishni në grup, rrotulloni ose fshini faqe në pamjen rrjetë, ruani automatikisht në Downloads/PDFCraft dhe organizoni me kërkim, të preferuara dhe riemërtim në masë.
 • Ndërfaqe Material 3: E optimizuar për telefona inteligjentë, tableta, ekrane të palosshme dhe Android TV."
 mk,Macedonian,PDFCraft: PDF Читач и Алатки,"Офлајн PDF читач со ноќен режим, гласно читање, спојување и компресирање.","PDFCraft е безбеден офлајн PDF читач и комплетен пакет алатки за прегледување, конвертирање и управување со PDF документи директно на вашиот уред. Сите операции се извршуваат 100% локално без прикачување на облак, со што се гарантира целосна приватност на вашите лични и службени документи.
 
@@ -1547,11 +1657,11 @@ mk,Macedonian,PDFCraft: PDF Читач и Алатки,"Офлајн PDF чит�
 • Брза Навигација и Пребарување: Движете се низ страниците со лизгачот, зумирајте до 4.5x, користете двоен допир и инстантно пребарувајте текст.
 • Печатење и Споделување: Печатете директно преку услугите на Android или споделете го документот со еден допир.
 
-14 КОРИСНИ ОФЛАЈН PDF АЛАТКИ
+15 КОРИСНИ ОФЛАЈН PDF АЛАТКИ
 • Спојување и Преуредување: Спојте повеќе PDF фајлови, слики и белешки во еден документ по редослед по ваш избор.
 • Делење и Извлекување: Извлечете одредени страници или поделете големи документи на помали засебни фајлови.
 • Компресирање на PDF: Намалете ја големината на датотеките со зачувување на висока читливост.
-• Потпишување Документи: Нацртајте свој рачен електронски потпис и поставете го каде било на страницата.
+• Потпишување документи: додадете дигитален печат за потпис со име, причина и временска ознака на PDF страниците.
 • Заштита со Лозинка: Заклучете доверливи податоци со 128-битна AES енкрипција и лозинка.
 • Воден Печат: Додајте текстуален воден печат со приспособување на проѕирноста, аголот и положбата.
 • Ротирање Страници: Завртете ги страниците за 90, 180 или 270 степени.
@@ -1563,9 +1673,11 @@ mk,Macedonian,PDFCraft: PDF Читач и Алатки,"Офлајн PDF чит�
   - Извлекување Текст: Копирајте текст од PDF и прегледајте број на зборови.
   - HTML во PDF: Конвертирајте веб-код и табели во чисти PDF документи.
 • Уредување Метаподатоци: Променете го насловот, авторот, темата и клучните зборови.
+• Инспектор за информации на PDF: проверете формат и димензии на страници, PDF верзија, безбедносни дозволи и копирајте цел извештај.
 
 ПРИВАТНОСТ И ЕФИКАСНОСТ
 • 100% на Вашиот Уред: Работи без потреба од интернет. Вашите фајлови никогаш не го напуштаат телефонот.
+• Непречен тек на работа и библиотека: отворајте или споделувајте PDF директно од други апликации, компресирајте групно, ротирајте или бришете страници во мрежен преглед, автоматски зачувувајте во Downloads/PDFCraft и организирајте со пребарување, омилени и групно преименување.
 • Material 3 Дизајн: Приспособено за паметни телефони, таблети, преклопливи уреди и Android TV."
 hy,Armenian,PDFCraft: PDF Ընթերցող,"Օֆլայն PDF ընթերցող՝ գիշերային ռեժիմով, ձայնային ընթերցմամբ և գործիքներով։","PDFCraft-ը ապահով, օֆլայն PDF ընթերցող և գործիքների հավաքածու է, որը նախատեսված է PDF ֆայլերը անմիջապես ձեր սարքում դիտելու, փոխակերպելու և խմբագրելու համար: Բոլոր գործողությունները կատարվում են 100% լոկալ կերպով՝ առանց ամպային սերվերներ վերբեռնելու, ինչը երաշխավորում է ձեր անձնական և աշխատանքային փաստաթղթերի լիակատար գաղտնիությունը:
 
@@ -1575,11 +1687,11 @@ hy,Armenian,PDFCraft: PDF Ընթերցող,"Օֆլայն PDF ընթերցող՝ 
 • Արագ Կողմնորոշում և Որոնում. Թերթեք էջերը սահիչով, մեծացրեք մինչև 4.5 անգամ, օգտագործեք կրկնակի հպում և ակնթարթորեն որոնեք տեքստում:
 • Տպում և Տարածում. Տպեք անմիջապես Android ծառայությունների միջոցով կամ տարածեք ֆայլը մեկ հպումով:
 
-14 ՀԶՈՐ ՕՖԼԱՅՆ PDF ԳՈՐԾԻՔՆԵՐ
+15 ՀԶՈՐ ՕՖԼԱՅՆ PDF ԳՈՐԾԻՔՆԵՐ
 • Միավորում և Վերադասավորում. Միավորեք մի քանի PDF, նկարներ և նշումներ մեկ փաստաթղթում ձեր նախընտրած հերթականությամբ:
 • Բաժանում և Էջերի Դուրսբերում. Առանձնացրեք ընտրված էջերը կամ բաժանեք մեծ ֆայլերը առանձին մասերի:
 • PDF Սեղմում (Compress). Փոքրացրեք ֆայլի չափը՝ պահպանելով տեքստի և պատկերների բարձր որակը:
-• Փաստաթղթերի Ստորագրում. Գծեք ձեր ձեռագիր էլեկտրոնային ստորագրությունը և տեղադրեք այն էջի վրա:
+• Փաստաթղթերի Ստորագրում. Ավելացրեք թվային ստորագրության կնիք՝ անունով, պատճառով և ամսաթվով PDF էջերի վրա։
 • Պաշտպանություն Գաղտնաբառով. Պաշտպանեք գաղտնի փաստաթղթերը 128-բիթանոց AES կոդավորմամբ և գաղտնաբառով:
 • Ջրանիշ (Watermark). Ավելացրեք տեքստային ջրանիշեր՝ թափանցիկության, անկյան և դիրքի կարգավորմամբ:
 • Էջերի Պտտում. Ուղղեք էջերի դիրքը 90, 180 կամ 270 աստիճանով:
@@ -1591,9 +1703,11 @@ hy,Armenian,PDFCraft: PDF Ընթերցող,"Օֆլայն PDF ընթերցող՝ 
   - Տեքստի Դուրսբերում. Պատճենեք տեքստը PDF-ից և տեսեք բառերի վիճակագրությունը:
   - HTML-ից PDF. Վերածեք վեբ կոդը և աղյուսակները կոկիկ PDF փաստաթղթի:
 • Մետատվյալների Խմբագրում. Թարմացրեք վերնագիրը, հեղինակին, թեման և հիմնաբառերը:
+• Փաստաթղթի Տվյալների Տեսուչ․ Ստուգեք էջի ձևաչափն ու չափերը, PDF տարբերակը, անվտանգության իրավունքները և պատճենեք ամբողջական հաշվետվությունը։
 
 ԳԱՂՏՆԻՈՒԹՅՈՒՆ ԵՎ ԱՐԱԳԱԳՈՐԾՈՒԹՅՈՒՆ
 • 100% Ձեր Սարքում. Աշխատում է առանց ինտերնետ կապի: Ձեր ֆայլերը երբեք դուրս չեն գալիս ձեր հեռախոսից:
+• Հարմարավետ Աշխատանք և Գրադարան․ Բացեք կամ կիսվեք PDF-ներով այլ հավելվածներից, սեղմեք խմբաքանակով, պտտեք կամ ջնջեք էջերը ցանցային նախադիտումում, ավտոմատ պահեք Downloads/PDFCraft-ում և կառավարեք որոնմամբ, ընտրյալներով ու զանգվածային վերանվանմամբ։
 • Material 3 Ինտերֆեյս. Հարմարեցված է սմարթֆոնների, պլանշետների, ծալվող էկրանների և Android TV-ի համար:"
 ka,Georgian,PDFCraft: PDF წამკითხველი,"ოფლაინ PDF წამკითხველი ღამის რეჟიმით, ხმოვანი კითხვით, გაერთიანებით და შეკუმშვით","PDFCraft არის უსაფრთხო, ოფლაინ PDF წამკითხველი და დოკუმენტების მრავალფუნქციური ხელსაწყოების ნაკრები, რომელიც შექმნილია PDF ფაილების პირდაპირ თქვენს მოწყობილობაზე სანახავად, კონვერტაციისა და მართვისთვის. ყველა პროცესი სრულდება 100% ლოკალურად ღრუბელში ატვირთვის გარეშე, რაც უზრუნველყოფს თქვენი პირადი და საქმიანი დოკუმენტების სრულ კონფიდენციალურობას.
 
@@ -1603,11 +1717,11 @@ ka,Georgian,PDFCraft: PDF წამკითხველი,"ოფლაინ 
 • სწრაფი ნავიგაცია და ძიება: გადაფურცლეთ გვერდები სლაიდერით, გაადიდეთ 4.5x-მდე, გამოიყენეთ ორმაგი შეხება და მოძებნეთ ტექსტში მყისიერად.
 • ბეჭდვა და გაზიარება: დაბეჭდეთ პირდაპირ Android სერვისებით ან გააზიარეთ ფაილი ერთი შეხებით.
 
-14 მძლავრი ოფლაინ PDF ხელსაწყო
+15 მძლავრი ოფლაინ PDF ხელსაწყო
 • გაერთიანება და გადალაგება: გააერთიანეთ რამდენიმე PDF, სურათი და ტექსტი ერთ დოკუმენტში თქვენთვის სასურველი თანმიმდევრობით.
 • გაყოფა და ამოღება: ამოიღეთ შერჩეული გვერდები ან დაყავით დიდი დოკუმენტები ცალკეულ ფაილებად.
 • PDF შეკუმშვა: შეამცირეთ ფაილის ზომა ტექსტისა და გამოსახულების ხარისხის შენარჩუნებით.
-• დოკუმენტების ხელმოწერა: დახატეთ თქვენი ელექტრონული ხელმოწერა და განათავსეთ იგი გვერდებზე.
+• დოკუმენტების ხელმოწერა: დაამატეთ ციფრული ხელმოწერის ბეჭედი სახელით, მიზეზით და დროის ნიშნულით PDF გვერდებზე.
 • პაროლით დაცვა: დაიცავით კონფიდენციალური ფაილები 128-ბიტიანი AES დაშიფვრითა და პაროლით.
 • ჭვირნიშანი (Watermark): დაამატეთ ტექსტური ჭვირნიშნები გამჭვირვალობის, კუთხისა და პოზიციის რეგულირებით.
 • გვერდების მობრუნება: შეცვალეთ გვერდების ორიენტაცია 90, 180 ან 270 გრადუსით.
@@ -1619,11 +1733,13 @@ ka,Georgian,PDFCraft: PDF წამკითხველი,"ოფლაინ 
   - ტექსტის ამოღება: დააკოპირეთ ტექსტი PDF-დან და ნახეთ სიტყვების რაოდენობა.
   - HTML-დან PDF: გადააქციეთ ვებ კოდი და ცხრილები სუფთა PDF დოკუმენტად.
 • მეტამონაცემების რედაქტირება: განაახლეთ სათაური, ავტორი, თემა და საკვანძო სიტყვები.
+• დოკუმენტის ინფორმაციის ინსპექტორი: შეამოწმეთ გვერდის ფორმატი და ზომები, PDF ვერსია, უსაფრთხოების უფლებები და დააკოპირეთ სრული ანგარიში.
 
 კონფიდენციალურობა და სისწრაფე
 • 100% მოწყობილობაზე: მუშაობს ინტერნეტის გარეშე. თქვენი ფაილები არასდროს ტოვებს ტელეფონს.
+• მოქნილი სამუშაო პროცესი და ბიბლიოთეკა: გახსენით ან გააზიარეთ PDF პირდაპირ სხვა აპებიდან, შეკუმშეთ ჯგუფურად, მოატრიალეთ ან წაშალეთ გვერდები ბადის წინასწარ ხედვაში, შეინახეთ ავტომატურად Downloads/PDFCraft-ში და მართეთ ძიებით, რჩეულებითა და ჯგუფური გადარქმევით.
 • Material 3 დიზაینی: მორგებულია სმარტფონებზე, ტაბლეტებზე, დასაკეც ეკრანებსა და Android TV-ზე დისტანციური მართვით."
-az,Azerbaijani,PDFCraft: PDF Oxuyucu və Alət,"Gecə rejimi, səsli oxuma, birləşdirmə və sıxılma ilə oflayn PDF oxuyucu və alət.","PDFCraft birbaşa cihazınızda PDF sənədlərini oxumaq, çevirmək və idarə etmək üçün nəzərdə tutulmuş təhlükəsiz və oflayn PDF oxuyucu və alətlər toplusudur. Bütün əməliyyatlar 100% lokal olaraq buluda fayl yüklənmədən icra olunur və şəxsi sənədlərinizin tam məxfiliyini təmin edir.
+az,Azerbaijani,PDFCraft: PDF Oxucu və Alətlər,"Gecə rejimi, səsli oxuma, birləşdirmə və sıxılma ilə oflayn PDF oxuyucu və alət.","PDFCraft birbaşa cihazınızda PDF sənədlərini oxumaq, çevirmək və idarə etmək üçün nəzərdə tutulmuş təhlükəsiz və oflayn PDF oxuyucu və alətlər toplusudur. Bütün əməliyyatlar 100% lokal olaraq buluda fayl yüklənmədən icra olunur və şəxsi sənədlərinizin tam məxfiliyini təmin edir.
 
 AĞILLI PDF OXUYUCU VƏ SƏSLİ OXUMA (TTS)
 • Göz Qoruyan Oxu Rejimləri: Standart Gündüz, Qaranlıq Gecə və İsti Sepiya filtrləri arasında rahatlıqla keçid edin.
@@ -1631,11 +1747,11 @@ AĞILLI PDF OXUYUCU VƏ SƏSLİ OXUMA (TTS)
 • Sürətli Naviqasiya və Axtarış: Səhifə sürüşdürücüsü, 4.5x-dək böyütmə, ikiqat toxunuş və mətndə dərhal axtarış imkanı.
 • Çap və Paylaşma: Android xidmətləri vasitəsilə birbaşa çap edin və ya bir toxunuşla paylaşın.
 
-14 FAYDALI OFLAYN PDF ALƏTİ
+15 FAYDALI OFLAYN PDF ALƏTİ
 • Birləşdirmə və Sıralama: Bir neçə PDF, şəkil və qeydləri istədiyiniz səhifə ardıcıllığı ilə vahid sənəddə birləşdirin.
 • Bölmə və Səhifə Çıxarma: Seçilmiş səhifələri ayırın və ya böyük sənədləri müstəqil fayllara bölün.
 • PDF Sıxma (Compress): Mətnin və şəkillərin aydınlığını qoruyaraq faylın ölçüsünü xeyli azaldın.
-• Sənədləri İmzalama: Əl ilə elektron imzanızı çəkin və səhifələrin üzərinə asanlıqla yerləşdirin.
+• Sənədləri İmzalama: İmzalayanın adı, səbəbi və vaxt damğası ilə rəqəmsal imza möhürünü PDF səhifələrinə əlavə edin.
 • Parol ilə Qoruma: Məxfi sənədləri güclü 128-bit AES şifrələməsi və parol ilə kilidləyin.
 • Su Nişanı (Watermark): Şəffaflıq, bucaq və mövqeyi tənzimlənən xüsusi mətn su nişanları əlavə edin.
 • Səhifələri Döndərmə: Səhifələri 90, 180 və ya 270 dərəcə döndərin.
@@ -1647,9 +1763,11 @@ AĞILLI PDF OXUYUCU VƏ SƏSLİ OXUMA (TTS)
   - Mətni Çıxarma: PDF-dən mətni kopyalayın və söz sayını yoxlayın.
   - HTML-dən PDF-ə: Veb kodları və cədvəlləri təmiz PDF sənədinə çevirin.
 • Metadatanı Redaktə Etmə: Başlıq, müəllif, mövzu və açar sözləri yeniləyin.
+• Sənəd Məlumatı Müfəttişi: Səhifə formatı və ölçülərini, PDF versiyasını, təhlükəsizlik icazələrini yoxlayın və tam hesabatı kopyalayın.
 
 MƏXFİLİK VƏ YÜKSƏK SÜRƏT
 • 100% Cihazınızda: İnternet bağlantısı tələb olunmur. Sənədləriniz heç vaxt telefonunuzdan kənara çıxmır.
+• Rahat İş Axını və Kitabxana: Digər tətbiqlərdən birbaşa PDF açın və ya paylaşın, toplu sıxın, şəbəkə önizləməsində səhifələri döndərin və ya silin, Downloads/PDFCraft qovluğuna avtomatik yadda saxlayın və axtarış, sevimlilər və kütləvi adlandırma ilə idarə edin.
 • Material 3 Dizaynı: Smartfonlar, planşetlər, qatlana bilən cihazlar və Android TV üçün tam uyğundur."
 bs,Bosnian,PDFCraft: PDF Čitač i Alati,"Offline PDF čitač s noćnim načinom, čitanjem naglas, spajanjem i kompresijom.","PDFCraft je siguran offline PDF čitač i sveobuhvatan paket alata za pregled, pretvaranje i organizaciju PDF dokumenata direktno na vašem uređaju. Sve se operacije odvijaju 100% lokalno bez slanja datoteka na servere u oblaku, čime se garantuje potpuna privatnost vaših ličnih i poslovnih dokumenata.
 
@@ -1659,11 +1777,11 @@ PAMETNI PDF ČITAČ I ČITANJE NAGLAS (TTS)
 • Brza Navigacija i Pretraga: Pregledajte stranice klizačem, uvećavajte do 4.5x, koristite dvostruki dodir i trenutno pretražujte tekst.
 • Štampanje i Dijeljenje: Štampajte direktno putem Android usluga ili podijelite dokument jednim dodirom.
 
-14 KORISNIH OFFLINE PDF ALATA
+15 KORISNIH OFFLINE PDF ALATA
 • Spajanje i Preslagivanje: Spojite više PDF datoteka, slika i bilješki u jedan cjeloviti dokument željenim redoslijedom.
 • Razdvajanje i Izdvajanje: Izdvojite odabrane stranice ili podijelite velike datoteke na zasebne cjeline.
 • Kompresija PDF-a: Smanjite veličinu datoteka uz očuvanje oštrine teksta i slika.
-• Potpisivanje Dokumenata: Nacrtajte vlastiti rukopisni potpis i jednostavno ga postavite na stranicu.
+• Potpisivanje Dokumenata: Dodajte uredan pečat digitalnog potpisa s imenom potpisnika, razlogom i vremenskom oznakom.
 • Zaštita Lozinkom: Zaštitite povjerljive podatke snažnim 128-bitnim AES šifriranjem i lozinkom.
 • Vodeni Žig: Dodajte tekstualne vodene žigove uz podešavanje prozirnosti, ugla i pozicije.
 • Rotiranje Stranica: Zakrenite stranice za 90, 180 ili 270 stepeni.
@@ -1675,7 +1793,9 @@ PAMETNI PDF ČITAČ I ČITANJE NAGLAS (TTS)
   - Izdvajanje Teksta: Kopirajte tekst iz PDF-a i provjerite broj riječi.
   - HTML u PDF: Pretvorite internetski kod i tabele u čiste PDF dokumente.
 • Uređivanje Metapodataka: Promijenite naslov, autora, temu i ključne riječi.
+• Inspektor Podataka Dokumenta: Provjerite format i dimenzije stranica, verziju PDF-a, sigurnosne dozvole te kopirajte cjeloviti izvještaj.
 
 PRIVATNOST I BRZINA
 • 100% na Uređaju: Radi bez potrebe za internetom. Vaše datoteke nikada ne napuštaju vaš telefon.
+• Gladak Tok Rada i Biblioteka: Otvarajte ili dijelite PDF-ove iz drugih aplikacija, grupno sažimajte, rotirajte ili brišite stranice u mrežnom pretpregledu, automatski spremajte u Downloads/PDFCraft te organizujte pretragom, favoritima i grupnim preimenovanjem.
 • Material 3 Dizajn: Potpuno prilagođeno pametnim telefonima, tabletima, sklopivim uređajima i Android TV-u sa daljinskim upravljačem."

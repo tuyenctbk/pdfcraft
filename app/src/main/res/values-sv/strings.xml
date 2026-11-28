@@ -11,7 +11,7 @@
     <string name="onboarding_skip">Hoppa över</string>
     <string name="onboarding_next">Nästa</string>
     <string name="onboarding_get_started">Kom igång</string>
-    <string name="onboarding_title_1">100% på enheten &amp; Privat</string>
+    <string name="onboarding_title_1" formatted="false">100% på enheten &amp; Privat</string>
     <string name="onboarding_desc_1">Bearbeta, slå ihop, dela och komprimera PDF-filer direkt på enheten.</string>
     <string name="onboarding_title_2">Lokal lagringsåtkomst</string>
     <string name="onboarding_desc_2">Bevilja lagringsbehörigheter för att importera och spara PDF-filer.</string>
@@ -81,7 +81,7 @@
     <string name="hub_metric_processed">PROCESSED</string>
     <string name="hub_metric_saved">SPACE SAVED</string>
     <string name="hub_metric_privacy">DATA PRIVACY</string>
-    <string name="hub_privacy_value">100% Local</string>
+    <string name="hub_privacy_value" formatted="false">100% Local</string>
     <string name="hub_quick_actions">Quick Actions</string>
     <string name="hub_view_all_tools">Visa alla 15 verktyg</string>
     <string name="hub_recent_activity">Recent Documents</string>
@@ -300,7 +300,7 @@
     <string name="nav_library">Bibliotek</string>
     <string name="nav_settings">Inställningar</string>
     <string name="support_dev_title">Stöd utvecklaren</string>
-    <string name="support_dev_subtitle">PDFCraft är 100 % gratis, offline och privat utan prenumerationer. Om appen hjälper dig, bjud gärna på en kaffe!</string>
+    <string name="support_dev_subtitle" formatted="false">PDFCraft är 100 % gratis, offline och privat utan prenumerationer. Om appen hjälper dig, bjud gärna på en kaffe!</string>
     <string name="support_coffee_small">Köp en kaffe ($3)</string>
     <string name="support_coffee_medium">Köp en lunch ($5)</string>
     <string name="support_coffee_large">Super-supporter ($10)</string>
@@ -312,7 +312,7 @@
     <string name="support_hub_banner_subtitle">Stöd privat offline-PDF-utveckling med en kaffe</string>
     <string name="support_thank_you">Tack för att du stöder oberoende utveckling!</string>
     <string name="rate_dialog_title">Gillar du PDFCraft?</string>
-    <string name="rate_dialog_desc">Ditt betyg hjälper oss att hålla PDFCraft 100 % offline, privat och fullpackat med funktioner!</string>
+    <string name="rate_dialog_desc" formatted="false">Ditt betyg hjälper oss att hålla PDFCraft 100 % offline, privat och fullpackat med funktioner!</string>
     <string name="rate_dialog_rate_5_stars">Betygsätt med 5 stjärnor på Play Store</string>
     <string name="rate_dialog_submit">Skicka betyg</string>
     <string name="rate_dialog_maybe_later">Kanske senare</string>
@@ -320,7 +320,7 @@
     <string name="rate_feedback_thanks">Tack för din feedback!</string>
     <string name="share_dialog_title">Dela PDFCraft med vänner</string>
     <string name="share_dialog_desc">Hjälp kollegor och vänner att enkelt slå samman, dela och komprimera PDF-filer offline!</string>
-    <string name="share_dialog_bullet_offline">100 % offline och privat lokal motor</string>
+    <string name="share_dialog_bullet_offline" formatted="false">100 % offline och privat lokal motor</string>
     <string name="share_dialog_bullet_tools">Sammanfoga, dela, komprimera och rotera PDF</string>
     <string name="share_dialog_bullet_security">Lösenordslås och bildextrahering</string>
     <string name="share_dialog_share_button">Dela PDFCraft-appen</string>
@@ -369,7 +369,7 @@
     <string name="settings_pref_subtitle">Anpassa din PDFCraft-upplevelse och säkerhetsinställningar</string>
     <string name="settings_theme_appearance">Temautseende</string>
     <string name="settings_security_privacy">Säkerhet och integritet</string>
-    <string name="settings_security_privacy_desc">Alla PDF-operationer körs 100 % lokalt på enheten. Inget dokumentinnehåll laddas upp till externa molnservrar.</string>
+    <string name="settings_security_privacy_desc" formatted="false">Alla PDF-operationer körs 100 % lokalt på enheten. Inget dokumentinnehåll laddas upp till externa molnservrar.</string>
     <string name="settings_cloud_sync_title">Molnsynkronisering och konto</string>
     <string name="settings_cloud_sync_signed_in">Inloggad som %1$s. Dina inställningar och historik kan synkroniseras säkert.</string>
     <string name="settings_cloud_sync_signed_out">Logga in med e-post/lösenord för att synkronisera mellan enheter.</string>
@@ -397,7 +397,7 @@
 
     <!-- Donation & Multi-Method Support Expansion -->
     <string name="support_hub_compact_title">Gillar du PDFCraft? ☕</string>
-    <string name="support_hub_compact_subtitle">Håll PDFCraft 100% offline och privat</string>
+    <string name="support_hub_compact_subtitle" formatted="false">Håll PDFCraft 100% offline och privat</string>
     <string name="support_hub_btn_tip">Stöd ☕</string>
     <string name="support_hub_dismiss">Avfärda</string>
     <string name="support_tab_google_play">Google Play</string>
@@ -410,7 +410,7 @@
     <string name="support_tip_supporter">Super Supporter ($9.99) 🚀</string>
     <string name="support_tip_hero">Hjälte Supporter ($19.99) 👑</string>
     <string name="support_thank_you_title">Tack så mycket för ditt stöd! ❤️</string>
-    <string name="support_thank_you_desc">Ditt bidrag håller PDFCraft helt offline, gratis och privat.</string>
+    <string name="support_thank_you_desc" formatted="false">Ditt bidrag håller PDFCraft helt offline, gratis och privat.</string>
     <string name="support_status_active">Aktiv Supporter ⭐</string>
     <string name="support_crypto_title">Krypto Donering (USDT / BTC)</string>
     <string name="support_crypto_desc">Decentraliserat stöd för programvara med integritet</string>
@@ -424,7 +424,7 @@
     <string name="recent_selected_count">Valda (%1$d/%2$d)</string>
     <string name="recent_search_hint">Sök senaste PDF-filer…</string>
     <string name="recent_no_match">Inga PDF-filer matchar: %1$s</string>
-    <string name="dialog_feature_processing_title">100% lokal bearbetning</string>
+    <string name="dialog_feature_processing_title" formatted="false">100% lokal bearbetning</string>
     <string name="dialog_feature_processing_desc">Alla PDF-åtgärder, rotationer, uppdelningar, komprimeringar och exporter körs lokalt på enheten.</string>
     <string name="dialog_feature_privacy_title">Noll molnuppladdningar</string>
     <string name="dialog_feature_privacy_desc">Dina skatteblanketter, fakturor, avtal och personliga filer lämnar aldrig enheten.</string>
@@ -485,8 +485,8 @@
     <string name="common_unknown">Okänd</string>
     <string name="common_none">Ingen</string>
     <string name="brand_studio_badge">STUDIO</string>
-    <string name="brand_offline_status">100% PÅ ENHETEN • OFFLINE</string>
-    <string name="brand_splash_tagline">100% PÅ ENHETEN • INGA UPPLADDNINGAR</string>
+    <string name="brand_offline_status" formatted="false">100% PÅ ENHETEN • OFFLINE</string>
+    <string name="brand_splash_tagline" formatted="false">100% PÅ ENHETEN • INGA UPPLADDNINGAR</string>
     <string name="cd_studio_logo">PDFCraft Studio-logotyp</string>
     <string name="cd_privacy_info">Integritet och appinfo</string>
     <string name="cd_toggle_theme">Växla ljust/mörkt tema</string>
@@ -519,10 +519,10 @@
     <string name="coachmark_step2_try">Prova Dela</string>
     <string name="coachmark_step3_badge">VERKTYG 3 AV 4 • STORLEKSOPTIMERARE</string>
     <string name="coachmark_step3_title">Komprimera &amp; krymp PDF</string>
-    <string name="coachmark_step3_summary">Minska stora PDF-filer upp till 80% för e-post, portaler eller WhatsApp utan skärpeförlust.</string>
+    <string name="coachmark_step3_summary" formatted="false">Minska stora PDF-filer upp till 80% för e-post, portaler eller WhatsApp utan skärpeförlust.</string>
     <string name="coachmark_step3_tip1">Välj Max kvalitet, Balanserad eller Kompakt</string>
     <string name="coachmark_step3_tip2">Batchkomprimera flera PDF:er samtidigt vid behov</string>
-    <string name="coachmark_step3_tip3">100% offlinebearbetning — dina dokument lämnar aldrig enheten</string>
+    <string name="coachmark_step3_tip3" formatted="false">100% offlinebearbetning — dina dokument lämnar aldrig enheten</string>
     <string name="coachmark_step3_try">Prova Komprimera</string>
     <string name="coachmark_step4_badge">VERKTYG 4 AV 4 • SNABB SIDFIXARE</string>
     <string name="coachmark_step4_title">Rotera, radera &amp; förhandsgranska</string>
@@ -602,7 +602,7 @@
     <string name="compress_selected_files">Valda filer (%1$d)</string>
     <string name="compress_batch_preset">Batch-komprimeringsprofil</string>
     <string name="compress_empty_title">Optimera &amp; extrahera</string>
-    <string name="compress_empty_desc">Minska filstorleken upp till 80% utan molnuppladdning eller extrahera alla sidbilder i hög upplösning lokalt.</string>
+    <string name="compress_empty_desc" formatted="false">Minska filstorleken upp till 80% utan molnuppladdning eller extrahera alla sidbilder i hög upplösning lokalt.</string>
     <string name="compress_input_preview">Förhandsvisning av dokument</string>
     <string name="compress_choose_level">Välj komprimeringsnivå</string>
     <string name="compress_est_impact">Beräknad filstorlek</string>
@@ -761,11 +761,11 @@
     <string name="recent_page_1_preview">PDF Sida 1 förhandsvisning</string>
     <string name="recent_no_preview">Ingen förhandsvisning</string>
     <string name="recent_pages_and_size">%1$d sid • %2$s</string>
-    <string name="support_card_tagline">100% Offline • Privat • Indieutvecklare</string>
+    <string name="support_card_tagline" formatted="false">100% Offline • Privat • Indieutvecklare</string>
     <string name="support_badge_optional">❤️ Valfritt</string>
     <string name="support_badge_unlocked">UPPLÅST</string>
     <string name="support_badge_active">AKTIV</string>
-    <string name="support_iap_disclosure">100% frivillig engångsdricks via Google Play-saldo, Google Pay eller kort. Inga prenumerationer eller återkommande avgifter.</string>
+    <string name="support_iap_disclosure" formatted="false">100% frivillig engångsdricks via Google Play-saldo, Google Pay eller kort. Inga prenumerationer eller återkommande avgifter.</string>
     <string name="support_confirm_title">Bekräfta 1-trycksstöd</string>
     <string name="support_badge_one_time">Engångsbelopp</string>
     <string name="support_send_amount">Skicka %1$s</string>
@@ -780,7 +780,7 @@
     <string name="billing_tip_snack_title">Kaffe &amp; Croissant</string>
     <string name="billing_tip_snack_desc">Energi för en eftermiddag med nya funktioner</string>
     <string name="billing_tip_supporter_title">Supersupporter</string>
-    <string name="billing_tip_supporter_desc">Håll PDFCraft 100% offline och privat</string>
+    <string name="billing_tip_supporter_desc" formatted="false">Håll PDFCraft 100% offline och privat</string>
     <string name="billing_tip_hero_title">Hjältesupporter</string>
     <string name="billing_tip_hero_desc">Evig tacksamhet och bestående märke</string>
     <string name="billing_error_init">Kunde inte initiera Google Play Billing</string>

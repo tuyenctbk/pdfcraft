@@ -77,22 +77,29 @@ object PdfBoxPreviewService {
         pdfUri: Uri
     ): List<File> = withContext(Dispatchers.IO) {
         val extractedFiles = mutableListOf<File>()
+        var localPdfFile: File? = null
+        var pageCount = 0
         try {
             val file = PdfEngine.convertAnyFileToPdf(context, pdfUri)
-            val outputDir = File(context.cacheDir, "scanned_embedded_images").apply { mkdirs() }
+            localPdfFile = file
+            val docHash = file.absolutePath.hashCode().toUInt().toString(16)
+            val outputDir = File(File(context.cacheDir, "scanned_embedded_images"), docHash).apply { mkdirs() }
 
             PDDocument.load(file).use { pdDocument ->
+                pageCount = pdDocument.numberOfPages
                 for (pageIndex in 0 until pdDocument.numberOfPages) {
                     val page = pdDocument.getPage(pageIndex)
                     val resources = page.resources ?: continue
 
                     for (xObjectName in resources.xObjectNames) {
+                        var bitmap: Bitmap? = null
                         try {
                             val xObject = resources.getXObject(xObjectName)
                             if (xObject is com.tom_roush.pdfbox.pdmodel.graphics.image.PDImageXObject) {
-                                val bitmap = xObject.image
+                                bitmap = xObject.image
                                 if (bitmap != null) {
-                                    val imgFile = File(outputDir, "embedded_p${pageIndex + 1}_${xObjectName.name.replace("/", "_")}.png")
+                                    val safeObjName = xObjectName.name.replace(Regex("[^a-zA-Z0-9._-]"), "_")
+                                    val imgFile = File(outputDir, "embedded_p${pageIndex + 1}_$safeObjName.png")
                                     java.io.FileOutputStream(imgFile).use { out ->
                                         bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
                                     }
@@ -101,6 +108,10 @@ object PdfBoxPreviewService {
                             }
                         } catch (e: Exception) {
                             e.printStackTrace()
+                        } finally {
+                            try {
+                                if (bitmap != null && !bitmap.isRecycled) bitmap.recycle()
+                            } catch (_: Exception) {}
                         }
                     }
                 }
@@ -111,7 +122,12 @@ object PdfBoxPreviewService {
 
         // Fallback: If no embedded image objects were found (e.g. vector/flattened PDF), render page bitmaps
         if (extractedFiles.isEmpty()) {
-            return@withContext PdfEngine.extractImages(context, pdfUri, emptyList(), "PNG")
+            val targetFile = localPdfFile
+            val total = if (pageCount > 0) pageCount else targetFile?.let { PdfEngine.getPageCount(it) } ?: 0
+            if (total > 0) {
+                val targetUri = targetFile?.let { Uri.fromFile(it) } ?: pdfUri
+                return@withContext PdfEngine.extractImages(context, targetUri, (0 until total).toList(), "PNG")
+            }
         }
 
         return@withContext extractedFiles

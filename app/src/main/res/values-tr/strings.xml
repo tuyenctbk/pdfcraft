@@ -11,7 +11,7 @@
     <string name="onboarding_skip">Atla</string>
     <string name="onboarding_next">İleri</string>
     <string name="onboarding_get_started">Başla</string>
-    <string name="onboarding_title_1">%100 Cihazda &amp; Gizli</string>
+    <string name="onboarding_title_1" formatted="false">%100 Cihazda &amp; Gizli</string>
     <string name="onboarding_desc_1">PDF belgelerinizi doğrudan cihazınızda işleyin, birleştirin, bölün ve sıkıştırın.</string>
     <string name="onboarding_title_2">Yerel Depolama Erişimi</string>
     <string name="onboarding_desc_2">PDF\'leri içe aktarmak ve kaydetmek için depolama izni verin.</string>
@@ -81,7 +81,7 @@
     <string name="hub_metric_processed">PROCESSED</string>
     <string name="hub_metric_saved">SPACE SAVED</string>
     <string name="hub_metric_privacy">DATA PRIVACY</string>
-    <string name="hub_privacy_value">100% Local</string>
+    <string name="hub_privacy_value" formatted="false">100% Local</string>
     <string name="hub_quick_actions">Quick Actions</string>
     <string name="hub_view_all_tools">Tüm 15 aracı gör</string>
     <string name="hub_recent_activity">Recent Documents</string>
@@ -300,7 +300,7 @@
     <string name="nav_library">Kütüphane</string>
     <string name="nav_settings">Ayarlar</string>
     <string name="support_dev_title">Geliştiriciyi Destekle</string>
-    <string name="support_dev_subtitle">PDFCraft %100 ücretsiz, çevrimdışı ve gizlidir, abonelik gerektirmez. Size faydalı olduysa bir kahve ısmarlayarak destek olabilirsiniz!</string>
+    <string name="support_dev_subtitle" formatted="false">PDFCraft %100 ücretsiz, çevrimdışı ve gizlidir, abonelik gerektirmez. Size faydalı olduysa bir kahve ısmarlayarak destek olabilirsiniz!</string>
     <string name="support_coffee_small">Bir Kahve Ismarla ($3)</string>
     <string name="support_coffee_medium">Bir Öğle Yemeği Ismarla ($5)</string>
     <string name="support_coffee_large">Süper Destekçi ($10)</string>
@@ -312,7 +312,7 @@
     <string name="support_hub_banner_subtitle">Bir kahveyle çevrimdışı, gizli PDF gelişimini destekleyin</string>
     <string name="support_thank_you">Bağımsız geliştirmeyi desteklediğiniz için teşekkür ederiz!</string>
     <string name="rate_dialog_title">PDFCraft\'ı sevdiniz mi?</string>
-    <string name="rate_dialog_desc">Puanınız PDFCraft\'ı herkes için %100 çevrimdışı, gizli ve özellik dolu tutmamıza yardımcı olur!</string>
+    <string name="rate_dialog_desc" formatted="false">Puanınız PDFCraft\'ı herkes için %100 çevrimdışı, gizli ve özellik dolu tutmamıza yardımcı olur!</string>
     <string name="rate_dialog_rate_5_stars">Play Store\'da 5 Yıldız Ver</string>
     <string name="rate_dialog_submit">Puanı Gönder</string>
     <string name="rate_dialog_maybe_later">Belki Daha Sonra</string>
@@ -320,7 +320,7 @@
     <string name="rate_feedback_thanks">Geri bildiriminiz için teşekkürler!</string>
     <string name="share_dialog_title">PDFCraft\'ı Arkadaşlarınızla Paylaşın</string>
     <string name="share_dialog_desc">İş arkadaşlarınızın ve dostlarınızın çevrimdışı PDF birleştirmesine, bölmesine ve sıkıştırmasına yardımcı olun!</string>
-    <string name="share_dialog_bullet_offline">%100 Çevrimdışı ve Gizli yerel motor</string>
+    <string name="share_dialog_bullet_offline" formatted="false">%100 Çevrimdışı ve Gizli yerel motor</string>
     <string name="share_dialog_bullet_tools">PDF\'leri Birleştirin, Bölün, Sıkıştırın ve Döndürün</string>
     <string name="share_dialog_bullet_security">Parola Kilidi ve Görüntü Çıkarma</string>
     <string name="share_dialog_share_button">PDFCraft Uygulamasını Paylaş</string>
@@ -369,7 +369,7 @@
     <string name="settings_pref_subtitle">PDFCraft deneyiminizi ve güvenlik ayarlarınızı özelleştirin</string>
     <string name="settings_theme_appearance">Tema Görünümü</string>
     <string name="settings_security_privacy">Güvenlik ve Gizlilik</string>
-    <string name="settings_security_privacy_desc">Tüm PDF işlemleri cihazda %100 yerel olarak yürütülür. Hiçbir belge içeriği harici bulut sunucularına yüklenmez.</string>
+    <string name="settings_security_privacy_desc" formatted="false">Tüm PDF işlemleri cihazda %100 yerel olarak yürütülür. Hiçbir belge içeriği harici bulut sunucularına yüklenmez.</string>
     <string name="settings_cloud_sync_title">Bulut Eşitleme ve Hesap</string>
     <string name="settings_cloud_sync_signed_in">%1$s olarak oturum açıldı. Tercihleriniz ve geçmişiniz güvenle eşitlenebilir.</string>
     <string name="settings_cloud_sync_signed_out">Tercihleri ve geçmişi cihazlar arasında eşitlemek için oturum açın.</string>
@@ -397,7 +397,7 @@
 
     <!-- Donation & Multi-Method Support Expansion -->
     <string name="support_hub_compact_title">PDFCraft\'ı beğendiniz mi? ☕</string>
-    <string name="support_hub_compact_subtitle">PDFCraft\'ın %100 çevrimdışı ve gizli kalmasını sağlayın</string>
+    <string name="support_hub_compact_subtitle" formatted="false">PDFCraft\'ın %100 çevrimdışı ve gizli kalmasını sağlayın</string>
     <string name="support_hub_btn_tip">Destek ☕</string>
     <string name="support_hub_dismiss">Kapat</string>
     <string name="support_tab_google_play">Google Play</string>
@@ -410,7 +410,7 @@
     <string name="support_tip_supporter">Süper Destekçi ($9.99) 🚀</string>
     <string name="support_tip_hero">Kahraman Destekçi ($19.99) 👑</string>
     <string name="support_thank_you_title">Desteğiniz için çok teşekkürler! ❤️</string>
-    <string name="support_thank_you_desc">Katkınız PDFCraft\'ın ücretsiz, reklamsız ve gizli kalmasını sağlar.</string>
+    <string name="support_thank_you_desc" formatted="false">Katkınız PDFCraft\'ın ücretsiz, reklamsız ve gizli kalmasını sağlar.</string>
     <string name="support_status_active">Aktif Destekçi ⭐</string>
     <string name="support_crypto_title">Kripto ile Destek (USDT / BTC)</string>
     <string name="support_crypto_desc">Gizlilik odaklı bağımsız yazılımlar için doğrudan destek</string>
@@ -424,7 +424,7 @@
     <string name="recent_selected_count">Seçilen (%1$d/%2$d)</string>
     <string name="recent_search_hint">Son PDFleri ara…</string>
     <string name="recent_no_match">Eşleşen PDF bulunamadı: %1$s</string>
-    <string name="dialog_feature_processing_title">%100 Cihaz İçi İşleme</string>
+    <string name="dialog_feature_processing_title" formatted="false">%100 Cihaz İçi İşleme</string>
     <string name="dialog_feature_processing_desc">Tüm PDF işlemleri, döndürme, bölme, sıkıştırma ve görüntü dışa aktarma yerel olarak çalışır.</string>
     <string name="dialog_feature_privacy_title">Sıfır Bulut Yüklemesi</string>
     <string name="dialog_feature_privacy_desc">Vergi formlarınız, faturalarınız, sözleşmeleriniz ve özel belgeleriniz asla üçüncü taraf sunuculara gitmez.</string>
@@ -485,8 +485,8 @@
     <string name="common_unknown">Bilinmiyor</string>
     <string name="common_none">Yok</string>
     <string name="brand_studio_badge">STÜDYO</string>
-    <string name="brand_offline_status">%100 CİHAZDA • ÇEVRİMDIŞI</string>
-    <string name="brand_splash_tagline">%100 CİHAZDA • YÜKLEME YOK</string>
+    <string name="brand_offline_status" formatted="false">%100 CİHAZDA • ÇEVRİMDIŞI</string>
+    <string name="brand_splash_tagline" formatted="false">%100 CİHAZDA • YÜKLEME YOK</string>
     <string name="cd_studio_logo">PDFCraft Studio Logosu</string>
     <string name="cd_privacy_info">Gizlilik ve Uygulama Bilgisi</string>
     <string name="cd_toggle_theme">Açık/Koyu tema değiştir</string>
@@ -519,10 +519,10 @@
     <string name="coachmark_step2_try">Bölmeyi Dene</string>
     <string name="coachmark_step3_badge">ARAÇ 3 / 4 • BOYUT OPTİMİZER</string>
     <string name="coachmark_step3_title">PDF Sıkıştır ve Küçült</string>
-    <string name="coachmark_step3_summary">Büyük PDF dosyalarını netlik kaybetmeden e-posta, portal veya WhatsApp için %80\'e kadar küçültün.</string>
+    <string name="coachmark_step3_summary" formatted="false">Büyük PDF dosyalarını netlik kaybetmeden e-posta, portal veya WhatsApp için %80\'e kadar küçültün.</string>
     <string name="coachmark_step3_tip1">Maksimum Kalite, Dengeli veya Kompakt profilini seçin</string>
     <string name="coachmark_step3_tip2">Gerekirse birden fazla PDF\'i toplu olarak tek seferde sıkıştırın</string>
-    <string name="coachmark_step3_tip3">%100 çevrimdışı işlem — belgeleriniz cihazınızdan asla çıkmaz</string>
+    <string name="coachmark_step3_tip3" formatted="false">%100 çevrimdışı işlem — belgeleriniz cihazınızdan asla çıkmaz</string>
     <string name="coachmark_step3_try">Sıkıştırmayı Dene</string>
     <string name="coachmark_step4_badge">ARAÇ 4 / 4 • HIZLI DÜZELTME</string>
     <string name="coachmark_step4_title">Sayfaları Döndür, Sil ve Önizle</string>
@@ -538,7 +538,7 @@
     <string name="doc_info_full_report_copied">Tam belge raporu panoya kopyalandı</string>
     <string name="doc_info_analyzing">PDF belgesi analiz ediliyor ve meta veriler çıkarılıyor...</string>
     <string name="doc_info_inspect_title">PDF Belgesini İncele</string>
-    <string name="doc_info_inspect_desc">Meta verileri, yazarı, oluşturulma geçmişini, kağıt boyutunu ve güvenlik izinlerini çıkarın.</string>
+    <string name="doc_info_inspect_desc">Meta verileri, yazarı, oluşturulma geçmişini, kâğıt boyutunu ve güvenlik izinlerini çıkarın.</string>
     <string name="doc_info_first_page_thumb">İlk sayfa küçük resmi</string>
     <string name="doc_info_password_protected">Şifre Korumalı</string>
     <string name="doc_info_standard_decrypted">Standart (Şifresiz)</string>
@@ -552,7 +552,7 @@
     <string name="doc_info_unknown_not_set">Bilinmiyor / Ayarlanmadı</string>
     <string name="doc_info_section_layout">Düzen ve Özellikler</string>
     <string name="doc_info_label_page_count">Sayfa Sayısı</string>
-    <string name="doc_info_label_paper_format">Kağıt Formatı</string>
+    <string name="doc_info_label_paper_format">Kâğıt Formatı</string>
     <string name="doc_info_label_dimensions">Sayfa Boyutları</string>
     <string name="doc_info_label_pdf_version">PDF Sürümü</string>
     <string name="doc_info_label_file_size">Dosya Boyutu</string>
@@ -602,7 +602,7 @@
     <string name="compress_selected_files">Seçilen Dosyalar (%1$d)</string>
     <string name="compress_batch_preset">Toplu Sıkıştırma Profili</string>
     <string name="compress_empty_title">İyileştir ve Çıkar</string>
-    <string name="compress_empty_desc">Buluta yüklemeden dosya boyutunu %80\'e kadar azaltın veya tüm sayfa görsellerini cihazda çıkarın.</string>
+    <string name="compress_empty_desc" formatted="false">Buluta yüklemeden dosya boyutunu %80\'e kadar azaltın veya tüm sayfa görsellerini cihazda çıkarın.</string>
     <string name="compress_input_preview">Belge Önizlemesi</string>
     <string name="compress_choose_level">Sıkıştırma Seviyesi Seç</string>
     <string name="compress_est_impact">Tahmini Boyut Etkisi</string>
@@ -761,11 +761,11 @@
     <string name="recent_page_1_preview">PDF Sayfa 1 Önizleme</string>
     <string name="recent_no_preview">Önizleme Yok</string>
     <string name="recent_pages_and_size">%1$d syf • %2$s</string>
-    <string name="support_card_tagline">%100 Çevrimdışı • Gizli • Bağımsız Geliştirici</string>
+    <string name="support_card_tagline" formatted="false">%100 Çevrimdışı • Gizli • Bağımsız Geliştirici</string>
     <string name="support_badge_optional">❤️ İsteğe Bağlı</string>
     <string name="support_badge_unlocked">AÇILDI</string>
     <string name="support_badge_active">AKTİF</string>
-    <string name="support_iap_disclosure">Google Play Bakiyesi, Google Pay veya Kart ile %100 isteğe bağlı tek seferlik bahşiş. Abonelik veya tekrarlayan ücret yok.</string>
+    <string name="support_iap_disclosure" formatted="false">Google Play Bakiyesi, Google Pay veya Kart ile %100 isteğe bağlı tek seferlik bahşiş. Abonelik veya tekrarlayan ücret yok.</string>
     <string name="support_confirm_title">Tek Dokunuşla Desteği Onayla</string>
     <string name="support_badge_one_time">Tek Seferlik</string>
     <string name="support_send_amount">%1$s Gönder</string>
@@ -780,7 +780,7 @@
     <string name="billing_tip_snack_title">Kahve ve Kruvasan</string>
     <string name="billing_tip_snack_desc">Yeni özelliklerle dolu bir öğleden sonra için yakıt</string>
     <string name="billing_tip_supporter_title">Süper Destekçi</string>
-    <string name="billing_tip_supporter_desc">PDFCraft\'ı %100 çevrimdışı ve gizli tutun</string>
+    <string name="billing_tip_supporter_desc" formatted="false">PDFCraft\'ı %100 çevrimdışı ve gizli tutun</string>
     <string name="billing_tip_hero_title">Kahraman Destekçi</string>
     <string name="billing_tip_hero_desc">Sonsuz minnet ve kalıcı rozet</string>
     <string name="billing_error_init">Google Play Billing başlatılamadı</string>

@@ -71,6 +71,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -404,7 +405,8 @@ fun CompressScreen(
                                     Text(
                                         text = item.file.name,
                                         style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface),
-                                        maxLines = 1
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis
                                     )
                                     Text(
                                         text = if (item.pageCount > 0) {
@@ -480,6 +482,7 @@ fun CompressScreen(
 
                             Button(
                                 onClick = { viewModel.executeBatchCompress() },
+                                enabled = !isProcessing && batchCompressList.isNotEmpty(),
                                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.tertiary),
                                 shape = RoundedCornerShape(12.dp),
                                 modifier = Modifier.weight(2f).height(48.dp).testTag("execute_batch_compress_button")
@@ -806,7 +809,7 @@ fun CompressScreen(
                                             )
                                         }
                                         Spacer(modifier = Modifier.height(4.dp))
-                                        Text(imgFile.name, fontSize = 10.sp, color = MaterialTheme.colorScheme.onSurface, maxLines = 1)
+                                        Text(imgFile.name, fontSize = 10.sp, color = MaterialTheme.colorScheme.onSurface, maxLines = 1, overflow = TextOverflow.Ellipsis)
                                         Text(PdfEngine.formatFileSize(imgFile.length()), fontSize = 9.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                         Spacer(modifier = Modifier.height(6.dp))
                                         Button(

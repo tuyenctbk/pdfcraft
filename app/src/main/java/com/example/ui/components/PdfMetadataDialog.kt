@@ -18,9 +18,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Article
 import androidx.compose.material.icons.filled.Analytics
 import androidx.compose.material.icons.filled.AppRegistration
-import androidx.compose.material.icons.filled.Article
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Description
@@ -181,7 +181,7 @@ fun PdfMetadataDialog(
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             MetadataBadge(
-                                icon = Icons.Default.Article,
+                                icon = Icons.AutoMirrored.Filled.Article,
                                 label = stringResource(R.string.common_pages_count, metadata.pageCount),
                                 modifier = Modifier.weight(1f)
                             )

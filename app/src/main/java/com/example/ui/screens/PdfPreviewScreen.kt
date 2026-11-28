@@ -485,7 +485,7 @@ fun PdfPreviewScreen(
         }
     }
 
-    val rendererController = remember(resolvedFile?.absolutePath) {
+    val rendererController = remember(resolvedFile?.absolutePath, resolvedFile?.lastModified()) {
         resolvedFile?.takeIf { it.exists() }?.let { PdfRendererController(it) }
     }
 
@@ -749,7 +749,7 @@ fun PdfPreviewScreen(
                                         imageVector = if (operationMode == PdfPreviewOperationMode.SPLIT) {
                                             Icons.Default.ContentCut
                                         } else {
-                                            Icons.Default.RotateRight
+                                            Icons.AutoMirrored.Filled.RotateRight
                                         },
                                         contentDescription = null,
                                         modifier = Modifier.size(18.dp)
@@ -788,6 +788,7 @@ fun PdfPreviewScreen(
                                                         deletedPages = activeDeletedPages,
                                                         outputName = outName
                                                     )
+                                                    PdfEngine.savePdfToDownloads(context, savedFile)
                                                     resolvedFile = savedFile
                                                     localRotations = emptyMap()
                                                     localDeletedPages = emptySet()

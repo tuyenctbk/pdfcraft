@@ -11,7 +11,7 @@
     <string name="onboarding_skip">Salta</string>
     <string name="onboarding_next">Avanti</string>
     <string name="onboarding_get_started">Inizia</string>
-    <string name="onboarding_title_1">100% sul dispositivo e privato</string>
+    <string name="onboarding_title_1" formatted="false">100% sul dispositivo e privato</string>
     <string name="onboarding_desc_1">Elabora, unisci, dividi e comprimi i PDF direttamente sul tuo dispositivo.</string>
     <string name="onboarding_title_2">Accesso allo storage locale</string>
     <string name="onboarding_desc_2">Concedi i permessi per importare e salvare i PDF.</string>
@@ -81,7 +81,7 @@
     <string name="hub_metric_processed">PROCESSED</string>
     <string name="hub_metric_saved">SPACE SAVED</string>
     <string name="hub_metric_privacy">DATA PRIVACY</string>
-    <string name="hub_privacy_value">100% Local</string>
+    <string name="hub_privacy_value" formatted="false">100% Local</string>
     <string name="hub_quick_actions">Quick Actions</string>
     <string name="hub_view_all_tools">Vedi tutti i 15 strumenti</string>
     <string name="hub_recent_activity">Recent Documents</string>
@@ -300,7 +300,7 @@
     <string name="nav_library">Libreria</string>
     <string name="nav_settings">Impostazioni</string>
     <string name="support_dev_title">Supporta lo sviluppatore</string>
-    <string name="support_dev_subtitle">PDFCraft è gratuito al 100%, offline e privato senza abbonamenti. Se ti è utile, offrici un caffè per supportare lo sviluppo!</string>
+    <string name="support_dev_subtitle" formatted="false">PDFCraft è gratuito al 100%, offline e privato senza abbonamenti. Se ti è utile, offrici un caffè per supportare lo sviluppo!</string>
     <string name="support_coffee_small">Offri un caffè ($3)</string>
     <string name="support_coffee_medium">Offri un pranzo ($5)</string>
     <string name="support_coffee_large">Super Sostenitore ($10)</string>
@@ -312,7 +312,7 @@
     <string name="support_hub_banner_subtitle">Supporta lo sviluppo di strumenti PDF privati e offline con un caffè</string>
     <string name="support_thank_you">Grazie per sostenere lo sviluppo indipendente!</string>
     <string name="rate_dialog_title">Ti piace PDFCraft?</string>
-    <string name="rate_dialog_desc">La tua valutazione ci aiuta a mantenere PDFCraft al 100% offline, privato e ricco di funzionalità!</string>
+    <string name="rate_dialog_desc" formatted="false">La tua valutazione ci aiuta a mantenere PDFCraft al 100% offline, privato e ricco di funzionalità!</string>
     <string name="rate_dialog_rate_5_stars">Valuta 5 stelle sul Play Store</string>
     <string name="rate_dialog_submit">Invia valutazione</string>
     <string name="rate_dialog_maybe_later">Forse più tardi</string>
@@ -320,7 +320,7 @@
     <string name="rate_feedback_thanks">Grazie per il tuo feedback!</string>
     <string name="share_dialog_title">Condividi PDFCraft con gli amici</string>
     <string name="share_dialog_desc">Aiuta colleghi e amici a unire, dividere, comprimere e proteggere PDF offline!</string>
-    <string name="share_dialog_bullet_offline">Motore locale 100% offline e privato</string>
+    <string name="share_dialog_bullet_offline" formatted="false">Motore locale 100% offline e privato</string>
     <string name="share_dialog_bullet_tools">Unisci, dividi, comprimi e ruota PDF</string>
     <string name="share_dialog_bullet_security">Blocco con password ed estrazione immagini</string>
     <string name="share_dialog_share_button">Condividi l\'app PDFCraft</string>
@@ -369,7 +369,7 @@
     <string name="settings_pref_subtitle">Personalizza la tua esperienza e le impostazioni di sicurezza di PDFCraft</string>
     <string name="settings_theme_appearance">Aspetto del tema</string>
     <string name="settings_security_privacy">Sicurezza e Privacy</string>
-    <string name="settings_security_privacy_desc">Tutte le operazioni PDF (unione, divisione, compressione, crittografia, filigrana, firma) vengono eseguite al 100% localmente sul dispositivo. Nessun contenuto viene caricato su server esterni.</string>
+    <string name="settings_security_privacy_desc" formatted="false">Tutte le operazioni PDF (unione, divisione, compressione, crittografia, filigrana, firma) vengono eseguite al 100% localmente sul dispositivo. Nessun contenuto viene caricato su server esterni.</string>
     <string name="settings_cloud_sync_title">Sincronizzazione Cloud e Account</string>
     <string name="settings_cloud_sync_signed_in">Accesso effettuato come %1$s. Le tue preferenze e la cronologia possono essere sincronizzate.</string>
     <string name="settings_cloud_sync_signed_out">Accedi con email e password per sincronizzare preferenze e cronologia tra dispositivi.</string>
@@ -397,7 +397,7 @@
 
     <!-- Donation & Multi-Method Support Expansion -->
     <string name="support_hub_compact_title">Ti piace PDFCraft? ☕</string>
-    <string name="support_hub_compact_subtitle">Mantieni PDFCraft 100% offline e privato</string>
+    <string name="support_hub_compact_subtitle" formatted="false">Mantieni PDFCraft 100% offline e privato</string>
     <string name="support_hub_btn_tip">Supporta ☕</string>
     <string name="support_hub_dismiss">Chiudi</string>
     <string name="support_tab_google_play">Google Play</string>
@@ -410,7 +410,7 @@
     <string name="support_tip_supporter">Super Sostenitore (9,99 $) 🚀</string>
     <string name="support_tip_hero">Eroe Sostenitore (19,99 $) 👑</string>
     <string name="support_thank_you_title">Grazie mille per il tuo supporto! ❤️</string>
-    <string name="support_thank_you_desc">Il tuo contributo mantiene PDFCraft 100% offline, gratuito e sicuro.</string>
+    <string name="support_thank_you_desc" formatted="false">Il tuo contributo mantiene PDFCraft 100% offline, gratuito e sicuro.</string>
     <string name="support_status_active">Sostenitore Attivo ⭐</string>
     <string name="support_crypto_title">Donazione Cripto (USDT / BTC)</string>
     <string name="support_crypto_desc">Supporto decentralizzato per strumenti dedicati alla privacy</string>
@@ -424,7 +424,7 @@
     <string name="recent_selected_count">Selezionati (%1$d/%2$d)</string>
     <string name="recent_search_hint">Cerca PDF recenti…</string>
     <string name="recent_no_match">Nessun PDF corrisponde: %1$s</string>
-    <string name="dialog_feature_processing_title">Elaborazione 100% sul dispositivo</string>
+    <string name="dialog_feature_processing_title" formatted="false">Elaborazione 100% sul dispositivo</string>
     <string name="dialog_feature_processing_desc">Tutte le operazioni PDF, rotazioni, divisioni, compressioni ed esportazioni vengono eseguite localmente.</string>
     <string name="dialog_feature_privacy_title">Nessun caricamento cloud</string>
     <string name="dialog_feature_privacy_desc">I tuoi moduli fiscali, fatture, contratti e documenti riservati non raggiungono mai server terzi.</string>
@@ -485,8 +485,8 @@
     <string name="common_unknown">Sconosciuto</string>
     <string name="common_none">Nessuno</string>
     <string name="brand_studio_badge">STUDIO</string>
-    <string name="brand_offline_status">100% SUL DISPOSITIVO • OFFLINE</string>
-    <string name="brand_splash_tagline">100% SUL DISPOSITIVO • ZERO CARICAMENTI</string>
+    <string name="brand_offline_status" formatted="false">100% SUL DISPOSITIVO • OFFLINE</string>
+    <string name="brand_splash_tagline" formatted="false">100% SUL DISPOSITIVO • ZERO CARICAMENTI</string>
     <string name="cd_studio_logo">Logo PDFCraft Studio</string>
     <string name="cd_privacy_info">Privacy e info app</string>
     <string name="cd_toggle_theme">Cambia tema chiaro/scuro</string>
@@ -519,10 +519,10 @@
     <string name="coachmark_step2_try">Prova Dividi</string>
     <string name="coachmark_step3_badge">STRUMENTO 3 DI 4 • OTTIMIZZATORE</string>
     <string name="coachmark_step3_title">Comprimi e riduci dimensioni PDF</string>
-    <string name="coachmark_step3_summary">Riduci file PDF pesanti fino all\'80% per email, portali o WhatsApp senza perdere nitidezza.</string>
+    <string name="coachmark_step3_summary" formatted="false">Riduci file PDF pesanti fino all\'80% per email, portali o WhatsApp senza perdere nitidezza.</string>
     <string name="coachmark_step3_tip1">Scegli Qualità Max, Bilanciata o Compatta</string>
     <string name="coachmark_step3_tip2">Comprimi più PDF in blocco contemporaneamente se necessario</string>
-    <string name="coachmark_step3_tip3">Elaborazione 100% offline — i documenti non lasciano mai il tuo dispositivo</string>
+    <string name="coachmark_step3_tip3" formatted="false">Elaborazione 100% offline — i documenti non lasciano mai il tuo dispositivo</string>
     <string name="coachmark_step3_try">Prova Comprimi</string>
     <string name="coachmark_step4_badge">STRUMENTO 4 DI 4 • CORREZIONE RAPIDA</string>
     <string name="coachmark_step4_title">Ruota, elimina e visualizza pagine</string>
@@ -602,7 +602,7 @@
     <string name="compress_selected_files">File selezionati (%1$d)</string>
     <string name="compress_batch_preset">Preset compressione in blocco</string>
     <string name="compress_empty_title">Ottimizza ed estrai</string>
-    <string name="compress_empty_desc">Riduci le dimensioni fino all\'80% senza upload cloud, o estrai tutte le immagini delle pagine in alta risoluzione sul dispositivo.</string>
+    <string name="compress_empty_desc" formatted="false">Riduci le dimensioni fino all\'80% senza upload cloud, o estrai tutte le immagini delle pagine in alta risoluzione sul dispositivo.</string>
     <string name="compress_input_preview">Anteprima documento</string>
     <string name="compress_choose_level">Scegli livello di compressione</string>
     <string name="compress_est_impact">Impatto stimato dimensioni</string>
@@ -761,11 +761,11 @@
     <string name="recent_page_1_preview">Anteprima pagina 1 PDF</string>
     <string name="recent_no_preview">Nessuna anteprima</string>
     <string name="recent_pages_and_size">%1$d pag. • %2$s</string>
-    <string name="support_card_tagline">100% Offline • Privato • Sviluppatore Indie</string>
+    <string name="support_card_tagline" formatted="false">100% Offline • Privato • Sviluppatore Indie</string>
     <string name="support_badge_optional">❤️ Opzionale</string>
     <string name="support_badge_unlocked">SBLOCCATO</string>
     <string name="support_badge_active">ATTIVO</string>
-    <string name="support_iap_disclosure">Mancia singola 100% opzionale con saldo Google Play, Google Pay o carta. Nessun addebito ricorrente o abbonamento.</string>
+    <string name="support_iap_disclosure" formatted="false">Mancia singola 100% opzionale con saldo Google Play, Google Pay o carta. Nessun addebito ricorrente o abbonamento.</string>
     <string name="support_confirm_title">Conferma supporto in 1 tocco</string>
     <string name="support_badge_one_time">Una tantum</string>
     <string name="support_send_amount">Invia %1$s</string>
@@ -780,7 +780,7 @@
     <string name="billing_tip_snack_title">Caffè e Cornetto</string>
     <string name="billing_tip_snack_desc">Energia per un pomeriggio di nuove funzioni</string>
     <string name="billing_tip_supporter_title">Super Sostenitore</string>
-    <string name="billing_tip_supporter_desc">Mantieni PDFCraft 100% offline e privato</string>
+    <string name="billing_tip_supporter_desc" formatted="false">Mantieni PDFCraft 100% offline e privato</string>
     <string name="billing_tip_hero_title">Sostenitore Eroe</string>
     <string name="billing_tip_hero_desc">Gratitudine infinita e badge permanente</string>
     <string name="billing_error_init">Impossibile inizializzare Google Play Billing</string>

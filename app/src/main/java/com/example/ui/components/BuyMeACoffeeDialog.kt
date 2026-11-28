@@ -26,7 +26,6 @@ import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.ContentCopy
-import androidx.compose.material.icons.filled.CurrencyBitcoin
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.LocalCafe
@@ -477,7 +476,7 @@ fun GooglePlayTipView(
                                 modifier = Modifier.weight(1f)
                             ) {
                                 Text(
-                                    text = stringResource(R.string.support_tab_google_play),
+                                    text = stringResource(R.string.watermark_refresh),
                                     fontSize = 11.5.sp,
                                     fontWeight = FontWeight.SemiBold,
                                     maxLines = 1
@@ -681,10 +680,12 @@ fun BuyMeACoffeeQrView(
     }
 
     val qrBitmap by produceState<android.graphics.Bitmap?>(initialValue = null, key1 = donationUrl) {
-        value = QrCodeGenerator.generateQrBitmap(
-            content = donationUrl,
-            sizePx = 512
-        )
+        value = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+            QrCodeGenerator.generateQrBitmap(
+                content = donationUrl,
+                sizePx = 512
+            )
+        }
     }
 
     Column(

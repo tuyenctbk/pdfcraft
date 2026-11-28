@@ -21,6 +21,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.BrandingWatermark
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -186,7 +187,7 @@ fun WatermarkScreen(
                                 .background(MaterialTheme.colorScheme.primaryContainer),
                             contentAlignment = Alignment.Center
                         ) {
-                            Icon(imageVector = Icons.Default.BrandingWatermark, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(34.dp))
+                            Icon(imageVector = Icons.AutoMirrored.Filled.BrandingWatermark, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(34.dp))
                         }
 
                         Spacer(modifier = Modifier.height(18.dp))
@@ -655,7 +656,7 @@ fun WatermarkScreen(
                         shape = RoundedCornerShape(12.dp),
                         modifier = Modifier.fillMaxWidth().height(52.dp).testTag("execute_watermark_button")
                     ) {
-                        Icon(imageVector = Icons.Default.BrandingWatermark, contentDescription = null)
+                        Icon(imageVector = Icons.AutoMirrored.Filled.BrandingWatermark, contentDescription = null)
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(stringResource(R.string.watermark_apply_button), fontWeight = FontWeight.Bold)
                     }

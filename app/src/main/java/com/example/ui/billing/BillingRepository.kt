@@ -155,16 +155,31 @@ class BillingRepository private constructor(
         }
     }
 
-    fun startConnection(onConnected: (() -> Unit)? = null) {
-        val client = billingClient ?: return
+    @Volatile
+    private var isConnecting = false
+
+    fun startConnection(
+        onConnected: (() -> Unit)? = null,
+        onError: ((String) -> Unit)? = null
+    ) {
+        val client = billingClient ?: run {
+            val err = appContext.getString(R.string.billing_error_init)
+            onError?.invoke(err)
+            return
+        }
         if (isConnected && client.isReady) {
             onConnected?.invoke()
             return
         }
+        if (isConnecting && onConnected == null && onError == null) {
+            return
+        }
 
+        isConnecting = true
         _billingStatus.value = BillingStatus.Connecting
         client.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(billingResult: BillingResult) {
+                isConnecting = false
                 if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                     isConnected = true
                     _billingStatus.value = BillingStatus.Ready
@@ -173,13 +188,14 @@ class BillingRepository private constructor(
                     onConnected?.invoke()
                 } else {
                     isConnected = false
-                    _billingStatus.value = BillingStatus.Error(
-                        appContext.getString(R.string.billing_error_unavailable, billingResult.debugMessage)
-                    )
+                    val err = appContext.getString(R.string.billing_error_unavailable, billingResult.debugMessage)
+                    _billingStatus.value = BillingStatus.Error(err)
+                    onError?.invoke(err)
                 }
             }
 
             override fun onBillingServiceDisconnected() {
+                isConnecting = false
                 isConnected = false
                 _billingStatus.value = BillingStatus.Idle
             }
@@ -312,11 +328,16 @@ class BillingRepository private constructor(
         if (isConnected && client.isReady) {
             executeWithReadyClient()
         } else {
-            startConnection(onConnected = {
-                scope.launch {
-                    executeWithReadyClient()
+            startConnection(
+                onConnected = {
+                    scope.launch {
+                        executeWithReadyClient()
+                    }
+                },
+                onError = { err ->
+                    onResult(false, err)
                 }
-            })
+            )
         }
     }
 

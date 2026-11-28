@@ -88,11 +88,11 @@ import com.example.data.local.PdfOperationType
 
 data class CoachmarkStep(
     val targetOperation: PdfOperationType,
-    @StringRes val badgeRes: Int,
-    @StringRes val titleRes: Int,
-    @StringRes val summaryRes: Int,
+    @param:StringRes val badgeRes: Int,
+    @param:StringRes val titleRes: Int,
+    @param:StringRes val summaryRes: Int,
     val howToStepResIds: List<Int>,
-    @StringRes val tryButtonLabelRes: Int,
+    @param:StringRes val tryButtonLabelRes: Int,
     val icon: ImageVector,
     val accentColor: Color
 )

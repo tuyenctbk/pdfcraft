@@ -23,8 +23,7 @@ object PdfBoxMergeService {
     ): File = withContext(Dispatchers.IO) {
         require(pdfUris.isNotEmpty()) { "At least one PDF file must be provided for merging." }
 
-        val sanitizeName = outputName.replace(Regex("[^a-zA-Z0-9._-]"), "_")
-        val finalFileName = if (sanitizeName.endsWith(".pdf", ignoreCase = true)) sanitizeName else "$sanitizeName.pdf"
+        val finalFileName = PdfEngine.sanitizeOutputFileName(outputName, "PDFCraft_Merged")
         val outputDir = File(context.filesDir, "pdfbox_merged").apply { mkdirs() }
         val outputFile = File(outputDir, finalFileName)
 
@@ -41,7 +40,7 @@ object PdfBoxMergeService {
                 tempFilesToClean.add(tempFile)
             }
 
-            merger.mergeDocuments(null)
+            merger.mergeDocuments(com.tom_roush.pdfbox.io.MemoryUsageSetting.setupTempFileOnly())
 
             // Cleanup temp files if created in cache
             for (temp in tempFilesToClean) {

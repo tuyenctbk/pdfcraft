@@ -67,7 +67,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         _themeMode.value = mode
     }
 
-    // Session Counter
+    // Session Counter & Splash State (survives Activity configuration changes)
+    var hasShownSplashSession: Boolean = false
+
     private val _sessionCount = MutableStateFlow(0)
     val sessionCount: StateFlow<Int> = _sessionCount.asStateFlow()
 
@@ -917,6 +919,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun removeMergePage(itemId: String) {
         _mergePages.value = _mergePages.value.filterNot { it.id == itemId }
+        _mergeThumbnails.value = _mergeThumbnails.value - itemId
         _selectedMergePageIds.value = _selectedMergePageIds.value - itemId
     }
 
@@ -1084,7 +1087,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _processingMessage.value = "Reading document pages..."
             try {
                 val file = PdfEngine.convertAnyFileToPdf(getApplication(), uri)
-                _splitSourceUri.value = uri
+                _splitSourceUri.value = Uri.fromFile(file)
                 _splitSourceFile.value = file
 
                 val thumbnails = mutableListOf<Bitmap?>()
@@ -1345,7 +1348,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     if (current.none { it.file.absolutePath == file.absolutePath }) {
                         current.add(
                             BatchCompressItem(
-                                uri = uri,
+                                uri = Uri.fromFile(file),
                                 file = file,
                                 originalSize = file.length(),
                                 pageCount = pageCount
@@ -1459,7 +1462,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _processingMessage.value = "Analyzing document structure..."
             try {
                 val file = PdfEngine.convertAnyFileToPdf(getApplication(), uri)
-                _compressSourceUri.value = uri
+                _compressSourceUri.value = Uri.fromFile(file)
                 _compressSourceFile.value = file
 
                 val pageCount = readPageCountSafely(file)
@@ -1496,13 +1499,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     originalSizeBytes = file.length()
                 )
 
-                val savedBytes = file.length() - outputFile.length()
+                val savedBytes = (file.length() - outputFile.length()).coerceAtLeast(0L)
                 val percentSaved = if (file.length() > 0) ((savedBytes.toDouble() / file.length()) * 100).toInt() else 0
+                val summaryMsg = if (percentSaved > 0) {
+                    "Compressed from ${PdfEngine.formatFileSize(file.length())} to ${PdfEngine.formatFileSize(outputFile.length())} ($percentSaved% smaller)!"
+                } else {
+                    "Saved ${outputFile.name} (${PdfEngine.formatFileSize(outputFile.length())}) — file is already compact!"
+                }
 
                 publishCompletedPdfOutput(
                     outputFile = outputFile,
                     operationName = "compress",
-                    summary = "Compressed from ${PdfEngine.formatFileSize(file.length())} to ${PdfEngine.formatFileSize(outputFile.length())} ($percentSaved% smaller)!"
+                    summary = summaryMsg
                 )
             } catch (e: Exception) {
                 _userMessage.value = "Compression failed: ${e.localizedMessage}"
@@ -1591,6 +1599,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 val file = withContext(Dispatchers.IO) {
                     PdfEngine.convertAnyFileToPdf(getApplication(), uri)
                 }
+                _docInfoSourceUri.value = Uri.fromFile(file)
                 _docInfoSourceFile.value = file
                 loadDocInfoForFile(file)
             } catch (e: Exception) {
@@ -1759,7 +1768,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _processingMessage.value = "Loading PDF for encryption..."
             try {
                 val file = PdfEngine.convertAnyFileToPdf(getApplication(), uri)
-                _encryptSourceUri.value = uri
+                _encryptSourceUri.value = Uri.fromFile(file)
                 _encryptSourceFile.value = file
 
                 val pageCount = readPageCountSafely(file)
@@ -1950,7 +1959,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _processingMessage.value = "Loading PDF for watermarking..."
             try {
                 val file = PdfEngine.convertAnyFileToPdf(getApplication(), uri)
-                _watermarkSourceUri.value = uri
+                _watermarkSourceUri.value = Uri.fromFile(file)
                 _watermarkSourceFile.value = file
 
                 val pageCount = readPageCountSafely(file)
@@ -2033,7 +2042,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _processingMessage.value = "Loading PDF for digital signature..."
             try {
                 val file = PdfEngine.convertAnyFileToPdf(getApplication(), uri)
-                _signSourceUri.value = uri
+                _signSourceUri.value = Uri.fromFile(file)
                 _signSourceFile.value = file
 
                 val pageCount = readPageCountSafely(file)
@@ -2133,10 +2142,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _processingMessage.value = "Reading document metadata..."
             try {
                 val file = PdfEngine.convertAnyFileToPdf(getApplication(), uri)
-                _metadataSourceUri.value = uri
+                val localUri = Uri.fromFile(file)
+                _metadataSourceUri.value = localUri
                 _metadataSourceFile.value = file
 
-                val meta = PdfEngine.readPdfMetadata(getApplication(), uri)
+                val meta = PdfEngine.readPdfMetadata(getApplication(), localUri)
                 _metadataTitle.value = meta.title ?: ""
                 _metadataAuthor.value = meta.author ?: ""
                 _metadataSubject.value = meta.subject ?: ""
@@ -2235,8 +2245,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _processingMessage.value = "Analyzing document for page rotation..."
             try {
                 val file = PdfEngine.convertAnyFileToPdf(getApplication(), uri)
-                val info = PdfEngine.readPdfMetadata(getApplication(), uri)
-                _rotateSourceUri.value = uri
+                val localUri = Uri.fromFile(file)
+                val info = PdfEngine.readPdfMetadata(getApplication(), localUri)
+                _rotateSourceUri.value = localUri
                 _rotateSourceFile.value = file
                 _rotatePageCount.value = info.pageCount
                 _rotateSelectedPages.value = (0 until info.pageCount).toSet() // select all by default
@@ -2457,8 +2468,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _processingMessage.value = "Analyzing PDF document..."
             try {
                 val file = PdfEngine.convertAnyFileToPdf(getApplication(), uri)
-                val info = PdfEngine.readPdfMetadata(getApplication(), uri)
-                _pageNumberSourceUri.value = uri
+                val localUri = Uri.fromFile(file)
+                val info = PdfEngine.readPdfMetadata(getApplication(), localUri)
+                _pageNumberSourceUri.value = localUri
                 _pageNumberSourceFile.value = file
                 _pageNumberOutputName.value = "Numbered_${file.name}"
 
@@ -2618,8 +2630,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _processingMessage.value = "Extracting text from PDF..."
             try {
                 val file = PdfEngine.convertAnyFileToPdf(getApplication(), uri)
-                val info = PdfEngine.readPdfMetadata(getApplication(), uri)
-                _pdfToTextSourceUri.value = uri
+                val localUri = Uri.fromFile(file)
+                val info = PdfEngine.readPdfMetadata(getApplication(), localUri)
+                _pdfToTextSourceUri.value = localUri
                 _pdfToTextSourceFile.value = file
 
                 val text = repository.extractTextFromPdf(getApplication(), file)
@@ -2668,8 +2681,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _processingMessage.value = "Reading PDF document..."
             try {
                 val file = PdfEngine.convertAnyFileToPdf(getApplication(), uri)
-                val info = PdfEngine.readPdfMetadata(getApplication(), uri)
-                _pdfToImagesSourceUri.value = uri
+                val localUri = Uri.fromFile(file)
+                val info = PdfEngine.readPdfMetadata(getApplication(), localUri)
+                _pdfToImagesSourceUri.value = localUri
                 _pdfToImagesSourceFile.value = file
                 _exportedImages.value = emptyList()
 

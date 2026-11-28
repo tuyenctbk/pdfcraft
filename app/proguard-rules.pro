@@ -4,45 +4,27 @@
 -keepattributes SourceFile,LineNumberTable
 -renamesourcefileattribute SourceFile
 
-# Preserve annotations and generic signatures
+# Preserve annotations and generic signatures required by Compose/Room/Coroutines
 -keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
 
-# Room Database, DAOs, and Entities
--keep class * extends androidx.room.RoomDatabase { *; }
--keep class * implements androidx.room.RoomDatabase { *; }
--keep @androidx.room.Entity class * { *; }
--keep @androidx.room.Dao class * { *; }
--keep class *_*Impl { *; }
+# Room Database, DAOs, and Entities (allow obfuscation of non-reflective internals)
+-keep class * extends androidx.room.RoomDatabase { <init>(...); }
+-keep,allowobfuscation @androidx.room.Entity class * { *; }
+-keep,allowobfuscation @androidx.room.Dao class * { *; }
 -dontwarn androidx.room.paging.**
 
-# Kotlin Metadata & Serialization
--keep class kotlin.Metadata { *; }
+# Suppress benign warnings from optional desktop/JavaSE references in third-party libraries
+# (PDFBox-Android, Firebase, Billing, and Room all bundle their own official consumer ProGuard rules)
 -dontwarn kotlin.**
-
-# PDFBox Android (Apache PDFBox ported for Android)
--keep class com.tom_roush.pdfbox.** { *; }
--keep class com.tom_roush.fontbox.** { *; }
 -dontwarn com.tom_roush.pdfbox.**
 -dontwarn com.tom_roush.fontbox.**
 -dontwarn javax.xml.stream.**
 -dontwarn org.bouncycastle.**
-
-# ZXing Core
--keep class com.google.zxing.** { *; }
 -dontwarn com.google.zxing.**
-
-# Google Play In-App Billing
--keep class com.android.billingclient.api.** { *; }
-
-# Coil Image Loader
 -dontwarn io.coilkt.**
-
-# Coroutines
 -dontwarn kotlinx.coroutines.**
-
-# Firebase & Google Play Services
--keep class com.google.firebase.** { *; }
 -dontwarn com.google.firebase.**
 -dontwarn com.google.android.gms.**
+
 
 

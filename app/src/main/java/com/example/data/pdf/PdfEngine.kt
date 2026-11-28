@@ -35,8 +35,8 @@ data class CompressionPreset(
     val id: String,
     val title: String,
     val description: String,
-    @androidx.annotation.StringRes val titleRes: Int,
-    @androidx.annotation.StringRes val descRes: Int,
+    @param:androidx.annotation.StringRes val titleRes: Int,
+    @param:androidx.annotation.StringRes val descRes: Int,
     val targetDpi: Int,
     val jpegQuality: Int,
     val estimatedSavings: String
@@ -103,13 +103,65 @@ object PdfEngine {
     )
 
     /**
+     * Sanitizes a user-provided output filename so it cannot contain path traversal segments
+     * or illegal filesystem characters and always ends cleanly with [extension].
+     */
+    fun sanitizeOutputFileName(
+        rawName: String,
+        fallbackBase: String = "PDFCraft_Output",
+        extension: String = ".pdf"
+    ): String {
+        val ext = if (extension.isBlank()) "" else if (extension.startsWith(".")) extension else ".$extension"
+        val baseOnly = rawName.replace('\\', '/').substringAfterLast('/').trim()
+        val strippedExt = if (ext.isNotEmpty() && baseOnly.endsWith(ext, ignoreCase = true)) {
+            baseOnly.dropLast(ext.length)
+        } else {
+            baseOnly
+        }
+        val cleaned = strippedExt
+            .replace(Regex("[^a-zA-Z0-9._\\- ()]"), "_")
+            .replace(Regex("\\.{2,}"), "_")
+            .trim('.', ' ', '_')
+            .take(120)
+        val safeBase = if (cleaned.isBlank() || cleaned == "." || cleaned == "..") fallbackBase else cleaned
+        return "$safeBase$ext"
+    }
+
+    /**
+     * Safely reads the page count of a local PDF file using PdfRenderer with PDFBox fallback.
+     */
+    suspend fun getPageCount(file: File): Int = withContext(Dispatchers.IO) {
+        if (!file.exists()) return@withContext 0
+        var pfd: ParcelFileDescriptor? = null
+        var renderer: PdfRenderer? = null
+        try {
+            pfd = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
+            renderer = PdfRenderer(pfd)
+            if (renderer.pageCount > 0) return@withContext renderer.pageCount
+        } catch (_: Throwable) {
+        } finally {
+            try { renderer?.close() } catch (_: Throwable) {}
+            try { pfd?.close() } catch (_: Throwable) {}
+        }
+        try {
+            com.tom_roush.pdfbox.pdmodel.PDDocument.load(file).use { doc ->
+                return@withContext doc.numberOfPages
+            }
+        } catch (_: Throwable) {
+            0
+        }
+    }
+
+    /**
      * Copies a Uri content stream to a temporary local cache file while preserving file name and extension.
+     * Uses a per-URI hash directory to prevent filename collisions when multiple files share the same display name.
      */
     suspend fun getLocalFileFromUri(context: Context, uri: Uri): File = withContext(Dispatchers.IO) {
         if (uri.scheme == "file" && uri.path != null) {
             return@withContext File(uri.path!!)
         }
-        val cacheDir = File(context.cacheDir, "imported_pdfs").apply { mkdirs() }
+        val uriHash = uri.toString().hashCode().toUInt().toString(16)
+        val cacheDir = File(File(context.cacheDir, "imported_pdfs"), uriHash).apply { mkdirs() }
         var resolvedName: String? = null
         try {
             context.contentResolver.query(uri, arrayOf(android.provider.OpenableColumns.DISPLAY_NAME), null, null, null)?.use { cursor ->
@@ -125,8 +177,10 @@ object PdfEngine {
         }
 
         val sanitizedName = resolvedName
-            ?.let { File(it).name }
+            ?.replace('\\', '/')
+            ?.substringAfterLast('/')
             ?.replace(Regex("[^a-zA-Z0-9._\\- ()]"), "_")
+            ?.replace(Regex("\\.{2,}"), "_")
             ?.trim()
             ?.takeIf { it.isNotBlank() && it != "." && it != ".." }
             ?: "doc_${System.currentTimeMillis()}_${(1000..9999).random()}.pdf"
@@ -161,9 +215,11 @@ object PdfEngine {
 
             page = renderer.openPage(pageIndex)
             val density = context.resources.displayMetrics.density
-            val targetWidthPx = (targetWidthDp * density).toInt()
-            val aspectRatio = page.height.toFloat() / page.width.toFloat()
-            val targetHeightPx = (targetWidthPx * aspectRatio).toInt().coerceAtLeast(100)
+            val targetWidthPx = (targetWidthDp * density).toInt().coerceAtLeast(60)
+            val pw = page.width.coerceAtLeast(1)
+            val ph = page.height.coerceAtLeast(1)
+            val aspectRatio = (ph.toFloat() / pw.toFloat()).coerceIn(0.25f, 4.0f)
+            val targetHeightPx = (targetWidthPx * aspectRatio).toInt().coerceAtLeast(60)
 
             val bitmap = Bitmap.createBitmap(targetWidthPx, targetHeightPx, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bitmap)
@@ -196,7 +252,9 @@ object PdfEngine {
             else -> "jpg"
         }
         val tempFile = File(cacheDir, "img_${System.currentTimeMillis()}_${(1000..9999).random()}.$ext")
-        context.contentResolver.openInputStream(uri)?.use { input ->
+        val inputStream = context.contentResolver.openInputStream(uri)
+            ?: throw java.io.IOException("Unable to open image stream for URI: $uri")
+        inputStream.use { input ->
             FileOutputStream(tempFile).use { output ->
                 input.copyTo(output)
             }
@@ -205,7 +263,7 @@ object PdfEngine {
     }
 
     /**
-     * Renders/downscales an image file into a thumbnail bitmap.
+     * Renders/downscales an image file into a thumbnail bitmap with EXIF orientation applied.
      */
     suspend fun renderImageThumbnail(
         context: Context,
@@ -213,24 +271,9 @@ object PdfEngine {
         targetWidthDp: Int = 220
     ): Bitmap? = withContext(Dispatchers.IO) {
         try {
-            val options = android.graphics.BitmapFactory.Options().apply {
-                inJustDecodeBounds = true
-            }
-            android.graphics.BitmapFactory.decodeFile(file.absolutePath, options)
-            
             val density = context.resources.displayMetrics.density
-            val targetWidthPx = (targetWidthDp * density).toInt()
-            
-            // Calculate scale
-            var scale = 1
-            while (options.outWidth / scale / 2 >= targetWidthPx) {
-                scale *= 2
-            }
-            
-            val decodeOptions = android.graphics.BitmapFactory.Options().apply {
-                inSampleSize = scale
-            }
-            android.graphics.BitmapFactory.decodeFile(file.absolutePath, decodeOptions)
+            val targetWidthPx = (targetWidthDp * density).toInt().coerceAtLeast(60)
+            decodeScaledOrientedBitmap(file, maxDimension = targetWidthPx * 2)
         } catch (e: Exception) {
             Log.e(TAG, "Error rendering image thumbnail", e)
             null
@@ -247,7 +290,7 @@ object PdfEngine {
         outputFileName: String
     ): File = withContext(Dispatchers.IO) {
         val outputDir = File(context.filesDir, "exports").apply { mkdirs() }
-        val outputFile = File(outputDir, if (outputFileName.endsWith(".pdf")) outputFileName else "$outputFileName.pdf")
+        val outputFile = File(outputDir, sanitizeOutputFileName(outputFileName, "PDFCraft_Merged"))
         
         val pdfDocument = PdfDocument()
 
@@ -259,14 +302,11 @@ object PdfEngine {
                 if (item.originalPageIndex == -1) {
                     // This item is an Image source!
                     try {
-                        val file = File(item.sourceUri.path ?: "")
-                        val bitmap = if (file.exists()) {
-                            android.graphics.BitmapFactory.decodeFile(file.absolutePath)
-                        } else {
-                            context.contentResolver.openInputStream(item.sourceUri)?.use { input ->
+                        val localImgFile = getLocalImageFileFromUri(context, item.sourceUri)
+                        val bitmap = decodeScaledOrientedBitmap(localImgFile, maxDimension = 2400)
+                            ?: context.contentResolver.openInputStream(item.sourceUri)?.use { input ->
                                 android.graphics.BitmapFactory.decodeStream(input)
                             }
-                        }
 
                         if (bitmap != null && bitmap.width > 0 && bitmap.height > 0) {
                             // Apply rotation if requested
@@ -366,11 +406,12 @@ object PdfEngine {
         pageRotations: Map<Int, Int> = emptyMap()
     ): File = withContext(Dispatchers.IO) {
         val localFile = getLocalFileFromUri(context, sourceUri)
+        val localUri = Uri.fromFile(localFile)
         val pageItems = selectedPageIndices.mapIndexed { index, pageIdx ->
             PdfPageSourceItem(
                 id = "split_$index",
                 sourceTitle = localFile.name,
-                sourceUri = sourceUri,
+                sourceUri = localUri,
                 originalPageIndex = pageIdx,
                 rotationDegrees = pageRotations[pageIdx] ?: 0
             )
@@ -390,27 +431,30 @@ object PdfEngine {
         pageRotations: Map<Int, Int> = emptyMap()
     ): List<File> = withContext(Dispatchers.IO) {
         val localFile = getLocalFileFromUri(context, sourceUri)
+        val localUri = Uri.fromFile(localFile)
         val generatedFiles = mutableListOf<File>()
-        
+        val baseWithoutPdf = baseOutputName.replace(Regex("\\.pdf$", RegexOption.IGNORE_CASE), "")
+        val cleanBaseName = sanitizeOutputFileName(baseWithoutPdf, "Split", "").ifBlank { "Split" }
+
         selectedPageIndices.forEach { pageIdx ->
             val pageItem = PdfPageSourceItem(
                 id = "split_single_$pageIdx",
                 sourceTitle = localFile.name,
-                sourceUri = sourceUri,
+                sourceUri = localUri,
                 originalPageIndex = pageIdx,
                 rotationDegrees = pageRotations[pageIdx] ?: 0
             )
-            val cleanBaseName = baseOutputName.removeSuffix(".pdf")
             val outputFileName = "${cleanBaseName}_Page_${pageIdx + 1}.pdf"
             val file = mergeAndReorderPages(context, listOf(pageItem), outputFileName)
             generatedFiles.add(file)
         }
-        
+
         generatedFiles
     }
 
     /**
-     * Compresses a PDF file by re-sampling pages at a target DPI & JPEG quality.
+     * Compresses a PDF file by re-sampling pages at a target DPI & embedding genuine JPEG streams via PDFBox.
+     * Ensures output is never larger than the source PDF by falling back to a clean lossless copy if already compact.
      */
     suspend fun compressPdf(
         context: Context,
@@ -421,60 +465,76 @@ object PdfEngine {
         val localFile = getLocalFileFromUri(context, sourceUri)
         val pfd = ParcelFileDescriptor.open(localFile, ParcelFileDescriptor.MODE_READ_ONLY)
         val renderer = PdfRenderer(pfd)
-        val pdfDocument = PdfDocument()
 
         val outputDir = File(context.filesDir, "exports").apply { mkdirs() }
-        val outputFile = File(outputDir, if (outputFileName.endsWith(".pdf")) outputFileName else "$outputFileName.pdf")
+        val outputFile = File(outputDir, sanitizeOutputFileName(outputFileName, "PDFCraft_Compressed"))
+        val tempCandidate = File(outputDir, ".tmp_${System.currentTimeMillis()}_${outputFile.name}")
 
         try {
-            val scaleFactor = preset.targetDpi.toFloat() / 200f
-            for (i in 0 until renderer.pageCount) {
-                val page = renderer.openPage(i)
-                val pageW: Int
-                val pageH: Int
-                val bitmap: Bitmap
-                try {
-                    pageW = page.width.coerceAtLeast(1)
-                    pageH = page.height.coerceAtLeast(1)
-                    val targetW = (pageW * scaleFactor).toInt().coerceAtLeast(100)
-                    val targetH = (pageH * scaleFactor).toInt().coerceAtLeast(100)
+            val scaleFactor = (preset.targetDpi.toFloat() / 72f).coerceIn(0.6f, 3.0f)
+            val maxDim = 2400
 
-                    bitmap = Bitmap.createBitmap(targetW, targetH, Bitmap.Config.ARGB_8888)
-                    val canvas = Canvas(bitmap)
-                    canvas.drawColor(Color.WHITE)
-                    page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-                } finally {
-                    page.close()
-                }
+            com.tom_roush.pdfbox.pdmodel.PDDocument().use { pdDoc ->
+                for (i in 0 until renderer.pageCount) {
+                    val page = renderer.openPage(i)
+                    val pageW: Int
+                    val pageH: Int
+                    val bitmap: Bitmap
+                    try {
+                        pageW = page.width.coerceAtLeast(1)
+                        pageH = page.height.coerceAtLeast(1)
+                        var targetW = (pageW * scaleFactor).toInt().coerceAtLeast(100)
+                        var targetH = (pageH * scaleFactor).toInt().coerceAtLeast(100)
+                        if (targetW > maxDim || targetH > maxDim) {
+                            val clampScale = maxDim.toFloat() / maxOf(targetW, targetH)
+                            targetW = (targetW * clampScale).toInt().coerceAtLeast(100)
+                            targetH = (targetH * clampScale).toInt().coerceAtLeast(100)
+                        }
 
-                // Re-encode via compressed JPEG stream to strip vector bloated streams
-                val compressedStream = java.io.ByteArrayOutputStream()
-                bitmap.compress(Bitmap.CompressFormat.JPEG, preset.jpegQuality, compressedStream)
-                val compressedBytes = compressedStream.toByteArray()
-                val compressedBitmap = android.graphics.BitmapFactory.decodeByteArray(compressedBytes, 0, compressedBytes.size)
-
-                try {
-                    val pageInfo = PdfDocument.PageInfo.Builder(pageW, pageH, i + 1).create()
-                    val pdfPage = pdfDocument.startPage(pageInfo)
-                    val destRect = Rect(0, 0, pageW, pageH)
-                    val bitmapToDraw = compressedBitmap ?: bitmap
-                    pdfPage.canvas.drawBitmap(bitmapToDraw, null, destRect, null)
-                    pdfDocument.finishPage(pdfPage)
-                } finally {
-                    if (compressedBitmap != null && compressedBitmap !== bitmap && !compressedBitmap.isRecycled) {
-                        compressedBitmap.recycle()
+                        bitmap = Bitmap.createBitmap(targetW, targetH, Bitmap.Config.RGB_565)
+                        val canvas = Canvas(bitmap)
+                        canvas.drawColor(Color.WHITE)
+                        page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+                    } finally {
+                        page.close()
                     }
-                    if (!bitmap.isRecycled) bitmap.recycle()
+
+                    val compressedBytes = try {
+                        val compressedStream = java.io.ByteArrayOutputStream()
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, preset.jpegQuality.coerceIn(20, 95), compressedStream)
+                        compressedStream.toByteArray()
+                    } finally {
+                        if (!bitmap.isRecycled) bitmap.recycle()
+                    }
+
+                    val pdImage = com.tom_roush.pdfbox.pdmodel.graphics.image.JPEGFactory.createFromByteArray(pdDoc, compressedBytes)
+                    val pdPage = com.tom_roush.pdfbox.pdmodel.PDPage(
+                        com.tom_roush.pdfbox.pdmodel.common.PDRectangle(pageW.toFloat(), pageH.toFloat())
+                    )
+                    pdDoc.addPage(pdPage)
+                    com.tom_roush.pdfbox.pdmodel.PDPageContentStream(
+                        pdDoc,
+                        pdPage,
+                        com.tom_roush.pdfbox.pdmodel.PDPageContentStream.AppendMode.OVERWRITE,
+                        true,
+                        true
+                    ).use { content ->
+                        content.drawImage(pdImage, 0f, 0f, pageW.toFloat(), pageH.toFloat())
+                    }
                 }
+                pdDoc.save(tempCandidate)
             }
 
-            FileOutputStream(outputFile).use { out ->
-                pdfDocument.writeTo(out)
+            if (tempCandidate.exists() && tempCandidate.length() > 0 && tempCandidate.length() < localFile.length()) {
+                tempCandidate.copyTo(outputFile, overwrite = true)
+            } else {
+                // Already compact (e.g. text-only vector PDF) — preserve lossless original to avoid bloating
+                localFile.copyTo(outputFile, overwrite = true)
             }
         } finally {
-            pdfDocument.close()
-            renderer.close()
-            pfd.close()
+            try { tempCandidate.delete() } catch (_: Throwable) {}
+            try { renderer.close() } catch (_: Throwable) {}
+            try { pfd.close() } catch (_: Throwable) {}
         }
 
         outputFile
@@ -536,12 +596,17 @@ object PdfEngine {
                                 val resolver = context.contentResolver
                                 val uri = resolver.insert(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
                                 if (uri != null) {
-                                    resolver.openOutputStream(uri)?.use { out ->
-                                        bitmap.compress(compressFormat, 95, out)
+                                    try {
+                                        resolver.openOutputStream(uri)?.use { out ->
+                                            bitmap.compress(compressFormat, 95, out)
+                                        }
+                                        values.clear()
+                                        values.put(android.provider.MediaStore.Images.Media.IS_PENDING, 0)
+                                        resolver.update(uri, values, null, null)
+                                    } catch (writeErr: Exception) {
+                                        try { resolver.delete(uri, null, null) } catch (_: Exception) {}
+                                        throw writeErr
                                     }
-                                    values.clear()
-                                    values.put(android.provider.MediaStore.Images.Media.IS_PENDING, 0)
-                                    resolver.update(uri, values, null, null)
                                 }
                             } else {
                                 @Suppress("DEPRECATION")
@@ -669,17 +734,22 @@ object PdfEngine {
 
             val uri = resolver.insert(collection, contentValues)
             if (uri != null) {
-                resolver.openOutputStream(uri)?.use { output ->
-                    imageFile.inputStream().use { input ->
-                        input.copyTo(output)
+                try {
+                    resolver.openOutputStream(uri)?.use { output ->
+                        imageFile.inputStream().use { input ->
+                            input.copyTo(output)
+                        }
                     }
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+                        contentValues.clear()
+                        contentValues.put(android.provider.MediaStore.MediaColumns.IS_PENDING, 0)
+                        resolver.update(uri, contentValues, null, null)
+                    }
+                    return@withContext uri
+                } catch (writeErr: Exception) {
+                    try { resolver.delete(uri, null, null) } catch (_: Exception) {}
+                    throw writeErr
                 }
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-                    contentValues.clear()
-                    contentValues.put(android.provider.MediaStore.MediaColumns.IS_PENDING, 0)
-                    resolver.update(uri, contentValues, null, null)
-                }
-                return@withContext uri
             }
             null
         } catch (e: Exception) {
@@ -697,7 +767,7 @@ object PdfEngine {
         try {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
                 val resolver = context.contentResolver
-                val displayName = if (pdfFile.name.endsWith(".pdf", true)) pdfFile.name else "${pdfFile.name}.pdf"
+                val displayName = sanitizeOutputFileName(pdfFile.name, "PDFCraft_Document")
                 val contentValues = android.content.ContentValues().apply {
                     put(android.provider.MediaStore.MediaColumns.DISPLAY_NAME, displayName)
                     put(android.provider.MediaStore.MediaColumns.MIME_TYPE, "application/pdf")
@@ -712,15 +782,20 @@ object PdfEngine {
                 )
                 val uri = resolver.insert(collection, contentValues)
                 if (uri != null) {
-                    resolver.openOutputStream(uri)?.use { output ->
-                        pdfFile.inputStream().use { input ->
-                            input.copyTo(output)
+                    try {
+                        resolver.openOutputStream(uri)?.use { output ->
+                            pdfFile.inputStream().use { input ->
+                                input.copyTo(output)
+                            }
                         }
+                        contentValues.clear()
+                        contentValues.put(android.provider.MediaStore.MediaColumns.IS_PENDING, 0)
+                        resolver.update(uri, contentValues, null, null)
+                        return@withContext uri
+                    } catch (writeErr: Exception) {
+                        try { resolver.delete(uri, null, null) } catch (_: Exception) {}
+                        throw writeErr
                     }
-                    contentValues.clear()
-                    contentValues.put(android.provider.MediaStore.MediaColumns.IS_PENDING, 0)
-                    resolver.update(uri, contentValues, null, null)
-                    return@withContext uri
                 }
             } else {
                 val downloadsDir = File(
@@ -936,7 +1011,7 @@ object PdfEngine {
     ): File = withContext(Dispatchers.IO) {
         val localFile = getLocalFileFromUri(context, sourceUri)
         val outputDir = File(context.filesDir, "exports").apply { mkdirs() }
-        val outputFile = File(outputDir, if (outputFileName.endsWith(".pdf")) outputFileName else "$outputFileName.pdf")
+        val outputFile = File(outputDir, sanitizeOutputFileName(outputFileName, "PDFCraft_Secure"))
 
         com.tom_roush.pdfbox.pdmodel.PDDocument.load(localFile).use { doc ->
             val ap = com.tom_roush.pdfbox.pdmodel.encryption.AccessPermission().apply {
@@ -975,7 +1050,7 @@ object PdfEngine {
     ): File = withContext(Dispatchers.IO) {
         val localFile = getLocalFileFromUri(context, sourceUri)
         val outputDir = File(context.filesDir, "exports").apply { mkdirs() }
-        val outputFile = File(outputDir, if (outputFileName.endsWith(".pdf")) outputFileName else "$outputFileName.pdf")
+        val outputFile = File(outputDir, sanitizeOutputFileName(outputFileName, "PDFCraft_Watermarked"))
 
         com.tom_roush.pdfbox.pdmodel.PDDocument.load(localFile).use { doc ->
             applyWatermarkToDocument(context, doc, options)
@@ -1045,8 +1120,8 @@ object PdfEngine {
         var rawBitmap: Bitmap? = null
         if (options.type == WatermarkType.IMAGE && options.imageUri != null) {
             try {
-                val imgFile = getLocalFileFromUri(context, options.imageUri)
-                rawBitmap = android.graphics.BitmapFactory.decodeFile(imgFile.absolutePath)
+                val imgFile = getLocalImageFileFromUri(context, options.imageUri)
+                rawBitmap = decodeScaledOrientedBitmap(imgFile, maxDimension = 1600)
                     ?: context.contentResolver.openInputStream(options.imageUri)?.use { android.graphics.BitmapFactory.decodeStream(it) }
                 if (rawBitmap != null) {
                     pdImage = com.tom_roush.pdfbox.pdmodel.graphics.image.LosslessFactory.createFromImage(doc, rawBitmap)
@@ -1057,6 +1132,10 @@ object PdfEngine {
         }
 
         val font = com.tom_roush.pdfbox.pdmodel.font.PDType1Font.HELVETICA_BOLD
+        val rgb = options.textColorRgb
+        val rFloat = (rgb.getOrElse(0) { 180 }.coerceIn(0, 255)) / 255f
+        val gFloat = (rgb.getOrElse(1) { 180 }.coerceIn(0, 255)) / 255f
+        val bFloat = (rgb.getOrElse(2) { 180 }.coerceIn(0, 255)) / 255f
 
         for (i in 0 until pageCount) {
             val shouldApply = when (options.pageRange) {
@@ -1068,9 +1147,11 @@ object PdfEngine {
             if (!shouldApply) continue
 
             val page = doc.getPage(i)
-            val mediaBox = page.mediaBox
-            val width = mediaBox.width
-            val height = mediaBox.height
+            val box = page.cropBox ?: page.mediaBox
+            val originX = box.lowerLeftX
+            val originY = box.lowerLeftY
+            val width = box.width
+            val height = box.height
 
             com.tom_roush.pdfbox.pdmodel.PDPageContentStream(
                 doc,
@@ -1088,29 +1169,23 @@ object PdfEngine {
                 if (options.type == WatermarkType.TEXT) {
                     val rawText = options.text.ifBlank { "CONFIDENTIAL" }
                     val textToDraw = toWinAnsiSafeText(rawText, font).ifBlank { "CONFIDENTIAL" }
-                    contentStream.setNonStrokingColor(
-                        options.textColorRgb[0].coerceIn(0, 255),
-                        options.textColorRgb[1].coerceIn(0, 255),
-                        options.textColorRgb[2].coerceIn(0, 255)
-                    )
+                    contentStream.setNonStrokingColor(rFloat, gFloat, bFloat)
                     contentStream.setFont(font, options.textSize)
 
                     val textWidth = (font.getStringWidth(textToDraw) / 1000f) * options.textSize
-                    val textHeight = (font.fontDescriptor.capHeight / 1000f) * options.textSize
+                    val capHeight = font.fontDescriptor?.capHeight ?: 718f
+                    val textHeight = (capHeight / 1000f) * options.textSize
+                    val rad = Math.toRadians(options.rotationAngle.toDouble())
 
                     if (options.position == WatermarkPosition.TILE) {
                         val xStep = maxOf(textWidth * 1.4f, 160f)
                         val yStep = maxOf(textHeight * 3.5f, 120f)
-                        var y = 40f
-                        while (y < height) {
-                            var x = 30f
-                            while (x < width) {
+                        var y = originY + 40f
+                        while (y < originY + height) {
+                            var x = originX + 30f
+                            while (x < originX + width) {
                                 contentStream.beginText()
-                                val matrix = com.tom_roush.pdfbox.util.Matrix.getRotateInstance(
-                                    Math.toRadians(options.rotationAngle.toDouble()),
-                                    x,
-                                    y
-                                )
+                                val matrix = com.tom_roush.pdfbox.util.Matrix.getRotateInstance(rad, x, y)
                                 contentStream.setTextMatrix(matrix)
                                 contentStream.showText(textToDraw)
                                 contentStream.endText()
@@ -1119,33 +1194,41 @@ object PdfEngine {
                             y += yStep
                         }
                     } else {
-                        val (baseX, baseY) = calculateTextCoordinates(options.position, width, height, textWidth, textHeight)
+                        val (relX, relY) = calculateTextCoordinates(options.position, width, height, textWidth, textHeight)
+                        val matrix = if (options.position == WatermarkPosition.CENTER) {
+                            val centerX = originX + width / 2f
+                            val centerY = originY + height / 2f
+                            com.tom_roush.pdfbox.util.Matrix.getTranslateInstance(centerX, centerY).apply {
+                                concatenate(com.tom_roush.pdfbox.util.Matrix.getRotateInstance(rad, 0f, 0f))
+                                concatenate(com.tom_roush.pdfbox.util.Matrix.getTranslateInstance(-textWidth / 2f, -textHeight / 2f))
+                            }
+                        } else {
+                            com.tom_roush.pdfbox.util.Matrix.getRotateInstance(rad, originX + relX, originY + relY)
+                        }
                         contentStream.beginText()
-                        val matrix = com.tom_roush.pdfbox.util.Matrix.getRotateInstance(
-                            Math.toRadians(options.rotationAngle.toDouble()),
-                            baseX,
-                            baseY
-                        )
                         contentStream.setTextMatrix(matrix)
                         contentStream.showText(textToDraw)
                         contentStream.endText()
                     }
-                } else if (options.type == WatermarkType.IMAGE && pdImage != null && rawBitmap != null) {
-                    val imgWidth = rawBitmap.width * options.imageScale
-                    val imgHeight = rawBitmap.height * options.imageScale
+                } else if (options.type == WatermarkType.IMAGE && pdImage != null && rawBitmap != null && rawBitmap.width > 0 && rawBitmap.height > 0) {
+                    val imgAspect = rawBitmap.height.toFloat() / rawBitmap.width.toFloat()
+                    var imgWidth = (width * options.imageScale.coerceIn(0.08f, 1.0f)).coerceAtLeast(24f)
+                    var imgHeight = imgWidth * imgAspect
+                    if (imgHeight > height * 0.9f) {
+                        val clamp = (height * 0.9f) / imgHeight
+                        imgWidth *= clamp
+                        imgHeight *= clamp
+                    }
+                    val rad = Math.toRadians(options.rotationAngle.toDouble())
 
                     if (options.position == WatermarkPosition.TILE) {
                         val xStep = maxOf(imgWidth * 1.5f, 120f)
                         val yStep = maxOf(imgHeight * 1.5f, 120f)
-                        var y = 40f
-                        while (y < height) {
-                            var x = 40f
-                            while (x < width) {
-                                val matrix = com.tom_roush.pdfbox.util.Matrix.getRotateInstance(
-                                    Math.toRadians(options.rotationAngle.toDouble()),
-                                    x,
-                                    y
-                                )
+                        var y = originY + 40f
+                        while (y < originY + height) {
+                            var x = originX + 40f
+                            while (x < originX + width) {
+                                val matrix = com.tom_roush.pdfbox.util.Matrix.getRotateInstance(rad, x, y)
                                 matrix.scale(imgWidth, imgHeight)
                                 contentStream.drawImage(pdImage, matrix)
                                 x += xStep
@@ -1153,13 +1236,20 @@ object PdfEngine {
                             y += yStep
                         }
                     } else {
-                        val (baseX, baseY) = calculateImageCoordinates(options.position, width, height, imgWidth, imgHeight)
-                        val matrix = com.tom_roush.pdfbox.util.Matrix.getRotateInstance(
-                            Math.toRadians(options.rotationAngle.toDouble()),
-                            baseX,
-                            baseY
-                        )
-                        matrix.scale(imgWidth, imgHeight)
+                        val (relX, relY) = calculateImageCoordinates(options.position, width, height, imgWidth, imgHeight)
+                        val matrix = if (options.position == WatermarkPosition.CENTER) {
+                            val centerX = originX + width / 2f
+                            val centerY = originY + height / 2f
+                            com.tom_roush.pdfbox.util.Matrix.getTranslateInstance(centerX, centerY).apply {
+                                concatenate(com.tom_roush.pdfbox.util.Matrix.getRotateInstance(rad, 0f, 0f))
+                                concatenate(com.tom_roush.pdfbox.util.Matrix.getTranslateInstance(-imgWidth / 2f, -imgHeight / 2f))
+                                scale(imgWidth, imgHeight)
+                            }
+                        } else {
+                            com.tom_roush.pdfbox.util.Matrix.getRotateInstance(rad, originX + relX, originY + relY).apply {
+                                scale(imgWidth, imgHeight)
+                            }
+                        }
                         contentStream.drawImage(pdImage, matrix)
                     }
                 }
@@ -1217,11 +1307,12 @@ object PdfEngine {
     ): File = withContext(Dispatchers.IO) {
         val localFile = getLocalFileFromUri(context, sourceUri)
         val outputDir = File(context.filesDir, "exports").apply { mkdirs() }
-        val outputFile = File(outputDir, if (outputFileName.endsWith(".pdf")) outputFileName else "$outputFileName.pdf")
+        val outputFile = File(outputDir, sanitizeOutputFileName(outputFileName, "PDFCraft_Signed"))
 
         com.tom_roush.pdfbox.pdmodel.PDDocument.load(localFile).use { doc ->
             require(doc.numberOfPages > 0) { "PDF has no pages to sign." }
             val lastPage = doc.getPage(doc.numberOfPages - 1)
+            val box = lastPage.cropBox ?: lastPage.mediaBox
             val fontBold = com.tom_roush.pdfbox.pdmodel.font.PDType1Font.HELVETICA_BOLD
             val fontRegular = com.tom_roush.pdfbox.pdmodel.font.PDType1Font.HELVETICA
 
@@ -1232,8 +1323,8 @@ object PdfEngine {
                 fontRegular
             )
 
-            val boxX = 42f
-            val boxY = 36f
+            val boxX = box.lowerLeftX + 42f
+            val boxY = box.lowerLeftY + 36f
             val boxW = 260f
             val boxH = 56f
 
@@ -1245,26 +1336,26 @@ object PdfEngine {
                 true
             ).use { contentStream ->
                 // Clean signature stamp frame
-                contentStream.setNonStrokingColor(246, 252, 249)
+                contentStream.setNonStrokingColor(246f / 255f, 252f / 255f, 249f / 255f)
                 contentStream.addRect(boxX, boxY, boxW, boxH)
                 contentStream.fill()
 
-                contentStream.setNonStrokingColor(16, 185, 129)
+                contentStream.setNonStrokingColor(16f / 255f, 185f / 255f, 129f / 255f)
                 contentStream.addRect(boxX, boxY, 4f, boxH)
                 contentStream.fill()
 
-                contentStream.setStrokingColor(16, 185, 129)
+                contentStream.setStrokingColor(16f / 255f, 185f / 255f, 129f / 255f)
                 contentStream.setLineWidth(0.8f)
                 contentStream.addRect(boxX, boxY, boxW, boxH)
                 contentStream.stroke()
 
                 contentStream.beginText()
                 contentStream.setFont(fontBold, 9.5f)
-                contentStream.setNonStrokingColor(15, 23, 42)
+                contentStream.setNonStrokingColor(15f / 255f, 23f / 255f, 42f / 255f)
                 contentStream.newLineAtOffset(boxX + 12f, boxY + 40f)
                 contentStream.showText("Digitally Signed by: $safeSigner")
                 contentStream.setFont(fontRegular, 8.5f)
-                contentStream.setNonStrokingColor(51, 65, 85)
+                contentStream.setNonStrokingColor(51f / 255f, 65f / 255f, 85f / 255f)
                 contentStream.newLineAtOffset(0f, -13f)
                 contentStream.showText("Reason: $safeReason")
                 contentStream.newLineAtOffset(0f, -12f)
@@ -1289,7 +1380,7 @@ object PdfEngine {
         }
 
         val outputDir = File(context.filesDir, "converted").apply { mkdirs() }
-        val outputFile = File(outputDir, "Converted_${localFile.nameWithoutExtension}_${System.currentTimeMillis()}.pdf")
+        val outputFile = File(outputDir, sanitizeOutputFileName("Converted_${localFile.nameWithoutExtension}_${System.currentTimeMillis()}", "Converted"))
 
         val pdfDocument = android.graphics.pdf.PdfDocument()
         try {
@@ -1297,21 +1388,25 @@ object PdfEngine {
                     localFile.name.lowercase().matches(Regex(".*\\.(jpg|jpeg|png|webp|bmp|gif|heic|heif)$"))
 
             if (isImage) {
-                var bitmap = android.graphics.BitmapFactory.decodeFile(localFile.absolutePath)
+                var bitmap = decodeScaledOrientedBitmap(localFile, maxDimension = 2400)
                 if (bitmap == null) {
                     context.contentResolver.openInputStream(sourceUri)?.use { input ->
                         bitmap = android.graphics.BitmapFactory.decodeStream(input)
                     }
                 }
 
-                if (bitmap != null && bitmap.width > 0 && bitmap.height > 0) {
-                    val w = bitmap.width
-                    val h = bitmap.height
-                    val pageInfo = android.graphics.pdf.PdfDocument.PageInfo.Builder(w, h, 1).create()
+                val bmp = bitmap ?: throw java.io.IOException("Unable to decode image file: ${localFile.name}")
+                if (bmp.width <= 0 || bmp.height <= 0) {
+                    try { bmp.recycle() } catch (_: Exception) {}
+                    throw java.io.IOException("Invalid image dimensions for: ${localFile.name}")
+                }
+                try {
+                    val pageInfo = android.graphics.pdf.PdfDocument.PageInfo.Builder(bmp.width, bmp.height, 1).create()
                     val page = pdfDocument.startPage(pageInfo)
-                    page.canvas.drawBitmap(bitmap, 0f, 0f, null)
+                    page.canvas.drawBitmap(bmp, 0f, 0f, null)
                     pdfDocument.finishPage(page)
-                    try { bitmap.recycle() } catch (_: Exception) {}
+                } finally {
+                    try { bmp.recycle() } catch (_: Exception) {}
                 }
             } else {
                 val text = try {
@@ -1457,7 +1552,7 @@ object PdfEngine {
     ): File = withContext(Dispatchers.IO) {
         val localFile = getLocalFileFromUri(context, sourceUri)
         val outputDir = File(context.filesDir, "exports").apply { mkdirs() }
-        val outputFile = File(outputDir, if (outputFileName.endsWith(".pdf")) outputFileName else "$outputFileName.pdf")
+        val outputFile = File(outputDir, sanitizeOutputFileName(outputFileName, "PDFCraft_Metadata"))
 
         com.tom_roush.pdfbox.pdmodel.PDDocument.load(localFile).use { doc ->
             var info = doc.documentInformation
@@ -1503,7 +1598,7 @@ object PdfEngine {
         outputName: String = "Modified_${sourceFile.name}"
     ): File = withContext(Dispatchers.IO) {
         val outputDir = File(context.filesDir, "exports").apply { mkdirs() }
-        val outputFile = File(outputDir, if (outputName.endsWith(".pdf", ignoreCase = true)) outputName else "$outputName.pdf")
+        val outputFile = File(outputDir, sanitizeOutputFileName(outputName, "PDFCraft_Modified"))
 
         com.tom_roush.pdfbox.pdmodel.PDDocument.load(sourceFile).use { doc ->
             val pageCount = doc.numberOfPages
@@ -1538,7 +1633,7 @@ object PdfEngine {
         outputName: String = "PDFCraft_Images.pdf"
     ): File = withContext(Dispatchers.IO) {
         val outputDir = File(context.filesDir, "exports").apply { mkdirs() }
-        val outputFile = File(outputDir, if (outputName.endsWith(".pdf", ignoreCase = true)) outputName else "$outputName.pdf")
+        val outputFile = File(outputDir, sanitizeOutputFileName(outputName, "PDFCraft_Images"))
 
         com.tom_roush.pdfbox.pdmodel.PDDocument().use { pdDoc ->
             var addedCount = 0
@@ -1661,11 +1756,16 @@ object PdfEngine {
     ): File = withContext(Dispatchers.IO) {
         val file = getLocalFileFromUri(context, sourceUri)
         val outputDir = File(context.filesDir, "exports").apply { mkdirs() }
-        val outputFile = File(outputDir, if (outputName.endsWith(".pdf", ignoreCase = true)) outputName else "$outputName.pdf")
+        val outputFile = File(outputDir, sanitizeOutputFileName(outputName, "PDFCraft_Numbered"))
 
         com.tom_roush.pdfbox.pdmodel.PDDocument.load(file).use { pdDoc ->
             val totalPages = pdDoc.numberOfPages
             val font = com.tom_roush.pdfbox.pdmodel.font.PDType1Font.HELVETICA_BOLD
+            val rgb = options.textColorRgb
+            val rFloat = (rgb.getOrElse(0) { 80 }.coerceIn(0, 255)) / 255f
+            val gFloat = (rgb.getOrElse(1) { 80 }.coerceIn(0, 255)) / 255f
+            val bFloat = (rgb.getOrElse(2) { 80 }.coerceIn(0, 255)) / 255f
+            val capHeight = font.fontDescriptor?.capHeight ?: 718f
 
             for (i in 0 until totalPages) {
                 val pageNum = i + options.startPageNumber
@@ -1675,12 +1775,12 @@ object PdfEngine {
                 val pageText = toWinAnsiSafeText(rawPageText, font).ifBlank { "$pageNum" }
 
                 val page = pdDoc.getPage(i)
-                val mediaBox = page.mediaBox
-                val width = mediaBox.width
-                val height = mediaBox.height
+                val box = page.cropBox ?: page.mediaBox
+                val width = box.width
+                val height = box.height
 
                 val textWidth = (font.getStringWidth(pageText) / 1000f) * options.fontSize
-                val textHeight = (font.fontDescriptor.capHeight / 1000f) * options.fontSize
+                val textHeight = (capHeight / 1000f) * options.fontSize
 
                 val margin = options.marginPt
 
@@ -1690,13 +1790,13 @@ object PdfEngine {
                     PageNumberPosition.HEADER_RIGHT
                 )
 
-                val x = when (options.position) {
+                val x = box.lowerLeftX + when (options.position) {
                     PageNumberPosition.HEADER_LEFT, PageNumberPosition.FOOTER_LEFT -> margin
                     PageNumberPosition.HEADER_CENTER, PageNumberPosition.FOOTER_CENTER -> (width - textWidth) / 2f
                     PageNumberPosition.HEADER_RIGHT, PageNumberPosition.FOOTER_RIGHT -> width - margin - textWidth
                 }
 
-                val y = if (isHeader) height - margin - textHeight else margin
+                val y = box.lowerLeftY + if (isHeader) height - margin - textHeight else margin
 
                 com.tom_roush.pdfbox.pdmodel.PDPageContentStream(
                     pdDoc,
@@ -1705,11 +1805,7 @@ object PdfEngine {
                     true,
                     true
                 ).use { contentStream ->
-                    contentStream.setNonStrokingColor(
-                        options.textColorRgb[0].coerceIn(0, 255),
-                        options.textColorRgb[1].coerceIn(0, 255),
-                        options.textColorRgb[2].coerceIn(0, 255)
-                    )
+                    contentStream.setNonStrokingColor(rFloat, gFloat, bFloat)
                     contentStream.setFont(font, options.fontSize)
                     contentStream.beginText()
                     contentStream.newLineAtOffset(x, y)

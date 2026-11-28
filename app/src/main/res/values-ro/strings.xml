@@ -11,7 +11,7 @@
     <string name="onboarding_skip">Sari peste</string>
     <string name="onboarding_next">Următorul</string>
     <string name="onboarding_get_started">Începe</string>
-    <string name="onboarding_title_1">100% pe dispozitiv &amp; Privat</string>
+    <string name="onboarding_title_1" formatted="false">100% pe dispozitiv &amp; Privat</string>
     <string name="onboarding_desc_1">Procesează, unește, divide și comprimă documentele PDF direct pe dispozitiv.</string>
     <string name="onboarding_title_2">Acces stocare locală</string>
     <string name="onboarding_desc_2">Acordă permisiuni pentru a importa și salva fișierul PDF.</string>
@@ -81,7 +81,7 @@
     <string name="hub_metric_processed">PROCESSED</string>
     <string name="hub_metric_saved">SPACE SAVED</string>
     <string name="hub_metric_privacy">DATA PRIVACY</string>
-    <string name="hub_privacy_value">100% Local</string>
+    <string name="hub_privacy_value" formatted="false">100% Local</string>
     <string name="hub_quick_actions">Quick Actions</string>
     <string name="hub_view_all_tools">Vezi toate cele 15 instrumente</string>
     <string name="hub_recent_activity">Recent Documents</string>
@@ -300,7 +300,7 @@
     <string name="nav_library">Bibliotecă</string>
     <string name="nav_settings">Setări</string>
     <string name="support_dev_title">Susțineți dezvoltatorul</string>
-    <string name="support_dev_subtitle">PDFCraft este 100% gratuit, offline și privat, fără abonamente. Dacă vă ajută, cumpărați o cafea pentru a sprijini dezvoltarea!</string>
+    <string name="support_dev_subtitle" formatted="false">PDFCraft este 100% gratuit, offline și privat, fără abonamente. Dacă vă ajută, cumpărați o cafea pentru a sprijini dezvoltarea!</string>
     <string name="support_coffee_small">Cumpără o cafea (3$)</string>
     <string name="support_coffee_medium">Cumpără un prânz (5$)</string>
     <string name="support_coffee_large">Super susținător (10$)</string>
@@ -312,7 +312,7 @@
     <string name="support_hub_banner_subtitle">Sprijină dezvoltarea de instrumente PDF private și offline cu o cafea</string>
     <string name="support_thank_you">Vă mulțumim pentru sprijinirea dezvoltării independente!</string>
     <string name="rate_dialog_title">Îți place PDFCraft?</string>
-    <string name="rate_dialog_desc">Evaluarea dvs. ne ajută să păstrăm PDFCraft 100% offline, privat și plin de funcții!</string>
+    <string name="rate_dialog_desc" formatted="false">Evaluarea dvs. ne ajută să păstrăm PDFCraft 100% offline, privat și plin de funcții!</string>
     <string name="rate_dialog_rate_5_stars">Evaluează cu 5 stele pe Play Store</string>
     <string name="rate_dialog_submit">Trimite evaluarea</string>
     <string name="rate_dialog_maybe_later">Poate mai târziu</string>
@@ -320,7 +320,7 @@
     <string name="rate_feedback_thanks">Vă mulțumim pentru feedback!</string>
     <string name="share_dialog_title">Partajează PDFCraft cu prietenii</string>
     <string name="share_dialog_desc">Ajută-ți colegii și prietenii să îmbine, să împartă, să comprime și să blocheze PDF-uri offline!</string>
-    <string name="share_dialog_bullet_offline">Motor local 100% offline și privat</string>
+    <string name="share_dialog_bullet_offline" formatted="false">Motor local 100% offline și privat</string>
     <string name="share_dialog_bullet_tools">Îmbină, împarte, comprimă și rotește PDF-uri</string>
     <string name="share_dialog_bullet_security">Blocare cu parolă și extragere de imagini</string>
     <string name="share_dialog_share_button">Partajează aplicația PDFCraft</string>
@@ -369,7 +369,7 @@
     <string name="settings_pref_subtitle">Personalizează experiența PDFCraft și setările de securitate</string>
     <string name="settings_theme_appearance">Aspectul temei</string>
     <string name="settings_security_privacy">Securitate și confidențialitate</string>
-    <string name="settings_security_privacy_desc">Toate operațiunile PDF se execută 100% local pe dispozitiv. Niciun conținut nu este încărcat vreodată pe servere externe.</string>
+    <string name="settings_security_privacy_desc" formatted="false">Toate operațiunile PDF se execută 100% local pe dispozitiv. Niciun conținut nu este încărcat vreodată pe servere externe.</string>
     <string name="settings_cloud_sync_title">Sincronizare în cloud și cont</string>
     <string name="settings_cloud_sync_signed_in">Conectat ca %1$s. Preferințele și istoricul dvs. pot fi sincronizate în siguranță.</string>
     <string name="settings_cloud_sync_signed_out">Conectați-vă pentru a sincroniza preferințele și istoricul pe toate dispozitivele.</string>
@@ -397,7 +397,7 @@
 
     <!-- Donation & Multi-Method Support Expansion -->
     <string name="support_hub_compact_title">Îți place PDFCraft? ☕</string>
-    <string name="support_hub_compact_subtitle">Păstrează PDFCraft 100% offline și privat</string>
+    <string name="support_hub_compact_subtitle" formatted="false">Păstrează PDFCraft 100% offline și privat</string>
     <string name="support_hub_btn_tip">Susține ☕</string>
     <string name="support_hub_dismiss">Închide</string>
     <string name="support_tab_google_play">Google Play</string>
@@ -410,7 +410,7 @@
     <string name="support_tip_supporter">Super Susținător (9,99 $) 🚀</string>
     <string name="support_tip_hero">Erou Susținător (19,99 $) 👑</string>
     <string name="support_thank_you_title">Îți mulțumim din suflet pentru susținere! ❤️</string>
-    <string name="support_thank_you_desc">Sprijinul tău menține PDFCraft 100% offline, gratuit și privat.</string>
+    <string name="support_thank_you_desc" formatted="false">Sprijinul tău menține PDFCraft 100% offline, gratuit și privat.</string>
     <string name="support_status_active">Susținător Activ ⭐</string>
     <string name="support_crypto_title">Donație Cripto (USDT / BTC)</string>
     <string name="support_crypto_desc">Susținere descentralizată pentru aplicații private</string>
@@ -424,7 +424,7 @@
     <string name="recent_selected_count">Selectate (%1$d/%2$d)</string>
     <string name="recent_search_hint">Căutați PDF-uri recente…</string>
     <string name="recent_no_match">Niciun PDF nu corespunde: %1$s</string>
-    <string name="dialog_feature_processing_title">Procesare 100% pe dispozitiv</string>
+    <string name="dialog_feature_processing_title" formatted="false">Procesare 100% pe dispozitiv</string>
     <string name="dialog_feature_processing_desc">Toate operațiunile PDF, rotirile, împărțirile, comprimările și exporturile se execută local.</string>
     <string name="dialog_feature_privacy_title">Fără încărcări în cloud</string>
     <string name="dialog_feature_privacy_desc">Formularele fiscale, facturile, contractele și documentele personale nu ajung niciodată pe servere terțe.</string>
@@ -485,8 +485,8 @@
     <string name="common_unknown">Necunoscut</string>
     <string name="common_none">Niciunul</string>
     <string name="brand_studio_badge">STUDIO</string>
-    <string name="brand_offline_status">100% PE DISPOZITIV • OFFLINE</string>
-    <string name="brand_splash_tagline">100% PE DISPOZITIV • FĂRĂ ÎNCĂRCĂRI</string>
+    <string name="brand_offline_status" formatted="false">100% PE DISPOZITIV • OFFLINE</string>
+    <string name="brand_splash_tagline" formatted="false">100% PE DISPOZITIV • FĂRĂ ÎNCĂRCĂRI</string>
     <string name="cd_studio_logo">Logo PDFCraft Studio</string>
     <string name="cd_privacy_info">Confidențialitate și info aplicație</string>
     <string name="cd_toggle_theme">Comută tema deschisă/întunecată</string>
@@ -519,10 +519,10 @@
     <string name="coachmark_step2_try">Încearcă Împărțire</string>
     <string name="coachmark_step3_badge">INSTRUMENT 3 DIN 4 • OPTIMIZATOR MĂRIME</string>
     <string name="coachmark_step3_title">Comprimă și micșorează PDF</string>
-    <string name="coachmark_step3_summary">Redu fișierele PDF mari cu până la 80% pentru e-mail, portaluri sau WhatsApp fără pierderi de claritate.</string>
+    <string name="coachmark_step3_summary" formatted="false">Redu fișierele PDF mari cu până la 80% pentru e-mail, portaluri sau WhatsApp fără pierderi de claritate.</string>
     <string name="coachmark_step3_tip1">Alege Calitate Maximă, Echilibrat sau Compact</string>
     <string name="coachmark_step3_tip2">Comprimă mai multe PDF-uri în lot simultan la nevoie</string>
-    <string name="coachmark_step3_tip3">Procesare 100% offline — documentele tale nu părăsesc niciodată dispozitivul</string>
+    <string name="coachmark_step3_tip3" formatted="false">Procesare 100% offline — documentele tale nu părăsesc niciodată dispozitivul</string>
     <string name="coachmark_step3_try">Încearcă Comprimare</string>
     <string name="coachmark_step4_badge">INSTRUMENT 4 DIN 4 • CORECȚIE RAPIDĂ</string>
     <string name="coachmark_step4_title">Rotește, șterge și previzualizează pagini</string>
@@ -602,7 +602,7 @@
     <string name="compress_selected_files">Fișiere selectate (%1$d)</string>
     <string name="compress_batch_preset">Profil comprimare în lot</string>
     <string name="compress_empty_title">Optimizează și extrage</string>
-    <string name="compress_empty_desc">Redu dimensiunea cu până la 80% fără cloud sau extrage toate imaginile paginilor la rezoluție mare pe dispozitiv.</string>
+    <string name="compress_empty_desc" formatted="false">Redu dimensiunea cu până la 80% fără cloud sau extrage toate imaginile paginilor la rezoluție mare pe dispozitiv.</string>
     <string name="compress_input_preview">Previzualizare document</string>
     <string name="compress_choose_level">Alege nivelul de comprimare</string>
     <string name="compress_est_impact">Impact estimat asupra mărimii</string>
@@ -761,11 +761,11 @@
     <string name="recent_page_1_preview">Previzualizare pagina 1 PDF</string>
     <string name="recent_no_preview">Fără previzualizare</string>
     <string name="recent_pages_and_size">%1$d pag. • %2$s</string>
-    <string name="support_card_tagline">100% Offline • Privat • Dezvoltator Indie</string>
+    <string name="support_card_tagline" formatted="false">100% Offline • Privat • Dezvoltator Indie</string>
     <string name="support_badge_optional">❤️ Opțional</string>
     <string name="support_badge_unlocked">DEBLOCAT</string>
     <string name="support_badge_active">ACTIV</string>
-    <string name="support_iap_disclosure">Donație unică 100% opțională prin sold Google Play, Google Pay sau card. Fără plăți recurente sau abonamente.</string>
+    <string name="support_iap_disclosure" formatted="false">Donație unică 100% opțională prin sold Google Play, Google Pay sau card. Fără plăți recurente sau abonamente.</string>
     <string name="support_confirm_title">Confirmă susținerea cu 1 atingere</string>
     <string name="support_badge_one_time">O singură dată</string>
     <string name="support_send_amount">Trimite %1$s</string>
@@ -780,7 +780,7 @@
     <string name="billing_tip_snack_title">Cafea și Croissant</string>
     <string name="billing_tip_snack_desc">Combustibil pentru o după-amiază de funcții noi</string>
     <string name="billing_tip_supporter_title">Super Susținător</string>
-    <string name="billing_tip_supporter_desc">Păstrează PDFCraft 100% offline și privat</string>
+    <string name="billing_tip_supporter_desc" formatted="false">Păstrează PDFCraft 100% offline și privat</string>
     <string name="billing_tip_hero_title">Susținător Erou</string>
     <string name="billing_tip_hero_desc">Recunoștință eternă și insignă permanentă</string>
     <string name="billing_error_init">Inițializarea Google Play Billing a eșuat</string>

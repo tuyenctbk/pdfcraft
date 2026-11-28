@@ -345,5 +345,5 @@ private data class OnboardingPageData(
     val titleRes: Int,
     val descRes: Int,
     val accentColor: Color = EmeraldPrimary,
-    @androidx.annotation.StringRes val badgeRes: Int
+    @param:androidx.annotation.StringRes val badgeRes: Int
 )

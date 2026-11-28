@@ -11,7 +11,7 @@
     <string name="onboarding_skip">Overslaan</string>
     <string name="onboarding_next">Volgende</string>
     <string name="onboarding_get_started">Aan de slag</string>
-    <string name="onboarding_title_1">100% op apparaat &amp; Privé</string>
+    <string name="onboarding_title_1" formatted="false">100% op apparaat &amp; Privé</string>
     <string name="onboarding_desc_1">Verwerk, voeg samen, splits en comprimeer PDF\'s direct op uw apparaat.</string>
     <string name="onboarding_title_2">Lokale opslagtoegang</string>
     <string name="onboarding_desc_2">Geef opslagrechten om eenvoudig documenten te importeren en op te slaan.</string>
@@ -81,7 +81,7 @@
     <string name="hub_metric_processed">PROCESSED</string>
     <string name="hub_metric_saved">SPACE SAVED</string>
     <string name="hub_metric_privacy">DATA PRIVACY</string>
-    <string name="hub_privacy_value">100% Local</string>
+    <string name="hub_privacy_value" formatted="false">100% Local</string>
     <string name="hub_quick_actions">Quick Actions</string>
     <string name="hub_view_all_tools">Alle 15 tools bekijken</string>
     <string name="hub_recent_activity">Recent Documents</string>
@@ -300,7 +300,7 @@
     <string name="nav_library">Bibliotheek</string>
     <string name="nav_settings">Instellingen</string>
     <string name="support_dev_title">Steun de ontwikkelaar</string>
-    <string name="support_dev_subtitle">PDFCraft is 100% gratis, offline en privé zonder abonnementen. Als de app helpt, overweeg dan een koffie te doneren!</string>
+    <string name="support_dev_subtitle" formatted="false">PDFCraft is 100% gratis, offline en privé zonder abonnementen. Als de app helpt, overweeg dan een koffie te doneren!</string>
     <string name="support_coffee_small">Koop een koffie ($3)</string>
     <string name="support_coffee_medium">Koop een lunch ($5)</string>
     <string name="support_coffee_large">Super Supporter ($10)</string>
@@ -312,7 +312,7 @@
     <string name="support_hub_banner_subtitle">Ondersteun privé offline PDF-ontwikkeling met een koffie</string>
     <string name="support_thank_you">Bedankt voor het ondersteunen van onafhankelijke ontwikkeling!</string>
     <string name="rate_dialog_title">Bevalt PDFCraft?</string>
-    <string name="rate_dialog_desc">Je beoordeling helpt ons PDFCraft 100% offline, privé en vol functies te houden!</string>
+    <string name="rate_dialog_desc" formatted="false">Je beoordeling helpt ons PDFCraft 100% offline, privé en vol functies te houden!</string>
     <string name="rate_dialog_rate_5_stars">Beoordeel met 5 sterren in Play Store</string>
     <string name="rate_dialog_submit">Beoordeling indienen</string>
     <string name="rate_dialog_maybe_later">Misschien later</string>
@@ -320,7 +320,7 @@
     <string name="rate_feedback_thanks">Bedankt voor je feedback!</string>
     <string name="share_dialog_title">Deel PDFCraft met vrienden</string>
     <string name="share_dialog_desc">Help collega\'s en vrienden eenvoudig offline PDF\'s samen te voegen, te splitsen en te comprimeren!</string>
-    <string name="share_dialog_bullet_offline">100% offline &amp; privé lokale engine</string>
+    <string name="share_dialog_bullet_offline" formatted="false">100% offline &amp; privé lokale engine</string>
     <string name="share_dialog_bullet_tools">PDF\'s samenvoegen, splitsen, comprimeren en roteren</string>
     <string name="share_dialog_bullet_security">Wachtwoordbeveiliging &amp; afbeeldingsextractie</string>
     <string name="share_dialog_share_button">Deel PDFCraft-app</string>
@@ -369,7 +369,7 @@
     <string name="settings_pref_subtitle">Pas je PDFCraft-ervaring en beveiligingsinstellingen aan</string>
     <string name="settings_theme_appearance">Thema-weergave</string>
     <string name="settings_security_privacy">Beveiliging &amp; privacy</string>
-    <string name="settings_security_privacy_desc">Alle PDF-bewerkingen worden 100% lokaal op het apparaat uitgevoerd. Er worden nooit documenten geüpload naar externe servers.</string>
+    <string name="settings_security_privacy_desc" formatted="false">Alle PDF-bewerkingen worden 100% lokaal op het apparaat uitgevoerd. Er worden nooit documenten geüpload naar externe servers.</string>
     <string name="settings_cloud_sync_title">Cloudsynchronisatie &amp; account</string>
     <string name="settings_cloud_sync_signed_in">Aangemeld als %1$s. Je voorkeuren en geschiedenis kunnen veilig worden gesynchroniseerd.</string>
     <string name="settings_cloud_sync_signed_out">Meld je aan om voorkeuren en geschiedenis op meerdere apparaten te synchroniseren.</string>
@@ -397,7 +397,7 @@
 
     <!-- Donation & Multi-Method Support Expansion -->
     <string name="support_hub_compact_title">Blij met PDFCraft? ☕</string>
-    <string name="support_hub_compact_subtitle">Houd PDFCraft 100% offline &amp; privé</string>
+    <string name="support_hub_compact_subtitle" formatted="false">Houd PDFCraft 100% offline &amp; privé</string>
     <string name="support_hub_btn_tip">Steunen ☕</string>
     <string name="support_hub_dismiss">Sluiten</string>
     <string name="support_tab_google_play">Google Play</string>
@@ -410,7 +410,7 @@
     <string name="support_tip_supporter">Super Supporter ($9.99) 🚀</string>
     <string name="support_tip_hero">Held Supporter ($19.99) 👑</string>
     <string name="support_thank_you_title">Hartelijk dank voor je steun! ❤️</string>
-    <string name="support_thank_you_desc">Jouw steun houdt PDFCraft 100% offline, gratis en privé.</string>
+    <string name="support_thank_you_desc" formatted="false">Jouw steun houdt PDFCraft 100% offline, gratis en privé.</string>
     <string name="support_status_active">Actieve Supporter ⭐</string>
     <string name="support_crypto_title">Crypto Donatie (USDT / BTC)</string>
     <string name="support_crypto_desc">Gedecentraliseerde steun voor privacy-tools</string>
@@ -424,7 +424,7 @@
     <string name="recent_selected_count">Geselecteerd (%1$d/%2$d)</string>
     <string name="recent_search_hint">Zoek recente PDFs…</string>
     <string name="recent_no_match">Geen PDFs komen overeen: %1$s</string>
-    <string name="dialog_feature_processing_title">100% lokale verwerking</string>
+    <string name="dialog_feature_processing_title" formatted="false">100% lokale verwerking</string>
     <string name="dialog_feature_processing_desc">Alle PDF-bewerkingen, rotaties, splitsingen, compressies en exports worden lokaal uitgevoerd.</string>
     <string name="dialog_feature_privacy_title">Geen cloud-uploads</string>
     <string name="dialog_feature_privacy_desc">Uw belastingformulieren, facturen, contracten en persoonlijke documenten raken nooit externe servers.</string>
@@ -485,8 +485,8 @@
     <string name="common_unknown">Onbekend</string>
     <string name="common_none">Geen</string>
     <string name="brand_studio_badge">STUDIO</string>
-    <string name="brand_offline_status">100% OP APPARAAT • OFFLINE</string>
-    <string name="brand_splash_tagline">100% OP APPARAAT • GEEN UPLOADS</string>
+    <string name="brand_offline_status" formatted="false">100% OP APPARAAT • OFFLINE</string>
+    <string name="brand_splash_tagline" formatted="false">100% OP APPARAAT • GEEN UPLOADS</string>
     <string name="cd_studio_logo">PDFCraft Studio-logo</string>
     <string name="cd_privacy_info">Privacy en app-info</string>
     <string name="cd_toggle_theme">Licht/donker thema wisselen</string>
@@ -519,10 +519,10 @@
     <string name="coachmark_step2_try">Splitsen proberen</string>
     <string name="coachmark_step3_badge">TOOL 3 VAN 4 • GROOTTE-OPTIMALISATIE</string>
     <string name="coachmark_step3_title">PDF comprimeren en verkleinen</string>
-    <string name="coachmark_step3_summary">Verklein grote PDF-bestanden tot 80% voor e-mail, portals of WhatsApp zonder kwaliteitsverlies.</string>
+    <string name="coachmark_step3_summary" formatted="false">Verklein grote PDF-bestanden tot 80% voor e-mail, portals of WhatsApp zonder kwaliteitsverlies.</string>
     <string name="coachmark_step3_tip1">Kies Max. kwaliteit, Gebalanceerd of Compact</string>
     <string name="coachmark_step3_tip2">Comprimeer meerdere PDF\'s tegelijk in batch indien nodig</string>
-    <string name="coachmark_step3_tip3">100% offline verwerking — je documenten verlaten nooit je apparaat</string>
+    <string name="coachmark_step3_tip3" formatted="false">100% offline verwerking — je documenten verlaten nooit je apparaat</string>
     <string name="coachmark_step3_try">Comprimeren proberen</string>
     <string name="coachmark_step4_badge">TOOL 4 VAN 4 • SNELLE PAGINAHERSTEL</string>
     <string name="coachmark_step4_title">Pagina\'s draaien, verwijderen en bekijken</string>
@@ -602,7 +602,7 @@
     <string name="compress_selected_files">Geselecteerde bestanden (%1$d)</string>
     <string name="compress_batch_preset">Batch-compressieprofiel</string>
     <string name="compress_empty_title">Optimaliseren en extraheren</string>
-    <string name="compress_empty_desc">Verklein bestanden tot 80% zonder clouduploads of extraheer alle pagina-afbeeldingen in hoge resolutie op het apparaat.</string>
+    <string name="compress_empty_desc" formatted="false">Verklein bestanden tot 80% zonder clouduploads of extraheer alle pagina-afbeeldingen in hoge resolutie op het apparaat.</string>
     <string name="compress_input_preview">Documentvoorbeeld</string>
     <string name="compress_choose_level">Compressieniveau kiezen</string>
     <string name="compress_est_impact">Geschatte bestandsgrootte</string>
@@ -761,11 +761,11 @@
     <string name="recent_page_1_preview">PDF Pagina 1 voorbeeld</string>
     <string name="recent_no_preview">Geen voorbeeld</string>
     <string name="recent_pages_and_size">%1$d pag. • %2$s</string>
-    <string name="support_card_tagline">100% Offline • Privé • Indie-ontwikkelaar</string>
+    <string name="support_card_tagline" formatted="false">100% Offline • Privé • Indie-ontwikkelaar</string>
     <string name="support_badge_optional">❤️ Optioneel</string>
     <string name="support_badge_unlocked">ONTGRENDELD</string>
     <string name="support_badge_active">ACTIEF</string>
-    <string name="support_iap_disclosure">100% vrijwillige eenmalige fooi via Google Play-tegoed, Google Pay of kaart. Geen terugkerende kosten of abonnementen.</string>
+    <string name="support_iap_disclosure" formatted="false">100% vrijwillige eenmalige fooi via Google Play-tegoed, Google Pay of kaart. Geen terugkerende kosten of abonnementen.</string>
     <string name="support_confirm_title">1-tik steun bevestigen</string>
     <string name="support_badge_one_time">Eenmalig</string>
     <string name="support_send_amount">%1$s verzenden</string>
@@ -780,7 +780,7 @@
     <string name="billing_tip_snack_title">Koffie &amp; Croissant</string>
     <string name="billing_tip_snack_desc">Energie voor een middag nieuwe functies</string>
     <string name="billing_tip_supporter_title">Supersupporter</string>
-    <string name="billing_tip_supporter_desc">Houd PDFCraft 100% offline en privé</string>
+    <string name="billing_tip_supporter_desc" formatted="false">Houd PDFCraft 100% offline en privé</string>
     <string name="billing_tip_hero_title">Heldensupporter</string>
     <string name="billing_tip_hero_desc">Eeuwige dankbaarheid en blijvende badge</string>
     <string name="billing_error_init">Initialiseren van Google Play Billing mislukt</string>

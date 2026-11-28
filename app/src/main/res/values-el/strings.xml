@@ -11,7 +11,7 @@
     <string name="onboarding_skip">Παράλειψη</string>
     <string name="onboarding_next">Επόμενο</string>
     <string name="onboarding_get_started">Ξεκινήστε</string>
-    <string name="onboarding_title_1">100% στη συσκευή &amp; Ιδιωτικά</string>
+    <string name="onboarding_title_1" formatted="false">100% στη συσκευή &amp; Ιδιωτικά</string>
     <string name="onboarding_desc_1">Επεξεργαστείτε, συγχωνεύστε, διαχωρίστε και συμπιέστε PDF απευθείας στη συσκευή σας.</string>
     <string name="onboarding_title_2">Πρόσβαση τοπικού αποθηκευτικού χώρου</string>
     <string name="onboarding_desc_2">Παρέχετε δικαιώματα για εύκολη εισαγωγή και αποθήκευση PDF.</string>
@@ -81,7 +81,7 @@
     <string name="hub_metric_processed">PROCESSED</string>
     <string name="hub_metric_saved">SPACE SAVED</string>
     <string name="hub_metric_privacy">DATA PRIVACY</string>
-    <string name="hub_privacy_value">100% Local</string>
+    <string name="hub_privacy_value" formatted="false">100% Local</string>
     <string name="hub_quick_actions">Quick Actions</string>
     <string name="hub_view_all_tools">Προβολή όλων των 15 εργαλείων</string>
     <string name="hub_recent_activity">Recent Documents</string>
@@ -300,7 +300,7 @@
     <string name="nav_library">Βιβλιοθήκη</string>
     <string name="nav_settings">Ρυθμίσεις</string>
     <string name="support_dev_title">Υποστηρίξτε τον προγραμματιστή</string>
-    <string name="support_dev_subtitle">Το PDFCraft είναι 100% δωρεάν, εκτός σύνδεσης και ιδιωτικό χωρίς συνδρομές. Εάν σας βοηθά, κεράστε έναν καφέ για υποστήριξη!</string>
+    <string name="support_dev_subtitle" formatted="false">Το PDFCraft είναι 100% δωρεάν, εκτός σύνδεσης και ιδιωτικό χωρίς συνδρομές. Εάν σας βοηθά, κεράστε έναν καφέ για υποστήριξη!</string>
     <string name="support_coffee_small">Κεράστε έναν καφέ ($3)</string>
     <string name="support_coffee_medium">Κεράστε ένα γεύμα ($5)</string>
     <string name="support_coffee_large">Σούπερ Υποστηρικτής ($10)</string>
@@ -312,7 +312,7 @@
     <string name="support_hub_banner_subtitle">Υποστηρίξτε την ανάπτυξη ιδιωτικών εργαλείων PDF εκτός σύνδεσης</string>
     <string name="support_thank_you">Σας ευχαριστούμε για την υποστήριξη της ανεξάρτητης ανάπτυξης!</string>
     <string name="rate_dialog_title">Σας αρέσει το PDFCraft;</string>
-    <string name="rate_dialog_desc">Η αξιολόγησή σας βοηθά να διατηρήσουμε το PDFCraft 100% εκτός σύνδεσης και ιδιωτικό!</string>
+    <string name="rate_dialog_desc" formatted="false">Η αξιολόγησή σας βοηθά να διατηρήσουμε το PDFCraft 100% εκτός σύνδεσης και ιδιωτικό!</string>
     <string name="rate_dialog_rate_5_stars">Αξιολογήστε με 5 αστέρια στο Play Store</string>
     <string name="rate_dialog_submit">Υποβολή αξιολόγησης</string>
     <string name="rate_dialog_maybe_later">Ίσως αργότερα</string>
@@ -320,7 +320,7 @@
     <string name="rate_feedback_thanks">Σας ευχαριστούμε για τα σχόλιά σας!</string>
     <string name="share_dialog_title">Μοιραστείτε το PDFCraft με φίλους</string>
     <string name="share_dialog_desc">Βοηθήστε συναδέλφους και φίλους να συγχωνεύουν, χωρίζουν και συμπιέζουν PDF εκτός σύνδεσης!</string>
-    <string name="share_dialog_bullet_offline">100% ιδιωτική μηχανή εκτός σύνδεσης</string>
+    <string name="share_dialog_bullet_offline" formatted="false">100% ιδιωτική μηχανή εκτός σύνδεσης</string>
     <string name="share_dialog_bullet_tools">Συγχώνευση, διαχωρισμός, συμπίεση &amp; περιστροφή PDF</string>
     <string name="share_dialog_bullet_security">Κλείδωμα με κωδικό &amp; εξαγωγή εικόνων</string>
     <string name="share_dialog_share_button">Μοιραστείτε την εφαρμογή PDFCraft</string>
@@ -369,7 +369,7 @@
     <string name="settings_pref_subtitle">Προσαρμόστε την εμπειρία PDFCraft και τις ρυθμίσεις ασφαλείας</string>
     <string name="settings_theme_appearance">Εμφάνιση θέματος</string>
     <string name="settings_security_privacy">Ασφάλεια &amp; Απόρρητο</string>
-    <string name="settings_security_privacy_desc">Όλες οι λειτουργίες PDF εκτελούνται 100% τοπικά στη συσκευή. Κανένα περιεχόμενο δεν ανεβαίνει σε εξωτερικούς διακομιστές.</string>
+    <string name="settings_security_privacy_desc" formatted="false">Όλες οι λειτουργίες PDF εκτελούνται 100% τοπικά στη συσκευή. Κανένα περιεχόμενο δεν ανεβαίνει σε εξωτερικούς διακομιστές.</string>
     <string name="settings_cloud_sync_title">Συγχρονισμός Cloud &amp; Λογαριασμός</string>
     <string name="settings_cloud_sync_signed_in">Συνδεδεμένος ως %1$s. Οι προτιμήσεις και το ιστορικό σας συγχρονίζονται με ασφάλεια.</string>
     <string name="settings_cloud_sync_signed_out">Συνδεθείτε για να συγχρονίσετε προτιμήσεις και ιστορικό μεταξύ συσκευών.</string>
@@ -397,7 +397,7 @@
 
     <!-- Donation & Multi-Method Support Expansion -->
     <string name="support_hub_compact_title">Σας αρέσει το PDFCraft; ☕</string>
-    <string name="support_hub_compact_subtitle">Κρατήστε το PDFCraft 100% offline &amp; ιδιωτικό</string>
+    <string name="support_hub_compact_subtitle" formatted="false">Κρατήστε το PDFCraft 100% offline &amp; ιδιωτικό</string>
     <string name="support_hub_btn_tip">Υποστήριξη ☕</string>
     <string name="support_hub_dismiss">Απόρριψη</string>
     <string name="support_tab_google_play">Google Play</string>
@@ -410,7 +410,7 @@
     <string name="support_tip_supporter">Super Υποστηρικτής ($9.99) 🚀</string>
     <string name="support_tip_hero">Hero Υποστηρικτής ($19.99) 👑</string>
     <string name="support_thank_you_title">Ευχαριστούμε για την υποστήριξή σας! ❤️</string>
-    <string name="support_thank_you_desc">Η συνεισφορά σας διατηρεί το PDFCraft εντελώς offline και ασφαλές.</string>
+    <string name="support_thank_you_desc" formatted="false">Η συνεισφορά σας διατηρεί το PDFCraft εντελώς offline και ασφαλές.</string>
     <string name="support_status_active">Ενεργός Υποστηρικτής ⭐</string>
     <string name="support_crypto_title">Δωρεά Crypto (USDT / BTC)</string>
     <string name="support_crypto_desc">Αποκεντρωμένη υποστήριξη για ιδιωτικά εργαλεία</string>
@@ -424,7 +424,7 @@
     <string name="recent_selected_count">Επιλέχθηκαν (%1$d/%2$d)</string>
     <string name="recent_search_hint">Αναζήτηση πρόσφατων PDF…</string>
     <string name="recent_no_match">Δεν βρέθηκαν PDF για: %1$s</string>
-    <string name="dialog_feature_processing_title">100% Τοπική επεξεργασία</string>
+    <string name="dialog_feature_processing_title" formatted="false">100% Τοπική επεξεργασία</string>
     <string name="dialog_feature_processing_desc">Όλες οι λειτουργίες PDF, περιστροφές, διαχωρισμοί, συμπιέσεις και εξαγωγές εκτελούνται τοπικά.</string>
     <string name="dialog_feature_privacy_title">Μηδενικές μεταφορτώσεις στο cloud</string>
     <string name="dialog_feature_privacy_desc">Τα φορολογικά σας έντυπα, τιμολόγια, συμβόλαια και προσωπικά έγγραφα δεν αγγίζουν ποτέ εξωτερικούς διακομιστές.</string>
@@ -485,8 +485,8 @@
     <string name="common_unknown">Άγνωστο</string>
     <string name="common_none">Κανένα</string>
     <string name="brand_studio_badge">ΣΤΟΥΝΤΙΟ</string>
-    <string name="brand_offline_status">100% ΣΤΗ ΣΥΣΚΕΥΗ • ΕΚΤΟΣ ΣΥΝΔΕΣΗΣ</string>
-    <string name="brand_splash_tagline">100% ΣΤΗ ΣΥΣΚΕΥΗ • ΧΩΡΙΣ ΜΕΤΑΦΟΡΤΩΣΕΙΣ</string>
+    <string name="brand_offline_status" formatted="false">100% ΣΤΗ ΣΥΣΚΕΥΗ • ΕΚΤΟΣ ΣΥΝΔΕΣΗΣ</string>
+    <string name="brand_splash_tagline" formatted="false">100% ΣΤΗ ΣΥΣΚΕΥΗ • ΧΩΡΙΣ ΜΕΤΑΦΟΡΤΩΣΕΙΣ</string>
     <string name="cd_studio_logo">Λογότυπο PDFCraft Studio</string>
     <string name="cd_privacy_info">Απόρρητο &amp; Πληροφορίες</string>
     <string name="cd_toggle_theme">Εναλλαγή φωτεινού/σκοτεινού θέματος</string>
@@ -519,10 +519,10 @@
     <string name="coachmark_step2_try">Δοκιμή Διαχωρισμού</string>
     <string name="coachmark_step3_badge">ΕΡΓΑΛΕΙΟ 3 ΑΠΟ 4 • ΒΕΛΤΙΣΤΟΠΟΙΗΣΗ</string>
     <string name="coachmark_step3_title">Συμπίεση &amp; Μείωση μεγέθους PDF</string>
-    <string name="coachmark_step3_summary">Μειώστε μεγάλα PDF έως 80% για email, πύλες ή WhatsApp χωρίς απώλεια ευκρίνειας.</string>
+    <string name="coachmark_step3_summary" formatted="false">Μειώστε μεγάλα PDF έως 80% για email, πύλες ή WhatsApp χωρίς απώλεια ευκρίνειας.</string>
     <string name="coachmark_step3_tip1">Επιλέξτε Μέγιστη ποιότητα, Ισορροπημένο ή Συμπαγές</string>
     <string name="coachmark_step3_tip2">Μαζική συμπίεση πολλών PDF ταυτόχρονα όποτε χρειάζεται</string>
-    <string name="coachmark_step3_tip3">100% επεξεργασία εκτός σύνδεσης — τα έγγραφά σας μένουν στη συσκευή</string>
+    <string name="coachmark_step3_tip3" formatted="false">100% επεξεργασία εκτός σύνδεσης — τα έγγραφά σας μένουν στη συσκευή</string>
     <string name="coachmark_step3_try">Δοκιμή Συμπίεσης</string>
     <string name="coachmark_step4_badge">ΕΡΓΑΛΕΙΟ 4 ΑΠΟ 4 • ΓΡΗΓΟΡΗ ΔΙΟΡΘΩΣΗ</string>
     <string name="coachmark_step4_title">Περιστροφή, Διαγραφή &amp; Προεπισκόπηση</string>
@@ -602,7 +602,7 @@
     <string name="compress_selected_files">Επιλεγμένα αρχεία (%1$d)</string>
     <string name="compress_batch_preset">Προεπιλογή μαζικής συμπίεσης</string>
     <string name="compress_empty_title">Βελτιστοποίηση &amp; Εξαγωγή</string>
-    <string name="compress_empty_desc">Μειώστε το μέγεθος έως 80% χωρίς cloud ή εξάγετε όλες τις εικόνες σελίδων σε υψηλή ανάλυση στη συσκευή.</string>
+    <string name="compress_empty_desc" formatted="false">Μειώστε το μέγεθος έως 80% χωρίς cloud ή εξάγετε όλες τις εικόνες σελίδων σε υψηλή ανάλυση στη συσκευή.</string>
     <string name="compress_input_preview">Προεπισκόπηση εγγράφου</string>
     <string name="compress_choose_level">Επιλογή επιπέδου συμπίεσης</string>
     <string name="compress_est_impact">Εκτιμώμενο μέγεθος</string>
@@ -761,11 +761,11 @@
     <string name="recent_page_1_preview">Προεπισκόπηση σελίδας 1 PDF</string>
     <string name="recent_no_preview">Χωρίς προεπισκόπηση</string>
     <string name="recent_pages_and_size">%1$d σελ. • %2$s</string>
-    <string name="support_card_tagline">100% Εκτός σύνδεσης • Ιδιωτικό • Ανεξάρτητος προγραμματιστής</string>
+    <string name="support_card_tagline" formatted="false">100% Εκτός σύνδεσης • Ιδιωτικό • Ανεξάρτητος προγραμματιστής</string>
     <string name="support_badge_optional">❤️ Προαιρετικό</string>
     <string name="support_badge_unlocked">ΞΕΚΛΕΙΔΩΘΗΚΕ</string>
     <string name="support_badge_active">ΕΝΕΡΓΟ</string>
-    <string name="support_iap_disclosure">100% προαιρετικό εφάπαξ φιλοδώρημα μέσω Google Play, Google Pay ή κάρτας. Χωρίς συνδρομές ή επαναλαμβανόμενες χρεώσεις.</string>
+    <string name="support_iap_disclosure" formatted="false">100% προαιρετικό εφάπαξ φιλοδώρημα μέσω Google Play, Google Pay ή κάρτας. Χωρίς συνδρομές ή επαναλαμβανόμενες χρεώσεις.</string>
     <string name="support_confirm_title">Επιβεβαίωση υποστήριξης με 1 πάτημα</string>
     <string name="support_badge_one_time">Εφάπαξ</string>
     <string name="support_send_amount">Αποστολή %1$s</string>
@@ -780,7 +780,7 @@
     <string name="billing_tip_snack_title">Καφές &amp; Κρουασάν</string>
     <string name="billing_tip_snack_desc">Ενέργεια για ένα απόγευμα νέων λειτουργιών</string>
     <string name="billing_tip_supporter_title">Υπέρ-Υποστηρικτής</string>
-    <string name="billing_tip_supporter_desc">Κρατήστε το PDFCraft 100% εκτός σύνδεσης &amp; ιδιωτικό</string>
+    <string name="billing_tip_supporter_desc" formatted="false">Κρατήστε το PDFCraft 100% εκτός σύνδεσης &amp; ιδιωτικό</string>
     <string name="billing_tip_hero_title">Ήρωας Υποστηρικτής</string>
     <string name="billing_tip_hero_desc">Αιώνια ευγνωμοσύνη &amp; μόνιμο σήμα</string>
     <string name="billing_error_init">Αποτυχία αρχικοποίησης Google Play Billing</string>

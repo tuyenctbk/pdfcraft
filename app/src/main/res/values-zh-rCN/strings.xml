@@ -11,7 +11,7 @@
     <string name="onboarding_skip">跳过</string>
     <string name="onboarding_next">下一步</string>
     <string name="onboarding_get_started">开始使用</string>
-    <string name="onboarding_title_1">100% 本地处理，完全隐私</string>
+    <string name="onboarding_title_1" formatted="false">100% 本地处理，完全隐私</string>
     <string name="onboarding_desc_1">在您的设备上直接合并、拆分和压缩 PDF 文档，无需上传云端，保障隐私。</string>
     <string name="onboarding_title_2">存储权限访问</string>
     <string name="onboarding_desc_2">授予存储权限，以便 PDFCraft 轻松导入和保存您的 PDF 文件。</string>
@@ -81,7 +81,7 @@
     <string name="hub_metric_processed">PROCESSED</string>
     <string name="hub_metric_saved">SPACE SAVED</string>
     <string name="hub_metric_privacy">DATA PRIVACY</string>
-    <string name="hub_privacy_value">100% Local</string>
+    <string name="hub_privacy_value" formatted="false">100% Local</string>
     <string name="hub_quick_actions">Quick Actions</string>
     <string name="hub_view_all_tools">查看全部 15 款工具</string>
     <string name="hub_recent_activity">Recent Documents</string>
@@ -300,7 +300,7 @@
     <string name="nav_library">资料库</string>
     <string name="nav_settings">设置</string>
     <string name="support_dev_title">支持开发者</string>
-    <string name="support_dev_subtitle">PDFCraft 100% 免费、离线且隐私安全，无任何订阅。如果它帮助了您，请买杯咖啡支持持续开发！</string>
+    <string name="support_dev_subtitle" formatted="false">PDFCraft 100% 免费、离线且隐私安全，无任何订阅。如果它帮助了您，请买杯咖啡支持持续开发！</string>
     <string name="support_coffee_small">请喝咖啡 ($3)</string>
     <string name="support_coffee_medium">请吃午餐 ($5)</string>
     <string name="support_coffee_large">超级支持者 ($10)</string>
@@ -312,7 +312,7 @@
     <string name="support_hub_banner_subtitle">请喝杯咖啡，支持离线私密 PDF 工具持续开发</string>
     <string name="support_thank_you">感谢您支持独立开源开发！</string>
     <string name="rate_dialog_title">喜欢 PDFCraft 吗？</string>
-    <string name="rate_dialog_desc">您的评价能帮助我们保持 PDFCraft 100% 离线、隐私并且功能丰富！</string>
+    <string name="rate_dialog_desc" formatted="false">您的评价能帮助我们保持 PDFCraft 100% 离线、隐私并且功能丰富！</string>
     <string name="rate_dialog_rate_5_stars">在 Play 商店评 5 星</string>
     <string name="rate_dialog_submit">提交评价</string>
     <string name="rate_dialog_maybe_later">以后再说</string>
@@ -320,7 +320,7 @@
     <string name="rate_feedback_thanks">感谢您的宝贵反馈！</string>
     <string name="share_dialog_title">与好友分享 PDFCraft</string>
     <string name="share_dialog_desc">帮助身边的朋友和同事轻松离线合并、拆分、压缩和加密 PDF！</string>
-    <string name="share_dialog_bullet_offline">100% 离线与私密本地引擎</string>
+    <string name="share_dialog_bullet_offline" formatted="false">100% 离线与私密本地引擎</string>
     <string name="share_dialog_bullet_tools">合并、拆分、压缩与旋转 PDF</string>
     <string name="share_dialog_bullet_security">密码加密与图片提取</string>
     <string name="share_dialog_share_button">分享 PDFCraft 应用</string>
@@ -369,7 +369,7 @@
     <string name="settings_pref_subtitle">自定义您的 PDFCraft 体验与安全设置</string>
     <string name="settings_theme_appearance">主题外观</string>
     <string name="settings_security_privacy">安全与隐私</string>
-    <string name="settings_security_privacy_desc">所有 PDF 操作（合并、拆分、压缩、加密、水印、签名）均 100% 在本地设备执行。绝不会将任何文档内容上传至外部云服务器。</string>
+    <string name="settings_security_privacy_desc" formatted="false">所有 PDF 操作（合并、拆分、压缩、加密、水印、签名）均 100% 在本地设备执行。绝不会将任何文档内容上传至外部云服务器。</string>
     <string name="settings_cloud_sync_title">云同步与 Firebase 账户</string>
     <string name="settings_cloud_sync_signed_in">已登录为 %1$s。您的 PDF 偏好设置与历史记录可安全同步。</string>
     <string name="settings_cloud_sync_signed_out">通过账号密码登录以在不同设备间同步偏好与历史记录。</string>
@@ -397,7 +397,7 @@
 
     <!-- Donation & Multi-Method Support Expansion -->
     <string name="support_hub_compact_title">喜欢 PDFCraft 吗？☕</string>
-    <string name="support_hub_compact_subtitle">助力我们保持 100% 完全离线与隐私保护</string>
+    <string name="support_hub_compact_subtitle" formatted="false">助力我们保持 100% 完全离线与隐私保护</string>
     <string name="support_hub_btn_tip">支持赞助 ☕</string>
     <string name="support_hub_dismiss">关闭</string>
     <string name="support_tab_google_play">Google Play</string>
@@ -410,7 +410,7 @@
     <string name="support_tip_supporter">超级支持者 ($9.99) 🚀</string>
     <string name="support_tip_hero">英雄支持者 ($19.99) 👑</string>
     <string name="support_thank_you_title">衷心感谢您的鼎力支持！❤️</string>
-    <string name="support_thank_you_desc">您的赞助让 PDFCraft 能持续保持 100% 离线、免费且完全保护个人隐私。</string>
+    <string name="support_thank_you_desc" formatted="false">您的赞助让 PDFCraft 能持续保持 100% 离线、免费且完全保护个人隐私。</string>
     <string name="support_status_active">荣誉支持者 ⭐</string>
     <string name="support_crypto_title">加密货币赞助 (USDT / BTC)</string>
     <string name="support_crypto_desc">去中心化支持注重隐私保护的开源独立应用</string>
@@ -424,7 +424,7 @@
     <string name="recent_selected_count">已选择 (%1$d/%2$d)</string>
     <string name="recent_search_hint">搜索最近的PDF…</string>
     <string name="recent_no_match">没有匹配的PDF: %1$s</string>
-    <string name="dialog_feature_processing_title">100% 本地离线处理</string>
+    <string name="dialog_feature_processing_title" formatted="false">100% 本地离线处理</string>
     <string name="dialog_feature_processing_desc">所有 PDF 合并、旋转、拆分、压缩及图像导出均在设备本地 CPU/GPU 独立运行。</string>
     <string name="dialog_feature_privacy_title">零云端上传</string>
     <string name="dialog_feature_privacy_desc">您的税务表格、发票、合同和私人文档绝不会上传至任何第三方服务器。</string>
@@ -485,8 +485,8 @@
     <string name="common_unknown">未知</string>
     <string name="common_none">无</string>
     <string name="brand_studio_badge">工作室</string>
-    <string name="brand_offline_status">100% 本地处理 • 离线运行</string>
-    <string name="brand_splash_tagline">100% 本地处理 • 零云端上传</string>
+    <string name="brand_offline_status" formatted="false">100% 本地处理 • 离线运行</string>
+    <string name="brand_splash_tagline" formatted="false">100% 本地处理 • 零云端上传</string>
     <string name="cd_studio_logo">PDFCraft Studio 徽标</string>
     <string name="cd_privacy_info">隐私与应用信息</string>
     <string name="cd_toggle_theme">切换浅色/深色主题模式</string>
@@ -519,10 +519,10 @@
     <string name="coachmark_step2_try">体验拆分工具</string>
     <string name="coachmark_step3_badge">工具 3/4 • 体积优化器</string>
     <string name="coachmark_step3_title">压缩与缩小 PDF 体积</string>
-    <string name="coachmark_step3_summary">在保持清晰度的前提下将大型 PDF 体积最高缩减 80%，便于邮件、平台或聊天发送。</string>
+    <string name="coachmark_step3_summary" formatted="false">在保持清晰度的前提下将大型 PDF 体积最高缩减 80%，便于邮件、平台或聊天发送。</string>
     <string name="coachmark_step3_tip1">选择“高画质”、“均衡”或“极致紧凑”压缩预设</string>
     <string name="coachmark_step3_tip2">需要时可一次批量压缩多个 PDF 文件</string>
-    <string name="coachmark_step3_tip3">100% 离线本地处理——您的文档绝不会离开设备</string>
+    <string name="coachmark_step3_tip3" formatted="false">100% 离线本地处理——您的文档绝不会离开设备</string>
     <string name="coachmark_step3_try">体验压缩工具</string>
     <string name="coachmark_step4_badge">工具 4/4 • 快速页面修复</string>
     <string name="coachmark_step4_title">旋转、删除与预览页面</string>
@@ -602,7 +602,7 @@
     <string name="compress_selected_files">已选文件（%1$d）</string>
     <string name="compress_batch_preset">批量压缩预设</string>
     <string name="compress_empty_title">优化与提取</string>
-    <string name="compress_empty_desc">无需上传云端服务器即可将文件体积最高缩减 80%，或在本地直接提取所有高清页面图片。</string>
+    <string name="compress_empty_desc" formatted="false">无需上传云端服务器即可将文件体积最高缩减 80%，或在本地直接提取所有高清页面图片。</string>
     <string name="compress_input_preview">输入文档预览</string>
     <string name="compress_choose_level">选择压缩级别</string>
     <string name="compress_est_impact">预计体积变化</string>
@@ -761,11 +761,11 @@
     <string name="recent_page_1_preview">PDF 第 1 页预览</string>
     <string name="recent_no_preview">无预览</string>
     <string name="recent_pages_and_size">%1$d 页 • %2$s</string>
-    <string name="support_card_tagline">100% 离线 • 隐私优先 • 独立开发</string>
+    <string name="support_card_tagline" formatted="false">100% 离线 • 隐私优先 • 独立开发</string>
     <string name="support_badge_optional">❤️ 自愿打赏</string>
     <string name="support_badge_unlocked">已解锁</string>
     <string name="support_badge_active">已激活</string>
-    <string name="support_iap_disclosure">100% 自愿一次性打赏，支持 Google Play 余额、Google Pay 或银行卡。无任何定期扣费或订阅。</string>
+    <string name="support_iap_disclosure" formatted="false">100% 自愿一次性打赏，支持 Google Play 余额、Google Pay 或银行卡。无任何定期扣费或订阅。</string>
     <string name="support_confirm_title">确认一键支持</string>
     <string name="support_badge_one_time">一次性</string>
     <string name="support_send_amount">赞赏 %1$s</string>
@@ -780,7 +780,7 @@
     <string name="billing_tip_snack_title">咖啡与牛角包</string>
     <string name="billing_tip_snack_desc">为一个下午的新功能开发补充能量</string>
     <string name="billing_tip_supporter_title">超级支持者</string>
-    <string name="billing_tip_supporter_desc">助力 PDFCraft 始终保持 100% 离线与私密</string>
+    <string name="billing_tip_supporter_desc" formatted="false">助力 PDFCraft 始终保持 100% 离线与私密</string>
     <string name="billing_tip_hero_title">荣耀支持者</string>
     <string name="billing_tip_hero_desc">永久致谢与专属支持者徽章</string>
     <string name="billing_error_init">无法初始化 Google Play 结算服务</string>

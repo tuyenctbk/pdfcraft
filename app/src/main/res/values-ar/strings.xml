@@ -11,7 +11,7 @@
     <string name="onboarding_skip">تخطي</string>
     <string name="onboarding_next">التالي</string>
     <string name="onboarding_get_started">ابدأ الان</string>
-    <string name="onboarding_title_1">100% على الجهاز وخاص</string>
+    <string name="onboarding_title_1" formatted="false">100% على الجهاز وخاص</string>
     <string name="onboarding_desc_1">قم بمعالجة ودمج وتقسيم وضغط ملفات PDF مباشرة على جهازك.</string>
     <string name="onboarding_title_2">الوصول للتخزين المحلي</string>
     <string name="onboarding_desc_2">امنح أذونات التخزين لاستيراد وحفظ المستندات بسهولة.</string>
@@ -81,7 +81,7 @@
     <string name="hub_metric_processed">PROCESSED</string>
     <string name="hub_metric_saved">SPACE SAVED</string>
     <string name="hub_metric_privacy">DATA PRIVACY</string>
-    <string name="hub_privacy_value">100% Local</string>
+    <string name="hub_privacy_value" formatted="false">100% Local</string>
     <string name="hub_quick_actions">Quick Actions</string>
     <string name="hub_view_all_tools">عرض جميع الأدوات الـ 15</string>
     <string name="hub_recent_activity">Recent Documents</string>
@@ -300,7 +300,7 @@
     <string name="nav_library">المكتبة</string>
     <string name="nav_settings">الإعدادات</string>
     <string name="support_dev_title">دعم المطور</string>
-    <string name="support_dev_subtitle">PDFCraft مجاني تماماً 100% ويعمل بدون إنترنت وبخصوصية كاملة. إذا كان التطبيق مفيداً لك، يرجى التفكير في شراء قهوة لدعم التطوير!</string>
+    <string name="support_dev_subtitle" formatted="false">PDFCraft مجاني تماماً 100% ويعمل بدون إنترنت وبخصوصية كاملة. إذا كان التطبيق مفيداً لك، يرجى التفكير في شراء قهوة لدعم التطوير!</string>
     <string name="support_coffee_small">شراء قهوة (3$)</string>
     <string name="support_coffee_medium">شراء غداء (5$)</string>
     <string name="support_coffee_large">داعم متميز (10$)</string>
@@ -312,7 +312,7 @@
     <string name="support_hub_banner_subtitle">ادعم تطوير أدوات PDF الخاصة وغير المتصلة بشراء قهوة</string>
     <string name="support_thank_you">شكراً لدعمك التطوير المستقل والمفتوح!</string>
     <string name="rate_dialog_title">هل يعجبك PDFCraft؟</string>
-    <string name="rate_dialog_desc">تقييمك يساعدنا على إبقاء PDFCraft مجانياً وخاصاً ومحملاً بالميزات دون إنترنت!</string>
+    <string name="rate_dialog_desc" formatted="false">تقييمك يساعدنا على إبقاء PDFCraft مجانياً وخاصاً ومحملاً بالميزات دون إنترنت!</string>
     <string name="rate_dialog_rate_5_stars">تقييم 5 نجوم على متجر Play</string>
     <string name="rate_dialog_submit">إرسال التقييم</string>
     <string name="rate_dialog_maybe_later">ربما لاحقاً</string>
@@ -320,7 +320,7 @@
     <string name="rate_feedback_thanks">شكراً لملاحظاتك!</string>
     <string name="share_dialog_title">شارك PDFCraft مع الأصدقاء</string>
     <string name="share_dialog_desc">ساعد زملاءك وأصدقاءك في دمج وتقسيم وضغط وقفل ملفات PDF بسهولة بدون إنترنت!</string>
-    <string name="share_dialog_bullet_offline">محرك محلي خاص 100% بدون إنترنت</string>
+    <string name="share_dialog_bullet_offline" formatted="false">محرك محلي خاص 100% بدون إنترنت</string>
     <string name="share_dialog_bullet_tools">دمج وتقسيم وضغط وتدوير ملفات PDF</string>
     <string name="share_dialog_bullet_security">قفل بكلمة مرور واستخراج الصور</string>
     <string name="share_dialog_share_button">مشاركة تطبيق PDFCraft</string>
@@ -369,7 +369,7 @@
     <string name="settings_pref_subtitle">قم بتخصيص تجربة PDFCraft وإعدادات الأمان الخاصة بك</string>
     <string name="settings_theme_appearance">مظهر السمة</string>
     <string name="settings_security_privacy">الأمان والخصوصية</string>
-    <string name="settings_security_privacy_desc">جميع عمليات PDF (الدمج، التقسيم، الضغط، التشفير، العلامة المائية، التوقيع) تُنفذ محلياً بنسبة 100% على الجهاز. لا يتم تحميل أي محتوى إلى خوادم سحابية خارجية.</string>
+    <string name="settings_security_privacy_desc" formatted="false">جميع عمليات PDF (الدمج، التقسيم، الضغط، التشفير، العلامة المائية، التوقيع) تُنفذ محلياً بنسبة 100% على الجهاز. لا يتم تحميل أي محتوى إلى خوادم سحابية خارجية.</string>
     <string name="settings_cloud_sync_title">المزامنة السحابية والحساب</string>
     <string name="settings_cloud_sync_signed_in">تم تسجيل الدخول كـ %1$s. يمكن مزامنة تفضيلاتك وسجلك بأمان.</string>
     <string name="settings_cloud_sync_signed_out">سجّل الدخول عبر البريد الإلكتروني لمزامنة التفضيلات والسجل عبر الأجهزة.</string>
@@ -397,7 +397,7 @@
 
     <!-- Donation & Multi-Method Support Expansion -->
     <string name="support_hub_compact_title">هل يعجبك PDFCraft؟ ☕</string>
-    <string name="support_hub_compact_subtitle">حافظ على PDFCraft بدون إنترنت وخاص 100%</string>
+    <string name="support_hub_compact_subtitle" formatted="false">حافظ على PDFCraft بدون إنترنت وخاص 100%</string>
     <string name="support_hub_btn_tip">دعم ☕</string>
     <string name="support_hub_dismiss">تجاهل</string>
     <string name="support_tab_google_play">Google Play</string>
@@ -410,7 +410,7 @@
     <string name="support_tip_supporter">داعم مميز ($9.99) 🚀</string>
     <string name="support_tip_hero">بطل داعم ($19.99) 👑</string>
     <string name="support_thank_you_title">شكراً جزيلاً لدعمك! ❤️</string>
-    <string name="support_thank_you_desc">مساهمتك تحافظ على PDFCraft مجانياً وخاصاً بالكامل دون إنترنت.</string>
+    <string name="support_thank_you_desc" formatted="false">مساهمتك تحافظ على PDFCraft مجانياً وخاصاً بالكامل دون إنترنت.</string>
     <string name="support_status_active">داعم نشط ⭐</string>
     <string name="support_crypto_title">دعم بالعملات المشفرة (USDT / BTC)</string>
     <string name="support_crypto_desc">دعم لامركزي لتطوير الأدوات الآمنة والخاصة</string>
@@ -424,7 +424,7 @@
     <string name="recent_selected_count">محدد (%1$d/%2$d)</string>
     <string name="recent_search_hint">البحث في ملفات PDF الأخيرة…</string>
     <string name="recent_no_match">لا توجد ملفات PDF تطابق: %1$s</string>
-    <string name="dialog_feature_processing_title">معالجة محلية 100% على الجهاز</string>
+    <string name="dialog_feature_processing_title" formatted="false">معالجة محلية 100% على الجهاز</string>
     <string name="dialog_feature_processing_desc">تتم جميع عمليات PDF والتدوير والتقسيم والضغط وتصدير الصور محليًا على جهازك.</string>
     <string name="dialog_feature_privacy_title">بدون أي رفع سحابي</string>
     <string name="dialog_feature_privacy_desc">نماذجك الضريبية وفواتيرك وعقودك ومستنداتك الشخصية لا تصل أبدًا إلى خوادم خارجية.</string>
@@ -485,8 +485,8 @@
     <string name="common_unknown">غير معروف</string>
     <string name="common_none">لا شيء</string>
     <string name="brand_studio_badge">ستوديو</string>
-    <string name="brand_offline_status">100% على الجهاز • دون إنترنت</string>
-    <string name="brand_splash_tagline">100% على الجهاز • دون رفع ملفات</string>
+    <string name="brand_offline_status" formatted="false">100% على الجهاز • دون إنترنت</string>
+    <string name="brand_splash_tagline" formatted="false">100% على الجهاز • دون رفع ملفات</string>
     <string name="cd_studio_logo">شعار PDFCraft Studio</string>
     <string name="cd_privacy_info">الخصوصية ومعلومات التطبيق</string>
     <string name="cd_toggle_theme">تبديل الوضع الفاتح والداكن</string>
@@ -519,10 +519,10 @@
     <string name="coachmark_step2_try">جرّب أداة التقسيم</string>
     <string name="coachmark_step3_badge">الأداة 3 من 4 • محسّن الحجم</string>
     <string name="coachmark_step3_title">ضغط وتقليص حجم PDF</string>
-    <string name="coachmark_step3_summary">قلّل حجم ملفات PDF الكبيرة حتى 80% للبريد أو واتساب مع الحفاظ على الوضوح.</string>
+    <string name="coachmark_step3_summary" formatted="false">قلّل حجم ملفات PDF الكبيرة حتى 80% للبريد أو واتساب مع الحفاظ على الوضوح.</string>
     <string name="coachmark_step3_tip1">اختر جودة قصوى أو متوازنة أو مضغوطة</string>
     <string name="coachmark_step3_tip2">اضغط عدة ملفات PDF دفعة واحدة عند الحاجة</string>
-    <string name="coachmark_step3_tip3">معالجة 100% دون إنترنت — مستنداتك لا تغادر جهازك أبداً</string>
+    <string name="coachmark_step3_tip3" formatted="false">معالجة 100% دون إنترنت — مستنداتك لا تغادر جهازك أبداً</string>
     <string name="coachmark_step3_try">جرّب أداة الضغط</string>
     <string name="coachmark_step4_badge">الأداة 4 من 4 • إصلاح سريع</string>
     <string name="coachmark_step4_title">تدوير وحذف ومعاينة الصفحات</string>
@@ -602,7 +602,7 @@
     <string name="compress_selected_files">الملفات المحددة (%1$d)</string>
     <string name="compress_batch_preset">ملف تعريف الضغط الجماعي</string>
     <string name="compress_empty_title">تحسين واستخراج</string>
-    <string name="compress_empty_desc">قلّص الحجم حتى 80% دون سحابة أو استخرج صور الصفحات بدقة عالية محلياً.</string>
+    <string name="compress_empty_desc" formatted="false">قلّص الحجم حتى 80% دون سحابة أو استخرج صور الصفحات بدقة عالية محلياً.</string>
     <string name="compress_input_preview">معاينة المستند</string>
     <string name="compress_choose_level">اختر مستوى الضغط</string>
     <string name="compress_est_impact">التأثير المتوقع على الحجم</string>
@@ -761,11 +761,11 @@
     <string name="recent_page_1_preview">معاينة الصفحة 1 من PDF</string>
     <string name="recent_no_preview">بدون معاينة</string>
     <string name="recent_pages_and_size">%1$d صفحة • %2$s</string>
-    <string name="support_card_tagline">100% دون إنترنت • خاص • مطوّر مستقل</string>
+    <string name="support_card_tagline" formatted="false">100% دون إنترنت • خاص • مطوّر مستقل</string>
     <string name="support_badge_optional">❤️ اختياري</string>
     <string name="support_badge_unlocked">تم الفتح</string>
     <string name="support_badge_active">نشط</string>
-    <string name="support_iap_disclosure">دعم اختياري 100% لمرة واحدة عبر رصيد Google Play أو Google Pay أو البطاقة. بدون اشتراكات أو رسوم متكررة.</string>
+    <string name="support_iap_disclosure" formatted="false">دعم اختياري 100% لمرة واحدة عبر رصيد Google Play أو Google Pay أو البطاقة. بدون اشتراكات أو رسوم متكررة.</string>
     <string name="support_confirm_title">تأكيد الدعم بلمسة واحدة</string>
     <string name="support_badge_one_time">مرة واحدة</string>
     <string name="support_send_amount">إرسال %1$s</string>
@@ -780,7 +780,7 @@
     <string name="billing_tip_snack_title">قهوة وكرواسون</string>
     <string name="billing_tip_snack_desc">طاقة لبناء ميزات جديدة</string>
     <string name="billing_tip_supporter_title">داعم متميز</string>
-    <string name="billing_tip_supporter_desc">ساعد في إبقاء PDFCraft خاصاً ومجانياً دون إنترنت</string>
+    <string name="billing_tip_supporter_desc" formatted="false">ساعد في إبقاء PDFCraft خاصاً ومجانياً دون إنترنت</string>
     <string name="billing_tip_hero_title">داعم بطل</string>
     <string name="billing_tip_hero_desc">امتنان دائم وشارة مستمرة</string>
     <string name="billing_error_init">فشل تهيئة فوترة Google Play</string>

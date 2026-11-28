@@ -26,6 +26,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
@@ -68,11 +69,11 @@ fun PdfDocumentPreviewCard(
         mutableStateOf<File?>(file)
     }
 
-    var totalPages by remember { mutableIntStateOf(1) }
-    var currentPageIndex by remember { mutableIntStateOf(initialPageIndex) }
-    var currentBitmap by remember { mutableStateOf<Bitmap?>(null) }
-    var isLoading by remember { mutableStateOf(true) }
-    var errorMessage by remember { mutableStateOf<String?>(null) }
+    var totalPages by remember(activeFile) { mutableIntStateOf(1) }
+    var currentPageIndex by remember(activeFile) { mutableIntStateOf(initialPageIndex.coerceAtLeast(0)) }
+    var currentBitmap by remember(activeFile) { mutableStateOf<Bitmap?>(null) }
+    var isLoading by remember(activeFile) { mutableStateOf(true) }
+    var errorMessage by remember(activeFile) { mutableStateOf<String?>(null) }
 
     // Navigation & View state
     var scaleFactor by remember { mutableFloatStateOf(1.0f) }
@@ -83,7 +84,7 @@ fun PdfDocumentPreviewCard(
     var showDetailsDialog by remember { mutableStateOf(false) }
     var showThumbnailDrawer by remember { mutableStateOf(showThumbnailsStrip) }
     var isExpanded by remember { mutableStateOf(true) }
-    var thumbnailBitmaps by remember { mutableStateOf<Map<Int, Bitmap>>(emptyMap()) }
+    var thumbnailBitmaps by remember(activeFile) { mutableStateOf<Map<Int, Bitmap>>(emptyMap()) }
 
     var fullScreenDialogVisible by remember { mutableStateOf(false) }
 
@@ -91,15 +92,18 @@ fun PdfDocumentPreviewCard(
     LaunchedEffect(file, uri) {
         if (file != null) {
             activeFile = file
+            errorMessage = null
         } else if (uri != null) {
             isLoading = true
-            withContext(Dispatchers.IO) {
-                try {
-                    val resolved = PdfEngine.getLocalFileFromUri(context, uri)
-                    activeFile = resolved
-                } catch (e: Exception) {
-                    errorMessage = context.getString(R.string.preview_load_error, e.localizedMessage ?: "")
-                }
+            val result = withContext(Dispatchers.IO) {
+                runCatching { PdfEngine.getLocalFileFromUri(context, uri) }
+            }
+            result.onSuccess { resolved ->
+                activeFile = resolved
+                errorMessage = null
+            }.onFailure { e ->
+                errorMessage = context.getString(R.string.preview_load_error, e.localizedMessage ?: "")
+                isLoading = false
             }
         }
     }
@@ -110,14 +114,19 @@ fun PdfDocumentPreviewCard(
         isLoading = true
         errorMessage = null
 
-        withContext(Dispatchers.IO) {
+        val renderResult = withContext(Dispatchers.IO) {
+            var pfd: ParcelFileDescriptor? = null
+            var renderer: android.graphics.pdf.PdfRenderer? = null
+            var page: android.graphics.pdf.PdfRenderer.Page? = null
             try {
-                val pfd = ParcelFileDescriptor.open(pdfFile, ParcelFileDescriptor.MODE_READ_ONLY)
-                val renderer = android.graphics.pdf.PdfRenderer(pfd)
-                totalPages = renderer.pageCount.coerceAtLeast(1)
+                pfd = ParcelFileDescriptor.open(pdfFile, ParcelFileDescriptor.MODE_READ_ONLY)
+                renderer = android.graphics.pdf.PdfRenderer(pfd)
+                val count = renderer.pageCount.coerceAtLeast(1)
+                val safeIndex = currentPageIndex.coerceIn(0, count - 1)
+                var renderedBitmap: Bitmap? = null
 
-                if (currentPageIndex in 0 until totalPages) {
-                    val page = renderer.openPage(currentPageIndex)
+                if (renderer.pageCount > 0) {
+                    page = renderer.openPage(safeIndex)
                     val density = context.resources.displayMetrics.density
                     val renderWidth = (360 * density * scaleFactor.coerceIn(1f, 2.5f)).toInt().coerceAtLeast(100)
                     val pw = page.width.coerceAtLeast(1)
@@ -130,17 +139,26 @@ fun PdfDocumentPreviewCard(
                     canvas.drawColor(android.graphics.Color.WHITE)
 
                     page.render(bitmap, null, null, android.graphics.pdf.PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-                    page.close()
-                    currentBitmap = bitmap
+                    renderedBitmap = bitmap
                 }
-                renderer.close()
-                pfd.close()
+                Result.success(Triple(count, safeIndex, renderedBitmap))
             } catch (t: Throwable) {
-                errorMessage = context.getString(R.string.preview_render_error, t.localizedMessage ?: "")
+                Result.failure(t)
             } finally {
-                isLoading = false
+                try { page?.close() } catch (_: Throwable) {}
+                try { renderer?.close() } catch (_: Throwable) {}
+                try { pfd?.close() } catch (_: Throwable) {}
             }
         }
+
+        renderResult.onSuccess { (count, safeIndex, bmp) ->
+            totalPages = count
+            if (currentPageIndex != safeIndex) currentPageIndex = safeIndex
+            currentBitmap = bmp
+        }.onFailure { t ->
+            errorMessage = context.getString(R.string.preview_render_error, t.localizedMessage ?: "")
+        }
+        isLoading = false
     }
 
     // Pre-cache page thumbnails for horizontal drawer using a single PdfRenderer session
@@ -365,6 +383,7 @@ fun PdfDocumentPreviewCard(
                             .fillMaxWidth()
                             .height(220.dp)
                             .background(Color(0xFF1E1E1E))
+                            .clipToBounds()
                             .pointerInput(Unit) {
                         detectTransformGestures { _, pan, zoom, _ ->
                             scaleFactor = (scaleFactor * zoom).coerceIn(0.8f, 3.5f)

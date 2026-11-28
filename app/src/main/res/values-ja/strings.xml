@@ -11,7 +11,7 @@
     <string name="onboarding_skip">スキップ</string>
     <string name="onboarding_next">次へ</string>
     <string name="onboarding_get_started">始める</string>
-    <string name="onboarding_title_1">完全オフライン・プライベート</string>
+    <string name="onboarding_title_1" formatted="false">完全オフライン・プライベート</string>
     <string name="onboarding_desc_1">デバイス上でPDFの結合・分割・圧縮を安全に行えます。</string>
     <string name="onboarding_title_2">ストレージアクセス</string>
     <string name="onboarding_desc_2">PDFの読み込みと保存のための権限を付与してください。</string>
@@ -81,7 +81,7 @@
     <string name="hub_metric_processed">PROCESSED</string>
     <string name="hub_metric_saved">SPACE SAVED</string>
     <string name="hub_metric_privacy">DATA PRIVACY</string>
-    <string name="hub_privacy_value">100% Local</string>
+    <string name="hub_privacy_value" formatted="false">100% Local</string>
     <string name="hub_quick_actions">Quick Actions</string>
     <string name="hub_view_all_tools">全15ツールを見る</string>
     <string name="hub_recent_activity">Recent Documents</string>
@@ -300,7 +300,7 @@
     <string name="nav_library">ライブラリ</string>
     <string name="nav_settings">設定</string>
     <string name="support_dev_title">開発者を支援</string>
-    <string name="support_dev_subtitle">PDFCraftは100%無料でオフライン、プライベート、サブスク不要です。役に立った場合はコーヒーを奢って開発を応援してください！</string>
+    <string name="support_dev_subtitle" formatted="false">PDFCraftは100%無料でオフライン、プライベート、サブスク不要です。役に立った場合はコーヒーを奢って開発を応援してください！</string>
     <string name="support_coffee_small">コーヒーを奢る ($3)</string>
     <string name="support_coffee_medium">ランチを奢る ($5)</string>
     <string name="support_coffee_large">スーパーサポーター ($10)</string>
@@ -312,7 +312,7 @@
     <string name="support_hub_banner_subtitle">コーヒー1杯でオフラインでプライベートなPDF開発を応援</string>
     <string name="support_thank_you">独立した開発のサポートをありがとうございます！</string>
     <string name="rate_dialog_title">PDFCraftをお気に入りですか？</string>
-    <string name="rate_dialog_desc">評価をいただくことで、PDFCraftを100%オフラインで安全かつ高機能に維持できます！</string>
+    <string name="rate_dialog_desc" formatted="false">評価をいただくことで、PDFCraftを100%オフラインで安全かつ高機能に維持できます！</string>
     <string name="rate_dialog_rate_5_stars">Playストアで5つ星評価</string>
     <string name="rate_dialog_submit">評価を送信</string>
     <string name="rate_dialog_maybe_later">後で</string>
@@ -320,7 +320,7 @@
     <string name="rate_feedback_thanks">フィードバックありがとうございます！</string>
     <string name="share_dialog_title">PDFCraftを友達にシェア</string>
     <string name="share_dialog_desc">オフラインで安全にPDFの結合や圧縮ができる便利さを同僚や友達に教えましょう！</string>
-    <string name="share_dialog_bullet_offline">100%オフライン＆プライベートなローカル処理</string>
+    <string name="share_dialog_bullet_offline" formatted="false">100%オフライン＆プライベートなローカル処理</string>
     <string name="share_dialog_bullet_tools">PDFの結合、分割、圧縮、回転</string>
     <string name="share_dialog_bullet_security">パスワード保護＆画像抽出</string>
     <string name="share_dialog_share_button">PDFCraftアプリを共有</string>
@@ -369,7 +369,7 @@
     <string name="settings_pref_subtitle">PDFCraftの操作環境とセキュリティを設定</string>
     <string name="settings_theme_appearance">テーマの外観</string>
     <string name="settings_security_privacy">セキュリティとプライバシー</string>
-    <string name="settings_security_privacy_desc">すべてのPDF操作（結合、分割、圧縮、暗号化、透かし、署名）は100%デバイス上でローカルに実行されます。外部サーバーにアップロードされることは一切ありません。</string>
+    <string name="settings_security_privacy_desc" formatted="false">すべてのPDF操作（結合、分割、圧縮、暗号化、透かし、署名）は100%デバイス上でローカルに実行されます。外部サーバーにアップロードされることは一切ありません。</string>
     <string name="settings_cloud_sync_title">クラウド同期とFirebaseアカウント</string>
     <string name="settings_cloud_sync_signed_in">%1$sとしてログイン中。環境設定と履歴を安全に同期できます。</string>
     <string name="settings_cloud_sync_signed_out">ログインして複数のデバイス間で設定や履歴を同期できます。</string>
@@ -397,7 +397,7 @@
 
     <!-- Donation & Multi-Method Support Expansion -->
     <string name="support_hub_compact_title">PDFCraftはいかがですか？ ☕</string>
-    <string name="support_hub_compact_subtitle">100%完全オフライン＆プライベートを維持</string>
+    <string name="support_hub_compact_subtitle" formatted="false">100%完全オフライン＆プライベートを維持</string>
     <string name="support_hub_btn_tip">応援する ☕</string>
     <string name="support_hub_dismiss">閉じる</string>
     <string name="support_tab_google_play">Google Play</string>
@@ -410,7 +410,7 @@
     <string name="support_tip_supporter">スーパーサポーター ($9.99) 🚀</string>
     <string name="support_tip_hero">ヒーローサポーター ($19.99) 👑</string>
     <string name="support_thank_you_title">ご支援誠にありがとうございます！ ❤️</string>
-    <string name="support_thank_you_desc">皆様のご支援のおかげで、PDFCraftは完全オフライン・無料でプライバシーを守り続けられます。</string>
+    <string name="support_thank_you_desc" formatted="false">皆様のご支援のおかげで、PDFCraftは完全オフライン・無料でプライバシーを守り続けられます。</string>
     <string name="support_status_active">アクティブサポーター ⭐</string>
     <string name="support_crypto_title">仮想通貨での寄付 (USDT / BTC)</string>
     <string name="support_crypto_desc">プライバシー重視の開発を直接支援できます</string>
@@ -424,7 +424,7 @@
     <string name="recent_selected_count">選択中 (%1$d/%2$d)</string>
     <string name="recent_search_hint">最近のPDFを検索…</string>
     <string name="recent_no_match">一致するPDFはありません: %1$s</string>
-    <string name="dialog_feature_processing_title">100% オンデバイス処理</string>
+    <string name="dialog_feature_processing_title" formatted="false">100% オンデバイス処理</string>
     <string name="dialog_feature_processing_desc">すべてのPDF操作、回転、分割、圧縮、画像出力は端末のCPU/GPUでローカルに実行されます。</string>
     <string name="dialog_feature_privacy_title">クラウドへの送信ゼロ</string>
     <string name="dialog_feature_privacy_desc">税務書類、請求書、契約書、個人文書が外部サーバーに送信されることは一切ありません。</string>
@@ -485,8 +485,8 @@
     <string name="common_unknown">不明</string>
     <string name="common_none">なし</string>
     <string name="brand_studio_badge">STUDIO</string>
-    <string name="brand_offline_status">100% デバイス内処理 • オフライン</string>
-    <string name="brand_splash_tagline">100% デバイス内処理 • アップロードなし</string>
+    <string name="brand_offline_status" formatted="false">100% デバイス内処理 • オフライン</string>
+    <string name="brand_splash_tagline" formatted="false">100% デバイス内処理 • アップロードなし</string>
     <string name="cd_studio_logo">PDFCraft Studio ロゴ</string>
     <string name="cd_privacy_info">プライバシーとアプリ情報</string>
     <string name="cd_toggle_theme">ライト/ダークテーマ切替</string>
@@ -519,10 +519,10 @@
     <string name="coachmark_step2_try">分割ツールを試す</string>
     <string name="coachmark_step3_badge">ツール 3 / 4 • サイズ最適化</string>
     <string name="coachmark_step3_title">PDFを圧縮・軽量化</string>
-    <string name="coachmark_step3_summary">大きなPDFを画質を保ったまま最大80%削減し、メールや共有に最適化します。</string>
+    <string name="coachmark_step3_summary" formatted="false">大きなPDFを画質を保ったまま最大80%削減し、メールや共有に最適化します。</string>
     <string name="coachmark_step3_tip1">高画質・バランス・コンパクトのプリセットから選択</string>
     <string name="coachmark_step3_tip2">必要に応じて複数のPDFをまとめて一括圧縮</string>
-    <string name="coachmark_step3_tip3">100%オフライン処理でドキュメントは外部に送信されません</string>
+    <string name="coachmark_step3_tip3" formatted="false">100%オフライン処理でドキュメントは外部に送信されません</string>
     <string name="coachmark_step3_try">圧縮ツールを試す</string>
     <string name="coachmark_step4_badge">ツール 4 / 4 • ページ補正</string>
     <string name="coachmark_step4_title">ページの回転・削除・確認</string>
@@ -602,7 +602,7 @@
     <string name="compress_selected_files">選択済みファイル (%1$d)</string>
     <string name="compress_batch_preset">一括圧縮プリセット</string>
     <string name="compress_empty_title">最適化＆画像抽出</string>
-    <string name="compress_empty_desc">クラウドにアップロードせず最大80%削減、または端末内で全ページ画像を高画質抽出。</string>
+    <string name="compress_empty_desc" formatted="false">クラウドにアップロードせず最大80%削減、または端末内で全ページ画像を高画質抽出。</string>
     <string name="compress_input_preview">入力ドキュメントプレビュー</string>
     <string name="compress_choose_level">圧縮レベルを選択</string>
     <string name="compress_est_impact">推定ファイルサイズ</string>
@@ -761,11 +761,11 @@
     <string name="recent_page_1_preview">PDF 1ページ目のプレビュー</string>
     <string name="recent_no_preview">プレビューなし</string>
     <string name="recent_pages_and_size">%1$d ページ • %2$s</string>
-    <string name="support_card_tagline">100% オフライン • プライベート • 個人開発</string>
+    <string name="support_card_tagline" formatted="false">100% オフライン • プライベート • 個人開発</string>
     <string name="support_badge_optional">❤️ 任意</string>
     <string name="support_badge_unlocked">解除済み</string>
     <string name="support_badge_active">有効</string>
-    <string name="support_iap_disclosure">Google Play残高、Google Pay、カードによる100%任意の一回限りの応援チップ。定期課金やサブスクはありません。</string>
+    <string name="support_iap_disclosure" formatted="false">Google Play残高、Google Pay、カードによる100%任意の一回限りの応援チップ。定期課金やサブスクはありません。</string>
     <string name="support_confirm_title">ワンタップ応援を確認</string>
     <string name="support_badge_one_time">1回限り</string>
     <string name="support_send_amount">%1$s を送る</string>
@@ -780,7 +780,7 @@
     <string name="billing_tip_snack_title">コーヒー＆クロワッサン</string>
     <string name="billing_tip_snack_desc">新機能開発の午後を応援</string>
     <string name="billing_tip_supporter_title">スーパーサポーター</string>
-    <string name="billing_tip_supporter_desc">PDFCraftを100%オフライン＆プライベートに維持</string>
+    <string name="billing_tip_supporter_desc" formatted="false">PDFCraftを100%オフライン＆プライベートに維持</string>
     <string name="billing_tip_hero_title">ヒーローサポーター</string>
     <string name="billing_tip_hero_desc">永久の感謝と限定バッジ</string>
     <string name="billing_error_init">Google Play Billing の初期化に失敗しました</string>

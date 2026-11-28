@@ -81,11 +81,7 @@ object PdfTextAndMediaService {
         outputFileName: String
     ): File = withContext(Dispatchers.IO) {
         val outputDir = File(context.filesDir, "exports").apply { mkdirs() }
-        val cleanName = if (outputFileName.endsWith(".pdf", ignoreCase = true)) {
-            outputFileName
-        } else {
-            "$outputFileName.pdf"
-        }
+        val cleanName = PdfEngine.sanitizeOutputFileName(outputFileName, "Document")
         val outputFile = File(outputDir, cleanName)
 
         val pdfDocument = PdfDocument()
@@ -179,8 +175,16 @@ object PdfTextAndMediaService {
                 // Header
                 var topY = margin
                 if (options.title.isNotBlank() || options.includeHeaderDate) {
+                    val dateWidth = if (options.includeHeaderDate) headerPaint.measureText(dateString) + 12f else 0f
+                    val maxTitleWidth = (contentWidth - dateWidth).coerceAtLeast(40f)
                     if (options.title.isNotBlank()) {
-                        canvas.drawText(options.title, margin, topY + 12f, headerPaint)
+                        val safeTitle = android.text.TextUtils.ellipsize(
+                            options.title,
+                            TextPaint(headerPaint),
+                            maxTitleWidth,
+                            android.text.TextUtils.TruncateAt.END
+                        ).toString()
+                        canvas.drawText(safeTitle, margin, topY + 12f, headerPaint)
                     }
                     if (options.includeHeaderDate) {
                         val datePaint = Paint(headerPaint).apply { textAlign = Paint.Align.RIGHT }

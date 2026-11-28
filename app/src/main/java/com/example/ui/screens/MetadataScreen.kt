@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.Label
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -346,7 +347,7 @@ fun MetadataScreen(
                                 onValueChange = { viewModel.setMetadataKeywords(it) },
                                 label = { Text(stringResource(R.string.metadata_keywords_label)) },
                                 placeholder = { Text(stringResource(R.string.metadata_keywords_placeholder)) },
-                                leadingIcon = { Icon(Icons.Default.Label, contentDescription = null) },
+                                leadingIcon = { Icon(Icons.AutoMirrored.Filled.Label, contentDescription = null) },
                                 modifier = Modifier.fillMaxWidth().testTag("metadata_keywords_input")
                             )
 

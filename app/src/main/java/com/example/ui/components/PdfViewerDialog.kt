@@ -130,10 +130,11 @@ fun PdfViewerDialog(
 ) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
-    var totalPages by remember { mutableIntStateOf(0) }
-    var currentPageIndex by remember { mutableIntStateOf(0) }
-    var currentBitmap by remember { mutableStateOf<Bitmap?>(null) }
-    var isLoading by remember { mutableStateOf(true) }
+    var activeFile by remember(file) { mutableStateOf(file) }
+    var totalPages by remember(activeFile) { mutableIntStateOf(0) }
+    var currentPageIndex by remember(activeFile) { mutableIntStateOf(0) }
+    var currentBitmap by remember(activeFile) { mutableStateOf<Bitmap?>(null) }
+    var isLoading by remember(activeFile) { mutableStateOf(true) }
 
     // Reading eye-comfort mode
     var readingMode by remember { mutableStateOf(ViewerReadingMode.DAY) }
@@ -155,14 +156,32 @@ fun PdfViewerDialog(
     var isTtsReady by remember { mutableStateOf(false) }
     var isSpeaking by remember { mutableStateOf(false) }
     var showThumbnailGridDialog by remember { mutableStateOf(false) }
-    var activeFile by remember(file) { mutableStateOf(file) }
 
     DisposableEffect(context) {
+        val mainHandler = android.os.Handler(android.os.Looper.getMainLooper())
         var engine: TextToSpeech? = null
         engine = TextToSpeech(context) { status ->
             if (status == TextToSpeech.SUCCESS) {
                 engine?.language = Locale.getDefault()
-                isTtsReady = true
+                engine?.setOnUtteranceProgressListener(object : android.speech.tts.UtteranceProgressListener() {
+                    override fun onStart(utteranceId: String?) {
+                        mainHandler.post { isSpeaking = true }
+                    }
+
+                    override fun onDone(utteranceId: String?) {
+                        mainHandler.post { isSpeaking = false }
+                    }
+
+                    @Deprecated("Deprecated in Java")
+                    override fun onError(utteranceId: String?) {
+                        mainHandler.post { isSpeaking = false }
+                    }
+
+                    override fun onError(utteranceId: String?, errorCode: Int) {
+                        mainHandler.post { isSpeaking = false }
+                    }
+                })
+                mainHandler.post { isTtsReady = true }
             }
         }
         ttsEngine = engine
@@ -183,16 +202,17 @@ fun PdfViewerDialog(
             ttsEngine?.stop()
             isSpeaking = false
         }
-        withContext(Dispatchers.IO) {
+        val rendered = withContext(Dispatchers.IO) {
             var pfd: ParcelFileDescriptor? = null
             var renderer: android.graphics.pdf.PdfRenderer? = null
             try {
                 pfd = ParcelFileDescriptor.open(activeFile, ParcelFileDescriptor.MODE_READ_ONLY)
                 renderer = android.graphics.pdf.PdfRenderer(pfd)
-                totalPages = renderer.pageCount
+                val count = renderer.pageCount
 
-                val safeIndex = currentPageIndex.coerceIn(0, (totalPages - 1).coerceAtLeast(0))
-                if (totalPages > 0 && safeIndex in 0 until totalPages) {
+                val safeIndex = currentPageIndex.coerceIn(0, (count - 1).coerceAtLeast(0))
+                var renderedBmp: Bitmap? = null
+                if (count > 0 && safeIndex in 0 until count) {
                     val page = renderer.openPage(safeIndex)
                     try {
                         val density = context.resources.displayMetrics.density
@@ -206,21 +226,26 @@ fun PdfViewerDialog(
                         val canvas = android.graphics.Canvas(bmp)
                         canvas.drawColor(android.graphics.Color.WHITE)
                         page.render(bmp, null, null, android.graphics.pdf.PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-                        currentBitmap = bmp
+                        renderedBmp = bmp
                     } finally {
                         try { page.close() } catch (_: Throwable) {}
                     }
-                } else {
-                    currentBitmap = null
                 }
+                Triple(count, safeIndex, renderedBmp)
             } catch (t: Throwable) {
                 android.util.Log.e("PdfViewerDialog", "Error rendering page $currentPageIndex: ${t.localizedMessage}")
+                null
             } finally {
                 try { renderer?.close() } catch (_: Throwable) {}
                 try { pfd?.close() } catch (_: Throwable) {}
-                isLoading = false
             }
         }
+        if (rendered != null) {
+            totalPages = rendered.first
+            if (currentPageIndex != rendered.second) currentPageIndex = rendered.second
+            currentBitmap = rendered.third
+        }
+        isLoading = false
     }
 
     LaunchedEffect(activeFile, searchQuery) {
@@ -229,6 +254,7 @@ fun PdfViewerDialog(
             currentMatchIndex = 0
             isSearching = false
         } else {
+            kotlinx.coroutines.delay(250)
             isSearching = true
             val results = PdfEngine.searchTextInPdf(activeFile, searchQuery)
             searchResults = results
@@ -350,15 +376,17 @@ fun PdfViewerDialog(
                                     )
                                 }
 
-                                IconButton(
-                                    onClick = { onSendToTool?.invoke(PdfOperationType.DOCUMENT_INFO) },
-                                    modifier = Modifier.testTag("viewer_info_button")
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.Info,
-                                        contentDescription = stringResource(R.string.tool_doc_info_title),
-                                        tint = colorScheme.onSurface
-                                    )
+                                if (onSendToTool != null) {
+                                    IconButton(
+                                        onClick = { onSendToTool.invoke(PdfOperationType.DOCUMENT_INFO) },
+                                        modifier = Modifier.testTag("viewer_info_button")
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Info,
+                                            contentDescription = stringResource(R.string.tool_doc_info_title),
+                                            tint = colorScheme.onSurface
+                                        )
+                                    }
                                 }
 
                                 IconButton(

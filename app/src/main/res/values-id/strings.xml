@@ -11,7 +11,7 @@
     <string name="onboarding_skip">Lewati</string>
     <string name="onboarding_next">Lanjut</string>
     <string name="onboarding_get_started">Mulai</string>
-    <string name="onboarding_title_1">100% di Perangkat &amp; Privasi</string>
+    <string name="onboarding_title_1" formatted="false">100% di Perangkat &amp; Privasi</string>
     <string name="onboarding_desc_1">Proses, gabungkan, pecah, dan kompres dokumen PDF Anda langsung di perangkat.</string>
     <string name="onboarding_title_2">Akses Penyimpanan Lokal</string>
     <string name="onboarding_desc_2">Berikan izin penyimpanan untuk mengimpor dan menyimpan PDF Anda.</string>
@@ -81,7 +81,7 @@
     <string name="hub_metric_processed">PROCESSED</string>
     <string name="hub_metric_saved">SPACE SAVED</string>
     <string name="hub_metric_privacy">DATA PRIVACY</string>
-    <string name="hub_privacy_value">100% Local</string>
+    <string name="hub_privacy_value" formatted="false">100% Local</string>
     <string name="hub_quick_actions">Quick Actions</string>
     <string name="hub_view_all_tools">Lihat Semua 15 Alat</string>
     <string name="hub_recent_activity">Recent Documents</string>
@@ -300,7 +300,7 @@
     <string name="nav_library">Pustaka</string>
     <string name="nav_settings">Pengaturan</string>
     <string name="support_dev_title">Dukung Pengembang</string>
-    <string name="support_dev_subtitle">PDFCraft 100% gratis, offline, dan privat tanpa langganan. Jika aplikasi ini membantu Anda, dukung dengan membelikan kopi!</string>
+    <string name="support_dev_subtitle" formatted="false">PDFCraft 100% gratis, offline, dan privat tanpa langganan. Jika aplikasi ini membantu Anda, dukung dengan membelikan kopi!</string>
     <string name="support_coffee_small">Beli Kopi ($3)</string>
     <string name="support_coffee_medium">Beli Makan Siang ($5)</string>
     <string name="support_coffee_large">Pendukung Super ($10)</string>
@@ -312,7 +312,7 @@
     <string name="support_hub_banner_subtitle">Dukung pengembangan PDF offline dan privat dengan secangkir kopi</string>
     <string name="support_thank_you">Terima kasih telah mendukung pengembangan independen!</string>
     <string name="rate_dialog_title">Menikmati PDFCraft?</string>
-    <string name="rate_dialog_desc">Penilaian Anda membantu kami menjaga PDFCraft 100% offline, privat, dan lengkap!</string>
+    <string name="rate_dialog_desc" formatted="false">Penilaian Anda membantu kami menjaga PDFCraft 100% offline, privat, dan lengkap!</string>
     <string name="rate_dialog_rate_5_stars">Beri Bintang 5 di Play Store</string>
     <string name="rate_dialog_submit">Kirim Penilaian</string>
     <string name="rate_dialog_maybe_later">Mungkin Nanti</string>
@@ -320,7 +320,7 @@
     <string name="rate_feedback_thanks">Terima kasih atas masukan Anda!</string>
     <string name="share_dialog_title">Bagikan PDFCraft dengan Teman</string>
     <string name="share_dialog_desc">Bantu rekan dan teman menggabungkan, membagi, mengompresi, dan mengunci PDF secara offline!</string>
-    <string name="share_dialog_bullet_offline">Mesin lokal 100% offline &amp; privat</string>
+    <string name="share_dialog_bullet_offline" formatted="false">Mesin lokal 100% offline &amp; privat</string>
     <string name="share_dialog_bullet_tools">Gabung, Pisah, Kompres &amp; Putar PDF</string>
     <string name="share_dialog_bullet_security">Kunci Kata Sandi &amp; Ekstraksi Gambar</string>
     <string name="share_dialog_share_button">Bagikan Aplikasi PDFCraft</string>
@@ -369,7 +369,7 @@
     <string name="settings_pref_subtitle">Sesuaikan pengalaman PDFCraft dan pengaturan keamanan Anda</string>
     <string name="settings_theme_appearance">Tampilan Tema</string>
     <string name="settings_security_privacy">Keamanan &amp; Privasi</string>
-    <string name="settings_security_privacy_desc">Semua operasi PDF dijalankan 100% secara lokal di perangkat. Tidak ada konten dokumen yang diunggah ke server cloud eksternal.</string>
+    <string name="settings_security_privacy_desc" formatted="false">Semua operasi PDF dijalankan 100% secara lokal di perangkat. Tidak ada konten dokumen yang diunggah ke server cloud eksternal.</string>
     <string name="settings_cloud_sync_title">Sinkronisasi Cloud &amp; Akun</string>
     <string name="settings_cloud_sync_signed_in">Masuk sebagai %1$s. Preferensi dan riwayat Anda dapat disinkronkan dengan aman.</string>
     <string name="settings_cloud_sync_signed_out">Masuk dengan email/sandi untuk menyinkronkan preferensi dan riwayat antar perangkat.</string>
@@ -397,7 +397,7 @@
 
     <!-- Donation & Multi-Method Support Expansion -->
     <string name="support_hub_compact_title">Menikmati PDFCraft? ☕</string>
-    <string name="support_hub_compact_subtitle">Jaga PDFCraft tetap 100% offline &amp; privat</string>
+    <string name="support_hub_compact_subtitle" formatted="false">Jaga PDFCraft tetap 100% offline &amp; privat</string>
     <string name="support_hub_btn_tip">Dukung ☕</string>
     <string name="support_hub_dismiss">Tutup</string>
     <string name="support_tab_google_play">Google Play</string>
@@ -410,7 +410,7 @@
     <string name="support_tip_supporter">Pendukung Super ($9.99) 🚀</string>
     <string name="support_tip_hero">Pendukung Utama ($19.99) 👑</string>
     <string name="support_thank_you_title">Terima kasih banyak atas dukungan Anda! ❤️</string>
-    <string name="support_thank_you_desc">Dukungan Anda menjaga PDFCraft 100% offline, gratis, dan privat.</string>
+    <string name="support_thank_you_desc" formatted="false">Dukungan Anda menjaga PDFCraft 100% offline, gratis, dan privat.</string>
     <string name="support_status_active">Pendukung Aktif ⭐</string>
     <string name="support_crypto_title">Donasi Kripto (USDT / BTC)</string>
     <string name="support_crypto_desc">Dukungan terdesentralisasi untuk aplikasi ramah privasi</string>
@@ -424,7 +424,7 @@
     <string name="recent_selected_count">Terpilih (%1$d/%2$d)</string>
     <string name="recent_search_hint">Cari PDF terkini…</string>
     <string name="recent_no_match">Tidak ada PDF yang cocok: %1$s</string>
-    <string name="dialog_feature_processing_title">Pemrosesan 100% di Perangkat</string>
+    <string name="dialog_feature_processing_title" formatted="false">Pemrosesan 100% di Perangkat</string>
     <string name="dialog_feature_processing_desc">Semua operasi PDF, rotasi halaman, pemisahan, kompresi, dan ekspor gambar berjalan secara lokal.</string>
     <string name="dialog_feature_privacy_title">Tanpa Unggahan Cloud</string>
     <string name="dialog_feature_privacy_desc">Formulir pajak, faktur, kontrak, dan dokumen rahasia Anda tidak pernah menyentuh server luar.</string>
@@ -485,8 +485,8 @@
     <string name="common_unknown">Tidak diketahui</string>
     <string name="common_none">Tidak ada</string>
     <string name="brand_studio_badge">STUDIO</string>
-    <string name="brand_offline_status">100% DI PERANGKAT • OFFLINE</string>
-    <string name="brand_splash_tagline">100% DI PERANGKAT • TANPA UNGGAH</string>
+    <string name="brand_offline_status" formatted="false">100% DI PERANGKAT • OFFLINE</string>
+    <string name="brand_splash_tagline" formatted="false">100% DI PERANGKAT • TANPA UNGGAH</string>
     <string name="cd_studio_logo">Logo PDFCraft Studio</string>
     <string name="cd_privacy_info">Privasi &amp; Info Aplikasi</string>
     <string name="cd_toggle_theme">Ganti Tema Terang/Gelap</string>
@@ -519,10 +519,10 @@
     <string name="coachmark_step2_try">Coba Alat Pisah</string>
     <string name="coachmark_step3_badge">ALAT 3 DARI 4 • PENGOPTIMAL UKURAN</string>
     <string name="coachmark_step3_title">Kompres &amp; Perkecil PDF</string>
-    <string name="coachmark_step3_summary">Perkecil file PDF besar hingga 80% untuk email, portal, atau WhatsApp tanpa mengurangi ketajaman.</string>
+    <string name="coachmark_step3_summary" formatted="false">Perkecil file PDF besar hingga 80% untuk email, portal, atau WhatsApp tanpa mengurangi ketajaman.</string>
     <string name="coachmark_step3_tip1">Pilih preset Kualitas Maksimal, Seimbang, atau Ringkas</string>
     <string name="coachmark_step3_tip2">Kompres beberapa PDF sekaligus secara batch jika perlu</string>
-    <string name="coachmark_step3_tip3">Pemrosesan 100% offline — dokumen Anda tidak pernah meninggalkan perangkat</string>
+    <string name="coachmark_step3_tip3" formatted="false">Pemrosesan 100% offline — dokumen Anda tidak pernah meninggalkan perangkat</string>
     <string name="coachmark_step3_try">Coba Alat Kompres</string>
     <string name="coachmark_step4_badge">ALAT 4 DARI 4 • PERBAIKAN CEPAT</string>
     <string name="coachmark_step4_title">Putar, Hapus &amp; Pratinjau Halaman</string>
@@ -602,7 +602,7 @@
     <string name="compress_selected_files">File Dipilih (%1$d)</string>
     <string name="compress_batch_preset">Preset Kompresi Batch</string>
     <string name="compress_empty_title">Optimalkan &amp; Ekstrak</string>
-    <string name="compress_empty_desc">Perkecil ukuran hingga 80% tanpa unggah cloud, atau ekstrak semua gambar halaman resolusi tinggi di perangkat.</string>
+    <string name="compress_empty_desc" formatted="false">Perkecil ukuran hingga 80% tanpa unggah cloud, atau ekstrak semua gambar halaman resolusi tinggi di perangkat.</string>
     <string name="compress_input_preview">Pratinjau Dokumen Masukan</string>
     <string name="compress_choose_level">Pilih Tingkat Kompresi</string>
     <string name="compress_est_impact">Perkiraan Dampak Ukuran</string>
@@ -761,11 +761,11 @@
     <string name="recent_page_1_preview">Pratinjau Halaman 1 PDF</string>
     <string name="recent_no_preview">Tanpa Pratinjau</string>
     <string name="recent_pages_and_size">%1$d hal • %2$s</string>
-    <string name="support_card_tagline">100% Offline • Privat • Pengembang Indie</string>
+    <string name="support_card_tagline" formatted="false">100% Offline • Privat • Pengembang Indie</string>
     <string name="support_badge_optional">❤️ Opsional</string>
     <string name="support_badge_unlocked">TERBUKA</string>
     <string name="support_badge_active">AKTIF</string>
-    <string name="support_iap_disclosure">Tip sekali bayar 100% opsional melalui Saldo Google Play, Google Pay, atau Kartu. Tanpa biaya berulang atau langganan.</string>
+    <string name="support_iap_disclosure" formatted="false">Tip sekali bayar 100% opsional melalui Saldo Google Play, Google Pay, atau Kartu. Tanpa biaya berulang atau langganan.</string>
     <string name="support_confirm_title">Konfirmasi Dukungan 1-Ketuk</string>
     <string name="support_badge_one_time">Sekali Bayar</string>
     <string name="support_send_amount">Kirim %1$s</string>
@@ -780,7 +780,7 @@
     <string name="billing_tip_snack_title">Kopi &amp; Croissant</string>
     <string name="billing_tip_snack_desc">Energi untuk membuat fitur baru seharian</string>
     <string name="billing_tip_supporter_title">Pendukung Super</string>
-    <string name="billing_tip_supporter_desc">Jaga PDFCraft tetap 100% offline &amp; privat</string>
+    <string name="billing_tip_supporter_desc" formatted="false">Jaga PDFCraft tetap 100% offline &amp; privat</string>
     <string name="billing_tip_hero_title">Pendukung Pahlawan</string>
     <string name="billing_tip_hero_desc">Terima kasih selamanya &amp; lencana permanen</string>
     <string name="billing_error_init">Gagal menginisialisasi Google Play Billing</string>

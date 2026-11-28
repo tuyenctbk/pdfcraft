@@ -162,7 +162,17 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         com.example.ui.billing.BillingRepository.getInstance(applicationContext).registerActivity(this)
 
-        incomingIntentState.value = intent
+        if (savedInstanceState == null) {
+            incomingIntentState.value = intent
+        }
+
+        fun isImageUri(uri: android.net.Uri, intentMime: String): Boolean {
+            if (intentMime.startsWith("image/", ignoreCase = true)) return true
+            val resolvedMime = try { contentResolver.getType(uri) } catch (_: Exception) { null } ?: ""
+            if (resolvedMime.startsWith("image/", ignoreCase = true)) return true
+            val path = uri.toString().lowercase()
+            return path.matches(Regex(".*\\.(jpg|jpeg|png|webp|bmp|gif|heic|heif)(\\?.*)?$"))
+        }
 
         setContent {
             val viewModel: MainViewModel = viewModel()
@@ -182,7 +192,7 @@ class MainActivity : ComponentActivity() {
                                 // Bypass onboarding when a user opens an external PDF directly
                                 viewModel.completeOnboarding()
                                 val localFile = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
-                                    com.example.data.pdf.PdfEngine.getLocalFileFromUri(applicationContext, uri)
+                                    com.example.data.pdf.PdfEngine.convertAnyFileToPdf(applicationContext, uri)
                                 }
                                 if (localFile.exists()) {
                                     viewModel.openInViewer(localFile.absolutePath)
@@ -195,13 +205,13 @@ class MainActivity : ComponentActivity() {
                                 ?: currentIntent.data
                             if (streamUri != null) {
                                 viewModel.completeOnboarding()
-                                if (mimeType.startsWith("image/")) {
+                                if (isImageUri(streamUri, mimeType)) {
                                     viewModel.clearImagesToPdf()
                                     viewModel.addImagesToPdf(listOf(streamUri))
                                     viewModel.setActiveTool(PdfOperationType.IMAGE_TO_PDF)
                                 } else {
                                     val localFile = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
-                                        com.example.data.pdf.PdfEngine.getLocalFileFromUri(applicationContext, streamUri)
+                                        com.example.data.pdf.PdfEngine.convertAnyFileToPdf(applicationContext, streamUri)
                                     }
                                     if (localFile.exists()) {
                                         viewModel.openInViewer(localFile.absolutePath)
@@ -214,7 +224,7 @@ class MainActivity : ComponentActivity() {
                             val uris = currentIntent.getParcelableArrayListExtra<android.net.Uri>(android.content.Intent.EXTRA_STREAM)
                             if (!uris.isNullOrEmpty()) {
                                 viewModel.completeOnboarding()
-                                if (mimeType.startsWith("image/")) {
+                                if (uris.all { isImageUri(it, mimeType) }) {
                                     viewModel.clearImagesToPdf()
                                     viewModel.addImagesToPdf(uris)
                                     viewModel.setActiveTool(PdfOperationType.IMAGE_TO_PDF)
@@ -240,7 +250,7 @@ class MainActivity : ComponentActivity() {
                     act == android.content.Intent.ACTION_SEND ||
                     act == android.content.Intent.ACTION_SEND_MULTIPLE
             }
-            var showAnimatedSplash by remember { mutableStateOf(!isExternalLaunchIntent) }
+            var showAnimatedSplash by remember { mutableStateOf(!isExternalLaunchIntent && !viewModel.hasShownSplashSession) }
 
             PDFCraftTheme(themeMode = themeMode) {
                 Surface(
@@ -251,7 +261,10 @@ class MainActivity : ComponentActivity() {
                         PDFCraftApp(viewModel = viewModel)
                         if (showAnimatedSplash) {
                             com.example.ui.components.AnimatedSplashOverlay(
-                                onFinished = { showAnimatedSplash = false }
+                                onFinished = {
+                                    viewModel.hasShownSplashSession = true
+                                    showAnimatedSplash = false
+                                }
                             )
                         }
                     }
@@ -287,7 +300,9 @@ fun PDFCraftApp(
 
     val snackbarHostState = remember { SnackbarHostState() }
 
-    LaunchedEffect(Unit) {
+    val latestRemoteVersionCode by com.example.data.remote.FirebaseConfigManager.latestVersionCode.collectAsStateWithLifecycle()
+
+    LaunchedEffect(latestRemoteVersionCode) {
         viewModel.checkForUpdateSuggestion()
     }
 

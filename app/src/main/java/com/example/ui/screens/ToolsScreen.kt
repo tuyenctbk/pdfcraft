@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.BrandingWatermark
 import androidx.compose.material.icons.automirrored.filled.RotateRight
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.Search
@@ -127,7 +128,7 @@ val ALL_PDF_TOOLS = listOf(
     ToolItemData(
         titleRes = R.string.tool_watermark_title,
         descRes = R.string.tool_watermark_desc,
-        icon = Icons.Default.BrandingWatermark,
+        icon = Icons.AutoMirrored.Filled.BrandingWatermark,
         operationType = PdfOperationType.WATERMARK,
         category = ToolCategory.SECURITY,
         iconTint = Color(0xFFF472B6),

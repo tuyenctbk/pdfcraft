@@ -20,6 +20,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.RotateLeft
+import androidx.compose.material.icons.automirrored.filled.RotateRight
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -76,7 +78,7 @@ fun RotateScreen(
     var previewInitialPage by remember { mutableIntStateOf(0) }
     var previewStartInGrid by remember { mutableStateOf(true) }
 
-    // Cache thumbnails for page grid display using a single PdfRenderer session
+    // Cache thumbnails for page grid display using a single PdfRenderer session (capped & RGB_565 to prevent OOM)
     var pageThumbnails by remember(rotateSourceFile, pageCount) {
         mutableStateOf<Map<Int, Bitmap>>(emptyMap())
     }
@@ -85,7 +87,8 @@ fun RotateScreen(
         val pdfFile = rotateSourceFile ?: return@LaunchedEffect
         if (pageCount <= 0 || !pdfFile.exists()) return@LaunchedEffect
 
-        withContext(Dispatchers.IO) {
+        val maxPreRenderedThumbnails = 60
+        val renderedMap = withContext(Dispatchers.IO) {
             val map = mutableMapOf<Int, Bitmap>()
             var pfd: android.os.ParcelFileDescriptor? = null
             var renderer: android.graphics.pdf.PdfRenderer? = null
@@ -93,16 +96,17 @@ fun RotateScreen(
                 pfd = android.os.ParcelFileDescriptor.open(pdfFile, android.os.ParcelFileDescriptor.MODE_READ_ONLY)
                 renderer = android.graphics.pdf.PdfRenderer(pfd)
                 val density = context.resources.displayMetrics.density
-                val targetWidthPx = (140 * density).toInt().coerceAtLeast(100)
-                val total = renderer.pageCount.coerceAtMost(pageCount)
+                val baseWidthPx = (140 * density).toInt().coerceAtLeast(100)
+                val total = renderer.pageCount.coerceAtMost(pageCount).coerceAtMost(maxPreRenderedThumbnails)
+                val targetWidthPx = if (total > 30) (baseWidthPx * 0.75f).toInt().coerceAtLeast(90) else baseWidthPx
                 for (i in 0 until total) {
                     var page: android.graphics.pdf.PdfRenderer.Page? = null
                     try {
                         page = renderer.openPage(i)
                         val pw = page.width.coerceAtLeast(1)
                         val ph = page.height.coerceAtLeast(1)
-                        val targetHeightPx = (targetWidthPx * (ph.toFloat() / pw.toFloat())).toInt().coerceAtLeast(100)
-                        val bmp = Bitmap.createBitmap(targetWidthPx, targetHeightPx, Bitmap.Config.ARGB_8888)
+                        val targetHeightPx = (targetWidthPx * (ph.toFloat() / pw.toFloat())).toInt().coerceIn(80, 1000)
+                        val bmp = Bitmap.createBitmap(targetWidthPx, targetHeightPx, Bitmap.Config.RGB_565)
                         val canvas = android.graphics.Canvas(bmp)
                         canvas.drawColor(android.graphics.Color.WHITE)
                         page.render(bmp, null, null, android.graphics.pdf.PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
@@ -117,10 +121,9 @@ fun RotateScreen(
                 try { renderer?.close() } catch (_: Throwable) {}
                 try { pfd?.close() } catch (_: Throwable) {}
             }
-            withContext(Dispatchers.Main) {
-                pageThumbnails = map
-            }
+            map
         }
+        pageThumbnails = renderedMap
     }
 
     Scaffold(
@@ -209,7 +212,7 @@ fun RotateScreen(
                         },
                         title = stringResource(R.string.rotate_select_pdf_title),
                         subtitle = stringResource(R.string.rotate_select_pdf_desc),
-                        icon = Icons.Default.RotateRight,
+                        icon = Icons.AutoMirrored.Filled.RotateRight,
                         testTagPrefix = "rotate_pdf_picker",
                         modifier = Modifier.padding(top = 16.dp)
                     )
@@ -365,7 +368,7 @@ fun RotateScreen(
                                     shape = RoundedCornerShape(10.dp),
                                     contentPadding = PaddingValues(horizontal = 4.dp, vertical = 8.dp)
                                 ) {
-                                    Icon(Icons.Default.RotateRight, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(15.dp))
+                                    Icon(Icons.AutoMirrored.Filled.RotateRight, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(15.dp))
                                     Spacer(modifier = Modifier.width(3.dp))
                                     Text("+90°", fontSize = 11.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary, maxLines = 1, softWrap = false)
                                 }
@@ -395,7 +398,7 @@ fun RotateScreen(
                                     shape = RoundedCornerShape(10.dp),
                                     contentPadding = PaddingValues(horizontal = 4.dp, vertical = 8.dp)
                                 ) {
-                                    Icon(Icons.Default.RotateLeft, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(15.dp))
+                                    Icon(Icons.AutoMirrored.Filled.RotateLeft, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(15.dp))
                                     Spacer(modifier = Modifier.width(3.dp))
                                     Text("-90°", fontSize = 11.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary, maxLines = 1, softWrap = false)
                                 }
@@ -602,7 +605,7 @@ fun RotateScreen(
                                                 .clickable { viewModel.rotateSinglePage(pageIdx, 90) }
                                         ) {
                                             Icon(
-                                                imageVector = Icons.Default.RotateRight,
+                                                imageVector = Icons.AutoMirrored.Filled.RotateRight,
                                                 contentDescription = stringResource(R.string.rotate_page_cd, pageIdx + 1),
                                                 tint = MaterialTheme.colorScheme.primary,
                                                 modifier = Modifier

@@ -94,15 +94,12 @@ class PdfRepository(
         if (!oldFile.exists()) return null
 
         val extension = if (oldFile.extension.isNotBlank()) ".${oldFile.extension}" else ".pdf"
-        val cleanName = if (newNameRaw.endsWith(extension, ignoreCase = true)) {
-            newNameRaw
-        } else if (newNameRaw.contains(".")) {
-            newNameRaw
-        } else {
-            "$newNameRaw$extension"
-        }
+        val cleanName = PdfEngine.sanitizeOutputFileName(newNameRaw, oldFile.nameWithoutExtension.ifBlank { "PDFCraft_Document" }, extension)
+        if (cleanName == oldFile.name) return oldFile.absolutePath
 
         val newFile = File(oldFile.parentFile, cleanName)
+        if (newFile.exists()) return null
+
         val success = oldFile.renameTo(newFile)
         if (success) {
             dao.updateProjectFile(id, newFile.absolutePath, newFile.name)
@@ -196,17 +193,19 @@ class PdfRepository(
         originalSizeBytes: Long
     ): File {
         val outputFile = PdfEngine.compressPdf(context, sourceUri, preset, outputName)
-        val savedBytes = originalSizeBytes - outputFile.length()
+        val actualPages = PdfEngine.getPageCount(outputFile).coerceAtLeast(1)
+        val savedBytes = (originalSizeBytes - outputFile.length()).coerceAtLeast(0L)
         val percentSaved = if (originalSizeBytes > 0) ((savedBytes.toDouble() / originalSizeBytes) * 100).toInt() else 0
+        val detailNote = if (percentSaved > 0) "$percentSaved% size reduction" else "already optimized"
         saveProjectRecord(
             PdfProjectEntity(
                 title = outputFile.name,
                 operationType = PdfOperationType.COMPRESS,
-                pageCount = 1,
+                pageCount = actualPages,
                 originalSizeBytes = originalSizeBytes,
                 resultSizeBytes = outputFile.length(),
                 outputFilePath = outputFile.absolutePath,
-                summaryDetails = "Compressed with ${preset.title} ($percentSaved% size reduction)"
+                summaryDetails = "Compressed with ${preset.title} ($detailNote)"
             )
         )
         return outputFile
@@ -229,7 +228,7 @@ class PdfRepository(
                     pageCount = images.size,
                     originalSizeBytes = originalSizeBytes,
                     resultSizeBytes = totalImageSize,
-                    outputFilePath = images.first().parentFile?.absolutePath ?: "",
+                    outputFilePath = images.first().absolutePath,
                     summaryDetails = "Saved ${images.size} high-res $format images"
                 )
             )
@@ -244,15 +243,16 @@ class PdfRepository(
         originalSizeBytes: Long
     ): File {
         val outputFile = com.example.data.pdf.PdfBoxMergeService.mergePdfFiles(context, pdfUris, outputName)
+        val actualPages = PdfEngine.getPageCount(outputFile).coerceAtLeast(pdfUris.size)
         saveProjectRecord(
             PdfProjectEntity(
                 title = outputFile.name,
                 operationType = PdfOperationType.MERGE,
-                pageCount = pdfUris.size,
+                pageCount = actualPages,
                 originalSizeBytes = originalSizeBytes,
                 resultSizeBytes = outputFile.length(),
                 outputFilePath = outputFile.absolutePath,
-                summaryDetails = "Merged ${pdfUris.size} files using PDFBox Engine into ${outputFile.name}"
+                summaryDetails = "Merged ${pdfUris.size} files ($actualPages pages) into ${outputFile.name}"
             )
         )
         return outputFile
@@ -267,11 +267,13 @@ class PdfRepository(
         originalSizeBytes: Long
     ): File {
         val outputFile = PdfEngine.encryptPdf(context, sourceUri, userPassword, ownerPassword, outputName)
+        val sourceFile = try { PdfEngine.getLocalFileFromUri(context, sourceUri) } catch (_: Exception) { null }
+        val actualPages = sourceFile?.let { PdfEngine.getPageCount(it) }?.coerceAtLeast(1) ?: 1
         saveProjectRecord(
             PdfProjectEntity(
                 title = outputFile.name,
                 operationType = PdfOperationType.ENCRYPT,
-                pageCount = 1,
+                pageCount = actualPages,
                 originalSizeBytes = originalSizeBytes,
                 resultSizeBytes = outputFile.length(),
                 outputFilePath = outputFile.absolutePath,
@@ -303,6 +305,7 @@ class PdfRepository(
         originalSizeBytes: Long
     ): File {
         val outputFile = PdfEngine.watermarkPdf(context, sourceUri, options, outputName)
+        val actualPages = PdfEngine.getPageCount(outputFile).coerceAtLeast(1)
         val details = if (options.type == com.example.data.pdf.WatermarkType.TEXT) {
             "Text Watermark '${options.text}' applied"
         } else {
@@ -312,7 +315,7 @@ class PdfRepository(
             PdfProjectEntity(
                 title = outputFile.name,
                 operationType = PdfOperationType.WATERMARK,
-                pageCount = 1,
+                pageCount = actualPages,
                 originalSizeBytes = originalSizeBytes,
                 resultSizeBytes = outputFile.length(),
                 outputFilePath = outputFile.absolutePath,
@@ -331,11 +334,12 @@ class PdfRepository(
         originalSizeBytes: Long
     ): File {
         val outputFile = PdfEngine.signPdf(context, sourceUri, signerName, reason, outputName)
+        val actualPages = PdfEngine.getPageCount(outputFile).coerceAtLeast(1)
         saveProjectRecord(
             PdfProjectEntity(
                 title = outputFile.name,
                 operationType = PdfOperationType.SIGN,
-                pageCount = 1,
+                pageCount = actualPages,
                 originalSizeBytes = originalSizeBytes,
                 resultSizeBytes = outputFile.length(),
                 outputFilePath = outputFile.absolutePath,
@@ -407,16 +411,28 @@ class PdfRepository(
         imageUris: List<Uri>,
         outputName: String
     ): File {
+        val totalSourceBytes = imageUris.sumOf { uri ->
+            try {
+                if (uri.scheme == "file" && uri.path != null) {
+                    File(uri.path!!).length()
+                } else {
+                    context.contentResolver.openAssetFileDescriptor(uri, "r")?.use { it.length.coerceAtLeast(0L) } ?: 0L
+                }
+            } catch (_: Exception) {
+                0L
+            }
+        }
         val outputFile = PdfEngine.convertImagesToPdf(context, imageUris, outputName)
+        val actualPages = PdfEngine.getPageCount(outputFile).coerceAtLeast(1)
         saveProjectRecord(
             PdfProjectEntity(
                 title = outputFile.name,
                 operationType = PdfOperationType.IMAGE_TO_PDF,
-                pageCount = imageUris.size,
-                originalSizeBytes = imageUris.size * 100000L,
+                pageCount = actualPages,
+                originalSizeBytes = if (totalSourceBytes > 0L) totalSourceBytes else outputFile.length(),
                 resultSizeBytes = outputFile.length(),
                 outputFilePath = outputFile.absolutePath,
-                summaryDetails = "Converted ${imageUris.size} photos into PDF document ${outputFile.name}"
+                summaryDetails = "Converted $actualPages photos into PDF document ${outputFile.name}"
             )
         )
         return outputFile
@@ -430,11 +446,12 @@ class PdfRepository(
         originalSizeBytes: Long
     ): File {
         val outputFile = PdfEngine.addPageNumbersToPdf(context, sourceUri, options, outputName)
+        val actualPages = PdfEngine.getPageCount(outputFile).coerceAtLeast(1)
         saveProjectRecord(
             PdfProjectEntity(
                 title = outputFile.name,
                 operationType = PdfOperationType.PAGE_NUMBER,
-                pageCount = 1,
+                pageCount = actualPages,
                 originalSizeBytes = originalSizeBytes,
                 resultSizeBytes = outputFile.length(),
                 outputFilePath = outputFile.absolutePath,

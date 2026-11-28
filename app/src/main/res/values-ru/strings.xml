@@ -11,7 +11,7 @@
     <string name="onboarding_skip">Пропустить</string>
     <string name="onboarding_next">Далее</string>
     <string name="onboarding_get_started">Начать</string>
-    <string name="onboarding_title_1">100% на устройстве и конфиденциально</string>
+    <string name="onboarding_title_1" formatted="false">100% на устройстве и конфиденциально</string>
     <string name="onboarding_desc_1">Обрабатывайте, объединяйте, разделяйте и сжимайте PDF прямо на вашем устройстве.</string>
     <string name="onboarding_title_2">Доступ к локальному хранилищу</string>
     <string name="onboarding_desc_2">Предоставьте разрешения для импорта и сохранения PDF.</string>
@@ -81,7 +81,7 @@
     <string name="hub_metric_processed">PROCESSED</string>
     <string name="hub_metric_saved">SPACE SAVED</string>
     <string name="hub_metric_privacy">DATA PRIVACY</string>
-    <string name="hub_privacy_value">100% Local</string>
+    <string name="hub_privacy_value" formatted="false">100% Local</string>
     <string name="hub_quick_actions">Quick Actions</string>
     <string name="hub_view_all_tools">Все 15 инструментов</string>
     <string name="hub_recent_activity">Recent Documents</string>
@@ -300,7 +300,7 @@
     <string name="nav_library">Библиотека</string>
     <string name="nav_settings">Настройки</string>
     <string name="support_dev_title">Поддержать разработчика</string>
-    <string name="support_dev_subtitle">PDFCraft на 100% бесплатен, работает офлайн и конфиденциален без подписок. Если приложение полезно, поддержите чашкой кофе!</string>
+    <string name="support_dev_subtitle" formatted="false">PDFCraft на 100% бесплатен, работает офлайн и конфиденциален без подписок. Если приложение полезно, поддержите чашкой кофе!</string>
     <string name="support_coffee_small">Угостить кофе ($3)</string>
     <string name="support_coffee_medium">Угостить обедом ($5)</string>
     <string name="support_coffee_large">Суперподдержка ($10)</string>
@@ -312,7 +312,7 @@
     <string name="support_hub_banner_subtitle">Поддержите разработку приватных офлайн-инструментов PDF</string>
     <string name="support_thank_you">Спасибо за поддержку независимой разработки!</string>
     <string name="rate_dialog_title">Нравится PDFCraft?</string>
-    <string name="rate_dialog_desc">Ваша оценка помогает нам сохранять PDFCraft на 100% автономным, конфиденциальным и функциональным!</string>
+    <string name="rate_dialog_desc" formatted="false">Ваша оценка помогает нам сохранять PDFCraft на 100% автономным, конфиденциальным и функциональным!</string>
     <string name="rate_dialog_rate_5_stars">Оценить на 5 звезд в Play Store</string>
     <string name="rate_dialog_submit">Отправить оценку</string>
     <string name="rate_dialog_maybe_later">Может позже</string>
@@ -320,7 +320,7 @@
     <string name="rate_feedback_thanks">Спасибо за ваш отзыв!</string>
     <string name="share_dialog_title">Поделитесь PDFCraft с друзьями</string>
     <string name="share_dialog_desc">Помогите друзьям легко объединять, разделять, сжимать и защищать PDF офлайн!</string>
-    <string name="share_dialog_bullet_offline">100% автономный и приватный локальный движок</string>
+    <string name="share_dialog_bullet_offline" formatted="false">100% автономный и приватный локальный движок</string>
     <string name="share_dialog_bullet_tools">Объединение, разделение, сжатие и поворот PDF</string>
     <string name="share_dialog_bullet_security">Защита паролем и извлечение изображений</string>
     <string name="share_dialog_share_button">Поделиться приложением PDFCraft</string>
@@ -369,7 +369,7 @@
     <string name="settings_pref_subtitle">Настройте PDFCraft и параметры безопасности под себя</string>
     <string name="settings_theme_appearance">Оформление темы</string>
     <string name="settings_security_privacy">Безопасность и конфиденциальность</string>
-    <string name="settings_security_privacy_desc">Все операции с PDF (объединение, разделение, сжатие, шифрование, водяные знаки, подпись) выполняются на 100% локально на устройстве. Документы никогда не передаются на внешние серверы.</string>
+    <string name="settings_security_privacy_desc" formatted="false">Все операции с PDF (объединение, разделение, сжатие, шифрование, водяные знаки, подпись) выполняются на 100% локально на устройстве. Документы никогда не передаются на внешние серверы.</string>
     <string name="settings_cloud_sync_title">Синхронизация с облаком и аккаунт</string>
     <string name="settings_cloud_sync_signed_in">Вы вошли как %1$s. Настройки и история могут безопасно синхронизироваться.</string>
     <string name="settings_cloud_sync_signed_out">Войдите с помощью почты и пароля для синхронизации настроек и истории между устройствами.</string>
@@ -397,7 +397,7 @@
 
     <!-- Donation & Multi-Method Support Expansion -->
     <string name="support_hub_compact_title">Нравится PDFCraft? ☕</string>
-    <string name="support_hub_compact_subtitle">Помогите сохранить PDFCraft полностью офлайн и безопасным</string>
+    <string name="support_hub_compact_subtitle" formatted="false">Помогите сохранить PDFCraft полностью офлайн и безопасным</string>
     <string name="support_hub_btn_tip">Поддержать ☕</string>
     <string name="support_hub_dismiss">Закрыть</string>
     <string name="support_tab_google_play">Google Play</string>
@@ -410,7 +410,7 @@
     <string name="support_tip_supporter">Супер Поддержка ($9.99) 🚀</string>
     <string name="support_tip_hero">Герой Поддержки ($19.99) 👑</string>
     <string name="support_thank_you_title">Огромное спасибо за вашу поддержку! ❤️</string>
-    <string name="support_thank_you_desc">Ваш вклад помогает развивать PDFCraft без рекламы, облаков и подписок.</string>
+    <string name="support_thank_you_desc" formatted="false">Ваш вклад помогает развивать PDFCraft без рекламы, облаков и подписок.</string>
     <string name="support_status_active">Активный спонсор ⭐</string>
     <string name="support_crypto_title">Крипто-донат (USDT / BTC)</string>
     <string name="support_crypto_desc">Децентрализованная помощь приватным офлайн-утилитам</string>
@@ -424,7 +424,7 @@
     <string name="recent_selected_count">Выбрано (%1$d/%2$d)</string>
     <string name="recent_search_hint">Поиск недавних PDF…</string>
     <string name="recent_no_match">Нет подходящих PDF: %1$s</string>
-    <string name="dialog_feature_processing_title">100% локальная обработка</string>
+    <string name="dialog_feature_processing_title" formatted="false">100% локальная обработка</string>
     <string name="dialog_feature_processing_desc">Все операции с PDF, поворот, разделение, сжатие и экспорт изображений выполняются локально.</string>
     <string name="dialog_feature_privacy_title">Никаких загрузок в облако</string>
     <string name="dialog_feature_privacy_desc">Ваши налоговые бланки, счета, договоры и личные файлы никогда не отправляются на сторонние серверы.</string>
@@ -485,8 +485,8 @@
     <string name="common_unknown">Неизвестно</string>
     <string name="common_none">Нет</string>
     <string name="brand_studio_badge">СТУДИЯ</string>
-    <string name="brand_offline_status">100% НА УСТРОЙСТВЕ • ОФЛАЙН</string>
-    <string name="brand_splash_tagline">100% НА УСТРОЙСТВЕ • БЕЗ ЗАГРУЗОК</string>
+    <string name="brand_offline_status" formatted="false">100% НА УСТРОЙСТВЕ • ОФЛАЙН</string>
+    <string name="brand_splash_tagline" formatted="false">100% НА УСТРОЙСТВЕ • БЕЗ ЗАГРУЗОК</string>
     <string name="cd_studio_logo">Логотип PDFCraft Studio</string>
     <string name="cd_privacy_info">Конфиденциальность и о приложении</string>
     <string name="cd_toggle_theme">Переключить светлую/тёмную тему</string>
@@ -519,10 +519,10 @@
     <string name="coachmark_step2_try">Попробовать разделение</string>
     <string name="coachmark_step3_badge">ИНСТРУМЕНТ 3 ИЗ 4 • ОПТИМИЗАТОР</string>
     <string name="coachmark_step3_title">Сжатие и уменьшение PDF</string>
-    <string name="coachmark_step3_summary">Уменьшайте большие PDF до 80% для почты, порталов или WhatsApp без потери чёткости.</string>
+    <string name="coachmark_step3_summary" formatted="false">Уменьшайте большие PDF до 80% для почты, порталов или WhatsApp без потери чёткости.</string>
     <string name="coachmark_step3_tip1">Выберите Макс. качество, Сбалансированный или Компактный профиль</string>
     <string name="coachmark_step3_tip2">При необходимости сжимайте несколько PDF пакетом сразу</string>
-    <string name="coachmark_step3_tip3">100% офлайн-обработка — документы не покидают устройство</string>
+    <string name="coachmark_step3_tip3" formatted="false">100% офлайн-обработка — документы не покидают устройство</string>
     <string name="coachmark_step3_try">Попробовать сжатие</string>
     <string name="coachmark_step4_badge">ИНСТРУМЕНТ 4 ИЗ 4 • БЫСТРАЯ ПРАВКА</string>
     <string name="coachmark_step4_title">Поворот, удаление и просмотр</string>
@@ -602,7 +602,7 @@
     <string name="compress_selected_files">Выбрано файлов (%1$d)</string>
     <string name="compress_batch_preset">Профиль пакетного сжатия</string>
     <string name="compress_empty_title">Оптимизация и извлечение</string>
-    <string name="compress_empty_desc">Сократите размер до 80% без облака или извлеките все изображения страниц в высоком разрешении локально.</string>
+    <string name="compress_empty_desc" formatted="false">Сократите размер до 80% без облака или извлеките все изображения страниц в высоком разрешении локально.</string>
     <string name="compress_input_preview">Предпросмотр документа</string>
     <string name="compress_choose_level">Выберите уровень сжатия</string>
     <string name="compress_est_impact">Оценка размера файла</string>
@@ -761,11 +761,11 @@
     <string name="recent_page_1_preview">Предпросмотр 1-й страницы PDF</string>
     <string name="recent_no_preview">Нет предпросмотра</string>
     <string name="recent_pages_and_size">%1$d стр. • %2$s</string>
-    <string name="support_card_tagline">100% Офлайн • Приватно • Инди-разработчик</string>
+    <string name="support_card_tagline" formatted="false">100% Офлайн • Приватно • Инди-разработчик</string>
     <string name="support_badge_optional">❤️ По желанию</string>
     <string name="support_badge_unlocked">РАЗБЛОКИРОВАНО</string>
     <string name="support_badge_active">АКТИВНО</string>
-    <string name="support_iap_disclosure">100% добровольный разовый донат через баланс Google Play, Google Pay или карту. Без подписок и списаний.</string>
+    <string name="support_iap_disclosure" formatted="false">100% добровольный разовый донат через баланс Google Play, Google Pay или карту. Без подписок и списаний.</string>
     <string name="support_confirm_title">Подтвердить поддержку в 1 клик</string>
     <string name="support_badge_one_time">Разово</string>
     <string name="support_send_amount">Отправить %1$s</string>
@@ -780,7 +780,7 @@
     <string name="billing_tip_snack_title">Кофе и круассан</string>
     <string name="billing_tip_snack_desc">Энергия на целый вечер новых функций</string>
     <string name="billing_tip_supporter_title">Супер-спонсор</string>
-    <string name="billing_tip_supporter_desc">Помогите оставить PDFCraft 100% офлайн и приватным</string>
+    <string name="billing_tip_supporter_desc" formatted="false">Помогите оставить PDFCraft 100% офлайн и приватным</string>
     <string name="billing_tip_hero_title">Спонсор-герой</string>
     <string name="billing_tip_hero_desc">Вечная благодарность и постоянный значок</string>
     <string name="billing_error_init">Не удалось запустить Google Play Billing</string>

@@ -11,7 +11,7 @@
     <string name="onboarding_skip">Bỏ qua</string>
     <string name="onboarding_next">Tiếp theo</string>
     <string name="onboarding_get_started">Bắt đầu</string>
-    <string name="onboarding_title_1">100% trên thiết bị &amp; Riêng tư</string>
+    <string name="onboarding_title_1" formatted="false">100% trên thiết bị &amp; Riêng tư</string>
     <string name="onboarding_desc_1">Xử lý, gộp, chia và nén tài liệu PDF trực tiếp trên thiết bị của bạn. Không tải lên đám mây, bảo mật tuyệt đối.</string>
     <string name="onboarding_title_2">Truy cập bộ nhớ cục bộ</string>
     <string name="onboarding_desc_2">Cấp quyền bộ nhớ để dễ dàng nhập tài liệu và lưu file PDF trực tiếp vào thư mục Tải về.</string>
@@ -81,7 +81,7 @@
     <string name="hub_metric_processed">ĐÃ XỬ LÝ</string>
     <string name="hub_metric_saved">TIẾT KIỆM</string>
     <string name="hub_metric_privacy">BẢO MẬT</string>
-    <string name="hub_privacy_value">100% Cục bộ</string>
+    <string name="hub_privacy_value" formatted="false">100% Cục bộ</string>
     <string name="hub_quick_actions">Thao tác nhanh</string>
     <string name="hub_view_all_tools">Xem tất cả 15 công cụ</string>
     <string name="hub_recent_activity">Tài liệu gần đây</string>
@@ -300,7 +300,7 @@
     <string name="nav_library">Thư viện</string>
     <string name="nav_settings">Cài đặt</string>
     <string name="support_dev_title">Ủng hộ nhà phát triển</string>
-    <string name="support_dev_subtitle">PDFCraft hoàn toàn miễn phí, ngoại tuyến và riêng tư không cần đăng ký. Nếu ứng dụng hữu ích với bạn, hãy ủng hộ một ly cà phê để tiếp tục phát triển!</string>
+    <string name="support_dev_subtitle" formatted="false">PDFCraft hoàn toàn miễn phí, ngoại tuyến và riêng tư không cần đăng ký. Nếu ứng dụng hữu ích với bạn, hãy ủng hộ một ly cà phê để tiếp tục phát triển!</string>
     <string name="support_coffee_small">Ủng hộ ly cà phê ($3)</string>
     <string name="support_coffee_medium">Ủng hộ bữa trưa ($5)</string>
     <string name="support_coffee_large">Siêu ủng hộ ($10)</string>
@@ -312,7 +312,7 @@
     <string name="support_hub_banner_subtitle">Ủng hộ phát triển PDF ngoại tuyến và riêng tư với một ly cà phê</string>
     <string name="support_thank_you">Cảm ơn bạn đã ủng hộ phát triển phần mềm độc lập!</string>
     <string name="rate_dialog_title">Hài lòng với PDFCraft?</string>
-    <string name="rate_dialog_desc">Đánh giá của bạn giúp PDFCraft duy trì 100% ngoại tuyến, riêng tư và đầy đủ tính năng cho mọi người!</string>
+    <string name="rate_dialog_desc" formatted="false">Đánh giá của bạn giúp PDFCraft duy trì 100% ngoại tuyến, riêng tư và đầy đủ tính năng cho mọi người!</string>
     <string name="rate_dialog_rate_5_stars">Đánh giá 5 sao trên Play Store</string>
     <string name="rate_dialog_submit">Gửi đánh giá</string>
     <string name="rate_dialog_maybe_later">Để sau</string>
@@ -320,7 +320,7 @@
     <string name="rate_feedback_thanks">Cảm ơn ý kiến đóng góp của bạn!</string>
     <string name="share_dialog_title">Chia sẻ PDFCraft với bạn bè</string>
     <string name="share_dialog_desc">Giúp đồng nghiệp và bạn bè dễ dàng gộp, tách, nén và khóa PDF ngoại tuyến!</string>
-    <string name="share_dialog_bullet_offline">Động cơ cục bộ 100% ngoại tuyến &amp; riêng tư</string>
+    <string name="share_dialog_bullet_offline" formatted="false">Động cơ cục bộ 100% ngoại tuyến &amp; riêng tư</string>
     <string name="share_dialog_bullet_tools">Gộp, tách, nén &amp; xoay PDF</string>
     <string name="share_dialog_bullet_security">Khóa mật khẩu &amp; trích xuất hình ảnh</string>
     <string name="share_dialog_share_button">Chia sẻ ứng dụng PDFCraft</string>
@@ -369,7 +369,7 @@
     <string name="settings_pref_subtitle">Tùy chỉnh trải nghiệm PDFCraft và cài đặt bảo mật của bạn</string>
     <string name="settings_theme_appearance">Giao diện chủ đề</string>
     <string name="settings_security_privacy">Bảo mật &amp; Quyền riêng tư</string>
-    <string name="settings_security_privacy_desc">Mọi thao tác PDF (Gộp, Tách, Nén, Mã hóa, Đóng dấu mờ, Ký tên) đều chạy 100% cục bộ trên thiết bị. Không có nội dung tài liệu nào bị tải lên máy chủ đám mây bên ngoài.</string>
+    <string name="settings_security_privacy_desc" formatted="false">Mọi thao tác PDF (Gộp, Tách, Nén, Mã hóa, Đóng dấu mờ, Ký tên) đều chạy 100% cục bộ trên thiết bị. Không có nội dung tài liệu nào bị tải lên máy chủ đám mây bên ngoài.</string>
     <string name="settings_cloud_sync_title">Đồng bộ hóa đám mây &amp; Tài khoản</string>
     <string name="settings_cloud_sync_signed_in">Đã đăng nhập với %1$s. Tùy chọn và lịch sử PDF của bạn có thể được đồng bộ an toàn.</string>
     <string name="settings_cloud_sync_signed_out">Đăng nhập bằng Email/Mật khẩu qua Firebase để đồng bộ hóa tùy chọn và lịch sử trên nhiều thiết bị.</string>
@@ -397,7 +397,7 @@
 
     <!-- Donation & Multi-Method Support Expansion -->
     <string name="support_hub_compact_title">Bạn thấy PDFCraft hữu ích? ☕</string>
-    <string name="support_hub_compact_subtitle">Chung tay giữ PDFCraft 100% offline &amp; bảo mật</string>
+    <string name="support_hub_compact_subtitle" formatted="false">Chung tay giữ PDFCraft 100% offline &amp; bảo mật</string>
     <string name="support_hub_btn_tip">Ủng hộ ☕</string>
     <string name="support_hub_dismiss">Đóng</string>
     <string name="support_tab_google_play">Google Play</string>
@@ -410,7 +410,7 @@
     <string name="support_tip_supporter">Super Supporter ($9.99) 🚀</string>
     <string name="support_tip_hero">Hero Supporter ($19.99) 👑</string>
     <string name="support_thank_you_title">Chân thành cảm ơn sự ủng hộ của bạn! ❤️</string>
-    <string name="support_thank_you_desc">Sự đóng góp của bạn giúp PDFCraft duy trì phát triển 100% miễn phí, offline và bảo mật tuyệt đối.</string>
+    <string name="support_thank_you_desc" formatted="false">Sự đóng góp của bạn giúp PDFCraft duy trì phát triển 100% miễn phí, offline và bảo mật tuyệt đối.</string>
     <string name="support_status_active">Người ủng hộ tích cực ⭐</string>
     <string name="support_crypto_title">Ủng hộ qua Crypto (USDT / BTC)</string>
     <string name="support_crypto_desc">Ủng hộ phi tập trung cho ứng dụng độc lập vì sự riêng tư</string>
@@ -424,7 +424,7 @@
     <string name="recent_selected_count">Đã chọn (%1$d/%2$d)</string>
     <string name="recent_search_hint">Tìm tệp PDF gần đây…</string>
     <string name="recent_no_match">Không có tệp PDF khớp: %1$s</string>
-    <string name="dialog_feature_processing_title">Xử lý 100% cục bộ trên thiết bị</string>
+    <string name="dialog_feature_processing_title" formatted="false">Xử lý 100% cục bộ trên thiết bị</string>
     <string name="dialog_feature_processing_desc">Mọi thao tác PDF, xoay trang, tách, nén và xuất hình ảnh đều thực thi cục bộ trên thiết bị của bạn.</string>
     <string name="dialog_feature_privacy_title">Không tải lên đám mây</string>
     <string name="dialog_feature_privacy_desc">Hồ sơ thuế, hóa đơn, hợp đồng và tài liệu cá nhân của bạn tuyệt đối không chạm tới bất kỳ máy chủ bên ngoài nào.</string>
@@ -485,8 +485,8 @@
     <string name="common_unknown">Không rõ</string>
     <string name="common_none">Không có</string>
     <string name="brand_studio_badge">STUDIO</string>
-    <string name="brand_offline_status">100% TRÊN THIẾT BỊ • NGOẠI TUYẾN</string>
-    <string name="brand_splash_tagline">100% TRÊN THIẾT BỊ • KHÔNG TẢI LÊN</string>
+    <string name="brand_offline_status" formatted="false">100% TRÊN THIẾT BỊ • NGOẠI TUYẾN</string>
+    <string name="brand_splash_tagline" formatted="false">100% TRÊN THIẾT BỊ • KHÔNG TẢI LÊN</string>
     <string name="cd_studio_logo">Logo PDFCraft Studio</string>
     <string name="cd_privacy_info">Quyền riêng tư &amp; Thông tin ứng dụng</string>
     <string name="cd_toggle_theme">Chuyển giao diện sáng/tối</string>
@@ -519,10 +519,10 @@
     <string name="coachmark_step2_try">Thử công cụ Tách</string>
     <string name="coachmark_step3_badge">CÔNG CỤ 3 / 4 • TỐI ƯU DUNG LƯỢNG</string>
     <string name="coachmark_step3_title">Nén &amp; Giảm dung lượng PDF</string>
-    <string name="coachmark_step3_summary">Giảm kích thước tệp PDF lớn tới 80% để gửi email hoặc nhắn tin mà vẫn rõ nét.</string>
+    <string name="coachmark_step3_summary" formatted="false">Giảm kích thước tệp PDF lớn tới 80% để gửi email hoặc nhắn tin mà vẫn rõ nét.</string>
     <string name="coachmark_step3_tip1">Chọn chế độ Chất lượng tối đa, Cân bằng hoặc Gọn nhẹ</string>
     <string name="coachmark_step3_tip2">Nén hàng loạt nhiều tệp PDF cùng lúc khi cần</string>
-    <string name="coachmark_step3_tip3">Xử lý 100% ngoại tuyến — tài liệu không bao giờ rời khỏi máy bạn</string>
+    <string name="coachmark_step3_tip3" formatted="false">Xử lý 100% ngoại tuyến — tài liệu không bao giờ rời khỏi máy bạn</string>
     <string name="coachmark_step3_try">Thử công cụ Nén</string>
     <string name="coachmark_step4_badge">CÔNG CỤ 4 / 4 • CHỈNH TRANG NHANH</string>
     <string name="coachmark_step4_title">Xoay, Xóa &amp; Xem trước trang</string>
@@ -602,7 +602,7 @@
     <string name="compress_selected_files">Tệp đã chọn (%1$d)</string>
     <string name="compress_batch_preset">Cấu hình nén hàng loạt</string>
     <string name="compress_empty_title">Tối ưu &amp; Trích xuất</string>
-    <string name="compress_empty_desc">Giảm dung lượng tới 80% không cần tải lên đám mây, hoặc trích xuất toàn bộ ảnh trang độ phân giải cao ngay trên máy.</string>
+    <string name="compress_empty_desc" formatted="false">Giảm dung lượng tới 80% không cần tải lên đám mây, hoặc trích xuất toàn bộ ảnh trang độ phân giải cao ngay trên máy.</string>
     <string name="compress_input_preview">Xem trước tài liệu đầu vào</string>
     <string name="compress_choose_level">Chọn mức độ nén</string>
     <string name="compress_est_impact">Mức giảm dung lượng ước tính</string>
@@ -761,11 +761,11 @@
     <string name="recent_page_1_preview">Xem trước trang 1 PDF</string>
     <string name="recent_no_preview">Không có bản xem trước</string>
     <string name="recent_pages_and_size">%1$d trang • %2$s</string>
-    <string name="support_card_tagline">100% Ngoại tuyến • Riêng tư • Nhà phát triển độc lập</string>
+    <string name="support_card_tagline" formatted="false">100% Ngoại tuyến • Riêng tư • Nhà phát triển độc lập</string>
     <string name="support_badge_optional">❤️ Tùy chọn</string>
     <string name="support_badge_unlocked">ĐÃ MỞ KHÓA</string>
     <string name="support_badge_active">ĐANG HOẠT ĐỘNG</string>
-    <string name="support_iap_disclosure">Ủng hộ một lần 100% tự nguyện qua số dư Google Play, Google Pay hoặc thẻ. Không gia hạn hay thu phí định kỳ.</string>
+    <string name="support_iap_disclosure" formatted="false">Ủng hộ một lần 100% tự nguyện qua số dư Google Play, Google Pay hoặc thẻ. Không gia hạn hay thu phí định kỳ.</string>
     <string name="support_confirm_title">Xác nhận ủng hộ 1 chạm</string>
     <string name="support_badge_one_time">Một lần</string>
     <string name="support_send_amount">Gửi %1$s</string>
@@ -780,7 +780,7 @@
     <string name="billing_tip_snack_title">Cà Phê &amp; Bánh Sừng Bò</string>
     <string name="billing_tip_snack_desc">Năng lượng cho một buổi chiều thêm tính năng mới</string>
     <string name="billing_tip_supporter_title">Siêu Người Ủng Hộ</string>
-    <string name="billing_tip_supporter_desc">Giúp PDFCraft luôn 100% ngoại tuyến &amp; riêng tư</string>
+    <string name="billing_tip_supporter_desc" formatted="false">Giúp PDFCraft luôn 100% ngoại tuyến &amp; riêng tư</string>
     <string name="billing_tip_hero_title">Người Ủng Hộ Anh Hùng</string>
     <string name="billing_tip_hero_desc">Lòng biết ơn mãi mãi &amp; huy hiệu vĩnh viễn</string>
     <string name="billing_error_init">Không thể khởi tạo Google Play Billing</string>
