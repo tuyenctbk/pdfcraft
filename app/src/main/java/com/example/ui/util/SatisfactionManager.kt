@@ -30,17 +30,28 @@ class SatisfactionManager private constructor(context: Context) {
         private const val KEY_IS_SUPPORTER = "pref_is_supporter"
         private const val KEY_BANNER_DISMISSED_TIME = "pref_donation_banner_dismissed_time"
         private const val KEY_LAST_AUTO_DONATION_PROMPT = "pref_last_auto_donation_prompt_time"
+        private const val KEY_AUTO_DONATION_PROMPT_COUNT = "pref_auto_donation_prompt_count"
 
-        // Thresholds
-        private const val MIN_OPERATIONS_FOR_BANNER = 3
-        private const val MIN_LAUNCHES_FOR_BANNER = 3
-        private const val MIN_DAYS_FOR_BANNER = 2
-        private const val BANNER_DISMISS_COOLDOWN_MS = 14L * 24L * 3600L * 1000L // 14 days
-        private const val MIN_OPERATIONS_FOR_AUTO_PROMPT = 7
-        private const val AUTO_PROMPT_COOLDOWN_MS = 30L * 24L * 3600L * 1000L // 30 days
+        // Calm, low-frequency thresholds so casual & new users are never nagged
+        private const val MIN_OPERATIONS_FOR_BANNER = 8
+        private const val MIN_LAUNCHES_FOR_BANNER = 5
+        private const val MIN_DAYS_FOR_BANNER = 5L
+        private const val BANNER_DISMISS_COOLDOWN_MS = 30L * 24L * 3600L * 1000L // 30 days
+        private const val MIN_OPERATIONS_FOR_AUTO_PROMPT = 20
+        private const val MIN_DAYS_FOR_AUTO_PROMPT = 14L
+        private const val MIN_LAUNCHES_FOR_AUTO_PROMPT = 6
+        private const val MAX_AUTO_DONATION_PROMPTS = 2
+        private const val AUTO_PROMPT_COOLDOWN_MS = 60L * 24L * 3600L * 1000L // 60 days
     }
 
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+
+    init {
+        // Record first install time before computing initial banner visibility
+        if (!prefs.contains(KEY_FIRST_INSTALL)) {
+            prefs.edit().putLong(KEY_FIRST_INSTALL, System.currentTimeMillis()).apply()
+        }
+    }
 
     private val _isSupporter = MutableStateFlow(prefs.getBoolean(KEY_IS_SUPPORTER, false))
     val isSupporter: StateFlow<Boolean> = _isSupporter.asStateFlow()
@@ -51,11 +62,15 @@ class SatisfactionManager private constructor(context: Context) {
     private val _showHomeDonationBanner = MutableStateFlow(computeShouldShowBanner())
     val showHomeDonationBanner: StateFlow<Boolean> = _showHomeDonationBanner.asStateFlow()
 
-    init {
-        // Record first install time if not already recorded
-        if (!prefs.contains(KEY_FIRST_INSTALL)) {
-            prefs.edit().putLong(KEY_FIRST_INSTALL, System.currentTimeMillis()).apply()
-        }
+    /**
+     * Returns true once the user has used the app for at least [minDays] days
+     * and [minLaunches] launches. Prevents auto-popups for brand-new users.
+     */
+    fun hasMinimumTenure(minDays: Long, minLaunches: Int): Boolean {
+        val installTime = prefs.getLong(KEY_FIRST_INSTALL, System.currentTimeMillis())
+        val daysSinceInstall = (System.currentTimeMillis() - installTime) / (24L * 3600L * 1000L)
+        val launches = prefs.getInt(KEY_APP_LAUNCH_COUNT, 0)
+        return daysSinceInstall >= minDays && launches >= minLaunches
     }
 
     /**
@@ -90,19 +105,15 @@ class SatisfactionManager private constructor(context: Context) {
             return false // Not enough successful operations yet
         }
 
-        val installTime = prefs.getLong(KEY_FIRST_INSTALL, System.currentTimeMillis())
-        val daysSinceInstall = (System.currentTimeMillis() - installTime) / (24L * 3600L * 1000L)
-        val launches = prefs.getInt(KEY_APP_LAUNCH_COUNT, 0)
-
-        if (daysSinceInstall < MIN_DAYS_FOR_BANNER && launches < MIN_LAUNCHES_FOR_BANNER) {
-            return false // Too new
+        if (!hasMinimumTenure(MIN_DAYS_FOR_BANNER, MIN_LAUNCHES_FOR_BANNER)) {
+            return false // Require both days since install and multiple launches
         }
 
         val dismissedTime = prefs.getLong(KEY_BANNER_DISMISSED_TIME, 0L)
         if (dismissedTime > 0L) {
             val elapsed = System.currentTimeMillis() - dismissedTime
             if (elapsed < BANNER_DISMISS_COOLDOWN_MS) {
-                return false // Respect user dismissal cooldown
+                return false // Respect user dismissal cooldown (30 days)
             }
         }
 
@@ -115,7 +126,7 @@ class SatisfactionManager private constructor(context: Context) {
 
     /**
      * User dismissed the home donation banner via 'X'.
-     * Silences it for at least 14 days.
+     * Silences it for at least 30 days.
      */
     fun dismissHomeBanner() {
         prefs.edit().putLong(KEY_BANNER_DISMISSED_TIME, System.currentTimeMillis()).apply()
@@ -124,23 +135,34 @@ class SatisfactionManager private constructor(context: Context) {
 
     /**
      * Checks if the app should auto-show a gentle donation suggestion dialog.
-     * Only true for power users who have completed 7+ operations and have not been prompted recently.
+     * Only true for long-term power users (20+ ops, 14+ days, 6+ launches, max 2 lifetime, 60-day cooldown).
      */
     fun shouldAutoShowDonationDialog(): Boolean {
         if (_isSupporter.value) return false
 
+        val shownCount = prefs.getInt(KEY_AUTO_DONATION_PROMPT_COUNT, 0)
+        if (shownCount >= MAX_AUTO_DONATION_PROMPTS) return false
+
         val ops = prefs.getInt(KEY_COMPLETED_OPS, 0)
         if (ops < MIN_OPERATIONS_FOR_AUTO_PROMPT) return false
 
+        if (!hasMinimumTenure(MIN_DAYS_FOR_AUTO_PROMPT, MIN_LAUNCHES_FOR_AUTO_PROMPT)) return false
+
         val lastPrompt = prefs.getLong(KEY_LAST_AUTO_DONATION_PROMPT, 0L)
-        val elapsed = System.currentTimeMillis() - lastPrompt
-        if (elapsed < AUTO_PROMPT_COOLDOWN_MS) return false
+        if (lastPrompt > 0L) {
+            val elapsed = System.currentTimeMillis() - lastPrompt
+            if (elapsed < AUTO_PROMPT_COOLDOWN_MS) return false
+        }
 
         return true
     }
 
     fun markAutoDonationPromptShown() {
-        prefs.edit().putLong(KEY_LAST_AUTO_DONATION_PROMPT, System.currentTimeMillis()).apply()
+        val currentCount = prefs.getInt(KEY_AUTO_DONATION_PROMPT_COUNT, 0)
+        prefs.edit()
+            .putLong(KEY_LAST_AUTO_DONATION_PROMPT, System.currentTimeMillis())
+            .putInt(KEY_AUTO_DONATION_PROMPT_COUNT, currentCount + 1)
+            .apply()
     }
 
     /**

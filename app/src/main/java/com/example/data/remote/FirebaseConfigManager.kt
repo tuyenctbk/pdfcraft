@@ -26,10 +26,10 @@ object FirebaseConfigManager {
     private val _interstitialAdUnitId = MutableStateFlow("")
     val interstitialAdUnitId: StateFlow<String> = _interstitialAdUnitId.asStateFlow()
 
-    private val _ratePromptThreshold = MutableStateFlow(3)
+    private val _ratePromptThreshold = MutableStateFlow(8)
     val ratePromptThreshold: StateFlow<Int> = _ratePromptThreshold.asStateFlow()
 
-    private val _sharePromptThreshold = MutableStateFlow(6)
+    private val _sharePromptThreshold = MutableStateFlow(16)
     val sharePromptThreshold: StateFlow<Int> = _sharePromptThreshold.asStateFlow()
 
     private val _appShareUrl = MutableStateFlow(
@@ -73,8 +73,8 @@ object FirebaseConfigManager {
 
                 val defaults = mapOf(
                     "is_admob_enabled" to false,
-                    "rate_prompt_operation_threshold" to 3,
-                    "share_prompt_operation_threshold" to 6,
+                    "rate_prompt_operation_threshold" to 8,
+                    "share_prompt_operation_threshold" to 16,
                     "app_share_url" to "https://play.google.com/store/apps/details?id=${com.example.BuildConfig.APPLICATION_ID}",
                     "banner_ad_unit_id" to "",
                     "interstitial_ad_unit_id" to "",

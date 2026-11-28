@@ -425,10 +425,17 @@ fun SettingsScreen(
                                         ViewGroup.LayoutParams.MATCH_PARENT,
                                         ViewGroup.LayoutParams.MATCH_PARENT
                                     )
+                                    settings.javaScriptEnabled = false
+                                    settings.allowFileAccess = false
+                                    settings.allowContentAccess = false
                                     webViewClient = WebViewClient()
                                     setBackgroundColor(0)
                                     loadUrl("file:///android_asset/privacy_policy.html")
                                 }
+                            },
+                            onRelease = { webView ->
+                                webView.stopLoading()
+                                webView.destroy()
                             },
                             modifier = Modifier.fillMaxSize()
                         )

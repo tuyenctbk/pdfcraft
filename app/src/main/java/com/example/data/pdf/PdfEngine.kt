@@ -238,6 +238,57 @@ object PdfEngine {
     }
 
     /**
+     * Renders up to [maxPages] page thumbnails from a single [PdfRenderer] session to avoid
+     * repeatedly reopening the PDF file descriptor in loops.
+     */
+    suspend fun renderPageThumbnailsBatch(
+        context: Context,
+        file: File,
+        maxPages: Int = 60,
+        targetWidthDp: Int = 180
+    ): Map<Int, Bitmap> = withContext(Dispatchers.IO) {
+        if (!file.exists() || maxPages <= 0) return@withContext emptyMap()
+        val result = LinkedHashMap<Int, Bitmap>()
+        var pfd: ParcelFileDescriptor? = null
+        var renderer: PdfRenderer? = null
+        try {
+            pfd = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
+            renderer = PdfRenderer(pfd)
+            val total = renderer.pageCount.coerceAtMost(maxPages)
+            val density = context.resources.displayMetrics.density
+            val baseWidthPx = (targetWidthDp * density).toInt().coerceAtLeast(80)
+            val targetWidthPx = if (total > 30) (baseWidthPx * 0.75f).toInt().coerceAtLeast(80) else baseWidthPx
+
+            for (pageIndex in 0 until total) {
+                var page: PdfRenderer.Page? = null
+                try {
+                    page = renderer.openPage(pageIndex)
+                    val pw = page.width.coerceAtLeast(1)
+                    val ph = page.height.coerceAtLeast(1)
+                    val aspectRatio = (ph.toFloat() / pw.toFloat()).coerceIn(0.25f, 4.0f)
+                    val targetHeightPx = (targetWidthPx * aspectRatio).toInt().coerceIn(60, 1000)
+
+                    val bitmap = Bitmap.createBitmap(targetWidthPx, targetHeightPx, Bitmap.Config.ARGB_8888)
+                    val canvas = Canvas(bitmap)
+                    canvas.drawColor(Color.WHITE)
+                    page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+                    result[pageIndex] = bitmap
+                } catch (e: Throwable) {
+                    Log.w(TAG, "Skipping thumbnail for page $pageIndex: ${e.localizedMessage}")
+                } finally {
+                    try { page?.close() } catch (_: Throwable) {}
+                }
+            }
+        } catch (e: Throwable) {
+            Log.e(TAG, "Error rendering batch thumbnails", e)
+        } finally {
+            try { renderer?.close() } catch (_: Throwable) {}
+            try { pfd?.close() } catch (_: Throwable) {}
+        }
+        result
+    }
+
+    /**
      * Copies an Image Uri content stream to a temporary local cache file.
      */
     suspend fun getLocalImageFileFromUri(context: Context, uri: Uri): File = withContext(Dispatchers.IO) {
@@ -491,7 +542,8 @@ object PdfEngine {
                             targetH = (targetH * clampScale).toInt().coerceAtLeast(100)
                         }
 
-                        bitmap = Bitmap.createBitmap(targetW, targetH, Bitmap.Config.RGB_565)
+                        // PdfRenderer.Page.render strictly requires ARGB_8888 on Android devices
+                        bitmap = Bitmap.createBitmap(targetW, targetH, Bitmap.Config.ARGB_8888)
                         val canvas = Canvas(bitmap)
                         canvas.drawColor(Color.WHITE)
                         page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
@@ -1121,7 +1173,7 @@ object PdfEngine {
         if (options.type == WatermarkType.IMAGE && options.imageUri != null) {
             try {
                 val imgFile = getLocalImageFileFromUri(context, options.imageUri)
-                rawBitmap = decodeScaledOrientedBitmap(imgFile, maxDimension = 1600)
+                rawBitmap = decodeScaledOrientedBitmap(imgFile, maxDimension = 1600, preserveAlpha = true)
                     ?: context.contentResolver.openInputStream(options.imageUri)?.use { android.graphics.BitmapFactory.decodeStream(it) }
                 if (rawBitmap != null) {
                     pdImage = com.tom_roush.pdfbox.pdmodel.graphics.image.LosslessFactory.createFromImage(doc, rawBitmap)
@@ -1684,7 +1736,11 @@ object PdfEngine {
     /**
      * Decodes a local image file safely within maxDimension and applies EXIF orientation to prevent OOM and rotated photos.
      */
-    private fun decodeScaledOrientedBitmap(file: File, maxDimension: Int): Bitmap? {
+    private fun decodeScaledOrientedBitmap(
+        file: File,
+        maxDimension: Int,
+        preserveAlpha: Boolean = false
+    ): Bitmap? {
         val boundsOpts = android.graphics.BitmapFactory.Options().apply { inJustDecodeBounds = true }
         android.graphics.BitmapFactory.decodeFile(file.absolutePath, boundsOpts)
         if (boundsOpts.outWidth <= 0 || boundsOpts.outHeight <= 0) return null
@@ -1696,7 +1752,7 @@ object PdfEngine {
 
         val decodeOpts = android.graphics.BitmapFactory.Options().apply {
             inSampleSize = sampleSize
-            inPreferredConfig = Bitmap.Config.RGB_565
+            inPreferredConfig = if (preserveAlpha) Bitmap.Config.ARGB_8888 else Bitmap.Config.RGB_565
         }
         val decoded = android.graphics.BitmapFactory.decodeFile(file.absolutePath, decodeOpts) ?: return null
 

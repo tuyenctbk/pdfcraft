@@ -39,6 +39,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.R
 import com.example.data.pdf.PdfEngine
 import com.example.ui.MainViewModel
@@ -56,15 +57,15 @@ fun RotateScreen(
 ) {
     val context = LocalContext.current
 
-    val rotateSourceUri by viewModel.rotateSourceUri.collectAsState()
-    val rotateSourceFile by viewModel.rotateSourceFile.collectAsState()
-    val pageCount by viewModel.rotatePageCount.collectAsState()
-    val selectedPages by viewModel.rotateSelectedPages.collectAsState()
-    val pageRotations by viewModel.rotatePageRotations.collectAsState()
-    val deletedPages by viewModel.rotateDeletedPages.collectAsState()
-    val outputName by viewModel.rotateOutputName.collectAsState()
-    val isProcessing by viewModel.isProcessing.collectAsState()
-    val processingMessage by viewModel.processingMessage.collectAsState()
+    val rotateSourceUri by viewModel.rotateSourceUri.collectAsStateWithLifecycle()
+    val rotateSourceFile by viewModel.rotateSourceFile.collectAsStateWithLifecycle()
+    val pageCount by viewModel.rotatePageCount.collectAsStateWithLifecycle()
+    val selectedPages by viewModel.rotateSelectedPages.collectAsStateWithLifecycle()
+    val pageRotations by viewModel.rotatePageRotations.collectAsStateWithLifecycle()
+    val deletedPages by viewModel.rotateDeletedPages.collectAsStateWithLifecycle()
+    val outputName by viewModel.rotateOutputName.collectAsStateWithLifecycle()
+    val isProcessing by viewModel.isProcessing.collectAsStateWithLifecycle()
+    val processingMessage by viewModel.processingMessage.collectAsStateWithLifecycle()
 
     val filePickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument()
@@ -78,7 +79,7 @@ fun RotateScreen(
     var previewInitialPage by remember { mutableIntStateOf(0) }
     var previewStartInGrid by remember { mutableStateOf(true) }
 
-    // Cache thumbnails for page grid display using a single PdfRenderer session (capped & RGB_565 to prevent OOM)
+    // Cache thumbnails for page grid display using a single PdfRenderer session (capped to prevent OOM; ARGB_8888 required by PdfRenderer)
     var pageThumbnails by remember(rotateSourceFile, pageCount) {
         mutableStateOf<Map<Int, Bitmap>>(emptyMap())
     }
@@ -106,7 +107,7 @@ fun RotateScreen(
                         val pw = page.width.coerceAtLeast(1)
                         val ph = page.height.coerceAtLeast(1)
                         val targetHeightPx = (targetWidthPx * (ph.toFloat() / pw.toFloat())).toInt().coerceIn(80, 1000)
-                        val bmp = Bitmap.createBitmap(targetWidthPx, targetHeightPx, Bitmap.Config.RGB_565)
+                        val bmp = Bitmap.createBitmap(targetWidthPx, targetHeightPx, Bitmap.Config.ARGB_8888)
                         val canvas = android.graphics.Canvas(bmp)
                         canvas.drawColor(android.graphics.Color.WHITE)
                         page.render(bmp, null, null, android.graphics.pdf.PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)

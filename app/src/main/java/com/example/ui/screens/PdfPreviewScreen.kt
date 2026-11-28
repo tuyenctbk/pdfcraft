@@ -120,6 +120,8 @@ class PdfRendererController(val file: File) {
 
     fun getCachedThumbnail(pageIndex: Int): Bitmap? = thumbnailCache.get(pageIndex)
 
+    fun getCachedHighRes(pageIndex: Int, targetWidthPx: Int): Bitmap? = highResCache.get("$pageIndex@$targetWidthPx")
+
     fun getCachedDimension(pageIndex: Int): PdfPageDimension? = pageDimensions[pageIndex]
 
     suspend fun renderPage(
@@ -179,6 +181,8 @@ class PdfRendererController(val file: File) {
         mutex.withLock {
             if (isClosed) return@withLock
             isClosed = true
+            thumbnailCache.evictAll()
+            highResCache.evictAll()
             try {
                 renderer?.close()
             } catch (_: Throwable) {}

@@ -45,8 +45,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
@@ -69,16 +69,6 @@ fun AppTopBar(
     modifier: Modifier = Modifier
 ) {
     val isDark = LocalIsDarkTheme.current
-    val pulseTransition = rememberInfiniteTransition(label = "offlineDotPulse")
-    val dotAlpha by pulseTransition.animateFloat(
-        initialValue = 0.45f,
-        targetValue = 1f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(1400, easing = FastOutSlowInEasing),
-            repeatMode = RepeatMode.Reverse
-        ),
-        label = "offlineDotAlpha"
-    )
 
     Surface(
         color = MaterialTheme.colorScheme.surface,
@@ -143,13 +133,7 @@ fun AppTopBar(
                                 }
                             }
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(6.dp)
-                                        .alpha(dotAlpha)
-                                        .clip(CircleShape)
-                                        .background(MaterialTheme.colorScheme.primary)
-                                )
+                                OfflineStatusDot()
                                 Spacer(modifier = Modifier.width(5.dp))
                                 Text(
                                     text = stringResource(R.string.brand_offline_status),
@@ -202,4 +186,25 @@ fun AppTopBar(
             )
         }
     }
+}
+
+@Composable
+private fun OfflineStatusDot() {
+    val pulseTransition = rememberInfiniteTransition(label = "offlineDotPulse")
+    val dotAlpha by pulseTransition.animateFloat(
+        initialValue = 0.5f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1800, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "offlineDotAlpha"
+    )
+    Box(
+        modifier = Modifier
+            .size(6.dp)
+            .graphicsLayer { alpha = dotAlpha }
+            .clip(CircleShape)
+            .background(MaterialTheme.colorScheme.primary)
+    )
 }

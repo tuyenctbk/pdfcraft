@@ -79,10 +79,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     )
     val isOnboardingCompleted: StateFlow<Boolean> = _isOnboardingCompleted.asStateFlow()
 
-    // First-Launch Interactive Tool Coachmark Overlay State
-    private val _showToolCoachmark = MutableStateFlow(
-        !prefs.getBoolean("pref_tool_coachmark_completed", false)
-    )
+    // Interactive Tool Coachmark Overlay State (opt-in via Hub guide button or Settings — never auto-pops)
+    private val _showToolCoachmark = MutableStateFlow(false)
     val showToolCoachmark: StateFlow<Boolean> = _showToolCoachmark.asStateFlow()
 
     fun completeToolCoachmark() {
@@ -102,10 +100,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun resetOnboardingForTesting() {
         prefs.edit()
             .putBoolean("pref_onboarding_completed", false)
-            .putBoolean("pref_tool_coachmark_completed", false)
             .apply()
         _isOnboardingCompleted.value = false
-        _showToolCoachmark.value = true
+        _showToolCoachmark.value = false
     }
 
     // Polite Ad Dialog state after PDF actions
@@ -167,7 +164,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _showUpdateDialog = MutableStateFlow(false)
     val showUpdateDialog: StateFlow<Boolean> = _showUpdateDialog.asStateFlow()
 
+    private enum class PendingEngagementPrompt {
+        RATE,
+        SHARE,
+        DONATION,
+        POLITE_AD
+    }
+
     private var sessionPromptShown = false
+    private var pendingEngagementPrompt: PendingEngagementPrompt? = null
 
     // Storage Management (Clear Temp Files Utility)
     private val _tempFilesSize = MutableStateFlow("0 B")
@@ -177,7 +182,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch(Dispatchers.IO) {
             val context = getApplication<android.app.Application>()
             var sizeBytes = 0L
-            val dirs = listOf("imported_pdfs", "imported_images", "preview_watermark")
+            val dirs = listOf("imported_pdfs", "imported_images", "preview_watermark", "scanned_embedded_images")
             dirs.forEach { dirName ->
                 val dir = File(context.cacheDir, dirName)
                 if (dir.exists()) {
@@ -209,7 +214,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun clearTempFiles() {
         viewModelScope.launch(Dispatchers.IO) {
             val context = getApplication<android.app.Application>()
-            val dirs = listOf("imported_pdfs", "imported_images", "preview_watermark")
+            val dirs = listOf("imported_pdfs", "imported_images", "preview_watermark", "scanned_embedded_images")
             dirs.forEach { dirName ->
                 val dir = File(context.cacheDir, dirName)
                 if (dir.exists()) {
@@ -236,13 +241,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     companion object {
-        private const val MIN_ENGAGEMENT_INTERVAL_MS = 3 * 24 * 60 * 60 * 1000L // 72 hours minimum interval
+        private const val MIN_ENGAGEMENT_INTERVAL_MS = 14L * 24 * 60 * 60 * 1000L // 14 days minimum between any auto-prompts
+        private const val MIN_DAYS_BEFORE_AUTO_PROMPTS = 3L
+        private const val MIN_LAUNCHES_BEFORE_AUTO_PROMPTS = 3
+        private const val MIN_RATE_PROMPT_THRESHOLD = 8
+        private const val MIN_SHARE_PROMPT_THRESHOLD = 16
         private const val MAX_RATE_PROMPT_COUNT = 2
-        private const val MAX_SHARE_PROMPT_COUNT = 2
+        private const val MAX_SHARE_PROMPT_COUNT = 1
+        private const val POLITE_AD_OPERATION_INTERVAL = 12
     }
 
     fun checkForUpdateSuggestion() {
         if (sessionPromptShown) return
+        if (!_isOnboardingCompleted.value || _activeTool.value != null || _activeViewerFile.value != null) return
         val latestCode = FirebaseConfigManager.latestVersionCode.value
         val currentCode = com.example.BuildConfig.VERSION_CODE
         val skippedCode = prefs.getInt("pref_skipped_update_version_code", 0)
@@ -287,7 +298,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun onPdfOperationCompleted(operationName: String) {
+    fun onPdfOperationCompleted(operationName: String, deferPrompt: Boolean = false) {
         val count = prefs.getInt("pref_completed_operations_count", 0) + 1
         prefs.edit().putInt("pref_completed_operations_count", count).apply()
         _completedOperationCount.value = count
@@ -298,56 +309,87 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             mapOf("operation" to operationName, "total_count" to count)
         )
 
-        if (sessionPromptShown) {
+        if (sessionPromptShown || pendingEngagementPrompt != null) {
             return
         }
 
         val now = System.currentTimeMillis()
         val lastPromptTime = prefs.getLong("pref_last_prompt_timestamp", 0L)
         val cooldownPassed = (now - lastPromptTime) >= MIN_ENGAGEMENT_INTERVAL_MS
+        val hasTenure = satisfactionManager.hasMinimumTenure(
+            minDays = MIN_DAYS_BEFORE_AUTO_PROMPTS,
+            minLaunches = MIN_LAUNCHES_BEFORE_AUTO_PROMPTS
+        )
 
-        val hasRated = prefs.getBoolean("pref_has_rated_app", false)
-        val rateCount = prefs.getInt("pref_rate_prompt_shown_count", 0)
-        val rateThreshold = FirebaseConfigManager.ratePromptThreshold.value.coerceAtLeast(3)
+        val candidatePrompt: PendingEngagementPrompt? = when {
+            !hasTenure || !cooldownPassed -> null
+            else -> {
+                val hasRated = prefs.getBoolean("pref_has_rated_app", false)
+                val rateCount = prefs.getInt("pref_rate_prompt_shown_count", 0)
+                val rateThreshold = FirebaseConfigManager.ratePromptThreshold.value.coerceAtLeast(MIN_RATE_PROMPT_THRESHOLD)
 
-        val hasShared = prefs.getBoolean("pref_has_shared_app", false)
-        val shareCount = prefs.getInt("pref_share_prompt_shown_count", 0)
-        val shareThreshold = FirebaseConfigManager.sharePromptThreshold.value.coerceAtLeast(6)
+                val hasShared = prefs.getBoolean("pref_has_shared_app", false)
+                val shareCount = prefs.getInt("pref_share_prompt_shown_count", 0)
+                val shareThreshold = FirebaseConfigManager.sharePromptThreshold.value.coerceAtLeast(MIN_SHARE_PROMPT_THRESHOLD)
 
-        // Priority 1: Rating (User has completed >= 3 operations and hasn't rated yet, and prompt count < 2)
-        if (!hasRated && count >= rateThreshold && rateCount < MAX_RATE_PROMPT_COUNT && cooldownPassed) {
-            sessionPromptShown = true
-            prefs.edit()
-                .putLong("pref_last_prompt_timestamp", now)
-                .putInt("pref_rate_prompt_shown_count", rateCount + 1)
-                .apply()
-            _showRateDialog.value = true
-            return
+                when {
+                    // Priority 1: Rating (8+ ops, 3+ days, 3+ launches, max 2 lifetime, 14+ day spacing)
+                    !hasRated && count >= rateThreshold && rateCount < MAX_RATE_PROMPT_COUNT ->
+                        PendingEngagementPrompt.RATE
+                    // Priority 2: Share (16+ ops, max 1 lifetime, 14+ day spacing)
+                    !hasShared && count >= shareThreshold && shareCount < MAX_SHARE_PROMPT_COUNT ->
+                        PendingEngagementPrompt.SHARE
+                    // Priority 3: Rare voluntary support suggestion (20+ ops, 14+ days, 6+ launches, max 2 lifetime, 60-day cooldown)
+                    satisfactionManager.shouldAutoShowDonationDialog() ->
+                        PendingEngagementPrompt.DONATION
+                    // Fallback: Polite Ad dialog if explicitly enabled remotely (never for supporters, max 1 per session)
+                    FirebaseConfigManager.isAdMobEnabled.value && !isSupporter.value && count % POLITE_AD_OPERATION_INTERVAL == 0 ->
+                        PendingEngagementPrompt.POLITE_AD
+                    else -> null
+                }
+            }
         }
 
-        // Priority 2: Share (User has completed >= 6 operations, distinct threshold from rate, and prompt count < 2)
-        if (!hasShared && count >= shareThreshold && shareCount < MAX_SHARE_PROMPT_COUNT && cooldownPassed) {
-            sessionPromptShown = true
-            prefs.edit()
-                .putLong("pref_last_prompt_timestamp", now)
-                .putInt("pref_share_prompt_shown_count", shareCount + 1)
-                .apply()
-            _showShareDialog.value = true
-            return
+        if (candidatePrompt != null) {
+            if (deferPrompt) {
+                pendingEngagementPrompt = candidatePrompt
+            } else {
+                showEngagementPrompt(candidatePrompt)
+            }
         }
+    }
 
-        // Priority 3: Rare voluntary support suggestion (Only for power users who are satisfied and have completed >= 7 operations)
-        if (satisfactionManager.shouldAutoShowDonationDialog() && cooldownPassed) {
-            sessionPromptShown = true
-            satisfactionManager.markAutoDonationPromptShown()
-            prefs.edit().putLong("pref_last_prompt_timestamp", now).apply()
-            _showDonationDialog.value = true
-            return
-        }
-
-        // Fallback: Polite Ad dialog if AdMob is explicitly enabled via Remote Config
-        if (FirebaseConfigManager.isAdMobEnabled.value && count % 5 == 0) {
-            _showPoliteAdDialog.value = true
+    private fun showEngagementPrompt(prompt: PendingEngagementPrompt) {
+        if (sessionPromptShown) return
+        val now = System.currentTimeMillis()
+        sessionPromptShown = true
+        when (prompt) {
+            PendingEngagementPrompt.RATE -> {
+                val rateCount = prefs.getInt("pref_rate_prompt_shown_count", 0)
+                prefs.edit()
+                    .putLong("pref_last_prompt_timestamp", now)
+                    .putInt("pref_rate_prompt_shown_count", rateCount + 1)
+                    .apply()
+                _showRateDialog.value = true
+            }
+            PendingEngagementPrompt.SHARE -> {
+                val shareCount = prefs.getInt("pref_share_prompt_shown_count", 0)
+                prefs.edit()
+                    .putLong("pref_last_prompt_timestamp", now)
+                    .putInt("pref_share_prompt_shown_count", shareCount + 1)
+                    .apply()
+                _showShareDialog.value = true
+            }
+            PendingEngagementPrompt.DONATION -> {
+                satisfactionManager.markAutoDonationPromptShown()
+                prefs.edit().putLong("pref_last_prompt_timestamp", now).apply()
+                _showDonationDialog.value = true
+            }
+            PendingEngagementPrompt.POLITE_AD -> {
+                if (!isSupporter.value && FirebaseConfigManager.isAdMobEnabled.value) {
+                    _showPoliteAdDialog.value = true
+                }
+            }
         }
     }
 
@@ -552,9 +594,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _lastCompletedOperationSummary = MutableStateFlow("")
     val lastCompletedOperationSummary: StateFlow<String> = _lastCompletedOperationSummary.asStateFlow()
 
-    fun dismissCompletedOutputFileDialog() {
+    fun dismissCompletedOutputFileDialog(surfacePendingPrompt: Boolean = true) {
         _lastCompletedOutputFile.value = null
         _lastCompletedOperationSummary.value = ""
+        val queued = pendingEngagementPrompt
+        pendingEngagementPrompt = null
+        if (surfacePendingPrompt && queued != null && _activeViewerFile.value == null) {
+            showEngagementPrompt(queued)
+        }
     }
 
     private suspend fun publishCompletedPdfOutput(outputFile: File, operationName: String, summary: String) {
@@ -562,8 +609,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         PdfEngine.savePdfToDownloads(getApplication(), outputFile)
         _lastCompletedOutputFile.value = outputFile
         _lastCompletedOperationSummary.value = summary
-        _userMessage.value = summary
-        onPdfOperationCompleted(operationName)
+        onPdfOperationCompleted(operationName, deferPrompt = true)
     }
 
     fun saveFileToDownloadsExplicitly(context: Context, pdfFile: File) {
@@ -644,31 +690,32 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _isProcessing.value = true
             _processingMessage.value = "Renaming ${projectIds.size} files..."
             try {
-                var renamedCount = 0
                 val allProjects = historyState.value
                 val targetProjects = allProjects.filter { it.id in projectIds }
+                val dateStamp = java.text.SimpleDateFormat("yyyyMMdd", java.util.Locale.getDefault()).format(java.util.Date())
+                val hasNumberPlaceholder = patternOrPrefix.contains("{N}")
 
-                targetProjects.forEachIndexed { index, project ->
-                    val oldFilePath = project.outputFilePath
-                    val oldFile = File(oldFilePath)
-                    val ext = if (oldFile.extension.isNotBlank()) oldFile.extension else "pdf"
-                    val dateFormat = java.text.SimpleDateFormat("yyyyMMdd", java.util.Locale.getDefault())
-                    val dateStamp = dateFormat.format(java.util.Date())
-                    val hasNumberPlaceholder = patternOrPrefix.contains("{N}")
-                    var resolved = patternOrPrefix
-                        .replace("{DATE}", dateStamp)
-                        .replace("{N}", (index + 1).toString())
-                    if (!hasNumberPlaceholder && targetProjects.size > 1) {
-                        resolved = "${resolved}_${index + 1}"
+                val renamedCount = withContext(Dispatchers.IO) {
+                    var count = 0
+                    targetProjects.forEachIndexed { index, project ->
+                        val oldFilePath = project.outputFilePath
+                        val oldFile = File(oldFilePath)
+                        val ext = if (oldFile.extension.isNotBlank()) oldFile.extension else "pdf"
+                        var resolved = patternOrPrefix
+                            .replace("{DATE}", dateStamp)
+                            .replace("{N}", (index + 1).toString())
+                        if (!hasNumberPlaceholder && targetProjects.size > 1) {
+                            resolved = "${resolved}_${index + 1}"
+                        }
+                        val newTitleRaw = resolved.ifBlank { "Document_${index + 1}" }
+                        val newFileName = if (newTitleRaw.endsWith(".$ext", ignoreCase = true)) newTitleRaw else "$newTitleRaw.$ext"
+
+                        if (oldFile.exists()) {
+                            val resultPath = repository.renameProjectFile(project.id, oldFilePath, newFileName)
+                            if (resultPath != null) count++
+                        }
                     }
-                    val newTitleRaw = resolved.ifBlank { "Document_${index + 1}" }
-
-                    val newFileName = if (newTitleRaw.endsWith(".$ext", ignoreCase = true)) newTitleRaw else "$newTitleRaw.$ext"
-
-                    if (oldFile.exists()) {
-                        val resultPath = repository.renameProjectFile(project.id, oldFilePath, newFileName)
-                        if (resultPath != null) renamedCount++
-                    }
+                    count
                 }
                 _selectedLibraryProjectIds.value = emptySet()
                 _isLibraryMultiSelectMode.value = false
@@ -826,9 +873,20 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         }
                     } else {
                         val file = PdfEngine.convertAnyFileToPdf(getApplication(), uri)
-                        val pageCount = readPageCountSafely(file)
+                        val pageCount = PdfEngine.getPageCount(file)
 
                         val maxEagerThumbnails = 60
+                        val remainingSlots = (maxEagerThumbnails - newThumbnails.size).coerceAtLeast(0)
+                        val renderedBatch = if (remainingSlots > 0 && pageCount > 0) {
+                            PdfEngine.renderPageThumbnailsBatch(
+                                context = getApplication(),
+                                file = file,
+                                maxPages = minOf(pageCount, remainingSlots)
+                            )
+                        } else {
+                            emptyMap()
+                        }
+
                         for (i in 0 until pageCount) {
                             val itemId = java.util.UUID.randomUUID().toString()
                             val pageItem = PdfPageSourceItem(
@@ -839,12 +897,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                             )
                             newPages.add(pageItem)
 
-                            // Cap eager in-memory thumbnail bitmaps to prevent OOM on 100+ page PDFs
-                            if (newThumbnails.size < maxEagerThumbnails) {
-                                val bmp = repository.renderThumbnail(getApplication(), file, i)
-                                if (bmp != null) {
-                                    newThumbnails[itemId] = bmp
-                                }
+                            renderedBatch[i]?.let { bmp ->
+                                newThumbnails[itemId] = bmp
                             }
                         }
                     }
@@ -940,10 +994,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _isProcessing.value = true
             _processingMessage.value = "Merging ${pages.size} pages locally..."
             try {
-                var totalOriginalBytes = 0L
-                pages.map { it.sourceUri }.distinct().forEach { uri ->
-                    val file = PdfEngine.getLocalFileFromUri(getApplication(), uri)
-                    totalOriginalBytes += file.length()
+                val totalOriginalBytes = withContext(Dispatchers.IO) {
+                    pages.map { it.sourceUri }.distinct().sumOf { uri ->
+                        PdfEngine.getLocalFileFromUri(getApplication(), uri).length()
+                    }
                 }
 
                 val outputFile = repository.mergePages(
@@ -1115,8 +1169,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                                 page = renderer.openPage(i)
                                 val pw = page.width.coerceAtLeast(1)
                                 val ph = page.height.coerceAtLeast(1)
-                                val targetHeightPx = (adaptiveWidthPx * (ph.toFloat() / pw.toFloat())).toInt().coerceAtLeast(100)
-                                val bmp = Bitmap.createBitmap(adaptiveWidthPx, targetHeightPx, Bitmap.Config.RGB_565)
+                                val targetHeightPx = (adaptiveWidthPx * (ph.toFloat() / pw.toFloat())).toInt().coerceIn(80, 1000)
+                                val bmp = Bitmap.createBitmap(adaptiveWidthPx, targetHeightPx, Bitmap.Config.ARGB_8888)
                                 val canvas = android.graphics.Canvas(bmp)
                                 canvas.drawColor(android.graphics.Color.WHITE)
                                 page.render(bmp, null, null, android.graphics.pdf.PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
@@ -1309,12 +1363,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     )
                     outputFiles.forEach { PdfEngine.savePdfToDownloads(getApplication(), it) }
                     val firstOut = outputFiles.firstOrNull()
+                    val summary = "Created ${outputFiles.size} separate PDF files in Downloads/PDFCraft!"
                     if (firstOut != null) {
                         _lastCompletedOutputFile.value = firstOut
-                        _lastCompletedOperationSummary.value = "Created ${outputFiles.size} separate PDF files in Downloads/PDFCraft!"
+                        _lastCompletedOperationSummary.value = summary
+                    } else {
+                        _userMessage.value = summary
                     }
-                    _userMessage.value = "Created ${outputFiles.size} separate PDF files in Downloads/PDFCraft!"
-                    onPdfOperationCompleted("split")
+                    onPdfOperationCompleted("split", deferPrompt = firstOut != null)
                 }
             } catch (e: Exception) {
                 _userMessage.value = "Split failed: ${e.localizedMessage}"
@@ -1422,8 +1478,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     val summary = "Batch compressed $successCount/${items.size} PDFs (saved $savedFormatted) • Saved to Downloads/PDFCraft"
                     _lastCompletedOutputFile.value = lastOutputFile
                     _lastCompletedOperationSummary.value = summary
-                    _userMessage.value = summary
-                    onPdfOperationCompleted("batch_compress")
+                    if (lastOutputFile == null) {
+                        _userMessage.value = summary
+                    }
+                    onPdfOperationCompleted("batch_compress", deferPrompt = lastOutputFile != null)
                 } else {
                     _userMessage.value = "Batch compression could not process the selected files."
                 }
@@ -2781,23 +2839,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    private suspend fun readPageCountSafely(file: File): Int = withContext(Dispatchers.IO) {
-        var pfd: android.os.ParcelFileDescriptor? = null
-        var renderer: android.graphics.pdf.PdfRenderer? = null
-        try {
-            pfd = android.os.ParcelFileDescriptor.open(file, android.os.ParcelFileDescriptor.MODE_READ_ONLY)
-            renderer = android.graphics.pdf.PdfRenderer(pfd)
-            renderer.pageCount
-        } catch (_: Exception) {
-            try {
-                com.tom_roush.pdfbox.pdmodel.PDDocument.load(file).use { it.numberOfPages }
-            } catch (_: Exception) {
-                0
-            }
-        } finally {
-            try { renderer?.close() } catch (_: Throwable) {}
-            try { pfd?.close() } catch (_: Throwable) {}
-        }
-    }
+    private suspend fun readPageCountSafely(file: File): Int = PdfEngine.getPageCount(file)
 }
 

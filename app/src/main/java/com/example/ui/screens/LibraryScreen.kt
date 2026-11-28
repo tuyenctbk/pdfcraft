@@ -165,6 +165,7 @@ fun LibraryScreen(
     val totalSavedBytes = remember(historyList) {
         historyList.sumOf { (it.originalSizeBytes - it.resultSizeBytes).coerceAtLeast(0) }
     }
+    val dateFormatter = remember { SimpleDateFormat("MMM dd, yyyy • HH:mm", Locale.getDefault()) }
 
     BoxWithConstraints(
         modifier = modifier
@@ -614,8 +615,11 @@ fun LibraryScreen(
                                     maxLines = 1,
                                     overflow = TextOverflow.Ellipsis
                                 )
+                                val formattedDate = remember(item.timestamp) {
+                                    dateFormatter.format(Date(item.timestamp))
+                                }
                                 Text(
-                                    text = SimpleDateFormat("MMM dd, yyyy • HH:mm", Locale.getDefault()).format(Date(item.timestamp)),
+                                    text = formattedDate,
                                     fontSize = 10.sp,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
                                 )

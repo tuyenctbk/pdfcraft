@@ -106,6 +106,7 @@ import com.example.data.local.PdfOperationType
 import com.example.data.pdf.PdfEngine
 import com.example.ui.screens.PdfPreviewOperationMode
 import com.example.ui.screens.PdfPreviewScreenDialog
+import com.example.ui.screens.PdfRendererController
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import com.tom_roush.pdfbox.text.PDFTextStripper
 import java.io.File
@@ -156,36 +157,56 @@ fun PdfViewerDialog(
     var isTtsReady by remember { mutableStateOf(false) }
     var isSpeaking by remember { mutableStateOf(false) }
     var showThumbnailGridDialog by remember { mutableStateOf(false) }
+    var sliderDragPage by remember(activeFile) { mutableStateOf<Float?>(null) }
+
+    val rendererController = remember(activeFile.absolutePath, activeFile.lastModified()) {
+        PdfRendererController(activeFile)
+    }
+    val renderWidthPx = remember(context) {
+        val density = context.resources.displayMetrics.density
+        (360 * density).toInt().coerceIn(320, 1600)
+    }
+
+    DisposableEffect(rendererController) {
+        onDispose {
+            kotlinx.coroutines.CoroutineScope(Dispatchers.IO).launch {
+                rendererController.close()
+            }
+        }
+    }
 
     DisposableEffect(context) {
         val mainHandler = android.os.Handler(android.os.Looper.getMainLooper())
+        var isDisposed = false
         var engine: TextToSpeech? = null
         engine = TextToSpeech(context) { status ->
+            if (isDisposed) return@TextToSpeech
             if (status == TextToSpeech.SUCCESS) {
                 engine?.language = Locale.getDefault()
                 engine?.setOnUtteranceProgressListener(object : android.speech.tts.UtteranceProgressListener() {
                     override fun onStart(utteranceId: String?) {
-                        mainHandler.post { isSpeaking = true }
+                        if (!isDisposed) mainHandler.post { if (!isDisposed) isSpeaking = true }
                     }
 
                     override fun onDone(utteranceId: String?) {
-                        mainHandler.post { isSpeaking = false }
+                        if (!isDisposed) mainHandler.post { if (!isDisposed) isSpeaking = false }
                     }
 
                     @Deprecated("Deprecated in Java")
                     override fun onError(utteranceId: String?) {
-                        mainHandler.post { isSpeaking = false }
+                        if (!isDisposed) mainHandler.post { if (!isDisposed) isSpeaking = false }
                     }
 
                     override fun onError(utteranceId: String?, errorCode: Int) {
-                        mainHandler.post { isSpeaking = false }
+                        if (!isDisposed) mainHandler.post { if (!isDisposed) isSpeaking = false }
                     }
                 })
-                mainHandler.post { isTtsReady = true }
+                mainHandler.post { if (!isDisposed) isTtsReady = true }
             }
         }
         ttsEngine = engine
         onDispose {
+            isDisposed = true
             try {
                 engine?.stop()
                 engine?.shutdown()
@@ -193,8 +214,7 @@ fun PdfViewerDialog(
         }
     }
 
-    LaunchedEffect(activeFile, currentPageIndex) {
-        isLoading = true
+    LaunchedEffect(rendererController, currentPageIndex) {
         zoomScale = 1f
         panOffsetX = 0f
         panOffsetY = 0f
@@ -202,50 +222,49 @@ fun PdfViewerDialog(
             ttsEngine?.stop()
             isSpeaking = false
         }
-        val rendered = withContext(Dispatchers.IO) {
-            var pfd: ParcelFileDescriptor? = null
-            var renderer: android.graphics.pdf.PdfRenderer? = null
+
+        val cached = rendererController.getCachedHighRes(currentPageIndex, renderWidthPx)
+        if (cached != null && rendererController.pageCount > 0) {
+            totalPages = rendererController.pageCount
+            currentBitmap = cached
+            isLoading = false
+        } else {
+            if (currentBitmap == null) {
+                isLoading = true
+            }
             try {
-                pfd = ParcelFileDescriptor.open(activeFile, ParcelFileDescriptor.MODE_READ_ONLY)
-                renderer = android.graphics.pdf.PdfRenderer(pfd)
-                val count = renderer.pageCount
-
+                val count = rendererController.initialize()
+                totalPages = count
                 val safeIndex = currentPageIndex.coerceIn(0, (count - 1).coerceAtLeast(0))
-                var renderedBmp: Bitmap? = null
-                if (count > 0 && safeIndex in 0 until count) {
-                    val page = renderer.openPage(safeIndex)
-                    try {
-                        val density = context.resources.displayMetrics.density
-                        val width = (360 * density).toInt().coerceAtLeast(100)
-                        val pw = if (page.width > 0) page.width else 100
-                        val ph = if (page.height > 0) page.height else 100
-                        val pageAspect = (ph.toFloat() / pw.toFloat()).takeIf { !it.isNaN() && !it.isInfinite() } ?: 1.414f
-                        val height = (width * pageAspect).toInt().coerceIn(100, 2400)
-
-                        val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-                        val canvas = android.graphics.Canvas(bmp)
-                        canvas.drawColor(android.graphics.Color.WHITE)
-                        page.render(bmp, null, null, android.graphics.pdf.PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-                        renderedBmp = bmp
-                    } finally {
-                        try { page.close() } catch (_: Throwable) {}
-                    }
+                if (safeIndex != currentPageIndex) {
+                    currentPageIndex = safeIndex
                 }
-                Triple(count, safeIndex, renderedBmp)
+                if (count > 0) {
+                    val (bmp, _) = rendererController.renderPage(
+                        pageIndex = safeIndex,
+                        targetWidthPx = renderWidthPx,
+                        highRes = true
+                    )
+                    currentBitmap = bmp
+                } else {
+                    currentBitmap = null
+                }
             } catch (t: Throwable) {
                 android.util.Log.e("PdfViewerDialog", "Error rendering page $currentPageIndex: ${t.localizedMessage}")
-                null
             } finally {
-                try { renderer?.close() } catch (_: Throwable) {}
-                try { pfd?.close() } catch (_: Throwable) {}
+                isLoading = false
             }
         }
-        if (rendered != null) {
-            totalPages = rendered.first
-            if (currentPageIndex != rendered.second) currentPageIndex = rendered.second
-            currentBitmap = rendered.third
+
+        // Pre-warm the next page asynchronously so forward page flips feel instantaneous
+        val nextIndex = currentPageIndex + 1
+        if (nextIndex in 0 until totalPages && rendererController.getCachedHighRes(nextIndex, renderWidthPx) == null) {
+            rendererController.renderPage(
+                pageIndex = nextIndex,
+                targetWidthPx = renderWidthPx,
+                highRes = true
+            )
         }
-        isLoading = false
     }
 
     LaunchedEffect(activeFile, searchQuery) {
@@ -706,12 +725,18 @@ fun PdfViewerDialog(
                             .fillMaxWidth()
                             .padding(horizontal = 14.dp, vertical = 8.dp)
                     ) {
-                        // Interactive Page Scrubber Slider for multi-page PDFs
+                        // Interactive Page Scrubber Slider for multi-page PDFs (commits render on release to avoid mid-drag jank)
                         if (totalPages > 1) {
                             Slider(
-                                value = currentPageIndex.toFloat(),
+                                value = sliderDragPage ?: currentPageIndex.toFloat(),
                                 onValueChange = { newIdx ->
-                                    val target = newIdx.toInt().coerceIn(0, totalPages - 1)
+                                    sliderDragPage = newIdx
+                                },
+                                onValueChangeFinished = {
+                                    val target = (sliderDragPage ?: currentPageIndex.toFloat())
+                                        .toInt()
+                                        .coerceIn(0, totalPages - 1)
+                                    sliderDragPage = null
                                     if (target != currentPageIndex) {
                                         currentPageIndex = target
                                     }
@@ -746,8 +771,10 @@ fun PdfViewerDialog(
                                 )
                             }
 
+                            val displayedPage = ((sliderDragPage?.toInt() ?: currentPageIndex) + 1)
+                                .coerceIn(1, totalPages.coerceAtLeast(1))
                             Text(
-                                text = stringResource(R.string.viewer_page_of_total, currentPageIndex + 1, totalPages.coerceAtLeast(1)),
+                                text = stringResource(R.string.viewer_page_of_total, displayedPage, totalPages.coerceAtLeast(1)),
                                 fontWeight = FontWeight.Bold,
                                 color = colorScheme.onSurface,
                                 fontSize = 14.sp

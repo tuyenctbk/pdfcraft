@@ -41,23 +41,29 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.R
 import com.example.data.remote.FirebaseConfigManager
+import com.example.ui.util.SatisfactionManager
 
 /**
  * Polite AdMob Banner component.
- * Respects user experience and only renders if Remote Config enables AdMob.
+ * Respects user experience, hides permanently for supporters, and only renders if Remote Config enables AdMob.
  */
 @Composable
 fun PoliteAdBanner(
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
     val isAdMobEnabled by FirebaseConfigManager.isAdMobEnabled.collectAsStateWithLifecycle()
-    var isDismissedByUser by remember { mutableStateOf(false) }
+    val satisfactionManager = remember(context) { SatisfactionManager.getInstance(context) }
+    val isSupporter by satisfactionManager.isSupporter.collectAsStateWithLifecycle()
+    var isDismissedByUser by rememberSaveable { mutableStateOf(false) }
 
     AnimatedVisibility(
-        visible = isAdMobEnabled && !isDismissedByUser,
+        visible = isAdMobEnabled && !isSupporter && !isDismissedByUser,
         enter = fadeIn(),
         exit = fadeOut()
     ) {
@@ -129,15 +135,18 @@ fun PoliteAdBanner(
 fun PoliteAdDialog(
     onDismiss: () -> Unit
 ) {
+    val context = LocalContext.current
     val isAdMobEnabled by FirebaseConfigManager.isAdMobEnabled.collectAsStateWithLifecycle()
+    val satisfactionManager = remember(context) { SatisfactionManager.getInstance(context) }
+    val isSupporter by satisfactionManager.isSupporter.collectAsStateWithLifecycle()
 
-    LaunchedEffect(isAdMobEnabled) {
-        if (!isAdMobEnabled) {
+    LaunchedEffect(isAdMobEnabled, isSupporter) {
+        if (!isAdMobEnabled || isSupporter) {
             onDismiss()
         }
     }
 
-    if (!isAdMobEnabled) return
+    if (!isAdMobEnabled || isSupporter) return
 
     Dialog(onDismissRequest = onDismiss) {
         Card(

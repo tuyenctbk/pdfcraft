@@ -39,11 +39,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -76,10 +79,10 @@ fun RecentFilesSection(
     viewModel: MainViewModel,
     modifier: Modifier = Modifier
 ) {
-    val recentFiles by viewModel.recentFilesState.collectAsState()
-    val searchQuery by viewModel.recentSearchQuery.collectAsState()
-    val selectedPaths by viewModel.selectedRecentPaths.collectAsState()
-    val isMultiSelectMode by viewModel.isRecentMultiSelectMode.collectAsState()
+    val recentFiles by viewModel.recentFilesState.collectAsStateWithLifecycle()
+    val searchQuery by viewModel.recentSearchQuery.collectAsStateWithLifecycle()
+    val selectedPaths by viewModel.selectedRecentPaths.collectAsStateWithLifecycle()
+    val isMultiSelectMode by viewModel.isRecentMultiSelectMode.collectAsStateWithLifecycle()
 
     if (recentFiles.isEmpty() && searchQuery.isBlank()) {
         return
@@ -370,12 +373,16 @@ fun RecentFileCard(
     onRemove: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val fileExists = File(item.filePath).exists()
-    val timeAgo = DateUtils.getRelativeTimeSpanString(
-        item.lastAccessedTimestamp,
-        System.currentTimeMillis(),
-        DateUtils.MINUTE_IN_MILLIS
-    ).toString()
+    val fileExists by produceState(initialValue = true, key1 = item.filePath) {
+        value = withContext(Dispatchers.IO) { File(item.filePath).exists() }
+    }
+    val timeAgo = remember(item.lastAccessedTimestamp) {
+        DateUtils.getRelativeTimeSpanString(
+            item.lastAccessedTimestamp,
+            System.currentTimeMillis(),
+            DateUtils.MINUTE_IN_MILLIS
+        ).toString()
+    }
 
     Card(
         colors = CardDefaults.cardColors(

@@ -302,8 +302,10 @@ fun PDFCraftApp(
 
     val latestRemoteVersionCode by com.example.data.remote.FirebaseConfigManager.latestVersionCode.collectAsStateWithLifecycle()
 
-    LaunchedEffect(latestRemoteVersionCode) {
-        viewModel.checkForUpdateSuggestion()
+    LaunchedEffect(latestRemoteVersionCode, isOnboardingCompleted, activeViewerFile, activeTool) {
+        if (isOnboardingCompleted && activeViewerFile == null && activeTool == null) {
+            viewModel.checkForUpdateSuggestion()
+        }
     }
 
     LaunchedEffect(userMessage) {
@@ -581,7 +583,7 @@ fun PDFCraftApp(
                         Button(
                             onClick = {
                                 val path = completedFile.absolutePath
-                                viewModel.dismissCompletedOutputFileDialog()
+                                viewModel.dismissCompletedOutputFileDialog(surfacePendingPrompt = false)
                                 viewModel.openInViewer(path)
                             },
                             shape = RoundedCornerShape(12.dp),
@@ -628,7 +630,7 @@ fun PDFCraftApp(
                             OutlinedButton(
                                 onClick = {
                                     val path = completedFile.absolutePath
-                                    viewModel.dismissCompletedOutputFileDialog()
+                                    viewModel.dismissCompletedOutputFileDialog(surfacePendingPrompt = false)
                                     viewModel.openDocumentInfoScreen(path)
                                 },
                                 shape = RoundedCornerShape(12.dp),

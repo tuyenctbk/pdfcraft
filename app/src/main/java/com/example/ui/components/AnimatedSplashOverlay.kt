@@ -83,32 +83,32 @@ fun AnimatedSplashOverlay(
 
     LaunchedEffect(Unit) {
         launch {
-            logoAlpha.animateTo(1f, tween(280, easing = FastOutSlowInEasing))
+            logoAlpha.animateTo(1f, tween(200, easing = FastOutSlowInEasing))
         }
         launch {
             logoScale.animateTo(
                 targetValue = 1f,
                 animationSpec = spring(
                     dampingRatio = Spring.DampingRatioMediumBouncy,
-                    stiffness = Spring.StiffnessMediumLow
+                    stiffness = Spring.StiffnessMedium
                 )
             )
         }
         launch {
-            delay(140)
-            launch { titleAlpha.animateTo(1f, tween(320, easing = FastOutSlowInEasing)) }
-            launch { titleOffsetY.animateTo(0f, spring(dampingRatio = 0.78f, stiffness = 360f)) }
+            delay(80)
+            launch { titleAlpha.animateTo(1f, tween(220, easing = FastOutSlowInEasing)) }
+            launch { titleOffsetY.animateTo(0f, spring(dampingRatio = 0.8f, stiffness = 420f)) }
         }
         launch {
-            delay(120)
-            progressSweep.animateTo(1f, tween(760, easing = FastOutSlowInEasing))
+            delay(60)
+            progressSweep.animateTo(1f, tween(420, easing = FastOutSlowInEasing))
         }
 
-        delay(980)
+        delay(480)
 
         // Smooth scale + fade dissolve into app content
-        val fadeJob = launch { exitAlpha.animateTo(0f, tween(280, easing = LinearEasing)) }
-        val scaleJob = launch { exitScale.animateTo(1.06f, tween(280, easing = FastOutSlowInEasing)) }
+        val fadeJob = launch { exitAlpha.animateTo(0f, tween(200, easing = LinearEasing)) }
+        val scaleJob = launch { exitScale.animateTo(1.05f, tween(200, easing = FastOutSlowInEasing)) }
         fadeJob.join()
         scaleJob.join()
         onFinished()

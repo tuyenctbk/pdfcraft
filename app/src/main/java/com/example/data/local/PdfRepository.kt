@@ -5,7 +5,9 @@ import android.net.Uri
 import com.example.data.pdf.CompressionPreset
 import com.example.data.pdf.PdfEngine
 import com.example.data.pdf.PdfPageSourceItem
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 import java.io.File
 
 class PdfRepository(
@@ -74,13 +76,15 @@ class PdfRepository(
 
     suspend fun deleteProjectWithFile(id: Long, filePath: String, deleteFromDisk: Boolean = true) {
         if (deleteFromDisk && filePath.isNotBlank()) {
-            try {
-                val file = File(filePath)
-                if (file.exists()) {
-                    file.delete()
+            withContext(Dispatchers.IO) {
+                try {
+                    val file = File(filePath)
+                    if (file.exists()) {
+                        file.delete()
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
         }
         dao.deleteProjectById(id)
@@ -90,23 +94,29 @@ class PdfRepository(
     }
 
     suspend fun renameProjectFile(id: Long, oldFilePath: String, newNameRaw: String): String? {
-        val oldFile = File(oldFilePath)
-        if (!oldFile.exists()) return null
+        val renamedFile = withContext(Dispatchers.IO) {
+            val oldFile = File(oldFilePath)
+            if (!oldFile.exists()) return@withContext null
 
-        val extension = if (oldFile.extension.isNotBlank()) ".${oldFile.extension}" else ".pdf"
-        val cleanName = PdfEngine.sanitizeOutputFileName(newNameRaw, oldFile.nameWithoutExtension.ifBlank { "PDFCraft_Document" }, extension)
-        if (cleanName == oldFile.name) return oldFile.absolutePath
+            val extension = if (oldFile.extension.isNotBlank()) ".${oldFile.extension}" else ".pdf"
+            val cleanName = PdfEngine.sanitizeOutputFileName(
+                newNameRaw,
+                oldFile.nameWithoutExtension.ifBlank { "PDFCraft_Document" },
+                extension
+            )
+            if (cleanName == oldFile.name) return@withContext oldFile
 
-        val newFile = File(oldFile.parentFile, cleanName)
-        if (newFile.exists()) return null
+            val newFile = File(oldFile.parentFile, cleanName)
+            if (newFile.exists()) return@withContext null
 
-        val success = oldFile.renameTo(newFile)
-        if (success) {
-            dao.updateProjectFile(id, newFile.absolutePath, newFile.name)
-            recentDao.updateRecentFileByPath(oldFilePath, newFile.absolutePath, newFile.name)
-            return newFile.absolutePath
-        }
-        return null
+            if (oldFile.renameTo(newFile)) newFile else null
+        } ?: return null
+
+        if (renamedFile.absolutePath == oldFilePath) return oldFilePath
+
+        dao.updateProjectFile(id, renamedFile.absolutePath, renamedFile.name)
+        recentDao.updateRecentFileByPath(oldFilePath, renamedFile.absolutePath, renamedFile.name)
+        return renamedFile.absolutePath
     }
 
     suspend fun clearHistory() =
@@ -411,15 +421,17 @@ class PdfRepository(
         imageUris: List<Uri>,
         outputName: String
     ): File {
-        val totalSourceBytes = imageUris.sumOf { uri ->
-            try {
-                if (uri.scheme == "file" && uri.path != null) {
-                    File(uri.path!!).length()
-                } else {
-                    context.contentResolver.openAssetFileDescriptor(uri, "r")?.use { it.length.coerceAtLeast(0L) } ?: 0L
+        val totalSourceBytes = withContext(Dispatchers.IO) {
+            imageUris.sumOf { uri ->
+                try {
+                    if (uri.scheme == "file" && uri.path != null) {
+                        File(uri.path!!).length()
+                    } else {
+                        context.contentResolver.openAssetFileDescriptor(uri, "r")?.use { it.length.coerceAtLeast(0L) } ?: 0L
+                    }
+                } catch (_: Exception) {
+                    0L
                 }
-            } catch (_: Exception) {
-                0L
             }
         }
         val outputFile = PdfEngine.convertImagesToPdf(context, imageUris, outputName)
@@ -492,10 +504,13 @@ class PdfRepository(
         pdfFile: File
     ): String {
         val text = com.example.data.pdf.PdfTextAndMediaService.extractTextFromPdf(pdfFile)
-        val outputDir = File(context.filesDir, "exports").apply { mkdirs() }
-        val txtFile = File(outputDir, "${pdfFile.nameWithoutExtension}_text.txt")
         try {
-            txtFile.writeText(text)
+            val txtFile = withContext(Dispatchers.IO) {
+                val outputDir = File(context.filesDir, "exports").apply { mkdirs() }
+                val file = File(outputDir, "${pdfFile.nameWithoutExtension}_text.txt")
+                file.writeText(text)
+                file
+            }
             saveProjectRecord(
                 PdfProjectEntity(
                     title = txtFile.name,
