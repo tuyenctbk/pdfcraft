@@ -4,28 +4,38 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- Angled translucent back sheet -->
     <group
-        android:pivotX="54"
-        android:pivotY="54"
-        android:rotation="-9">
+        android:translateX="0"
+        android:translateY="0">
+        <!-- Back Page Offset -->
         <path
-            android:fillColor="#73FFFFFF"
-            android:pathData="M34,27 h34 a5,5 0 0 1 5,5 v45 a5,5 0 0 1 -5,5 h-34 a5,5 0 0 1 -5,-5 v-45 a5,5 0 0 1 5,-5 Z" />
+            android:fillColor="#80FFFFFF"
+            android:pathData="M40,26 h28 a5,5 0 0 1 5,5 v44 a5,5 0 0 1 -5,5 h-28 a5,5 0 0 1 -5,-5 v-44 a5,5 0 0 1 5,-5 Z" />
+
+        <!-- Front Document Page Base -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M34,30 h26 l12,12 v34 a5,5 0 0 1 -5,5 h-33 a5,5 0 0 1 -5,-5 v-41 a5,5 0 0 1 5,-5 Z" />
+
+        <!-- Folded Corner -->
+        <path
+            android:fillColor="#B3FFFFFF"
+            android:pathData="M60,30 L72,42 L60,42 a1,1 0 0 1 -1,-1 v-11 Z" />
+
+        <!-- Badge & Content Lines -->
+        <path
+            android:fillColor="#80000000"
+            android:pathData="M39,36 h16 a2,2 0 0 1 2,2 v4 a2,2 0 0 1 -2,2 h-16 a2,2 0 0 1 -2,-2 v-4 a2,2 0 0 1 2,-2 Z" />
+        <path
+            android:fillColor="#80000000"
+            android:pathData="M39,48 h28 v2.5 h-28 Z M39,53.5 h22 v2.5 h-22 Z M39,59 h18 v2.5 h-18 Z" />
+
+        <!-- Craft Emblem Diamond -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M59,67 l7,-7 l7,7 l-7,7 Z" />
+        <path
+            android:fillColor="#000000"
+            android:pathData="M62,67 l4,-4 l4,4 l-4,4 Z" />
     </group>
-
-    <!-- Front crisp document sheet -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M37,26 h24 l13,13 v38 a5,5 0 0 1 -5,5 h-32 a5,5 0 0 1 -5,-5 v-46 a5,5 0 0 1 5,-5 Z" />
-
-    <!-- Folded top-right corner -->
-    <path
-        android:fillColor="#99FFFFFF"
-        android:pathData="M61,26 L74,39 L63,39 a2,2 0 0 1 -2,-2 v-11 Z" />
-
-    <!-- Left crimson bookmark ribbon silhouette -->
-    <path
-        android:fillColor="#D9FFFFFF"
-        android:pathData="M29,56 h12 l-3,6 l3,6 h-12 a2,2 0 0 1 -2,-2 v-8 a2,2 0 0 1 2,-2 Z" />
 </vector>

@@ -26,8 +26,8 @@ android {
     applicationId = "com.soloprono.pdfcraft"
     minSdk = 24
     targetSdk = 36
-    versionCode = 31
-    versionName = "1.8.0"
+    versionCode = 32
+    versionName = "1.8.1"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
